@@ -1,0 +1,10 @@
+.image-container {
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  width: 950px;
+  border-radius: 20px;
+  border: lightgray solid 4px;
+}

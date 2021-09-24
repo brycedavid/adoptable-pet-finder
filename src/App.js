@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from "react";
+import Navbar from "./Navbar/Navbar";
+import Header from "./UI/Header";
+import Card from "./UI/Card";
+import Image from "./UI/Image";
+
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <Navbar />
+      <main id="main-content">
+        <Header />
+        <Card>
+          <Image
+            altText="cute kitty and puppy"
+            source="https://www.petlink.net/wp-content/uploads/2019/04/Puppy-and-Kitten-Closeup-Over-White-649091176_2052x1466.jpeg"
+          />
+        </Card>
+      </main>
+    </Fragment>
   );
 }
 
