@@ -4,13 +4,13 @@ import Header from "./UI/Header";
 import Card from "./UI/Card";
 import Image from "./UI/Image";
 
-import "./App.css";
+import classes from "./App.module.css";
 
 function App() {
   return (
     <Fragment>
       <Navbar />
-      <main id="main-content">
+      <main classes={classes["main-content"]}>
         <Header />
         <Card>
           <Image

@@ -1,7 +1,9 @@
+import classes from "./Subnav.module.css";
+
 const Subnav = (props) => {
   return (
     <div>
-      <button>{props.page}</button>
+      <button className={classes["subnav-button"]}>{props.page}</button>
     </div>
   );
 };

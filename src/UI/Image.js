@@ -1,10 +1,12 @@
-import "./Image.css";
+import classes from "./Image.module.css";
 
 const Image = (props) => {
   return (
-    <div className="image-container">
-      <img alt={props.altText} src={props.source} />
-    </div>
+    <img
+      className={classes["main-image"]}
+      alt={props.altText}
+      src={props.source}
+    />
   );
 };
 

@@ -1,13 +1,7 @@
-#main-content {
+.main-content {
   display: flex;
   flex-direction: column;
   align-content: center;
   justify-content: center;
   font-family: "helvetica";
-}
-
-#main-content h1,
-h2,
-p {
-  text-align: center;
 }

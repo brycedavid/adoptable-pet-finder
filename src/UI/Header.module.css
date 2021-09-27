@@ -7,10 +7,17 @@ h2 {
   margin-top: -25px;
 }
 
-#welcome-text {
+h1,
+h2,
+p {
   text-align: center;
+}
+
+.welcome-text {
+  text-align: center;
+  width: 200px;
   padding-top: 30px;
-  margin-right: 800px;
+  margin-left: 530px;
   margin-bottom: -42px;
   font-size: 28px;
   color: #8c1c13;
