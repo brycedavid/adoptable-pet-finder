@@ -1,0 +1,30 @@
+.main {
+  height: 35px;
+  width: 70px;
+  border-radius: 5px;
+  background-color: #d90429;
+  color: white;
+  border: 0.5px solid black;
+  margin-left: 10px;
+}
+
+.main:hover {
+  background-color: #ef233c;
+  cursor: pointer;
+}
+
+.alt {
+}
+
+.subnav {
+  height: 100%;
+  width: 250px;
+  background-color: #d90429;
+  color: white;
+  border: none;
+}
+
+.subnav:hover {
+  background-color: #ef233c;
+  cursor: pointer;
+}

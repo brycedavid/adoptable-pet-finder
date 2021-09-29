@@ -3,7 +3,7 @@ import classes from "./Image.module.css";
 const Image = (props) => {
   return (
     <img
-      className={classes["main-image"]}
+      className={classes[`${props.class}`]}
       alt={props.altText}
       src={props.source}
     />

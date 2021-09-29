@@ -1,10 +1,12 @@
-import classes from "./Subnav.module.css";
+import { Fragment } from "react";
+
+import Button from "../UI/Button";
 
 const Subnav = (props) => {
   return (
-    <div>
-      <button className={classes["subnav-button"]}>{props.page}</button>
-    </div>
+    <Fragment>
+      <Button class={"subnav"} text={props.page} />
+    </Fragment>
   );
 };
 

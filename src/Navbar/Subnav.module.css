@@ -1,12 +1,1 @@
-.subnav-button {
-  height: 100%;
-  width: 250px;
-  background-color: #d90429;
-  color: white;
-  border: none;
-}
 
-.subnav-button:hover {
-  background-color: #ef233c;
-  cursor: pointer;
-}

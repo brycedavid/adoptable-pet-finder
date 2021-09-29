@@ -5,3 +5,16 @@
   justify-content: center;
   font-family: "helvetica";
 }
+
+.homepage-text-container {
+  display: flex;
+  margin-top: 80px;
+  margin-bottom: 40px;
+  justify-content: center;
+}
+
+.homepage-text-container p {
+  font-size: x-large;
+  font-family: inherit;
+  width: 700px;
+}
