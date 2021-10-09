@@ -5,11 +5,15 @@ import ProfilePicture from "./ProfilePicture";
 import Title from "./Title";
 
 const Header = (props) => {
+  const loginHandler = () => {
+    props.onLogin();
+  };
+
   return (
     <header className={classes["header-container"]}>
       <Title />
       <div className={classes["profile-container"]}>
-        <Login />
+        <Login onLogin={loginHandler} />
         <ProfilePicture />
       </div>
     </header>
