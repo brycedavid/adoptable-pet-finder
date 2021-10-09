@@ -1,0 +1,30 @@
+.title-container {
+  width: fit-content;
+  justify-content: center;
+  align-content: center;
+  margin-left: 180px;
+}
+
+div > h1 {
+  font-size: 38px;
+  font-weight: 300px;
+  margin-left: 120px;
+}
+
+div > h2 {
+  font-size: 14px;
+  margin-left: 120px;
+}
+
+.welcome-text {
+  margin-top: 20px;
+  margin-bottom: -28px;
+  margin-left: 10px;
+  text-align: center;
+  width: 200px;
+  font-size: 20px;
+  color: #902923;
+  font-family: "Lucida Handwriting";
+  font-style: italic;
+  transform: rotate(-8deg);
+}

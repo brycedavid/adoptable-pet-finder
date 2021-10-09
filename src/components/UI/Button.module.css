@@ -1,0 +1,57 @@
+.main {
+  height: 35px;
+  width: 70px;
+  border-radius: 5px;
+  background-color: #902923;
+  color: white;
+  border: 0.5px solid black;
+  margin-left: 10px;
+}
+
+.main:hover {
+  background-color: #a22c29;
+  cursor: pointer;
+}
+
+.alt {
+  height: 35px;
+  width: 70px;
+  border-radius: 5px;
+  background-color: #001427;
+  color: white;
+  border: 0.5px solid black;
+}
+
+.alt:hover {
+  background-color: #708d81;
+  cursor: pointer;
+}
+
+.login {
+  height: 40px;
+  width: 90px;
+  background-color: #003d71;
+  color: white;
+  border: 0.5px solid black;
+  border-radius: 4px;
+  align-self: center;
+  margin: 5px;
+}
+
+.login:hover {
+  background-color: #5d7c8a;
+  cursor: pointer;
+}
+
+.subnav {
+  height: 100%;
+  width: 250px;
+  background-color: #902923;
+  color: white;
+  border: none;
+}
+
+.subnav:hover {
+  background-color: #b94341;
+  cursor: pointer;
+}
