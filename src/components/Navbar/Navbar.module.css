@@ -1,9 +1,7 @@
 .navbar-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   width: 100%;
   height: 50px;
-  border-bottom: 1.5px solid black;
-  border-top: 1.5px solid black;
   background-color: #902923;
 }

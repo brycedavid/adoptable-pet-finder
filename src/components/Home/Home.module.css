@@ -37,13 +37,26 @@ p {
 
 .homepage-text-container {
   display: flex;
-  margin-top: 80px;
+  flex-direction: column;
+  justify-self: center;
+  align-self: center;
+  margin-top: 40px;
   margin-bottom: 40px;
   justify-content: center;
+  align-content: center;
+}
+
+.homepage-text-container h3 {
+  font-family: inherit;
+  justify-self: center;
+  align-self: center;
+  font-size: 36px;
 }
 
 .homepage-text-container p {
+  align-self: center;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: x-large;
   font-family: inherit;
-  width: 700px;
+  width: 820px;
 }
