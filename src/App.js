@@ -1,19 +1,23 @@
 import React, { Fragment, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import classes from "./App.module.css";
-
+import { authActions } from "./components/store/auth-slice";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
-import LoginModal from "./components/UI/LoginModal";
+import LoginModal from "./components/Login/LoginModal";
 
 function App() {
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const startLoginHandler = () => {
     setIsLoggingIn(true);
+  };
+
+  const logoutHandler = () => {
+    dispatch(authActions.logout());
   };
 
   const closeModalHandler = () => {
@@ -23,7 +27,11 @@ function App() {
   return (
     <Fragment>
       {isLoggingIn && <LoginModal closeModal={closeModalHandler} />}
-      <Header isAuthenticated={isAuthenticated} onLogin={startLoginHandler} />
+      <Header
+        isAuthenticated={isAuthenticated}
+        onLogin={startLoginHandler}
+        onLogout={logoutHandler}
+      />
       <Navbar />
       <Home />
     </Fragment>

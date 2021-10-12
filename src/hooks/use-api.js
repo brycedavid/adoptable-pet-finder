@@ -1,33 +1,30 @@
-import { useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useApi = (petFinder, searchFor) => {
   const [error, setError] = useState(null);
-
-  const sendRequest = useCallback(async () => {
-    console.log("IN sendRequest");
+  const [responsePayload, setResponsePayload] = useState(null);
+  // ({
+  //   type: searchFor,
+  //   breed: "",
+  //   page: 1,
+  //   limit: 100,
+  // }
+  useEffect(async () => {
+    console.log("API request triggered");
     setError(null);
     try {
-      const response = await petFinder.animal.search({
-        type: searchFor,
-        breed: "",
-        page: 1,
-        limit: 100,
-      });
+      const response = await petFinder.animal.search();
 
       if (!response.ok) {
         throw new Error("Request failed!");
       }
-
-      console.log(response.data.animals);
+      setResponsePayload(response.data.animals);
+      console.log(responsePayload);
     } catch (err) {
       setError(err.message || "Something went wrong... please try again.");
     }
-  }, [petFinder, searchFor]);
-
-  return {
-    error,
-    sendRequest,
-  };
+    console.log(responsePayload);
+  }, [searchFor]);
 };
 
 export default useApi;

@@ -4,9 +4,16 @@
   width: 100%;
   height: 145px;
   background-color: #fcfafc;
+  border-top: 1px black solid;
 }
 
 .profile-container {
   display: flex;
   margin-right: 200px;
+}
+
+.login-container {
+  display: flex;
+  height: 100%;
+  margin-right: 30px;
 }

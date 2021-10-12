@@ -1,24 +1,35 @@
 import { useState } from "react";
-import Button from "../UI/Button";
+import { useDispatch } from "react-redux";
 
 import classes from "./LoginForm.module.css";
 
-const LoginForm = () => {
+import { authActions } from "../store/auth-slice";
+
+const LoginForm = (props) => {
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const [usernameTouched, setUsernameTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
+  const [usernameChanged, setUsernameChanged] = useState(false);
+  const [passwordChanged, setPasswordChanged] = useState(false);
   const [usernameValid, setUsernameValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
 
+  const dispatch = useDispatch();
+
+  let formIsValid = false;
+
+  if (usernameValid && passwordValid && usernameChanged && passwordChanged) {
+    formIsValid = true;
+  }
+
   const usernameChangeHandler = (event) => {
+    setUsernameChanged(true);
     setEnteredUsername(event.target.value);
-    if (usernameTouched) {
-      if (event.target.value.trim().length === 0) {
-        setUsernameValid(false);
-      } else {
-        setUsernameValid(true);
-      }
+    if (event.target.value.trim().length === 0) {
+      setUsernameValid(false);
+    } else {
+      setUsernameValid(true);
     }
   };
 
@@ -27,11 +38,12 @@ const LoginForm = () => {
   };
 
   const passwordChangeHandler = (event) => {
+    setPasswordChanged(true);
     setEnteredPassword(event.target.value);
-    if (passwordTouched) {
-      if (event.target.value.trim().length < 8) {
-        setPasswordValid(false);
-      }
+    if (event.target.value.trim().length < 8) {
+      setPasswordValid(false);
+    } else {
+      setPasswordValid(true);
     }
   };
 
@@ -39,7 +51,11 @@ const LoginForm = () => {
     setPasswordTouched(true);
   };
 
-  const formIsValid = usernameValid && passwordValid;
+  const loginHandler = (event) => {
+    event.preventDefault();
+    props.onLogin();
+    dispatch(authActions.login());
+  };
 
   return (
     <form>
@@ -53,7 +69,7 @@ const LoginForm = () => {
         onBlur={usernameBlurHandler}
         value={enteredUsername}
         maxLength="16"
-        className={usernameValid ? "" : classes["invalid"]}
+        className={usernameTouched && !usernameValid ? classes["invalid"] : ""}
       />
       <input
         type="password"
@@ -64,9 +80,11 @@ const LoginForm = () => {
         onBlur={passwordBlurHandler}
         value={enteredPassword}
         maxLength="12"
-        className={passwordValid ? "" : classes["invalid"]}
+        className={passwordTouched && !passwordValid ? classes["invalid"] : ""}
       />
-      <Button class="main" text="Login" />
+      <button disabled={!formIsValid} onClick={loginHandler}>
+        Login
+      </button>
     </form>
   );
 };

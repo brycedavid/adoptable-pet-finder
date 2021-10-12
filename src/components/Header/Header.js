@@ -1,19 +1,34 @@
 import classes from "./Header.module.css";
 
-import Login from "./Login";
 import ProfilePicture from "./ProfilePicture";
 import Title from "./Title";
+import Button from "../UI/Button";
 
 const Header = (props) => {
   const loginHandler = () => {
     props.onLogin();
   };
 
+  const logoutHandler = () => {
+    props.onLogout();
+  };
+
   return (
     <header className={classes["header-container"]}>
       <Title />
+
       <div className={classes["profile-container"]}>
-        <Login onLogin={loginHandler} />
+        {!props.isAuthenticated && (
+          <div className={classes["login-container"]}>
+            <Button text="Login" class="login" onClick={loginHandler} />
+            <Button text="Sign up" class="login" />
+          </div>
+        )}
+        {props.isAuthenticated && (
+          <div className={classes["login-container"]}>
+            <Button text="Logout" class="login" onClick={logoutHandler} />
+          </div>
+        )}
         <ProfilePicture />
       </div>
     </header>
