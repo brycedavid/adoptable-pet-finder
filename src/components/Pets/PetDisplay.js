@@ -20,7 +20,9 @@ const PetDisplay = (props) => {
     const fetchPets = async () => {
       console.log("API request triggered");
       try {
-        response = await petFinderClient.animal.search();
+        response = await petFinderClient.animal.search({
+          limit: 25,
+        });
 
         if (response.status !== 200) {
           throw new Error("Request failed!");
@@ -33,15 +35,17 @@ const PetDisplay = (props) => {
       let dataArray = [];
 
       for (let animal of response.data.animals) {
-        dataArray.push({
-          key: animal.id,
-          id: animal.id,
-          name: animal.name,
-          age: animal.age,
-          fixed: animal.attributes.spayed_neutered,
-          pictures: animal.photos[0],
-          url: animal.url,
-        });
+        if (animal.photos.length !== 0) {
+          dataArray.push({
+            key: animal.id,
+            id: animal.id,
+            name: animal.name,
+            age: animal.age,
+            fixed: animal.attributes.spayed_neutered,
+            pictures: animal.photos,
+            url: animal.url,
+          });
+        }
       }
 
       setParsedData(dataArray.slice(0, 8));
@@ -54,7 +58,7 @@ const PetDisplay = (props) => {
   if (isLoading) {
     return (
       <div className={classes["loading-text-container"]}>
-        <p>Loading...</p>
+        <p className={classes["loading-text"]}>Loading...</p>
       </div>
     );
   }

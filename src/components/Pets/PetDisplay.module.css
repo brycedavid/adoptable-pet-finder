@@ -1,7 +1,15 @@
+.loading-text-container {
+  display: flex;
+  height: 888px;
+  justify-content: center;
+}
+
 .loading-text {
-  margin-top: 40px;
+  align-self: center;
+  margin-top: 80px;
   margin-bottom: 20px;
   font-size: xx-large;
+  font-weight: bolder;
 }
 
 .feature-text {
