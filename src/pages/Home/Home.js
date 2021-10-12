@@ -1,9 +1,9 @@
 import classes from "./Home.module.css";
 
-import Card from "../UI/Card";
-import Image from "../UI/Image";
-import SearchForm from "../Search/SearchForm";
-import PetDisplay from "../Pets/PetDisplay";
+import Card from "../../components/UI/Card";
+import Image from "../../components/UI/Image";
+import SearchForm from "../../components/Search/SearchForm";
+import PetDisplay from "../../components/Pets/PetDisplay";
 
 const Home = () => {
   return (
