@@ -1,11 +1,11 @@
 import classes from "./Home.module.css";
 
-import Card from "../../components/UI/Card";
-import Image from "../../components/UI/Image";
-import SearchForm from "../../components/Search/SearchForm";
-import PetDisplay from "../../components/Pets/PetDisplay";
+import Card from "../components/UI/Card";
+import Image from "../components/UI/Image";
+import SearchForm from "../components/Search/SearchForm";
+import PetDisplay from "../components/InfoDisplay/PetDisplay";
 
-const Home = () => {
+const Home = (props) => {
   return (
     <div className={classes["main-content"]}>
       <Card class="main-image-container">
@@ -15,7 +15,7 @@ const Home = () => {
           source="https://www.petlink.net/wp-content/uploads/2019/04/Puppy-and-Kitten-Closeup-Over-White-649091176_2052x1466.jpeg"
         />
       </Card>
-      <PetDisplay />
+      <PetDisplay client={props.client} />
       <div className={classes["homepage-text-container"]}>
         <h3>
           Looking to adopt a furry friend? You've come to the right place!

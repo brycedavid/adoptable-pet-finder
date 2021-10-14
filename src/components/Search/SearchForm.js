@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState } from "react";
 
 import Button from "../UI/Button";
 
@@ -31,7 +31,7 @@ const SearchForm = () => {
           <option value="dog">Dogs</option>
           <option value="centers">Adoption Centers</option>
         </select>
-        <Button class="main" text="Search" type="submit" />
+        <Button class="search" text="Search" type="submit" />
       </form>
     </Fragment>
   );

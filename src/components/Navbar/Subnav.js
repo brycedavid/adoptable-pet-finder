@@ -1,12 +1,18 @@
-import { Fragment } from "react";
+import { NavLink } from "react-router-dom";
 
-import Button from "../UI/Button";
+import classes from "./Subnav.module.css";
 
 const Subnav = (props) => {
   return (
-    <Fragment>
-      <Button class={"subnav"} text={props.page} />
-    </Fragment>
+    <li className={classes.subnav}>
+      <NavLink
+        activeClassName={classes.active}
+        className={classes["subnav"]}
+        to={props.to}
+      >
+        {props.page}
+      </NavLink>
+    </li>
   );
 };
 

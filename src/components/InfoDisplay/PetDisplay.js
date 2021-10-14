@@ -1,26 +1,21 @@
-import { Client } from "@petfinder/petfinder-js";
 import { useEffect, useState, Fragment } from "react";
 
 import classes from "./PetDisplay.module.css";
 
-import DisplayItem from "./DisplayItem";
+import PetDisplayItem from "./PetDisplayItem";
 import Card from "../UI/Card";
 
 const PetDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
 
-  const petFinderClient = new Client({
-    apiKey: "YeI5i5zLHnqvUoBxfJcjseCpBDQcZSS6ecZKJouXs07aejuKfK",
-    secret: "WhuKLwumWocRsjzuQYPVSC6ZybxuMdhVCRXYIIW6",
-  });
-
   useEffect(() => {
     let response;
+
     const fetchPets = async () => {
-      console.log("API request triggered");
+      console.log("API request triggered: Home Featured Pets Display");
       try {
-        response = await petFinderClient.animal.search({
+        response = await props.client.animal.search({
           limit: 25,
         });
 
@@ -35,25 +30,28 @@ const PetDisplay = (props) => {
       let dataArray = [];
 
       for (let animal of response.data.animals) {
-        if (animal.photos.length !== 0) {
-          dataArray.push({
-            key: animal.id,
-            id: animal.id,
-            name: animal.name,
-            age: animal.age,
-            fixed: animal.attributes.spayed_neutered,
-            pictures: animal.photos,
-            url: animal.url,
-          });
-        }
+        dataArray.push({
+          key: animal.id,
+          id: animal.id,
+          name: animal.name,
+          age: animal.age,
+          fixed: animal.attributes.spayed_neutered,
+          pictures: animal.photos,
+          url: animal.url,
+          type: animal.type,
+        });
       }
 
-      setParsedData(dataArray.slice(0, 8));
+      setParsedData(dataArray.slice(0, 10));
       setIsLoading(false);
     };
 
     fetchPets();
-  }, []);
+    return () => {
+      setIsLoading(false);
+      setParsedData(null);
+    };
+  }, [props.client]);
 
   if (isLoading) {
     return (
@@ -68,12 +66,14 @@ const PetDisplay = (props) => {
         <h2 className={classes["feature-text"]}>Featured Pets</h2>
         <Card class="pet-display-container">
           {parsedData.map((animal) => (
-            <DisplayItem
+            <PetDisplayItem
               key={animal.key}
               name={animal.name}
               age={animal.age}
               fixed={animal.fixed}
               pictures={animal.pictures}
+              url={animal.url}
+              type={animal.type}
             />
           ))}
         </Card>

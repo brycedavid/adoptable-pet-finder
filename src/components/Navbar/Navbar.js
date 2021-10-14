@@ -1,14 +1,16 @@
-import Subnav from "./Subnav";
-
 import classes from "./Navbar.module.css";
+
+import Subnav from "./Subnav";
 
 const Navbar = () => {
   return (
-    <nav className={classes["navbar-container"]}>
-      <Subnav page="Home" />
-      <Subnav page="Adoption Centers" />
-      <Subnav page="Adoptable Pets" />
-      <Subnav page="About" />
+    <nav className={classes["navbar"]}>
+      <ul>
+        <Subnav page="Home" to="/home" />
+        <Subnav page="Adoption Centers" to="/adoption-centers" />
+        <Subnav page="Adoptable Pets" to="/adoptable-pets" />
+        <Subnav page="About" to="/about" />
+      </ul>
     </nav>
   );
 };

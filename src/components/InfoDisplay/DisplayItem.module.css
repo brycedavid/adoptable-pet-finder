@@ -8,6 +8,7 @@
   padding: 10px;
   justify-content: center;
   align-content: center;
+  box-shadow: 2px 2px 2px darkgrey;
 }
 
 .display-item:hover {

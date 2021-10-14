@@ -1,1 +1,23 @@
+.subnav {
+  display: flex;
+  justify-content: space-evenly;
+  width: 280px;
+  height: 100%;
+  background-color: #902923;
+}
 
+.subnav a {
+  color: white;
+  text-decoration: none;
+  align-items: center;
+}
+
+.subnav a:hover {
+  height: 100%;
+  background-color: #b94341;
+  cursor: pointer;
+}
+
+.active {
+  background-color: #b94341;
+}
