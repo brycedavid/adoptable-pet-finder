@@ -13,6 +13,10 @@ const Header = (props) => {
     props.onLogout();
   };
 
+  const signupHandler = () => {
+    props.onSignup();
+  };
+
   return (
     <header className={classes["header-container"]}>
       <Title />
@@ -21,7 +25,7 @@ const Header = (props) => {
         {!props.isAuthenticated && (
           <div className={classes["login-container"]}>
             <Button text="Login" class="login" onClick={loginHandler} />
-            <Button text="Sign up" class="login" />
+            <Button text="Sign up" class="login" onClick={signupHandler} />
           </div>
         )}
         {props.isAuthenticated && (

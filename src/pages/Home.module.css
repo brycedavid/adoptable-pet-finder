@@ -60,3 +60,12 @@ p {
   font-family: inherit;
   width: 820px;
 }
+
+.feature-text {
+  justify-self: center;
+  margin-top: 80px;
+  font-size: xx-large;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 90px;
+}

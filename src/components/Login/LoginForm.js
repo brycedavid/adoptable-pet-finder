@@ -1,40 +1,72 @@
-import { useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { useDispatch } from "react-redux";
+import { Prompt } from "react-router-dom";
+import AuthContext from "../../store/auth-context";
 
 import classes from "./LoginForm.module.css";
 
-import { authActions } from "../store/auth-slice";
+// import { authActions } from "../../store/auth-slice";
 
 const LoginForm = (props) => {
-  const [enteredUsername, setEnteredUsername] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
-  const [usernameTouched, setUsernameTouched] = useState(false);
+  const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
-  const [usernameChanged, setUsernameChanged] = useState(false);
+  const [emailChanged, setEmailChanged] = useState(false);
   const [passwordChanged, setPasswordChanged] = useState(false);
-  const [usernameValid, setUsernameValid] = useState(true);
+  const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
 
-  const dispatch = useDispatch();
+  const authCtx = useContext(AuthContext);
 
   let formIsValid = false;
 
-  if (usernameValid && passwordValid && usernameChanged && passwordChanged) {
+  if (emailValid && passwordValid && emailChanged && passwordChanged) {
     formIsValid = true;
   }
 
-  const usernameChangeHandler = (event) => {
-    setUsernameChanged(true);
-    setEnteredUsername(event.target.value);
+  const sendRequest = async () => {
+    const response = await fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCT7FuvqHq8fPhrdZHpdqEUL87GJ7TpC_Q",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email: enteredEmail,
+          password: enteredPassword,
+          returnSecureToken: true,
+        }),
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      alert("Something went wrong... failed to login.");
+      // throw new Error("Something went wrong!");
+      return;
+    }
+
+    const responseData = await response.json();
+
+    authCtx.login(responseData.idToken);
+
+    props.onLogin();
+  };
+
+  const emailChangeHandler = (event) => {
+    setEmailChanged(true);
+    setEnteredEmail(event.target.value);
     if (event.target.value.trim().length === 0) {
-      setUsernameValid(false);
+      setEmailValid(false);
     } else {
-      setUsernameValid(true);
+      setEmailValid(true);
     }
   };
 
-  const usernameBlurHandler = () => {
-    setUsernameTouched(true);
+  const emailBlurHandler = () => {
+    setEmailTouched(true);
   };
 
   const passwordChangeHandler = (event) => {
@@ -53,39 +85,53 @@ const LoginForm = (props) => {
 
   const loginHandler = (event) => {
     event.preventDefault();
-    props.onLogin();
-    dispatch(authActions.login());
+
+    setIsLoading(true);
+
+    sendRequest();
   };
 
   return (
-    <form>
-      <h2>Login</h2>
-      <input
-        type="text"
-        placeholder="username"
-        name="username"
-        id="username"
-        onChange={usernameChangeHandler}
-        onBlur={usernameBlurHandler}
-        value={enteredUsername}
-        maxLength="16"
-        className={usernameTouched && !usernameValid ? classes["invalid"] : ""}
-      />
-      <input
-        type="password"
-        placeholder="password"
-        name="password"
-        id="password"
-        onChange={passwordChangeHandler}
-        onBlur={passwordBlurHandler}
-        value={enteredPassword}
-        maxLength="12"
-        className={passwordTouched && !passwordValid ? classes["invalid"] : ""}
-      />
-      <button disabled={!formIsValid} onClick={loginHandler}>
-        Login
-      </button>
-    </form>
+    <Fragment>
+      {/* <Prompt
+        when={isEntering}
+        message={(location) =>
+          "Are you sure you want to leave? Any entered data will be lost."
+        }
+      /> */}
+      {/* <form onSubmit={loginHandler} onFocus={formFocusedHandler}> */}
+      <form onSubmit={loginHandler}>
+        <h2>Login</h2>
+        <input
+          type="text"
+          placeholder="email"
+          name="email"
+          id="email"
+          onChange={emailChangeHandler}
+          onBlur={emailBlurHandler}
+          value={enteredEmail}
+          maxLength="20"
+          className={emailTouched && !emailValid ? classes["invalid"] : ""}
+        />
+        <input
+          type="password"
+          placeholder="password"
+          name="password"
+          id="password"
+          onChange={passwordChangeHandler}
+          onBlur={passwordBlurHandler}
+          value={enteredPassword}
+          maxLength="15"
+          className={
+            passwordTouched && !passwordValid ? classes["invalid"] : ""
+          }
+        />
+        <button disabled={!formIsValid}>Login</button>
+        {/* <button disabled={!formIsValid} onClick={finishedEnteringHandler}>
+          Login
+        </button> */}
+      </form>
+    </Fragment>
   );
 };
 

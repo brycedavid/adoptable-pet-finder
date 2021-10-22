@@ -1,0 +1,11 @@
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.main-content h1 {
+  margin-left: 0;
+  justify-self: center;
+}

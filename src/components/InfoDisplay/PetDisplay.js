@@ -1,57 +1,52 @@
-import { useEffect, useState, Fragment } from "react";
+import { useEffect, useState, Fragment, useCallback } from "react";
 
 import classes from "./PetDisplay.module.css";
 
 import PetDisplayItem from "./PetDisplayItem";
-import Card from "../UI/Card";
+import { fetchData } from "../../lib/api";
 
 const PetDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
 
+  const resetData = () => {
+    setIsLoading(true);
+    setParsedData(null);
+  };
+
+  const sendRequest = async () => {
+    console.log("Requesting pet data...");
+    const data = await fetchData({
+      searchType: "pets",
+      limit: props.limit,
+      type: props.searchFor,
+    });
+    console.log(data);
+    let dataArray = [];
+
+    for (let animal of data.data.animals) {
+      dataArray.push({
+        key: animal.id,
+        id: animal.id,
+        name: animal.name,
+        age: animal.age,
+        fixed: animal.attributes.spayed_neutered,
+        pictures: animal.photos,
+        url: animal.url,
+        type: animal.type,
+      });
+    }
+
+    setParsedData(dataArray.slice(0, props.displayAmount));
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    let response;
-
-    const fetchPets = async () => {
-      console.log("API request triggered: Home Featured Pets Display");
-      try {
-        response = await props.client.animal.search({
-          limit: 25,
-        });
-
-        if (response.status !== 200) {
-          throw new Error("Request failed!");
-        }
-      } catch (err) {
-        console.log(err.message || "Something went wrong... please try again.");
-      }
-      console.log(response);
-
-      let dataArray = [];
-
-      for (let animal of response.data.animals) {
-        dataArray.push({
-          key: animal.id,
-          id: animal.id,
-          name: animal.name,
-          age: animal.age,
-          fixed: animal.attributes.spayed_neutered,
-          pictures: animal.photos,
-          url: animal.url,
-          type: animal.type,
-        });
-      }
-
-      setParsedData(dataArray.slice(0, 10));
-      setIsLoading(false);
-    };
-
-    fetchPets();
-    return () => {
-      setIsLoading(false);
-      setParsedData(null);
-    };
-  }, [props.client]);
+    if (parsedData === null) {
+      sendRequest();
+    }
+    return resetData;
+  }, [fetchData, setParsedData, setIsLoading]);
 
   if (isLoading) {
     return (
@@ -60,24 +55,22 @@ const PetDisplay = (props) => {
       </div>
     );
   }
+
   if (!isLoading) {
     return (
-      <Fragment>
-        <h2 className={classes["feature-text"]}>Featured Pets</h2>
-        <Card class="pet-display-container">
-          {parsedData.map((animal) => (
-            <PetDisplayItem
-              key={animal.key}
-              name={animal.name}
-              age={animal.age}
-              fixed={animal.fixed}
-              pictures={animal.pictures}
-              url={animal.url}
-              type={animal.type}
-            />
-          ))}
-        </Card>
-      </Fragment>
+      <div className={classes["pet-display-container"]}>
+        {parsedData.map((animal) => (
+          <PetDisplayItem
+            key={animal.key}
+            name={animal.name}
+            age={animal.age}
+            fixed={animal.fixed}
+            pictures={animal.pictures}
+            url={animal.url}
+            type={animal.type}
+          />
+        ))}
+      </div>
     );
   }
 };

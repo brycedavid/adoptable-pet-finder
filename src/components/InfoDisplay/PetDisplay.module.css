@@ -12,11 +12,12 @@
   font-weight: bolder;
 }
 
-.feature-text {
+.pet-display-container {
   justify-self: center;
-  margin-top: 80px;
-  font-size: xx-large;
-  margin-left: 0;
-  margin-right: 0;
-  margin-top: 90px;
+  align-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  justify-content: center;
+  margin-top: 20px;
 }

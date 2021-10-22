@@ -1,5 +1,29 @@
-const AdoptablePets = () => {
-  return <h1>Adoptable Pets</h1>;
+import { Fragment } from "react";
+
+import PetDisplay from "../components/InfoDisplay/PetDisplay";
+
+import classes from "./AdoptablePets.module.css";
+
+const capitalize = (string) => {
+  const lower = string.toLowerCase();
+  return string.charAt(0).toUpperCase() + lower.slice(1);
+};
+
+const AdoptablePets = (props) => {
+  return (
+    <div className={classes["main-content"]}>
+      <h1>
+        {props.searchData
+          ? `Adoptable ${capitalize(props.searchData)}s`
+          : "Adoptable Pets"}
+      </h1>
+      <PetDisplay
+        limit={100}
+        displayAmount={100}
+        searchFor={props.searchData}
+      />
+    </div>
+  );
 };
 
 export default AdoptablePets;

@@ -26,13 +26,3 @@
   border: 1px solid black;
   padding: 30px;
 }
-
-.pet-display-container {
-  justify-self: center;
-  align-self: center;
-  display: flex;
-  flex-wrap: wrap;
-  width: 90%;
-  justify-content: center;
-  margin-top: 20px;
-}

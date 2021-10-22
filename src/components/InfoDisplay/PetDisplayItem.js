@@ -1,4 +1,4 @@
-import classes from "./DisplayItem.module.css";
+import classes from "./PetDisplayItem.module.css";
 import dogPlaceholderImg from "../../images/dog-placeholder-tall.svg";
 import catPlaceholderImg from "../../images/cat-placeholder-tall.svg";
 

@@ -2,10 +2,14 @@ import classes from "./Home.module.css";
 
 import Card from "../components/UI/Card";
 import Image from "../components/UI/Image";
-import SearchForm from "../components/Search/SearchForm";
+import HomeSearchForm from "../components/Search/HomeSearchForm";
 import PetDisplay from "../components/InfoDisplay/PetDisplay";
 
 const Home = (props) => {
+  const searchFormSubmitHandler = (searchValue) => {
+    props.forwardFormData(searchValue);
+  };
+
   return (
     <div className={classes["main-content"]}>
       <Card class="main-image-container">
@@ -15,7 +19,8 @@ const Home = (props) => {
           source="https://www.petlink.net/wp-content/uploads/2019/04/Puppy-and-Kitten-Closeup-Over-White-649091176_2052x1466.jpeg"
         />
       </Card>
-      <PetDisplay client={props.client} />
+      <h2 className={classes["feature-text"]}>Featured Pets</h2>
+      <PetDisplay limit={25} displayAmount={10} />
       <div className={classes["homepage-text-container"]}>
         <h3>
           Looking to adopt a furry friend? You've come to the right place!
@@ -27,7 +32,7 @@ const Home = (props) => {
         </p>
       </div>
       <Card class="main-search-container">
-        <SearchForm />
+        <HomeSearchForm onSubmit={searchFormSubmitHandler} />
       </Card>
     </div>
   );

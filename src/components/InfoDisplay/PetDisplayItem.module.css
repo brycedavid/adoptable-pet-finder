@@ -1,13 +1,13 @@
 .display-item {
-  display: block;
+  display: flex;
+  flex-direction: column;
   width: 250px;
   height: 400px;
   border: 2px solid #0f5797;
   border-radius: 10px;
   margin: 10px;
   padding: 10px;
-  justify-content: center;
-  align-content: center;
+  align-items: center;
   box-shadow: 2px 2px 2px darkgrey;
 }
 

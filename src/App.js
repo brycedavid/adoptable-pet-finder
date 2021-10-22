@@ -1,9 +1,6 @@
-import React, { Fragment, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Route, Redirect } from "react-router-dom";
-import { Client } from "@petfinder/petfinder-js";
+import React, { Fragment, useContext, useState } from "react";
+import { Route, Redirect, useHistory, Switch } from "react-router-dom";
 
-import { authActions } from "./components/store/auth-slice";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import LoginModal from "./components/Login/LoginModal";
@@ -11,27 +8,44 @@ import Home from "./pages/Home";
 import AdoptionCenters from "./pages/AdoptionCenters";
 import AdoptablePets from "./pages/AdoptablePets";
 import About from "./pages/About";
-
-const petFinderClient = new Client({
-  apiKey: "YeI5i5zLHnqvUoBxfJcjseCpBDQcZSS6ecZKJouXs07aejuKfK",
-  secret: "WhuKLwumWocRsjzuQYPVSC6ZybxuMdhVCRXYIIW6",
-});
+import NotFound from "./pages/NotFound";
+import SignUp from "./pages/Signup";
+import AuthContext from "./store/auth-context";
 
 function App() {
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [searchData, setSearchData] = useState(null);
+
+  const authCtx = useContext(AuthContext);
+  const history = useHistory();
+
+  const isAuthenticated = !!authCtx.token;
 
   const startLoginHandler = () => {
     setIsLoggingIn(true);
+
+    // Once logged in, redirect to Home page
+    history.push("/home");
   };
 
   const logoutHandler = () => {
-    dispatch(authActions.logout());
+    authCtx.logout();
+  };
+
+  const startSignupHandler = () => {
+    history.push("/signup");
+  };
+
+  const finishSignupHandler = () => {
+    history.push("/home");
   };
 
   const closeModalHandler = () => {
     setIsLoggingIn(false);
+  };
+
+  const forwardData = (data) => {
+    setSearchData(data);
   };
 
   return (
@@ -41,23 +55,32 @@ function App() {
         isAuthenticated={isAuthenticated}
         onLogin={startLoginHandler}
         onLogout={logoutHandler}
+        onSignup={startSignupHandler}
       />
       <Navbar />
-      <Route path="/" exact>
-        <Redirect to="/home" />
-      </Route>
-      <Route path="/home">
-        <Home client={petFinderClient} />
-      </Route>
-      <Route path="/adoption-centers">
-        <AdoptionCenters client={petFinderClient} />
-      </Route>
-      <Route path="/adoptable-pets">
-        <AdoptablePets />
-      </Route>
-      <Route path="/about">
-        <About />
-      </Route>
+      <Switch>
+        <Route path="/" exact>
+          <Redirect to="/home" />
+        </Route>
+        <Route path="/home">
+          <Home forwardFormData={forwardData} />
+        </Route>
+        <Route path="/adoption-centers">
+          <AdoptionCenters searchData={searchData} />
+        </Route>
+        <Route path="/adoptable-pets">
+          <AdoptablePets searchData={searchData} />
+        </Route>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route path="/signup">
+          <SignUp finishSignup={finishSignupHandler} />
+        </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
     </Fragment>
   );
 }
