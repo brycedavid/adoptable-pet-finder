@@ -20,8 +20,16 @@ const PetDisplayItem = (props) => {
     isFixed = "No";
   }
 
+  const itemClickHandler = () => {
+    // Opens the URL to the pet information in a new window
+    const newWindow = window.open(props.url, "_blank", "noopener,noreferrer");
+    if (newWindow) {
+      newWindow.opener = null;
+    }
+  };
+
   return (
-    <div className={classes["display-item"]}>
+    <div className={classes["display-item"]} onClick={itemClickHandler}>
       <h3>{props.name}</h3>
       <div className={classes["image-container"]}>{photoElement}</div>
       <p>{`Age: ${props.age}`}</p>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import Card from "../UI/Card";
 import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
@@ -26,31 +26,6 @@ const AdoptionCenterDisplay = (props) => {
     setIsLoading(false);
     setParsedData(data);
   }
-
-  // const sendRequest = async () => {
-  //   console.log("Requesting organization data...");
-  //   const data = await fetchData({
-  //     searchType: "organizations",
-  //     limit: props.limit,
-  //   });
-  //   console.log(data);
-  //   let dataArray = [];
-
-  //   for (let organization of data.data.organizations) {
-  //     dataArray.push({
-  //       key: organization.id,
-  //       id: organization.id,
-  //       address: organization.address,
-  //       name: organization.name,
-  //       phone: organization.phone,
-  //       url: organization.url,
-  //       animalsLink: organization._links.animals.href,
-  //     });
-  //   }
-
-  //   setParsedData(dataArray);
-  //   setIsLoading(false);
-  // };
 
   const resetData = () => {
     setIsLoading(true);

@@ -1,5 +1,3 @@
-import { Fragment } from "react";
-
 import PetDisplay from "../components/InfoDisplay/PetDisplay";
 
 import classes from "./AdoptablePets.module.css";

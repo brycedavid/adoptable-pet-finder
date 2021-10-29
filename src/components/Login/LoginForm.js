@@ -1,11 +1,8 @@
 import { Fragment, useContext, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Prompt } from "react-router-dom";
+
 import AuthContext from "../../store/auth-context";
 
 import classes from "./LoginForm.module.css";
-
-// import { authActions } from "../../store/auth-slice";
 
 const LoginForm = (props) => {
   const [isLoading, setIsLoading] = useState(false);
