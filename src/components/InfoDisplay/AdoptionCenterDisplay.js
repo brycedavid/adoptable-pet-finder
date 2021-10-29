@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import Card from "../UI/Card";
+import classes from "./AdoptionCenterDisplay.module.css";
+
 import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
 import useApi from "../../hooks/use-api";
 
@@ -42,7 +43,7 @@ const AdoptionCenterDisplay = (props) => {
 
   if (!isLoading) {
     return (
-      <Card>
+      <div className={classes["adoption-center-display-container"]}>
         {parsedData.map((organization) => (
           <AdoptionCenterDisplayItem
             key={organization.key}
@@ -54,7 +55,7 @@ const AdoptionCenterDisplay = (props) => {
             animalsLink={organization.animalsLink}
           />
         ))}
-      </Card>
+      </div>
     );
   }
 };

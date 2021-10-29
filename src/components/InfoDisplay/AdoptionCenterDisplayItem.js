@@ -1,9 +1,17 @@
+import classes from "./AdoptionCenterDisplayItem.module.css";
+
 const AdoptionCenterDisplayItem = (props) => {
+  const itemClickHandler = () => {
+    // Opens the URL to the organization information in a new window
+    const newWindow = window.open(props.url, "_blank", "noopener,noreferrer");
+    if (newWindow) {
+      newWindow.opener = null;
+    }
+  };
+
   return (
-    <div>
-      <a href={props.url} target="_blank" rel="noreferrer noopener">
-        {props.name}
-      </a>
+    <div className={classes["display-item"]} onClick={itemClickHandler}>
+      <h3>{props.name}</h3>
       <p>{props.phone}</p>
       <p>{props.address.address1}</p>
       <p>{`${props.address.city}, ${props.address.state} ${props.address.postcode}`}</p>

@@ -1,13 +1,13 @@
-import { Fragment } from "react";
+import classes from "./AdoptionCenters.module.css";
 
 import AdoptionCenterDisplay from "../components/InfoDisplay/AdoptionCenterDisplay";
 
 const AdoptionCenters = (props) => {
   return (
-    <Fragment>
+    <div className={classes["main-content"]}>
       <h1>Adoption Centers</h1>
       <AdoptionCenterDisplay limit={100} />
-    </Fragment>
+    </div>
   );
 };
 

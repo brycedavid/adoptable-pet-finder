@@ -78,7 +78,7 @@ const useApi = (searchOptions) => {
       setData(dataArray.slice(0, displayAmount));
     };
 
-    if (sendRequest === true) {
+    if (sendRequest) {
       makeRequest();
     }
 
