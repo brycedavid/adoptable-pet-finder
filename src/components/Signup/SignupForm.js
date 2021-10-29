@@ -40,10 +40,12 @@ const SignupForm = (props) => {
       }
     );
     setIsLoading(false);
+    // console.log(response);
 
     if (!response.ok) {
       alert("Something went wrong...failed to signup.");
       // throw new Error("Something went wrong!");
+      return;
     }
 
     const responseData = await response.json();
