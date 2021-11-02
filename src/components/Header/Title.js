@@ -1,3 +1,6 @@
+// Title.js
+// This component is rendered as a child to Header.js and includes the title of the website.
+
 import classes from "./Title.module.css";
 
 const Title = () => {

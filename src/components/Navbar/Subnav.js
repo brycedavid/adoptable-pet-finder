@@ -1,3 +1,6 @@
+// Subnav.js
+// This component is a child component to Navbar.js and is rendered as navigation links.
+
 import { NavLink } from "react-router-dom";
 
 import classes from "./Subnav.module.css";

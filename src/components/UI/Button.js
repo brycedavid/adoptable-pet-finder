@@ -1,3 +1,6 @@
+// Button.js
+// A reusable button component
+
 import classes from "./Button.module.css";
 
 const Button = (props) => {

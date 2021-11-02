@@ -1,3 +1,8 @@
+// LoginForm.js
+// This form is rendered as a child of the ModalOverlay component in LoginModal.js.
+// It handles all user login logic, including making API requests for logging in
+// and validating user input.
+
 import { Fragment, useContext, useState } from "react";
 
 import AuthContext from "../../store/auth-context";
@@ -19,10 +24,13 @@ const LoginForm = (props) => {
 
   let formIsValid = false;
 
+  // If the email and password inputs have been changed and their values
+  // are valid, the form is valid.
   if (emailValid && passwordValid && emailChanged && passwordChanged) {
     formIsValid = true;
   }
 
+  // Sends API request for login
   const sendRequest = async () => {
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCT7FuvqHq8fPhrdZHpdqEUL87GJ7TpC_Q",
@@ -39,19 +47,23 @@ const LoginForm = (props) => {
       }
     );
 
+    // If the response isn't valid...
     if (!response.ok) {
       alert("Something went wrong... failed to login.");
       // throw new Error("Something went wrong!");
       return;
     }
 
+    // Convert response to json
     const responseData = await response.json();
 
     authCtx.login(responseData.idToken);
 
+    // Execute onLogin
     props.onLogin();
   };
 
+  // On every change to the email input, verify that the value is valid.
   const emailChangeHandler = (event) => {
     setEmailChanged(true);
     setEnteredEmail(event.target.value);
@@ -62,10 +74,12 @@ const LoginForm = (props) => {
     }
   };
 
+  // When the email input is blurred...
   const emailBlurHandler = () => {
     setEmailTouched(true);
   };
 
+  // On every change to the password input, verify that the value is valid.
   const passwordChangeHandler = (event) => {
     setPasswordChanged(true);
     setEnteredPassword(event.target.value);
@@ -76,10 +90,12 @@ const LoginForm = (props) => {
     }
   };
 
+  // When the password input is blurred...
   const passwordBlurHandler = () => {
     setPasswordTouched(true);
   };
 
+  // Upon login, send API request
   const loginHandler = (event) => {
     event.preventDefault();
 

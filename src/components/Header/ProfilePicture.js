@@ -1,3 +1,6 @@
+// ProfilePicture.js
+// This component is rendered as a child to Header.js and renders the profile picture associated with the user account (currently not implemented).
+
 import classes from "./ProfilePicture.module.css";
 
 const ProfilePicture = () => {

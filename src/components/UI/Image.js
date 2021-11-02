@@ -1,3 +1,6 @@
+// Image.js
+// A configurable image component
+
 import classes from "./Image.module.css";
 
 const Image = (props) => {

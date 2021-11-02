@@ -1,3 +1,7 @@
+// AdoptionCenters.js
+// This page renders adoption center information by rendering the AdoptionCenterDisplay component as a child.
+// Implemented for use with React router in App.js.
+
 import classes from "./AdoptionCenters.module.css";
 
 import AdoptionCenterDisplay from "../components/InfoDisplay/AdoptionCenterDisplay";

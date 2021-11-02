@@ -1,9 +1,13 @@
+// HomeSearchForm.js
+// This is the search form that is rendered on the Homepage.
+// It allows the user to retrieve pet data based on a search value.
+
 import { Fragment, useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 
-import Button from "../UI/Button";
-
 import classes from "./HomeSearchForm.module.css";
+
+import Button from "../UI/Button";
 
 const HomeSearchForm = (props) => {
   const [searchFor, setSearchFor] = useState("");
@@ -11,10 +15,12 @@ const HomeSearchForm = (props) => {
   const history = useHistory();
   const selectValue = useRef();
 
+  // Upon changing the select value...
   const selectChangeHandler = (event) => {
     setSearchFor(event.target.value);
   };
 
+  // Upon submission, navigate to page associated with search value.
   const searchSubmitHandler = (event) => {
     event.preventDefault();
 

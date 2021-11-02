@@ -1,7 +1,13 @@
+// AdoptablePets.js
+// This page displays pet information by rendering the PetDisplay component as a child.
+// Implemented for use with React router in App.js.
+
 import PetDisplay from "../components/InfoDisplay/PetDisplay";
 
 import classes from "./AdoptablePets.module.css";
 
+// Helper method which coverts any string to capital case.
+// Used for page header, which is dynamic based on what's searched for.
 const capitalize = (string) => {
   const lower = string.toLowerCase();
   return string.charAt(0).toUpperCase() + lower.slice(1);

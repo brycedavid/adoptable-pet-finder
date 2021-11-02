@@ -1,26 +1,41 @@
+// use-api.js
+// This component is implemented as a custom hook, which is called to perform API requests
+// related to pet information from the Petfinder API. Configured to be re-usable for any search
+// using the searchOptions parameter.
+
 import { useState, useEffect } from "react";
 
 import { Client } from "@petfinder/petfinder-js";
 
+// Our client object, which is required to make API requests to the Petfinder API
 const petFinderClient = new Client({
   apiKey: "YeI5i5zLHnqvUoBxfJcjseCpBDQcZSS6ecZKJouXs07aejuKfK",
   secret: "WhuKLwumWocRsjzuQYPVSC6ZybxuMdhVCRXYIIW6",
 });
 
+// Check current state if data has changed to prevent re-renders; Redux?
+
 const useApi = (searchOptions) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
+  // Destruct searchOptions to extract values
   let { searchType, limit, type, sendRequest, displayAmount } = searchOptions;
 
   useEffect(() => {
+    // This async method makes our API request and parses it into an iterable array, which
+    // is returned to whatever uses this hook. If searchOptions.sendRequest is false, do not
+    // make a request.
     const makeRequest = async () => {
       let responseData = null;
       let dataArray = [];
+
       console.log("Requesting pet data...");
 
+      // Decide which type of request to make based on searchOptions.searchType
       switch (searchType) {
         case "pets":
+          // Request pet data
           responseData = await petFinderClient.animal
             .search({
               type,
@@ -30,6 +45,7 @@ const useApi = (searchOptions) => {
               console.log(error.request, error.response);
             });
 
+          // if data is returned from request, parse and store into dataArray
           if (responseData) {
             for (let animal of responseData.data.animals) {
               dataArray.push({
@@ -47,6 +63,7 @@ const useApi = (searchOptions) => {
           break;
 
         case "organizations":
+          // Request organization data
           responseData = await petFinderClient.organization
             .search({
               limit,
@@ -55,6 +72,7 @@ const useApi = (searchOptions) => {
               console.log(error.request, error.response);
             });
 
+          // if data is returned from request, parse and store into dataArray
           if (responseData) {
             for (let organization of responseData.data.organizations) {
               dataArray.push({
@@ -73,15 +91,19 @@ const useApi = (searchOptions) => {
           break;
       }
 
+      // Log our data (for development purposes) and set our data state.
       console.log(responseData);
       console.log(dataArray);
       setData(dataArray.slice(0, displayAmount));
     };
 
+    // If searchOptions.sendRequest is true, call makeRequest.
+    // otherwise, do nothing.
     if (sendRequest) {
       makeRequest();
     }
 
+    // useEffect cleanup
     return () => {
       // cancel request
     };

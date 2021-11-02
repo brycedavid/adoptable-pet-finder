@@ -1,3 +1,8 @@
+// App.js
+// This is the main component of the application. Within this component, all other components are rendered as children.
+// This component handles the logging in and out states to render the login modal, as well as the signup page redirects
+// and search capabilities. It also manages routing for the entire application.
+
 import React, { Fragment, useContext, useState } from "react";
 import { Route, Redirect, useHistory, Switch } from "react-router-dom";
 
@@ -12,15 +17,17 @@ import NotFound from "./pages/NotFound";
 import SignUp from "./pages/Signup";
 import AuthContext from "./store/auth-context";
 
-function App() {
+const App = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [searchData, setSearchData] = useState(null);
 
   const authCtx = useContext(AuthContext);
   const history = useHistory();
 
+  // Check if the user has an authentication token stored in the context
   const isAuthenticated = !!authCtx.token;
 
+  // Start the login flow
   const startLoginHandler = () => {
     setIsLoggingIn(true);
 
@@ -28,22 +35,27 @@ function App() {
     history.push("/home");
   };
 
+  // Log user out by calling context
   const logoutHandler = () => {
     authCtx.logout();
   };
 
+  // Redirect to the signup page
   const startSignupHandler = () => {
     history.push("/signup");
   };
 
+  // End the login flow; navigate to homepage
   const finishSignupHandler = () => {
     history.push("/home");
   };
 
+  // Upon closing modal, login flow ends
   const closeModalHandler = () => {
     setIsLoggingIn(false);
   };
 
+  // Forward the search data from the SearchForm (on Home page) to child components by setting searchData state
   const forwardData = (data) => {
     setSearchData(data);
   };
@@ -83,6 +95,6 @@ function App() {
       </Switch>
     </Fragment>
   );
-}
+};
 
 export default App;

@@ -1,3 +1,8 @@
+// Home.js
+// This is the homepage of the application, which is the first page the user will see. It includes
+// a featured pets section and a search form.
+// Base URL (/) automatically routes here in App.js.
+
 import classes from "./Home.module.css";
 
 import Card from "../components/UI/Card";

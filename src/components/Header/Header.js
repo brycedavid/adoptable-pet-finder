@@ -1,3 +1,7 @@
+// Header.js
+// This component is always rendered at the top of the application above the Navbar. It renders the Title and ProfilePicture components as children.
+// It is responsible for initiating user logouts, logins, and signups through the associated buttons.
+
 import classes from "./Header.module.css";
 
 import ProfilePicture from "./ProfilePicture";
