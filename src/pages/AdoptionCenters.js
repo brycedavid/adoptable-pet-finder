@@ -8,7 +8,7 @@ import AdoptionCenterDisplay from "../components/InfoDisplay/AdoptionCenterDispl
 
 const AdoptionCenters = (props) => {
   return (
-    <div className={classes["main-content"]}>
+    <div className={classes["adoption-centers-main-content"]}>
       <h1>Adoption Centers</h1>
       <AdoptionCenterDisplay limit={100} />
     </div>

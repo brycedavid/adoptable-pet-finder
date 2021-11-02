@@ -16,7 +16,7 @@ const Home = (props) => {
   };
 
   return (
-    <div className={classes["main-content"]}>
+    <div className={classes["home-main-content"]}>
       <Card class="main-image-container">
         <Image
           class="main-image"

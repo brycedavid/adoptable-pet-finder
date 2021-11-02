@@ -17,3 +17,8 @@ form > input {
   border: 1px red solid;
   background-color: rgb(255, 144, 144);
 }
+
+.error-message {
+  margin-top: -21px;
+  margin-bottom: 10px;
+}

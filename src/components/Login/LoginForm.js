@@ -4,6 +4,7 @@
 // and validating user input.
 
 import { Fragment, useContext, useState } from "react";
+import { useHistory } from "react-router";
 
 import AuthContext from "../../store/auth-context";
 
@@ -19,16 +20,14 @@ const LoginForm = (props) => {
   const [passwordChanged, setPasswordChanged] = useState(false);
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
+  const [emailError, setEmailError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
 
   const authCtx = useContext(AuthContext);
 
-  let formIsValid = false;
+  const history = useHistory();
 
-  // If the email and password inputs have been changed and their values
-  // are valid, the form is valid.
-  if (emailValid && passwordValid && emailChanged && passwordChanged) {
-    formIsValid = true;
-  }
+  let formIsValid = false;
 
   // Sends API request for login
   const sendRequest = async () => {
@@ -47,21 +46,40 @@ const LoginForm = (props) => {
       }
     );
 
+    // Convert response to json
+    const responseData = await response.json();
+
+    setIsLoading(false);
+
     // If the response isn't valid...
     if (!response.ok) {
-      alert("Something went wrong... failed to login.");
+      if (responseData.error.message === "EMAIL_NOT_FOUND") {
+        alert(
+          "There is no account corresponding to the entered email; Try another email address."
+        );
+      } else if (responseData.error.message === "INVALID_PASSWORD") {
+        alert("The entered password is invalid.");
+      } else if (responseData.error.message === "USER_DISABLED") {
+        alert("This user account has been disabled by an administrator");
+      } else {
+        alert("Something went wrong... failed to login.");
+      }
       // throw new Error("Something went wrong!");
       return;
     }
-
-    // Convert response to json
-    const responseData = await response.json();
 
     authCtx.login(responseData.idToken);
 
     // Execute onLogin
     props.onLogin();
+    history.push("/home");
   };
+
+  // If the email and password inputs have been changed and their values
+  // are valid, the form is valid.
+  if (emailValid && passwordValid && emailChanged && passwordChanged) {
+    formIsValid = true;
+  }
 
   // On every change to the email input, verify that the value is valid.
   const emailChangeHandler = (event) => {
@@ -69,8 +87,13 @@ const LoginForm = (props) => {
     setEnteredEmail(event.target.value);
     if (event.target.value.trim().length === 0) {
       setEmailValid(false);
+      setEmailError("Please enter an email");
+    } else if (!event.target.value.trim().includes("@")) {
+      setEmailValid(false);
+      setEmailError("Email must include an @");
     } else {
       setEmailValid(true);
+      setEmailError(null);
     }
   };
 
@@ -85,8 +108,10 @@ const LoginForm = (props) => {
     setEnteredPassword(event.target.value);
     if (event.target.value.trim().length < 8) {
       setPasswordValid(false);
+      setPasswordError("Password must be at least 8 characters");
     } else {
       setPasswordValid(true);
+      setPasswordError(null);
     }
   };
 
@@ -112,7 +137,6 @@ const LoginForm = (props) => {
           "Are you sure you want to leave? Any entered data will be lost."
         }
       /> */}
-      {/* <form onSubmit={loginHandler} onFocus={formFocusedHandler}> */}
       <form onSubmit={loginHandler}>
         <h2>Login</h2>
         <input
@@ -123,9 +147,11 @@ const LoginForm = (props) => {
           onChange={emailChangeHandler}
           onBlur={emailBlurHandler}
           value={enteredEmail}
-          maxLength="20"
           className={emailTouched && !emailValid ? classes["invalid"] : ""}
         />
+        {emailError && emailTouched && (
+          <p className={classes["error-message"]}>{emailError}</p>
+        )}
         <input
           type="password"
           placeholder="password"
@@ -134,11 +160,13 @@ const LoginForm = (props) => {
           onChange={passwordChangeHandler}
           onBlur={passwordBlurHandler}
           value={enteredPassword}
-          maxLength="15"
           className={
             passwordTouched && !passwordValid ? classes["invalid"] : ""
           }
         />
+        {passwordError && passwordTouched && (
+          <p className={classes["error-message"]}>{passwordError}</p>
+        )}
         <button disabled={!formIsValid}>Login</button>
         {/* <button disabled={!formIsValid} onClick={finishedEnteringHandler}>
           Login

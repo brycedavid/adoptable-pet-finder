@@ -30,9 +30,6 @@ const App = () => {
   // Start the login flow
   const startLoginHandler = () => {
     setIsLoggingIn(true);
-
-    // Once logged in, redirect to Home page
-    history.push("/home");
   };
 
   // Log user out by calling context

@@ -15,7 +15,7 @@ const capitalize = (string) => {
 
 const AdoptablePets = (props) => {
   return (
-    <div className={classes["main-content"]}>
+    <div className={classes["adoptable-pets-main-content"]}>
       <h1>
         {props.searchData
           ? `Adoptable ${capitalize(props.searchData)}s`
