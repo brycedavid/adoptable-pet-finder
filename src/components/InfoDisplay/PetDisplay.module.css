@@ -1,20 +1,14 @@
-.loading-text-container {
+.display-item-container {
   display: flex;
-  height: 888px;
-  justify-content: center;
-}
-
-.loading-text {
+  justify-self: center;
   align-self: center;
-  margin-top: 80px;
-  margin-bottom: 20px;
-  font-size: xx-large;
-  font-weight: bolder;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  min-height: 1000px;
 }
 
 .pet-display-container {
-  justify-self: center;
-  align-self: center;
   display: flex;
   flex-wrap: wrap;
   width: 90%;

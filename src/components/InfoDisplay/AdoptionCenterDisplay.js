@@ -8,6 +8,7 @@ import classes from "./AdoptionCenterDisplay.module.css";
 
 import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
 import useApi from "../../hooks/use-api";
+import LoadingIndicator from "../UI/LoadingIndicator";
 
 const AdoptionCenterDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -43,25 +44,27 @@ const AdoptionCenterDisplay = (props) => {
 
   if (!isLoading && parsedData !== null) {
     return (
-      <div className={classes["adoption-center-display-container"]}>
-        {parsedData.map((organization) => (
-          <AdoptionCenterDisplayItem
-            key={organization.key}
-            id={organization.id}
-            address={organization.address}
-            name={organization.name}
-            phone={organization.phone}
-            url={organization.url}
-            animalsLink={organization.animalsLink}
-          />
-        ))}
+      <div className={classes["display-item-container"]}>
+        <div className={classes["adoption-center-display-container"]}>
+          {parsedData.map((organization) => (
+            <AdoptionCenterDisplayItem
+              key={organization.key}
+              id={organization.id}
+              address={organization.address}
+              name={organization.name}
+              phone={organization.phone}
+              url={organization.url}
+              animalsLink={organization.animalsLink}
+            />
+          ))}
+        </div>
       </div>
     );
   }
 
   return (
-    <div>
-      <p>Loading...</p>
+    <div className={classes["display-item-container"]}>
+      <LoadingIndicator />
     </div>
   );
 };

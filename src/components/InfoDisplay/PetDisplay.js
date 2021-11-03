@@ -8,6 +8,7 @@ import classes from "./PetDisplay.module.css";
 
 import PetDisplayItem from "./PetDisplayItem";
 import useApi from "../../hooks/use-api";
+import LoadingIndicator from "../UI/LoadingIndicator";
 
 const PetDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -43,25 +44,27 @@ const PetDisplay = (props) => {
 
   if (!isLoading && parsedData !== null) {
     return (
-      <div className={classes["pet-display-container"]}>
-        {parsedData.map((animal) => (
-          <PetDisplayItem
-            key={animal.key}
-            name={animal.name}
-            age={animal.age}
-            fixed={animal.fixed}
-            pictures={animal.pictures}
-            url={animal.url}
-            type={animal.type}
-          />
-        ))}
+      <div className={classes["display-item-container"]}>
+        <div className={classes["pet-display-container"]}>
+          {parsedData.map((animal) => (
+            <PetDisplayItem
+              key={animal.key}
+              name={animal.name}
+              age={animal.age}
+              fixed={animal.fixed}
+              pictures={animal.pictures}
+              url={animal.url}
+              type={animal.type}
+            />
+          ))}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className={classes["loading-text-container"]}>
-      <p className={classes["loading-text"]}>Loading...</p>
+    <div className={classes["display-item-container"]}>
+      <LoadingIndicator />
     </div>
   );
 };

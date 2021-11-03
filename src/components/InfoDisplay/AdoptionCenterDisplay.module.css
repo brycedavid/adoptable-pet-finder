@@ -1,6 +1,14 @@
-.adoption-center-display-container {
+.display-item-container {
+  display: flex;
   justify-self: center;
   align-self: center;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  min-height: 1000px;
+}
+
+.adoption-center-display-container {
   display: flex;
   flex-wrap: wrap;
   width: 90%;
