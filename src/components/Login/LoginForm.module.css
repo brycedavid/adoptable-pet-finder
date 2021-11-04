@@ -1,11 +1,23 @@
-form {
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container > form {
   display: flex;
   flex-direction: column;
   align-content: center;
   justify-content: center;
 }
 
-form > input {
+.form-container > form > h2 {
+  margin-bottom: 40px;
+  margin-top: -14px;
+}
+
+.form-container > form > input {
   border: 1px solid black;
   border-radius: 3px;
   height: 30px;
@@ -18,7 +30,12 @@ form > input {
   background-color: rgb(255, 144, 144);
 }
 
-.error-message {
-  margin-top: -21px;
-  margin-bottom: 10px;
+.form-container > .error-message {
+  position: fixed;
+  margin-top: -300px;
+  color: red;
+  font-weight: bold;
+  border: 2px solid red;
+  border-radius: 8px;
+  padding: 10px;
 }

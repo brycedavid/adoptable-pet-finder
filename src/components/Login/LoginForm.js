@@ -20,8 +20,9 @@ const LoginForm = (props) => {
   const [passwordChanged, setPasswordChanged] = useState(false);
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
-  const [emailError, setEmailError] = useState(null);
-  const [passwordError, setPasswordError] = useState(null);
+  const [emailInputError, setEmailInputError] = useState(null);
+  const [passwordInputError, setPasswordInputError] = useState(null);
+  const [requestError, setRequestError] = useState(null);
 
   const authCtx = useContext(AuthContext);
 
@@ -54,15 +55,17 @@ const LoginForm = (props) => {
     // If the response isn't valid...
     if (!response.ok) {
       if (responseData.error.message === "EMAIL_NOT_FOUND") {
-        alert(
-          "There is no account corresponding to the entered email; Try another email address."
+        setRequestError(
+          "There is no account corresponding to the entered email; Try another email."
         );
       } else if (responseData.error.message === "INVALID_PASSWORD") {
-        alert("The entered password is invalid.");
+        setRequestError("The entered password is invalid.");
       } else if (responseData.error.message === "USER_DISABLED") {
-        alert("This user account has been disabled by an administrator");
+        setRequestError(
+          "This user account has been disabled by an administrator"
+        );
       } else {
-        alert("Something went wrong... failed to login.");
+        setRequestError("Something went wrong... failed to login.");
       }
       // throw new Error("Something went wrong!");
       return;
@@ -85,15 +88,18 @@ const LoginForm = (props) => {
   const emailChangeHandler = (event) => {
     setEmailChanged(true);
     setEnteredEmail(event.target.value);
+    if (requestError) {
+      setRequestError(null);
+    }
     if (event.target.value.trim().length === 0) {
       setEmailValid(false);
-      setEmailError("Please enter an email");
+      setEmailInputError("Please enter an email");
     } else if (!event.target.value.trim().includes("@")) {
       setEmailValid(false);
-      setEmailError("Email must include an @");
+      setEmailInputError("Email must include an @");
     } else {
       setEmailValid(true);
-      setEmailError(null);
+      setEmailInputError(null);
     }
   };
 
@@ -106,12 +112,15 @@ const LoginForm = (props) => {
   const passwordChangeHandler = (event) => {
     setPasswordChanged(true);
     setEnteredPassword(event.target.value);
+    if (requestError) {
+      setRequestError(null);
+    }
     if (event.target.value.trim().length < 8) {
       setPasswordValid(false);
-      setPasswordError("Password must be at least 8 characters");
+      setPasswordInputError("Password must be at least 8 characters");
     } else {
       setPasswordValid(true);
-      setPasswordError(null);
+      setPasswordInputError(null);
     }
   };
 
@@ -130,13 +139,7 @@ const LoginForm = (props) => {
   };
 
   return (
-    <Fragment>
-      {/* <Prompt
-        when={isEntering}
-        message={(location) =>
-          "Are you sure you want to leave? Any entered data will be lost."
-        }
-      /> */}
+    <div className={classes["form-container"]}>
       <form onSubmit={loginHandler}>
         <h2>Login</h2>
         <input
@@ -149,8 +152,8 @@ const LoginForm = (props) => {
           value={enteredEmail}
           className={emailTouched && !emailValid ? classes["invalid"] : ""}
         />
-        {emailError && emailTouched && (
-          <p className={classes["error-message"]}>{emailError}</p>
+        {emailInputError && emailTouched && (
+          <p className={classes["error-message"]}>{emailInputError}</p>
         )}
         <input
           type="password"
@@ -164,15 +167,15 @@ const LoginForm = (props) => {
             passwordTouched && !passwordValid ? classes["invalid"] : ""
           }
         />
-        {passwordError && passwordTouched && (
-          <p className={classes["error-message"]}>{passwordError}</p>
+        {passwordInputError && passwordTouched && (
+          <p className={classes["error-message"]}>{passwordInputError}</p>
         )}
         <button disabled={!formIsValid}>Login</button>
-        {/* <button disabled={!formIsValid} onClick={finishedEnteringHandler}>
-          Login
-        </button> */}
       </form>
-    </Fragment>
+      {requestError && (
+        <p className={classes["error-message"]}>{requestError}</p>
+      )}
+    </div>
   );
 };
 

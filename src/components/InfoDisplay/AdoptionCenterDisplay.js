@@ -63,7 +63,7 @@ const AdoptionCenterDisplay = (props) => {
   }
 
   return (
-    <div className={classes["display-item-container"]}>
+    <div className={classes["loading-indicator-container"]}>
       <LoadingIndicator />
     </div>
   );

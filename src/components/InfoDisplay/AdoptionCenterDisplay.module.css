@@ -15,3 +15,11 @@
   justify-content: center;
   margin-top: 20px;
 }
+
+.loading-indicator-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  min-height: 600px;
+}

@@ -17,7 +17,7 @@ const petFinderClient = new Client({
 
 const useApi = (searchOptions) => {
   const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  const [requestError, setRequestError] = useState(null);
 
   // Destruct searchOptions to extract values
   let { searchType, limit, type, sendRequest, displayAmount } = searchOptions;
@@ -30,7 +30,11 @@ const useApi = (searchOptions) => {
       let responseData = null;
       let dataArray = [];
 
-      console.log("Requesting pet data...");
+      console.log("Requesting data...");
+
+      if (requestError) {
+        console.log("API request failed.... retrying...");
+      }
 
       // Decide which type of request to make based on searchOptions.searchType
       switch (searchType) {
@@ -42,11 +46,12 @@ const useApi = (searchOptions) => {
               limit,
             })
             .catch((error) => {
-              console.log(error.request, error.response);
+              console.log(error);
+              setRequestError(error);
             });
 
           // if data is returned from request, parse and store into dataArray
-          if (responseData) {
+          if (responseData && !requestError) {
             for (let animal of responseData.data.animals) {
               dataArray.push({
                 key: animal.id,
@@ -69,11 +74,12 @@ const useApi = (searchOptions) => {
               limit,
             })
             .catch((error) => {
-              console.log(error.request, error.response);
+              console.log(error);
+              setRequestError(error);
             });
 
           // if data is returned from request, parse and store into dataArray
-          if (responseData) {
+          if (responseData && !requestError) {
             for (let organization of responseData.data.organizations) {
               dataArray.push({
                 key: organization.id,
@@ -107,7 +113,7 @@ const useApi = (searchOptions) => {
     return () => {
       // cancel request
     };
-  }, [sendRequest, displayAmount, limit, type, searchType]);
+  }, [sendRequest, displayAmount, limit, type, searchType, requestError]);
 
   return data;
 };

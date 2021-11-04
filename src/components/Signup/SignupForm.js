@@ -6,9 +6,13 @@
 // If a user has signed up, the user can login. Otherwise, they can't.
 
 import { useContext, useState } from "react";
-import AuthContext from "../../store/auth-context";
+import ReactDOM from "react-dom";
 
 import classes from "./SignupForm.module.css";
+
+import AuthContext from "../../store/auth-context";
+import LoadingIndicator from "../UI/LoadingIndicator";
+import Backdrop from "../UI/Backdrop";
 
 const SignupForm = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,8 +24,9 @@ const SignupForm = (props) => {
   const [passwordChanged, setPasswordChanged] = useState(false);
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
-  const [emailError, setEmailError] = useState(null);
-  const [passwordError, setPasswordError] = useState(null);
+  const [emailInputError, setEmailInputError] = useState(null);
+  const [passwordInputError, setPasswordInputError] = useState(null);
+  const [requestError, setRequestError] = useState(null);
 
   const authCtx = useContext(AuthContext);
 
@@ -55,13 +60,13 @@ const SignupForm = (props) => {
       console.log(responseData);
 
       if (responseData.error.message === "EMAIL_EXISTS") {
-        alert(
+        setRequestError(
           "The email you are attempting to use is already in use by another account."
         );
       } else if (responseData.error.message === "TOO_MANY_ATTEMPTS_TRY_LATER") {
-        alert("Too many signup attempts... try again later");
+        setRequestError("Too many signup attempts... try again later");
       } else {
-        alert("Something went wrong...failed to signup.");
+        setRequestError("Something went wrong...failed to signup.");
       }
       return;
     }
@@ -83,15 +88,18 @@ const SignupForm = (props) => {
   const emailChangeHandler = (event) => {
     setEmailChanged(true);
     setEnteredEmail(event.target.value);
+    if (requestError) {
+      setRequestError(null);
+    }
     if (event.target.value.trim().length === 0) {
       setEmailValid(false);
-      setEmailError("Please enter an email");
+      setEmailInputError("Please enter an email");
     } else if (!event.target.value.trim().includes("@")) {
       setEmailValid(false);
-      setEmailError("Email must include an @");
+      setEmailInputError("Email must include an @");
     } else {
       setEmailValid(true);
-      setEmailError(null);
+      setEmailInputError(null);
     }
   };
 
@@ -104,12 +112,15 @@ const SignupForm = (props) => {
   const passwordChangeHandler = (event) => {
     setPasswordChanged(true);
     setEnteredPassword(event.target.value);
+    if (requestError) {
+      setRequestError(null);
+    }
     if (event.target.value.trim().length < 8) {
       setPasswordValid(false);
-      setPasswordError("Password must be at least 8 characters");
+      setPasswordInputError("Password must be at least 8 characters");
     } else {
       setPasswordValid(true);
-      setPasswordError(null);
+      setPasswordInputError(null);
     }
   };
 
@@ -127,38 +138,57 @@ const SignupForm = (props) => {
     sendRequest();
   };
 
+  if (isLoading) {
+    return (
+      <div className={classes["loading-indicator-container"]}>
+        <LoadingIndicator />
+        {ReactDOM.createPortal(
+          <Backdrop />,
+          document.getElementById("backdrop-root")
+        )}
+      </div>
+    );
+  }
+
   return (
-    <form onSubmit={submitHandler} className={classes["signup-form"]}>
-      <input
-        type="text"
-        placeholder="email"
-        name="email"
-        id="email"
-        onChange={emailChangeHandler}
-        onBlur={emailBlurHandler}
-        value={enteredEmail}
-        className={emailTouched && !emailValid ? classes["invalid"] : ""}
-      />
-      {emailError && emailTouched && (
-        <p className={classes["error-message"]}>{emailError}</p>
+    <div className={classes["form-container"]}>
+      <form onSubmit={submitHandler} className={classes["signup-form"]}>
+        <input
+          type="text"
+          placeholder="email"
+          name="email"
+          id="email"
+          onChange={emailChangeHandler}
+          onBlur={emailBlurHandler}
+          value={enteredEmail}
+          className={emailTouched && !emailValid ? classes["invalid"] : ""}
+        />
+        {emailInputError && emailTouched && (
+          <p className={classes["error-message"]}>{emailInputError}</p>
+        )}
+        <input
+          type="password"
+          placeholder="password"
+          name="password"
+          id="password"
+          onChange={passwordChangeHandler}
+          onBlur={passwordBlurHandler}
+          value={enteredPassword}
+          className={
+            passwordTouched && !passwordValid ? classes["invalid"] : ""
+          }
+        />
+        {passwordInputError && passwordTouched && (
+          <p className={classes["error-message"]}>{passwordInputError}</p>
+        )}
+        <button type="submit" disabled={!formIsValid}>
+          Submit
+        </button>
+      </form>
+      {requestError && (
+        <p className={classes["error-message"]}>{requestError}</p>
       )}
-      <input
-        type="password"
-        placeholder="password"
-        name="password"
-        id="password"
-        onChange={passwordChangeHandler}
-        onBlur={passwordBlurHandler}
-        value={enteredPassword}
-        className={passwordTouched && !passwordValid ? classes["invalid"] : ""}
-      />
-      {passwordError && passwordTouched && (
-        <p className={classes["error-message"]}>{passwordError}</p>
-      )}
-      <button type="submit" disabled={!formIsValid}>
-        Submit
-      </button>
-    </form>
+    </div>
   );
 };
 

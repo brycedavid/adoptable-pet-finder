@@ -6,24 +6,14 @@
 // The ModalOverlay renders the login form as a child.
 
 import ReactDOM from "react-dom";
+import { Fragment } from "react";
 
 import classes from "./LoginModal.module.css";
 
 import LoginForm from "./LoginForm";
 import Card from "../UI/Card";
-import { Fragment } from "react";
-
-const Backdrop = (props) => {
-  return <div className={classes.backdrop} onClick={props.closeModal} />;
-};
-
-const ModalOverlay = (props) => {
-  return (
-    <Card class="modal-overlay">
-      <LoginForm onLogin={props.closeModal} />
-    </Card>
-  );
-};
+import Backdrop from "../UI/Backdrop";
+import ModalOverlay from "../UI/ModalOverlay";
 
 const LoginModal = (props) => {
   return (
@@ -33,7 +23,9 @@ const LoginModal = (props) => {
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-        <ModalOverlay closeModal={props.closeModal} />,
+        <ModalOverlay class="login-modal" closeModal={props.closeModal}>
+          <LoginForm onLogin={props.closeModal} />
+        </ModalOverlay>,
         document.getElementById("overlay-root")
       )}
     </Fragment>
