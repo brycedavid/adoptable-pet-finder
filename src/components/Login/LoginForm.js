@@ -139,8 +139,8 @@ const LoginForm = (props) => {
   };
 
   return (
-    <div className={classes["form-container"]}>
-      <form onSubmit={loginHandler}>
+    <div className="form-container">
+      <form onSubmit={loginHandler} className={classes["login-form"]}>
         <h2>Login</h2>
         <input
           type="text"
@@ -150,10 +150,12 @@ const LoginForm = (props) => {
           onChange={emailChangeHandler}
           onBlur={emailBlurHandler}
           value={enteredEmail}
-          className={emailTouched && !emailValid ? classes["invalid"] : ""}
+          className={
+            emailTouched && !emailValid ? "form-input invalid " : "form-input"
+          }
         />
         {emailInputError && emailTouched && (
-          <p className={classes["error-message"]}>{emailInputError}</p>
+          <p className="error-message">{emailInputError}</p>
         )}
         <input
           type="password"
@@ -164,17 +166,19 @@ const LoginForm = (props) => {
           onBlur={passwordBlurHandler}
           value={enteredPassword}
           className={
-            passwordTouched && !passwordValid ? classes["invalid"] : ""
+            passwordTouched && !passwordValid
+              ? "form-input invalid"
+              : "form-input"
           }
         />
         {passwordInputError && passwordTouched && (
-          <p className={classes["error-message"]}>{passwordInputError}</p>
+          <p className="error-message">{passwordInputError}</p>
         )}
-        <button disabled={!formIsValid}>Login</button>
+        <button disabled={!formIsValid} className="button-main">
+          Login
+        </button>
       </form>
-      {requestError && (
-        <p className={classes["error-message"]}>{requestError}</p>
-      )}
+      {requestError && <p className="error-message">{requestError}</p>}
     </div>
   );
 };

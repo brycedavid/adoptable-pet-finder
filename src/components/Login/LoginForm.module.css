@@ -1,11 +1,4 @@
-.form-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.form-container > form {
+.login-form {
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -15,27 +8,4 @@
 .form-container > form > h2 {
   margin-bottom: 40px;
   margin-top: -14px;
-}
-
-.form-container > form > input {
-  border: 1px solid black;
-  border-radius: 3px;
-  height: 30px;
-  width: 320px;
-  margin-bottom: 30px;
-}
-
-.invalid {
-  border: 1px red solid;
-  background-color: rgb(255, 144, 144);
-}
-
-.form-container > .error-message {
-  position: fixed;
-  margin-top: -300px;
-  color: red;
-  font-weight: bold;
-  border: 2px solid red;
-  border-radius: 8px;
-  padding: 10px;
 }

@@ -44,7 +44,7 @@ const AdoptionCenterDisplay = (props) => {
 
   if (!isLoading && parsedData !== null) {
     return (
-      <div className={classes["display-item-container"]}>
+      <div className="display-item-container">
         <div className={classes["adoption-center-display-container"]}>
           {parsedData.map((organization) => (
             <AdoptionCenterDisplayItem
@@ -63,7 +63,7 @@ const AdoptionCenterDisplay = (props) => {
   }
 
   return (
-    <div className={classes["loading-indicator-container"]}>
+    <div className="loading-indicator-container">
       <LoadingIndicator />
     </div>
   );

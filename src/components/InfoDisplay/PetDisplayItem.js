@@ -35,8 +35,8 @@ const PetDisplayItem = (props) => {
   };
 
   return (
-    <div className={classes["display-item"]} onClick={itemClickHandler}>
-      <h3>{props.name}</h3>
+    <div className="display-item" onClick={itemClickHandler}>
+      <h2>{props.name}</h2>
       <div className={classes["image-container"]}>{photoElement}</div>
       <p>{`Age: ${props.age}`}</p>
       <p>{`Spayed/neutered: ${isFixed}`}</p>

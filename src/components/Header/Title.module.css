@@ -1,19 +1,19 @@
-div > h1 {
-  font-size: 38px;
-  font-weight: 300px;
-  margin-left: 120px;
-}
-
-div > h2 {
-  font-size: 14px;
-  margin-left: 120px;
-}
-
 .title-container {
   width: fit-content;
   justify-content: center;
   align-content: center;
   margin-left: 200px;
+}
+
+.title-header {
+  font-size: 38px;
+  font-weight: 300px;
+  margin-left: 120px;
+}
+
+.title-subtext {
+  font-size: 14px;
+  margin-left: 120px;
 }
 
 .welcome-text {

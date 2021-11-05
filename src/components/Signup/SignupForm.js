@@ -6,6 +6,7 @@
 // If a user has signed up, the user can login. Otherwise, they can't.
 
 import { useContext, useState } from "react";
+import { useHistory } from "react-router";
 import ReactDOM from "react-dom";
 
 import classes from "./SignupForm.module.css";
@@ -29,6 +30,8 @@ const SignupForm = (props) => {
   const [requestError, setRequestError] = useState(null);
 
   const authCtx = useContext(AuthContext);
+
+  const history = useHistory();
 
   let formIsValid = false;
 
@@ -75,7 +78,8 @@ const SignupForm = (props) => {
     authCtx.login(responseData.idToken);
 
     // Call method to wrap up signup flow
-    props.finishSignup();
+    props.onSignup();
+    history.pushState("/home");
   };
 
   // If the email and password inputs have been changed and their values
@@ -140,7 +144,7 @@ const SignupForm = (props) => {
 
   if (isLoading) {
     return (
-      <div className={classes["loading-indicator-container"]}>
+      <div className="loading-indicator-container">
         <LoadingIndicator />
         {ReactDOM.createPortal(
           <Backdrop />,
@@ -151,8 +155,9 @@ const SignupForm = (props) => {
   }
 
   return (
-    <div className={classes["form-container"]}>
+    <div className="form-container">
       <form onSubmit={submitHandler} className={classes["signup-form"]}>
+        <h1>Sign Up</h1>
         <input
           type="text"
           placeholder="email"
@@ -161,10 +166,12 @@ const SignupForm = (props) => {
           onChange={emailChangeHandler}
           onBlur={emailBlurHandler}
           value={enteredEmail}
-          className={emailTouched && !emailValid ? classes["invalid"] : ""}
+          className={
+            emailTouched && !emailValid ? "form-input invalid " : "form-input"
+          }
         />
         {emailInputError && emailTouched && (
-          <p className={classes["error-message"]}>{emailInputError}</p>
+          <p className="error-message">{emailInputError}</p>
         )}
         <input
           type="password"
@@ -175,19 +182,19 @@ const SignupForm = (props) => {
           onBlur={passwordBlurHandler}
           value={enteredPassword}
           className={
-            passwordTouched && !passwordValid ? classes["invalid"] : ""
+            passwordTouched && !passwordValid
+              ? "form-input invalid "
+              : "form-input"
           }
         />
         {passwordInputError && passwordTouched && (
-          <p className={classes["error-message"]}>{passwordInputError}</p>
+          <p className="error-message">{passwordInputError}</p>
         )}
-        <button type="submit" disabled={!formIsValid}>
+        <button type="submit" disabled={!formIsValid} className="button-main">
           Submit
         </button>
       </form>
-      {requestError && (
-        <p className={classes["error-message"]}>{requestError}</p>
-      )}
+      {requestError && <p className="error-message">{requestError}</p>}
     </div>
   );
 };

@@ -4,8 +4,6 @@
 
 import PetDisplay from "../components/InfoDisplay/PetDisplay";
 
-import classes from "./AdoptablePets.module.css";
-
 // Helper method which coverts any string to capital case.
 // Used for page header, which is dynamic based on what's searched for.
 const capitalize = (string) => {
@@ -15,7 +13,7 @@ const capitalize = (string) => {
 
 const AdoptablePets = (props) => {
   return (
-    <div className={classes["adoptable-pets-main-content"]}>
+    <div className="main-content">
       <h1>
         {props.searchData
           ? `Adoptable ${capitalize(props.searchData)}s`

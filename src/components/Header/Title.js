@@ -7,8 +7,10 @@ const Title = () => {
   return (
     <div className={classes["title-container"]}>
       <h1 className={classes["welcome-text"]}>Welcome to:</h1>
-      <h1>Adoptable Pet Finder</h1>
-      <h2>Locate Pet Adoption Centers Near You!</h2>
+      <h1 className={classes["title-header"]}>Adoptable Pet Finder</h1>
+      <h2 className={classes["title-subtext"]}>
+        Locate Pet Adoption Centers Near You!
+      </h2>
     </div>
   );
 };

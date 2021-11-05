@@ -12,8 +12,9 @@
   margin-right: 200px;
 }
 
-.login-container {
+.button-container {
+  align-self: center;
   display: flex;
-  height: 100%;
+  flex-direction: row;
   margin-right: 30px;
 }

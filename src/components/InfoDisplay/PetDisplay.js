@@ -44,7 +44,7 @@ const PetDisplay = (props) => {
 
   if (!isLoading && parsedData !== null) {
     return (
-      <div className={classes["display-item-container"]}>
+      <div className="display-item-container">
         <div className={classes["pet-display-container"]}>
           {parsedData.map((animal) => (
             <PetDisplayItem
@@ -63,7 +63,7 @@ const PetDisplay = (props) => {
   }
 
   return (
-    <div className={classes["loading-indicator-container"]}>
+    <div className="loading-indicator-container">
       <LoadingIndicator />
     </div>
   );

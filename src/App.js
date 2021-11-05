@@ -3,12 +3,11 @@
 // This component handles the logging in and out states to render the login modal, as well as the signup page redirects
 // and search capabilities. It also manages routing for the entire application.
 
-import React, { Fragment, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Route, Redirect, useHistory, Switch } from "react-router-dom";
 
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import LoginModal from "./components/Login/LoginModal";
 import Home from "./pages/Home";
 import AdoptionCenters from "./pages/AdoptionCenters";
 import AdoptablePets from "./pages/AdoptablePets";
@@ -16,9 +15,12 @@ import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import SignUp from "./pages/Signup";
 import AuthContext from "./store/auth-context";
+import Layout from "./components/Layout/Layout";
+import ModalOverlay from "./components/UI/ModalOverlay";
 
 const App = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [isSigningUp, setIsSigningUp] = useState(false);
   const [searchData, setSearchData] = useState(null);
 
   const authCtx = useContext(AuthContext);
@@ -39,17 +41,13 @@ const App = () => {
 
   // Redirect to the signup page
   const startSignupHandler = () => {
-    history.push("/signup");
-  };
-
-  // End the login flow; navigate to homepage
-  const finishSignupHandler = () => {
-    history.push("/home");
+    setIsSigningUp(true);
   };
 
   // Upon closing modal, login flow ends
   const closeModalHandler = () => {
     setIsLoggingIn(false);
+    setIsSigningUp(false);
   };
 
   // Forward the search data from the SearchForm (on Home page) to child components by setting searchData state
@@ -58,8 +56,13 @@ const App = () => {
   };
 
   return (
-    <Fragment>
-      {isLoggingIn && <LoginModal closeModal={closeModalHandler} />}
+    <Layout>
+      {isLoggingIn && (
+        <ModalOverlay closeModal={closeModalHandler} modalType="login" />
+      )}
+      {isSigningUp && (
+        <ModalOverlay closeModal={closeModalHandler} modalType="signup" />
+      )}
       <Header
         isAuthenticated={isAuthenticated}
         onLogin={startLoginHandler}
@@ -83,14 +86,14 @@ const App = () => {
         <Route path="/about">
           <About />
         </Route>
-        <Route path="/signup">
+        {/* <Route path="/signup">
           <SignUp finishSignup={finishSignupHandler} />
-        </Route>
+        </Route> */}
         <Route path="*">
           <NotFound />
         </Route>
       </Switch>
-    </Fragment>
+    </Layout>
   );
 };
 

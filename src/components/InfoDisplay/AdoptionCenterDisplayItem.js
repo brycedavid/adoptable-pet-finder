@@ -15,7 +15,7 @@ const AdoptionCenterDisplayItem = (props) => {
   };
 
   return (
-    <div className={classes["display-item"]} onClick={itemClickHandler}>
+    <div className="display-item" onClick={itemClickHandler}>
       <h3>{props.name}</h3>
       <p>{props.phone}</p>
       <p>{props.address.address1}</p>

@@ -50,7 +50,7 @@ const HomeSearchForm = (props) => {
           <option value="dog">Dogs</option>
           <option value="centers">Adoption Centers</option>
         </select>
-        <Button class="search" text="Search" type="submit" />
+        <Button class="button-main" text="Search" type="submit" />
       </form>
     </Fragment>
   );
