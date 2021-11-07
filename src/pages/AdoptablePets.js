@@ -19,11 +19,7 @@ const AdoptablePets = (props) => {
           ? `Adoptable ${capitalize(props.searchData)}s`
           : "Adoptable Pets"}
       </h1>
-      <PetDisplay
-        limit={100}
-        displayAmount={100}
-        searchFor={props.searchData}
-      />
+      <PetDisplay limit={96} displayAmount={96} searchFor={props.searchData} />
     </div>
   );
 };

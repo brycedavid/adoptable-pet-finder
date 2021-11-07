@@ -2,7 +2,7 @@
 // This component acts as the AdoptionCenterDisplay container, which renders one AdoptionCenterDisplayItem.js per organization as child components. It also handles making the
 // request to Petfinder API for organization data using the custom useApi hook.
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 import classes from "./AdoptionCenterDisplay.module.css";
 
@@ -28,14 +28,29 @@ const AdoptionCenterDisplay = (props) => {
     limit: props.limit,
     type: null,
     sendRequest,
-    displayAmount: 75,
+    displayAmount: 180,
   });
 
   // If isLoading is true and some data was received, setParsedData and set isLoading to false.
   if (data && isLoading === true) {
     setIsLoading(false);
-    setParsedData(data);
+    setParsedData({ data, itemsToShow: 15, showButton: true });
   }
+
+  const showMoreHandler = () => {
+    let { data: prevData, itemsToShow: prevItemsToShow } = parsedData;
+    let hideButton = false;
+
+    if (prevItemsToShow + 15 === 180) {
+      hideButton = true;
+    }
+
+    setParsedData({
+      data: prevData,
+      itemsToShow: prevItemsToShow + 15,
+      showButton: !hideButton,
+    });
+  };
 
   const resetData = () => {
     setIsLoading(true);
@@ -44,21 +59,37 @@ const AdoptionCenterDisplay = (props) => {
 
   if (!isLoading && parsedData !== null) {
     return (
-      <div className="display-item-container">
-        <div className={classes["adoption-center-display-container"]}>
-          {parsedData.map((organization) => (
-            <AdoptionCenterDisplayItem
-              key={organization.key}
-              id={organization.id}
-              address={organization.address}
-              name={organization.name}
-              phone={organization.phone}
-              url={organization.url}
-              animalsLink={organization.animalsLink}
-            />
-          ))}
+      <Fragment>
+        <div className="display-item-container">
+          <div className={classes["adoption-center-display-container"]}>
+            {parsedData.data
+              .slice(0, parsedData.itemsToShow)
+              .map((organization) => (
+                <AdoptionCenterDisplayItem
+                  email={organization.email}
+                  key={organization.key}
+                  id={organization.id}
+                  address={organization.address}
+                  name={organization.name}
+                  phone={organization.phone}
+                  pictures={organization.pictures}
+                  url={organization.url}
+                  animalsLink={organization.animalsLink}
+                />
+              ))}
+          </div>
         </div>
-      </div>
+        <div className="footer-container">
+          {parsedData.showButton && (
+            <button
+              className="button-alt button-display-item"
+              onClick={showMoreHandler}
+            >
+              Show More
+            </button>
+          )}
+        </div>
+      </Fragment>
     );
   }
 

@@ -82,6 +82,12 @@ button {
   cursor: pointer;
 }
 
+.button-display-item {
+  width: 150px;
+  height: 70px;
+  border-radius: 6px;
+}
+
 /* Shared Containers */
 
 .loading-indicator-container {
@@ -120,24 +126,50 @@ button {
   align-content: center;
 }
 
+.footer-container {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin: 60px 0;
+}
+
 /* Display items */
 
 .display-item {
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 280px;
   height: 400px;
   border: 2px solid #0f5797;
   border-radius: 10px;
-  margin: 10px;
+  margin: 20px;
   padding: 10px;
   align-items: center;
-  box-shadow: 2px 2px 2px darkgrey;
+  box-shadow: 6px 6px 8px darkgrey;
+}
+
+.organization-display-item {
+  display: flex;
+  border: 3px solid #0f5797;
+  width: 970px;
+  height: 560px;
+  margin-bottom: 36px;
+  align-items: center;
 }
 
 .display-item:hover {
   cursor: pointer;
   background-color: rgba(235, 233, 233, 0.527);
+}
+
+.display-item-name {
+  align-self: center;
+  font-size: 28px;
+  margin-bottom: 60px;
+}
+
+.organization-item-name {
+  font-size: 34px;
 }
 
 /* Form Inputs */

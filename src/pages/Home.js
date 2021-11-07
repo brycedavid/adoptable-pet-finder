@@ -25,7 +25,7 @@ const Home = (props) => {
         />
       </Card>
       <h1>Featured Pets</h1>
-      <PetDisplay limit={25} displayAmount={8} />
+      <PetDisplay limit={25} displayAmount={8} featuredPets={true} />
       <div className="text-container">
         <h2>
           Looking to adopt a furry friend? You've come to the right place!

@@ -82,8 +82,11 @@ const useApi = (searchOptions) => {
           if (responseData && !requestError) {
             for (let organization of responseData.data.organizations) {
               dataArray.push({
+                email: organization.email,
                 key: organization.id,
                 id: organization.id,
+                phone: organization.phone,
+                pictures: organization.photos,
                 address: organization.address,
                 name: organization.name,
                 url: organization.url,

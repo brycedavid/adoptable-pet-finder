@@ -2,7 +2,7 @@
 // This component acts as the PetDisplay container, which renders one PetDisplayItem.js per pet as child components. It also handles making the
 // request to Petfinder API for pet data using the custom useApi hook.
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 import classes from "./PetDisplay.module.css";
 
@@ -34,8 +34,27 @@ const PetDisplay = (props) => {
   // If isLoading is true and some data was received, setParsedData and set isLoading to false.
   if (data && isLoading === true) {
     setIsLoading(false);
-    setParsedData(data);
+    setParsedData({
+      data,
+      itemsToShow: 12,
+      showButton: props.featuredPets ? false : true,
+    });
   }
+
+  const showMoreHandler = () => {
+    let { data: prevData, itemsToShow: prevItemsToShow } = parsedData;
+    let hideButton = false;
+
+    if (prevItemsToShow + 12 === 96) {
+      hideButton = true;
+    }
+
+    setParsedData({
+      data: prevData,
+      itemsToShow: prevItemsToShow + 12,
+      showButton: !hideButton,
+    });
+  };
 
   const resetData = () => {
     setIsLoading(true);
@@ -44,21 +63,33 @@ const PetDisplay = (props) => {
 
   if (!isLoading && parsedData !== null) {
     return (
-      <div className="display-item-container">
-        <div className={classes["pet-display-container"]}>
-          {parsedData.map((animal) => (
-            <PetDisplayItem
-              key={animal.key}
-              name={animal.name}
-              age={animal.age}
-              fixed={animal.fixed}
-              pictures={animal.pictures}
-              url={animal.url}
-              type={animal.type}
-            />
-          ))}
+      <Fragment>
+        <div className="display-item-container">
+          <div className={classes["pet-display-container"]}>
+            {parsedData.data.slice(0, parsedData.itemsToShow).map((animal) => (
+              <PetDisplayItem
+                key={animal.key}
+                name={animal.name}
+                age={animal.age}
+                fixed={animal.fixed}
+                pictures={animal.pictures}
+                url={animal.url}
+                type={animal.type}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+        <div className="footer-container">
+          {parsedData.showButton && (
+            <button
+              className="button-alt button-display-item"
+              onClick={showMoreHandler}
+            >
+              Show More
+            </button>
+          )}
+        </div>
+      </Fragment>
     );
   }
 
