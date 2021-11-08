@@ -7,7 +7,7 @@ import mainImage from "../images/Puppy-and-Kitten.jpeg";
 
 import Card from "../components/UI/Card";
 import Image from "../components/UI/Image";
-import HomeSearchForm from "../components/Search/HomeSearchForm";
+import SearchForm from "../components/Search/SearchForm";
 import PetDisplay from "../components/InfoDisplay/PetDisplay";
 
 const Home = (props) => {
@@ -37,7 +37,7 @@ const Home = (props) => {
         </h3>
       </div>
       <Card class="main-search-container">
-        <HomeSearchForm onSubmit={searchFormSubmitHandler} />
+        <SearchForm onSubmit={searchFormSubmitHandler} />
       </Card>
     </div>
   );

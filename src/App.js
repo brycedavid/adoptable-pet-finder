@@ -13,7 +13,6 @@ import AdoptionCenters from "./pages/AdoptionCenters";
 import AdoptablePets from "./pages/AdoptablePets";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
-import SignUp from "./pages/Signup";
 import AuthContext from "./store/auth-context";
 import Layout from "./components/Layout/Layout";
 import ModalOverlay from "./components/UI/ModalOverlay";
@@ -81,14 +80,14 @@ const App = () => {
           <AdoptionCenters searchData={searchData} />
         </Route>
         <Route path="/adoptable-pets">
-          <AdoptablePets searchData={searchData} />
+          <AdoptablePets
+            forwardFormData={forwardData}
+            searchData={searchData}
+          />
         </Route>
         <Route path="/about">
           <About />
         </Route>
-        {/* <Route path="/signup">
-          <SignUp finishSignup={finishSignupHandler} />
-        </Route> */}
         <Route path="*">
           <NotFound />
         </Route>

@@ -1,15 +1,15 @@
-// HomeSearchForm.js
-// This is the search form that is rendered on the Homepage.
+// SearchForm.js
+// This is the search form that is rendered on the Homepage and Item Display pages.
 // It allows the user to retrieve pet data based on a search value.
 
 import { Fragment, useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 
-import classes from "./HomeSearchForm.module.css";
+import classes from "./SearchForm.module.css";
 
 import Button from "../UI/Button";
 
-const HomeSearchForm = (props) => {
+const SearchForm = (props) => {
   const [searchFor, setSearchFor] = useState("");
 
   const history = useHistory();
@@ -22,7 +22,7 @@ const HomeSearchForm = (props) => {
 
   // Upon submission, navigate to page associated with search value.
   const searchSubmitHandler = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     const value = selectValue.current.value;
     if (value === "centers") {
@@ -46,8 +46,8 @@ const HomeSearchForm = (props) => {
           onChange={selectChangeHandler}
           ref={selectValue}
         >
-          <option value="cat">Cats</option>
-          <option value="dog">Dogs</option>
+          {props.searchValue !== "cat" && <option value="cat">Cats</option>}
+          {props.searchValue !== "dog" && <option value="dog">Dogs</option>}
           <option value="centers">Adoption Centers</option>
         </select>
         <Button class="button-main" text="Search" type="submit" />
@@ -56,4 +56,4 @@ const HomeSearchForm = (props) => {
   );
 };
 
-export default HomeSearchForm;
+export default SearchForm;
