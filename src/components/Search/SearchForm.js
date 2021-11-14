@@ -46,8 +46,8 @@ const SearchForm = (props) => {
           onChange={selectChangeHandler}
           ref={selectValue}
         >
-          {props.searchValue !== "cat" && <option value="cat">Cats</option>}
-          {props.searchValue !== "dog" && <option value="dog">Dogs</option>}
+          <option value="cat">Cats</option>
+          <option value="dog">Dogs</option>
           <option value="centers">Adoption Centers</option>
         </select>
         <Button class="button-main" text="Search" type="submit" />

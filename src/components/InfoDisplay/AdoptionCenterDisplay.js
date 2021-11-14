@@ -3,6 +3,7 @@
 // request to Petfinder API for organization data using the custom useApi hook.
 
 import { Fragment, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import classes from "./AdoptionCenterDisplay.module.css";
 
@@ -13,6 +14,8 @@ import LoadingIndicator from "../UI/LoadingIndicator";
 const AdoptionCenterDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
+
+  const history = useHistory();
 
   // Determines whether or not we should send a request
   let sendRequest = false;
@@ -52,9 +55,8 @@ const AdoptionCenterDisplay = (props) => {
     });
   };
 
-  const resetData = () => {
-    setIsLoading(true);
-    setParsedData(null);
+  const browsePetsHandler = () => {
+    history.push("/adoptable-pets");
   };
 
   if (!isLoading && parsedData !== null) {
@@ -88,6 +90,12 @@ const AdoptionCenterDisplay = (props) => {
               Show More
             </button>
           )}
+          <button
+            className="button-main button-display-item"
+            onClick={browsePetsHandler}
+          >
+            Browse Adoptable Pets
+          </button>
         </div>
       </Fragment>
     );

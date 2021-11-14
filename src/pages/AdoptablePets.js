@@ -3,10 +3,8 @@
 // Implemented for use with React router in App.js.
 
 import { useState } from "react";
-
 import PetDisplay from "../components/InfoDisplay/PetDisplay";
-import SearchForm from "../components/Search/SearchForm";
-import Card from "../components/UI/Card";
+import ResultsFilter from "../components/ResultsFilter/ResultsFilter";
 
 // Helper method which coverts any string to capital case.
 // Used for page header, which is dynamic based on what's searched for.
@@ -15,25 +13,25 @@ const capitalize = (string) => {
   return string.charAt(0).toUpperCase() + lower.slice(1);
 };
 
-const AdoptablePets = (props) => {
-  const searchFormSubmitHandler = (searchValue) => {
-    props.forwardFormData(searchValue);
+const AdoptablePets = () => {
+  const [filter, setFilter] = useState();
+  const [filtered, setFiltered] = useState(false);
+
+  const setFilterHandler = (filterValues) => {
+    setFilter({ ...filterValues });
+    setFiltered(true);
   };
 
   return (
     <div className="main-content">
-      <h1>
-        {props.searchData
-          ? `Adoptable ${capitalize(props.searchData)}s`
-          : "Adoptable Pets"}
-      </h1>
-      <PetDisplay limit={96} displayAmount={96} searchFor={props.searchData} />
-      <Card class="main-search-container">
-        {/* <SearchForm
-          onSubmit={searchFormSubmitHandler}
-          searchValue={props.searchData}
-        /> */}
-      </Card>
+      <ResultsFilter setPageFilter={setFilterHandler} />
+      <h1>{"Adoptable Pets"}</h1>
+      <PetDisplay
+        petsFilter={filter}
+        filtered={filtered}
+        limit={96}
+        displayAmount={96}
+      />
     </div>
   );
 };

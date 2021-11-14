@@ -4,7 +4,7 @@
 // and search capabilities. It also manages routing for the entire application.
 
 import React, { useContext, useState } from "react";
-import { Route, Redirect, useHistory, Switch } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
@@ -23,7 +23,6 @@ const App = () => {
   const [searchData, setSearchData] = useState(null);
 
   const authCtx = useContext(AuthContext);
-  const history = useHistory();
 
   // Check if the user has an authentication token stored in the context
   const isAuthenticated = !!authCtx.token;
@@ -80,10 +79,7 @@ const App = () => {
           <AdoptionCenters searchData={searchData} />
         </Route>
         <Route path="/adoptable-pets">
-          <AdoptablePets
-            forwardFormData={forwardData}
-            searchData={searchData}
-          />
+          <AdoptablePets />
         </Route>
         <Route path="/about">
           <About />

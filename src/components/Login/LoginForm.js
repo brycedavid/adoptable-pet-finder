@@ -3,7 +3,7 @@
 // It handles all user login logic, including making API requests for logging in
 // and validating user input.
 
-import { Fragment, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useHistory } from "react-router";
 
 import AuthContext from "../../store/auth-context";

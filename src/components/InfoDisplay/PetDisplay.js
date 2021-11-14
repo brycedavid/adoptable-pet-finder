@@ -3,6 +3,8 @@
 // request to Petfinder API for pet data using the custom useApi hook.
 
 import { Fragment, useState } from "react";
+import { useHistory } from "react-router-dom";
+import isEqual from "react-fast-compare";
 
 import classes from "./PetDisplay.module.css";
 
@@ -13,34 +15,50 @@ import LoadingIndicator from "../UI/LoadingIndicator";
 const PetDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
+  const [filter, setFilter] = useState(null);
+  const [prevData, setPrevData] = useState(null);
 
   // Determines whether or not we should send a request
-  let sendRequest = false;
+  let sendRequest = true;
+  let data = null;
 
-  // If there is no data and isLoading is true (initial component render), send a request
-  if (parsedData === null && isLoading === true) {
-    sendRequest = true;
+  if (props.petsFilter && !isEqual(props.petsFilter, filter)) {
+    setPrevData(parsedData.data);
+    console.log("Filters in PetDisplay not equal. Setting filter to: ");
+    console.log(props.petsFilter);
+    setFilter(props.petsFilter);
+    setIsLoading(true);
+    setParsedData(null);
+  } else {
+    console.log("No filter necessary; not setting filter");
   }
 
+  const history = useHistory();
+
   // Request pet data
-  const data = useApi({
-    searchType: "pets",
+  data = useApi({
     limit: props.limit,
-    type: props.searchFor,
-    sendRequest,
     displayAmount: props.displayAmount,
+    sendRequest,
+    filter: props.petsFilter,
+    shouldFilter: props.filtered,
   });
 
+  console.log(data);
+  console.log(isLoading);
+
   // If isLoading is true and some data was received, setParsedData and set isLoading to false.
-  if (data && isLoading === true) {
+  if (data !== null && data !== prevData) {
     setIsLoading(false);
+    console.log("Data from request: ");
+    console.log(data);
+    setPrevData(data);
     setParsedData({
       data,
       itemsToShow: 12,
       showButton: props.featuredPets ? false : true,
     });
   }
-
   const showMoreHandler = () => {
     let { data: prevData, itemsToShow: prevItemsToShow } = parsedData;
     let hideButton = false;
@@ -56,12 +74,11 @@ const PetDisplay = (props) => {
     });
   };
 
-  const resetData = () => {
-    setIsLoading(true);
-    setParsedData(null);
+  const browseOrganizationsHandler = () => {
+    history.push("/adoption-centers");
   };
 
-  if (!isLoading && parsedData !== null) {
+  if (!isLoading && data !== null) {
     return (
       <Fragment>
         <div className="display-item-container">
@@ -85,7 +102,15 @@ const PetDisplay = (props) => {
               className="button-alt button-display-item"
               onClick={showMoreHandler}
             >
-              Show More
+              Show More Pets
+            </button>
+          )}
+          {history.location.pathname === "/adoptable-pets" && (
+            <button
+              className="button-main button-display-item"
+              onClick={browseOrganizationsHandler}
+            >
+              Browse Adoption Centers
             </button>
           )}
         </div>

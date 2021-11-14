@@ -1,7 +1,7 @@
 // use-api.js
 // This component is implemented as a custom hook, which is called to perform API requests
 // related to pet information from the Petfinder API. Configured to be re-usable for any search
-// using the searchOptions parameter.
+// using the props parameter.
 
 import { useState, useEffect } from "react";
 
@@ -15,40 +15,86 @@ const petFinderClient = new Client({
 
 // Check current state if data has changed to prevent re-renders; Redux?
 
-const useApi = (searchOptions) => {
+const useApi = (props) => {
   const [data, setData] = useState(null);
   const [requestError, setRequestError] = useState(null);
 
-  // Destruct searchOptions to extract values
-  let { searchType, limit, type, sendRequest, displayAmount } = searchOptions;
+  // Destruct props to extract values
+  let {
+    limit,
+    sendRequest: propSendRequest,
+    searchType,
+    displayAmount,
+    filter: propFilter,
+  } = props;
+
+  let parsedValues = {};
+  if (propFilter) {
+    let { type, breed, gender, age, zip } = propFilter;
+    let valueArray = [
+      "type",
+      type,
+      "breed",
+      breed,
+      "gender",
+      gender,
+      "age",
+      age,
+      "zip",
+      zip,
+    ];
+
+    for (let i = 1; i < valueArray.length; i += 2) {
+      if (valueArray[i] !== "any") {
+        parsedValues[valueArray[i - 1]] = valueArray[i];
+      }
+    }
+  }
+
+  console.log("Search Type: " + searchType);
+  console.log("Send Request: " + propSendRequest);
+
+  if (!searchType) {
+    console.log("Setting search type...");
+    searchType = "pets";
+  }
 
   useEffect(() => {
     // This async method makes our API request and parses it into an iterable array, which
-    // is returned to whatever uses this hook. If searchOptions.sendRequest is false, do not
+    // is returned to whatever uses this hook. If props.sendRequest is false, do not
     // make a request.
     const makeRequest = async () => {
       let responseData = null;
       let dataArray = [];
 
       console.log("Requesting data...");
+      console.log("Filter used for request: ");
+      console.log(parsedValues);
 
       if (requestError) {
         console.log("API request failed.... retrying...");
       }
 
-      // Decide which type of request to make based on searchOptions.searchType
+      // Decide which type of request to make based on props.searchType
       switch (searchType) {
         case "pets":
-          // Request pet data
-          responseData = await petFinderClient.animal
-            .search({
-              type,
-              limit,
-            })
-            .catch((error) => {
-              console.log(error);
-              setRequestError(error);
-            });
+          if (propFilter) {
+            console.log("filtered request");
+            responseData = await petFinderClient.animal
+              .search({ limit, ...parsedValues })
+              .catch((error) => {
+                console.log(error);
+                setRequestError(error);
+              });
+          } else {
+            console.log("Non-filtered request");
+            responseData = await petFinderClient.animal
+              .search({ limit })
+              .catch((error) => {
+                console.log(error);
+                setRequestError(error);
+              });
+          }
 
           // if data is returned from request, parse and store into dataArray
           if (responseData && !requestError) {
@@ -103,20 +149,30 @@ const useApi = (searchOptions) => {
       // Log our data (for development purposes) and set our data state.
       console.log(responseData);
       console.log(dataArray);
+      console.log("Setting data..");
       setData(dataArray.slice(0, displayAmount));
     };
 
-    // If searchOptions.sendRequest is true, call makeRequest.
+    // If props.sendRequest is true, call makeRequest.
     // otherwise, do nothing.
-    if (sendRequest) {
+    if (propSendRequest) {
+      console.log("Calling makeRequest...");
       makeRequest();
     }
 
     // useEffect cleanup
     return () => {
-      // cancel request
+      setData(null);
     };
-  }, [sendRequest, displayAmount, limit, type, searchType, requestError]);
+  }, [
+    propSendRequest,
+    displayAmount,
+    limit,
+    searchType,
+    propFilter,
+    requestError,
+    props.filter,
+  ]);
 
   return data;
 };
