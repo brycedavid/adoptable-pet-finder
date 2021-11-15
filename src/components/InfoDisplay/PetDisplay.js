@@ -11,37 +11,76 @@ import classes from "./PetDisplay.module.css";
 import PetDisplayItem from "./PetDisplayItem";
 import useApi from "../../hooks/use-api";
 import LoadingIndicator from "../UI/LoadingIndicator";
+import Backdrop from "../UI/Backdrop";
 
 const PetDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
   const [filter, setFilter] = useState(null);
   const [prevData, setPrevData] = useState(null);
+  const [requestError, setRequestError] = useState(null);
+  const [homeFilter, setHomeFilter] = useState(null);
 
   // Determines whether or not we should send a request
   let sendRequest = true;
   let data = null;
 
-  if (props.petsFilter && !isEqual(props.petsFilter, filter)) {
+  if (requestError) {
+    sendRequest = false;
+  }
+
+  if (props.homeSearchFor && homeFilter === null) {
+    setHomeFilter(props.homeSearchFor);
+    console.log(
+      "Received data from home search form; setting Home Filter to: "
+    );
+    console.log(props.homeSearchFor);
+  }
+
+  if (
+    props.petsFilter &&
+    homeFilter &&
+    !isEqual(props.petsFilter, homeFilter)
+  ) {
+    setFilter(props.petsFilter);
+    setIsLoading(true);
+    setParsedData(null);
+    setRequestError(null);
+    setHomeFilter(null);
+  }
+
+  if (
+    props.petsFilter &&
+    !isEqual(props.petsFilter, filter) &&
+    props.homeSearchFor === null &&
+    parsedData.hasOwnProperty(data)
+  ) {
     setPrevData(parsedData.data);
     console.log("Filters in PetDisplay not equal. Setting filter to: ");
     console.log(props.petsFilter);
     setFilter(props.petsFilter);
     setIsLoading(true);
     setParsedData(null);
+    setRequestError(null);
+    setHomeFilter(null);
   } else {
     console.log("No filter necessary; not setting filter");
   }
 
   const history = useHistory();
 
+  const requestErrorHandler = (error) => {
+    console.log("request error handler");
+    setRequestError(error);
+  };
+
   // Request pet data
   data = useApi({
     limit: props.limit,
     displayAmount: props.displayAmount,
     sendRequest,
-    filter: props.petsFilter,
-    shouldFilter: props.filtered,
+    filter: homeFilter ? homeFilter : props.petsFilter,
+    onRequestError: requestErrorHandler,
   });
 
   console.log(data);
@@ -59,6 +98,7 @@ const PetDisplay = (props) => {
       showButton: props.featuredPets ? false : true,
     });
   }
+
   const showMoreHandler = () => {
     let { data: prevData, itemsToShow: prevItemsToShow } = parsedData;
     let hideButton = false;
@@ -77,6 +117,15 @@ const PetDisplay = (props) => {
   const browseOrganizationsHandler = () => {
     history.push("/adoption-centers");
   };
+
+  if (requestError) {
+    return (
+      <h1>
+        Something went wrong with your request. Please check your search values
+        and try again.
+      </h1>
+    );
+  }
 
   if (!isLoading && data !== null) {
     return (
@@ -120,6 +169,7 @@ const PetDisplay = (props) => {
 
   return (
     <div className="loading-indicator-container">
+      <Backdrop />
       <LoadingIndicator />
     </div>
   );

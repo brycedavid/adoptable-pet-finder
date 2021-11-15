@@ -79,7 +79,7 @@ const App = () => {
           <AdoptionCenters searchData={searchData} />
         </Route>
         <Route path="/adoptable-pets">
-          <AdoptablePets />
+          <AdoptablePets searchData={searchData} />
         </Route>
         <Route path="/about">
           <About />

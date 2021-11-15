@@ -1,6 +1,8 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 import classes from "./ResultsFilter.module.css";
+
+//**** Implement your selects by mapping an array of the values *//
 
 const ResultsFilter = (props) => {
   const [showFilter, setShowFilter] = useState(false);
@@ -9,7 +11,7 @@ const ResultsFilter = (props) => {
     breed: "any",
     gender: "any",
     age: "any",
-    zip: "any",
+    location: "any",
   });
 
   const showFilterHandler = () => {
@@ -24,7 +26,7 @@ const ResultsFilter = (props) => {
     } else if (event.target.id === "age-select") {
       setFilter({ ...filter, age: event.target.value });
     } else if (event.target.id === "zip-input") {
-      setFilter({ ...filter, zip: event.target.value });
+      setFilter({ ...filter, location: event.target.value });
     } else if (event.target.id === "type-select") {
       setFilter({ ...filter, type: event.target.value });
     }

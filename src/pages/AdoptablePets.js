@@ -5,6 +5,7 @@
 import { useState } from "react";
 import PetDisplay from "../components/InfoDisplay/PetDisplay";
 import ResultsFilter from "../components/ResultsFilter/ResultsFilter";
+import isEqual from "react-fast-compare";
 
 // Helper method which coverts any string to capital case.
 // Used for page header, which is dynamic based on what's searched for.
@@ -13,13 +14,17 @@ const capitalize = (string) => {
   return string.charAt(0).toUpperCase() + lower.slice(1);
 };
 
-const AdoptablePets = () => {
-  const [filter, setFilter] = useState();
-  const [filtered, setFiltered] = useState(false);
+const AdoptablePets = (props) => {
+  const [filter, setFilter] = useState(null);
+  const [homeSearchFor, setHomeSearchFor] = useState(null);
+
+  if (props.searchData && homeSearchFor === null && filter === null) {
+    setHomeSearchFor({ type: props.searchData });
+  }
 
   const setFilterHandler = (filterValues) => {
     setFilter({ ...filterValues });
-    setFiltered(true);
+    setHomeSearchFor(null);
   };
 
   return (
@@ -28,7 +33,7 @@ const AdoptablePets = () => {
       <h1>{"Adoptable Pets"}</h1>
       <PetDisplay
         petsFilter={filter}
-        filtered={filtered}
+        homeSearchFor={homeSearchFor}
         limit={96}
         displayAmount={96}
       />

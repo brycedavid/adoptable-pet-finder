@@ -13,6 +13,9 @@ const petFinderClient = new Client({
   secret: "WhuKLwumWocRsjzuQYPVSC6ZybxuMdhVCRXYIIW6",
 });
 
+// Controls how many times a request is retried
+let numRequestRetries = 0;
+
 // Check current state if data has changed to prevent re-renders; Redux?
 
 const useApi = (props) => {
@@ -26,11 +29,12 @@ const useApi = (props) => {
     searchType,
     displayAmount,
     filter: propFilter,
+    onRequestError,
   } = props;
 
   let parsedValues = {};
   if (propFilter) {
-    let { type, breed, gender, age, zip } = propFilter;
+    let { type, breed, gender, age, location } = propFilter;
     let valueArray = [
       "type",
       type,
@@ -40,8 +44,8 @@ const useApi = (props) => {
       gender,
       "age",
       age,
-      "zip",
-      zip,
+      "location",
+      location,
     ];
 
     for (let i = 1; i < valueArray.length; i += 2) {
@@ -49,6 +53,10 @@ const useApi = (props) => {
         parsedValues[valueArray[i - 1]] = valueArray[i];
       }
     }
+  }
+
+  if (parsedValues.type === "pets") {
+    delete parsedValues.type;
   }
 
   console.log("Search Type: " + searchType);
@@ -72,7 +80,8 @@ const useApi = (props) => {
       console.log(parsedValues);
 
       if (requestError) {
-        console.log("API request failed.... retrying...");
+        console.log("API request failed.... retrying..." + numRequestRetries);
+        numRequestRetries++;
       }
 
       // Decide which type of request to make based on props.searchType
@@ -151,11 +160,17 @@ const useApi = (props) => {
       console.log(dataArray);
       console.log("Setting data..");
       setData(dataArray.slice(0, displayAmount));
+
+      if (requestError && numRequestRetries > 0) {
+        console.log("Calling onRequestError");
+        onRequestError(requestError);
+        numRequestRetries = 0;
+      }
     };
 
     // If props.sendRequest is true, call makeRequest.
     // otherwise, do nothing.
-    if (propSendRequest) {
+    if (propSendRequest && numRequestRetries < 1) {
       console.log("Calling makeRequest...");
       makeRequest();
     }
@@ -163,6 +178,7 @@ const useApi = (props) => {
     // useEffect cleanup
     return () => {
       setData(null);
+      setRequestError(null);
     };
   }, [
     propSendRequest,
