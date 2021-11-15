@@ -174,7 +174,10 @@ const LoginForm = (props) => {
         {passwordInputError && passwordTouched && (
           <p className="error-message">{passwordInputError}</p>
         )}
-        <button disabled={!formIsValid} className="button-main">
+        <button
+          disabled={!formIsValid}
+          className={formIsValid ? "button-main" : "button-main disabled"}
+        >
           Login
         </button>
       </form>

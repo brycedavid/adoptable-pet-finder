@@ -21,7 +21,7 @@ const ResultsFilter = (props) => {
     location: "any",
   });
 
-  let formValid = locationValid;
+  let formIsValid = locationValid;
 
   const showFilterHandler = () => {
     setShowFilter(true);
@@ -125,8 +125,8 @@ const ResultsFilter = (props) => {
         />
         <button
           type="submit"
-          className={formValid ? "button-alt" : "button-alt disabled"}
-          disabled={!formValid}
+          className={formIsValid ? "button-alt" : "button-alt disabled"}
+          disabled={!formIsValid}
         >
           Search
         </button>
