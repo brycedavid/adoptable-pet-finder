@@ -13,6 +13,8 @@ import useApi from "../../hooks/use-api";
 import LoadingIndicator from "../UI/LoadingIndicator";
 import Backdrop from "../UI/Backdrop";
 
+let requestErrorShown = false;
+
 const PetDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
@@ -86,8 +88,8 @@ const PetDisplay = (props) => {
   console.log(data);
   console.log(isLoading);
 
-  // If isLoading is true and some data was received, setParsedData and set isLoading to false.
   if (data !== null && data !== prevData) {
+    // If isLoading is true and some data was received, setParsedData and set isLoading to false.
     let showButton = true;
 
     if (data.length <= 12) {
@@ -144,17 +146,23 @@ const PetDisplay = (props) => {
       <Fragment>
         <div className="display-item-container">
           <div className={classes["pet-display-container"]}>
-            {parsedData.data.slice(0, parsedData.itemsToShow).map((animal) => (
-              <PetDisplayItem
-                key={animal.key}
-                name={animal.name}
-                age={animal.age}
-                fixed={animal.fixed}
-                pictures={animal.pictures}
-                url={animal.url}
-                type={animal.type}
-              />
-            ))}
+            {parsedData.data.length > 0 ? (
+              parsedData.data
+                .slice(0, parsedData.itemsToShow)
+                .map((animal) => (
+                  <PetDisplayItem
+                    key={animal.key}
+                    name={animal.name}
+                    age={animal.age}
+                    fixed={animal.fixed}
+                    pictures={animal.pictures}
+                    url={animal.url}
+                    type={animal.type}
+                  />
+                ))
+            ) : (
+              <div>No pets found.</div>
+            )}
           </div>
         </div>
         <div className="footer-container">

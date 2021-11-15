@@ -89,6 +89,17 @@ button {
   margin-bottom: 28px;
 }
 
+.disabled {
+  background-color: rgb(160, 160, 160);
+  border: 0.5px solid darkgrey;
+}
+
+.disabled:hover {
+  cursor: default;
+  background-color: rgb(160, 160, 160);
+  border: 0.5px solid darkgrey;
+}
+
 /* Shared Containers */
 
 .loading-indicator-container {

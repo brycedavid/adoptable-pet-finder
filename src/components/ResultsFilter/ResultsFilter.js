@@ -10,6 +10,7 @@ const petFinderClient = new Client({
 });
 
 const ResultsFilter = (props) => {
+  const [locationValid, setLocationValid] = useState(true);
   const [showFilter, setShowFilter] = useState(false);
   const [breeds, setBreeds] = useState([]);
   const [filter, setFilter] = useState({
@@ -19,6 +20,8 @@ const ResultsFilter = (props) => {
     age: "any",
     location: "any",
   });
+
+  let formValid = locationValid;
 
   const showFilterHandler = () => {
     setShowFilter(true);
@@ -32,7 +35,23 @@ const ResultsFilter = (props) => {
     } else if (event.target.id === "age-select") {
       setFilter({ ...filter, age: event.target.value });
     } else if (event.target.id === "zip-input") {
-      setFilter({ ...filter, location: event.target.value });
+      if (event.target.value.length < 5 && event.target.value.length !== 0) {
+        setLocationValid(false);
+        setFilter({ ...filter });
+      } else if (isNaN(event.target.value)) {
+        let newFilter = { ...filter };
+        delete newFilter.location;
+        setLocationValid(false);
+        setFilter({ ...filter });
+      } else if (event.target.value.length === 0) {
+        let newFilter = { ...filter };
+        delete newFilter.location;
+        setLocationValid(true);
+        setFilter({ ...newFilter });
+      } else {
+        setLocationValid(true);
+        setFilter({ ...filter, location: event.target.value });
+      }
     } else if (event.target.id === "type-select") {
       setFilter({ ...filter, type: event.target.value });
     }
@@ -102,8 +121,13 @@ const ResultsFilter = (props) => {
           placeholder="zip code"
           onChange={changeFilterHandler}
           value={zip}
+          maxLength="5"
         />
-        <button type="submit" className="button-alt">
+        <button
+          type="submit"
+          className={formValid ? "button-alt" : "button-alt disabled"}
+          disabled={!formValid}
+        >
           Search
         </button>
       </form>
