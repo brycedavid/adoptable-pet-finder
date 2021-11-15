@@ -88,6 +88,15 @@ const PetDisplay = (props) => {
 
   // If isLoading is true and some data was received, setParsedData and set isLoading to false.
   if (data !== null && data !== prevData) {
+    let showButton = true;
+
+    if (data.length <= 12) {
+      showButton = false;
+    }
+    if (props.featuredPets) {
+      showButton = false;
+    }
+
     setIsLoading(false);
     console.log("Data from request: ");
     console.log(data);
@@ -95,22 +104,25 @@ const PetDisplay = (props) => {
     setParsedData({
       data,
       itemsToShow: 12,
-      showButton: props.featuredPets ? false : true,
+      showButton,
     });
   }
 
   const showMoreHandler = () => {
     let { data: prevData, itemsToShow: prevItemsToShow } = parsedData;
-    let hideButton = false;
+    let showButton = true;
 
-    if (prevItemsToShow + 12 === 96) {
-      hideButton = true;
+    if (
+      prevItemsToShow + 12 === 96 ||
+      prevData.length <= prevItemsToShow + 12
+    ) {
+      showButton = false;
     }
 
     setParsedData({
       data: prevData,
       itemsToShow: prevItemsToShow + 12,
-      showButton: !hideButton,
+      showButton,
     });
   };
 

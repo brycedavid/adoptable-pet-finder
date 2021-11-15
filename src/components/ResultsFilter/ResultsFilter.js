@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import classes from "./ResultsFilter.module.css";
 
-//**** Implement your selects by mapping an array of the values *//
+import { Client } from "@petfinder/petfinder-js";
+
+const petFinderClient = new Client({
+  apiKey: "YeI5i5zLHnqvUoBxfJcjseCpBDQcZSS6ecZKJouXs07aejuKfK",
+  secret: "WhuKLwumWocRsjzuQYPVSC6ZybxuMdhVCRXYIIW6",
+});
 
 const ResultsFilter = (props) => {
   const [showFilter, setShowFilter] = useState(false);
+  const [breeds, setBreeds] = useState([]);
   const [filter, setFilter] = useState({
     type: "pets",
     breed: "any",
@@ -37,6 +43,23 @@ const ResultsFilter = (props) => {
     props.setPageFilter(filter);
   };
 
+  useEffect(() => {
+    const makeRequest = async () => {
+      let response = null;
+
+      if (filter.type === "dog") {
+        response = await petFinderClient.animalData.breeds("dog");
+        setBreeds(response.data.breeds);
+      } else if (filter.type === "cat") {
+        response = await petFinderClient.animalData.breeds("cat");
+        setBreeds(response.data.breeds);
+      } else {
+        setBreeds([]);
+      }
+    };
+    makeRequest();
+  }, [filter.type]);
+
   let { type, breed, gender, age, zip } = filter;
 
   if (showFilter) {
@@ -50,9 +73,12 @@ const ResultsFilter = (props) => {
         </select>
         <label>Breed</label>
         <select id="breed-select" value={breed} onChange={changeFilterHandler}>
-          <option value="labrador retriever">Labrador Retriever</option>
-          <option value="poodle">Poodle</option>
-          <option value="any">Any</option>
+          <option value="any">any</option>
+          {breeds.map((breed) => (
+            <option value={breed.name} key={breed.name}>
+              {breed.name}
+            </option>
+          ))}
         </select>
         <label>Gender</label>
         <select
