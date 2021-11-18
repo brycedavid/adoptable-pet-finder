@@ -86,13 +86,13 @@ const ResultsFilter = (props) => {
       <form onSubmit={formSubmitHandler} className={classes["filter-form"]}>
         <label>Pet type</label>
         <select id="type-select" value={type} onChange={changeFilterHandler}>
-          <option value="any">Any</option>
+          <option value="any">All</option>
           <option value="cat">Cats</option>
           <option value="dog">Dogs</option>
         </select>
         <label>Breed</label>
         <select id="breed-select" value={breed} onChange={changeFilterHandler}>
-          <option value="any">any</option>
+          <option value="any">All</option>
           {breeds.map((breed) => (
             <option value={breed.name} key={breed.name}>
               {breed.name}
@@ -105,15 +105,17 @@ const ResultsFilter = (props) => {
           value={gender}
           onChange={changeFilterHandler}
         >
+          <option value="any">All</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
-          <option value="any">Any</option>
         </select>
         <label>Age</label>
         <select id="age-select" value={age} onChange={changeFilterHandler}>
+          <option value="any">All</option>
+          <option value="baby">Baby</option>
           <option value="young">Young</option>
+          <option vlue="adult">Adult</option>
           <option value="senior">Senior</option>
-          <option value="any">Any</option>
         </select>
         <label>Location</label>
         <input

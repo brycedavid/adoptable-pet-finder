@@ -60,8 +60,6 @@ const SignupForm = (props) => {
 
     // If the response is invalid...
     if (!response.ok) {
-      console.log(responseData);
-
       if (responseData.error.message === "EMAIL_EXISTS") {
         setRequestError(
           "The email you are attempting to use is already in use by another account."

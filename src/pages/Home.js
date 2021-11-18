@@ -3,7 +3,7 @@
 // a featured pets section and a search form.
 // Base URL (/) automatically routes here in App.js.
 
-import mainImage from "../images/Puppy-and-Kitten.jpeg";
+import mainImage from "../shared/images/Puppy-and-Kitten.jpeg";
 
 import Card from "../components/UI/Card";
 import Image from "../components/UI/Image";

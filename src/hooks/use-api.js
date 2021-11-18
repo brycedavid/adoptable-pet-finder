@@ -7,6 +7,12 @@ import { useState, useEffect } from "react";
 
 import { Client } from "@petfinder/petfinder-js";
 
+import {
+  parseOrganizationData,
+  parsePetData,
+  prepFilter,
+} from "../utils/parseData";
+
 // Our client object, which is required to make API requests to the Petfinder API
 const petFinderClient = new Client({
   apiKey: "YeI5i5zLHnqvUoBxfJcjseCpBDQcZSS6ecZKJouXs07aejuKfK",
@@ -32,38 +38,13 @@ const useApi = (props) => {
     onRequestError,
   } = props;
 
-  let parsedValues = {};
+  let parsedValues;
+
   if (propFilter) {
-    let { type, breed, gender, age, location } = propFilter;
-    let valueArray = [
-      "type",
-      type,
-      "breed",
-      breed,
-      "gender",
-      gender,
-      "age",
-      age,
-      "location",
-      location,
-    ];
-
-    for (let i = 1; i < valueArray.length; i += 2) {
-      if (valueArray[i] !== "any") {
-        parsedValues[valueArray[i - 1]] = valueArray[i];
-      }
-    }
+    parsedValues = prepFilter(propFilter);
   }
-
-  if (parsedValues.type === "pets") {
-    delete parsedValues.type;
-  }
-
-  console.log("Search Type: " + searchType);
-  console.log("Send Request: " + propSendRequest);
 
   if (!searchType) {
-    console.log("Setting search type...");
     searchType = "pets";
   }
 
@@ -73,11 +54,9 @@ const useApi = (props) => {
     // make a request.
     const makeRequest = async () => {
       let responseData = null;
-      let dataArray = [];
+      let parsedData;
 
       console.log("Requesting data...");
-      console.log("Filter used for request: ");
-      console.log(parsedValues);
 
       if (requestError) {
         console.log("API request failed.... retrying..." + numRequestRetries);
@@ -88,7 +67,6 @@ const useApi = (props) => {
       switch (searchType) {
         case "pets":
           if (propFilter) {
-            console.log("filtered request");
             responseData = await petFinderClient.animal
               .search({ limit, ...parsedValues })
               .catch((error) => {
@@ -96,7 +74,6 @@ const useApi = (props) => {
                 setRequestError(error);
               });
           } else {
-            console.log("Non-filtered request");
             responseData = await petFinderClient.animal
               .search({ limit })
               .catch((error) => {
@@ -105,20 +82,9 @@ const useApi = (props) => {
               });
           }
 
-          // if data is returned from request, parse and store into dataArray
+          // if data is returned from request, parse and store into parsedData
           if (responseData && !requestError) {
-            for (let animal of responseData.data.animals) {
-              dataArray.push({
-                key: animal.id,
-                id: animal.id,
-                name: animal.name,
-                age: animal.age,
-                fixed: animal.attributes.spayed_neutered,
-                pictures: animal.photos,
-                url: animal.url,
-                type: animal.type,
-              });
-            }
+            parsedData = parsePetData(responseData);
           }
           break;
 
@@ -133,20 +99,9 @@ const useApi = (props) => {
               setRequestError(error);
             });
 
-          // if data is returned from request, parse and store into dataArray
+          // if data is returned from request, parse and store into parsedData
           if (responseData && !requestError) {
-            for (let organization of responseData.data.organizations) {
-              dataArray.push({
-                email: organization.email,
-                key: organization.id,
-                id: organization.id,
-                phone: organization.phone,
-                pictures: organization.photos,
-                address: organization.address,
-                name: organization.name,
-                url: organization.url,
-              });
-            }
+            parsedData = parseOrganizationData(responseData);
           }
           break;
 
@@ -157,12 +112,9 @@ const useApi = (props) => {
 
       // Log our data (for development purposes) and set our data state.
       console.log(responseData);
-      console.log(dataArray);
-      console.log("Setting data..");
-      setData(dataArray.slice(0, displayAmount));
+      setData(parsedData.slice(0, displayAmount));
 
       if (requestError && numRequestRetries > 0) {
-        console.log("Calling onRequestError");
         onRequestError(requestError);
         numRequestRetries = 0;
       }
