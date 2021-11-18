@@ -4,7 +4,7 @@
 
 import classes from "./AdoptionCenterDisplayItem.module.css";
 
-import organizationPlaceholderImg from "../../images/organization_placeholder.jpg";
+import organizationPlaceholderImg from "../../shared/images/organization_placeholder.jpg";
 
 const AdoptionCenterDisplayItem = (props) => {
   let photoElement = null;

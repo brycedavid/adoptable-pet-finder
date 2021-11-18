@@ -13,8 +13,6 @@ import useApi from "../../hooks/use-api";
 import LoadingIndicator from "../UI/LoadingIndicator";
 import Backdrop from "../UI/Backdrop";
 
-let requestErrorShown = false;
-
 const PetDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
@@ -65,14 +63,11 @@ const PetDisplay = (props) => {
     setParsedData(null);
     setRequestError(null);
     setHomeFilter(null);
-  } else {
-    console.log("No filter necessary; not setting filter");
   }
 
   const history = useHistory();
 
   const requestErrorHandler = (error) => {
-    console.log("request error handler");
     setRequestError(error);
   };
 
@@ -84,9 +79,6 @@ const PetDisplay = (props) => {
     filter: homeFilter ? homeFilter : props.petsFilter,
     onRequestError: requestErrorHandler,
   });
-
-  console.log(data);
-  console.log(isLoading);
 
   if (data !== null && data !== prevData) {
     // If isLoading is true and some data was received, setParsedData and set isLoading to false.
@@ -100,8 +92,6 @@ const PetDisplay = (props) => {
     }
 
     setIsLoading(false);
-    console.log("Data from request: ");
-    console.log(data);
     setPrevData(data);
     setParsedData({
       data,
@@ -158,6 +148,9 @@ const PetDisplay = (props) => {
                     pictures={animal.pictures}
                     url={animal.url}
                     type={animal.type}
+                    breed={animal.breed}
+                    size={animal.size}
+                    gender={animal.gender}
                   />
                 ))
             ) : (
@@ -189,7 +182,7 @@ const PetDisplay = (props) => {
 
   return (
     <div className="loading-indicator-container">
-      <Backdrop />
+      {!props.featuredPets && <Backdrop />}
       <LoadingIndicator />
     </div>
   );

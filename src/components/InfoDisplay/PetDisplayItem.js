@@ -3,8 +3,8 @@
 // which was returned from the Petfinder API in PetDisplay.js.
 
 import classes from "./PetDisplayItem.module.css";
-import dogPlaceholderImg from "../../images/dog-placeholder-tall.svg";
-import catPlaceholderImg from "../../images/cat-placeholder-tall.svg";
+import dogPlaceholderImg from "../../shared/images/dog-placeholder-tall.svg";
+import catPlaceholderImg from "../../shared/images/cat-placeholder-tall.svg";
 
 const PetDisplayItem = (props) => {
   let photoElement = null;
@@ -20,9 +20,17 @@ const PetDisplayItem = (props) => {
   }
 
   if (props.fixed) {
-    isFixed = "Yes";
+    if (props.gender === "Male") {
+      isFixed = "Neutered";
+    } else {
+      isFixed = "Spayed";
+    }
   } else {
-    isFixed = "No";
+    if (props.gender === "Male") {
+      isFixed = "Not Neutered";
+    } else {
+      isFixed = "Not Spayed";
+    }
   }
 
   // Upon clicking a PetDisplayItem, open the URL associated with the pet in a new window
@@ -36,10 +44,13 @@ const PetDisplayItem = (props) => {
 
   return (
     <div className="display-item" onClick={itemClickHandler}>
-      <h2 className="display-item-name">{props.name}</h2>
       <div className={classes["image-container"]}>{photoElement}</div>
+      <h2 className="display-item-name">{props.name}</h2>
+      <p>{props.gender}</p>
+      <p>{props.breed}</p>
       <p>{`Age: ${props.age}`}</p>
-      <p>{`Spayed/neutered: ${isFixed}`}</p>
+      <p>{`Size: ${props.size}`}</p>
+      <p>{isFixed}</p>
     </div>
   );
 };
