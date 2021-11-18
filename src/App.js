@@ -29,6 +29,7 @@ const App = () => {
 
   // Start the login flow
   const startLoginHandler = () => {
+    disableScrolling();
     setIsLoggingIn(true);
   };
 
@@ -39,13 +40,23 @@ const App = () => {
 
   // Redirect to the signup page
   const startSignupHandler = () => {
+    disableScrolling();
     setIsSigningUp(true);
   };
 
   // Upon closing modal, login flow ends
   const closeModalHandler = () => {
+    enableScrolling();
     setIsLoggingIn(false);
     setIsSigningUp(false);
+  };
+
+  const disableScrolling = () => {
+    document.body.style.overflow = "hidden";
+  };
+
+  const enableScrolling = () => {
+    document.body.removeAttribute("style");
   };
 
   // Forward the search data from the SearchForm (on Home page) to child components by setting searchData state
