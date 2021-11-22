@@ -2,7 +2,7 @@
 // This component acts as the PetDisplay container, which renders one PetDisplayItem.js per pet as child components. It also handles making the
 // request to Petfinder API for pet data using the custom useApi hook.
 
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useHistory } from "react-router-dom";
 import isEqual from "react-fast-compare";
 
@@ -11,12 +11,13 @@ import classes from "./PetDisplay.module.css";
 import PetDisplayItem from "./PetDisplayItem";
 import useApi from "../../hooks/use-api";
 import LoadingIndicator from "../UI/LoadingIndicator";
-import Backdrop from "../UI/Backdrop";
+import ResultsFilter from "../ResultsFilter/ResultsFilter";
 
 const PetDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
   const [filter, setFilter] = useState(null);
+  const [resultsFilter, setResultsFilter] = useState(null);
   const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
   const [homeFilter, setHomeFilter] = useState(null);
@@ -29,20 +30,17 @@ const PetDisplay = (props) => {
     sendRequest = false;
   }
 
-  if (props.homeSearchFor && homeFilter === null) {
+  if (props.homeSearchFor !== null && homeFilter !== props.homeSearchFor) {
     setHomeFilter(props.homeSearchFor);
+    console.log(props.homeSearchFor);
     console.log(
       "Received data from home search form; setting Home Filter to: "
     );
-    console.log(props.homeSearchFor);
+    console.log(resultsFilter);
   }
 
-  if (
-    props.petsFilter &&
-    homeFilter &&
-    !isEqual(props.petsFilter, homeFilter)
-  ) {
-    setFilter(props.petsFilter);
+  if (resultsFilter && homeFilter && !isEqual(resultsFilter, homeFilter)) {
+    setFilter(resultsFilter);
     setIsLoading(true);
     setParsedData(null);
     setRequestError(null);
@@ -50,15 +48,15 @@ const PetDisplay = (props) => {
   }
 
   if (
-    props.petsFilter &&
-    !isEqual(props.petsFilter, filter) &&
-    props.homeSearchFor === null &&
+    resultsFilter &&
+    !isEqual(resultsFilter, filter) &&
+    resultsFilter === null &&
     parsedData.hasOwnProperty(data)
   ) {
     setPrevData(parsedData.data);
     console.log("Filters in PetDisplay not equal. Setting filter to: ");
-    console.log(props.petsFilter);
-    setFilter(props.petsFilter);
+    console.log(resultsFilter);
+    setFilter(resultsFilter);
     setIsLoading(true);
     setParsedData(null);
     setRequestError(null);
@@ -76,7 +74,7 @@ const PetDisplay = (props) => {
     limit: props.limit,
     displayAmount: props.displayAmount,
     sendRequest,
-    filter: homeFilter ? homeFilter : props.petsFilter,
+    filter: homeFilter ? homeFilter : resultsFilter,
     onRequestError: requestErrorHandler,
   });
 
@@ -118,22 +116,22 @@ const PetDisplay = (props) => {
     });
   };
 
+  const setFilterHandler = (filterValues) => {
+    setResultsFilter({ ...filterValues });
+    props.setHomeSearchFor(null);
+    props.setHomeData(null);
+    setHomeFilter(null);
+  };
+
   const browseOrganizationsHandler = () => {
     history.push("/adoption-centers");
   };
 
-  if (requestError) {
-    return (
-      <h1>
-        Something went wrong with your request. Please check your search values
-        and try again.
-      </h1>
-    );
-  }
+  let toRender;
 
   if (!isLoading && data !== null) {
-    return (
-      <Fragment>
+    toRender = (
+      <React.Fragment>
         <div className="display-item-container">
           <div className={classes["pet-display-container"]}>
             {parsedData.data.length > 0 ? (
@@ -176,15 +174,34 @@ const PetDisplay = (props) => {
             </button>
           )}
         </div>
-      </Fragment>
+      </React.Fragment>
+    );
+  } else if (requestError) {
+    toRender = (
+      <h1>
+        Something went wrong with your request. Please check your search values
+        and try again.
+      </h1>
+    );
+  } else {
+    toRender = (
+      <div className="loading-indicator-container">
+        <LoadingIndicator />
+      </div>
     );
   }
 
   return (
-    <div className="loading-indicator-container">
-      {!props.featuredPets && <Backdrop />}
-      <LoadingIndicator />
-    </div>
+    <Fragment>
+      {!props.featuredPets && (
+        <ResultsFilter
+          isLoading={isLoading}
+          setPageFilter={setFilterHandler}
+          homeFilter={homeFilter}
+        />
+      )}
+      {toRender}
+    </Fragment>
   );
 };
 

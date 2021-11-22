@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import isEqual from "react-fast-compare";
 
 import classes from "./ResultsFilter.module.css";
 
@@ -13,6 +14,7 @@ const ResultsFilter = (props) => {
   const [locationValid, setLocationValid] = useState(true);
   const [showFilter, setShowFilter] = useState(false);
   const [breeds, setBreeds] = useState([]);
+  const [lastFilter, setLastFilter] = useState(null);
   const [filter, setFilter] = useState({
     type: "pets",
     breed: "any",
@@ -42,6 +44,7 @@ const ResultsFilter = (props) => {
         let newFilter = { ...filter };
         delete newFilter.location;
         setLocationValid(false);
+
         setFilter({ ...filter });
       } else if (event.target.value.length === 0) {
         let newFilter = { ...filter };
@@ -53,12 +56,13 @@ const ResultsFilter = (props) => {
         setFilter({ ...filter, location: event.target.value });
       }
     } else if (event.target.id === "type-select") {
-      setFilter({ ...filter, type: event.target.value });
+      setFilter({ ...filter, breed: "any", type: event.target.value });
     }
   };
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
+    setLastFilter(filter);
     props.setPageFilter(filter);
   };
 
@@ -80,6 +84,14 @@ const ResultsFilter = (props) => {
   }, [filter.type]);
 
   let { type, breed, gender, age, zip } = filter;
+
+  console.log(filter);
+  console.log(lastFilter);
+
+  // If our filter equals the last filter used, disable submit button
+  if (isEqual(filter, lastFilter) || isEqual(filter, props.homeFilter)) {
+    formIsValid = false;
+  }
 
   if (showFilter) {
     return (

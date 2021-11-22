@@ -60,7 +60,7 @@ const App = () => {
   };
 
   // Forward the search data from the SearchForm (on Home page) to child components by setting searchData state
-  const forwardData = (data) => {
+  const setSearchDataHandler = (data) => {
     setSearchData(data);
   };
 
@@ -84,13 +84,16 @@ const App = () => {
           <Redirect to="/home" />
         </Route>
         <Route path="/home">
-          <Home forwardFormData={forwardData} />
+          <Home forwardFormData={setSearchDataHandler} />
         </Route>
         <Route path="/adoption-centers">
           <AdoptionCenters searchData={searchData} />
         </Route>
         <Route path="/adoptable-pets">
-          <AdoptablePets searchData={searchData} />
+          <AdoptablePets
+            searchData={searchData}
+            setSearchData={setSearchDataHandler}
+          />
         </Route>
         <Route path="/about">
           <About />

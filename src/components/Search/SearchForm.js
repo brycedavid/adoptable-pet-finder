@@ -22,15 +22,19 @@ const SearchForm = (props) => {
 
   // Upon submission, navigate to page associated with search value.
   const searchSubmitHandler = (event) => {
-    // event.preventDefault();
-
     const value = selectValue.current.value;
     if (value === "centers") {
       history.push("/adoption-centers");
       return;
     }
 
-    props.onSubmit(selectValue.current.value);
+    props.onSubmit({
+      type: selectValue.current.value,
+      breed: "any",
+      gender: "any",
+      age: "any",
+      location: "any",
+    });
     history.push("/adoptable-pets");
   };
 
