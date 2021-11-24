@@ -11,12 +11,13 @@ import {
   parseOrganizationData,
   parsePetData,
   prepFilter,
-} from "../utils/parseData";
+} from "../shared/utils/parseData";
+import { apiKey, secret } from "../shared/constants";
 
 // Our client object, which is required to make API requests to the Petfinder API
 const petFinderClient = new Client({
-  apiKey: "YeI5i5zLHnqvUoBxfJcjseCpBDQcZSS6ecZKJouXs07aejuKfK",
-  secret: "WhuKLwumWocRsjzuQYPVSC6ZybxuMdhVCRXYIIW6",
+  apiKey: apiKey,
+  secret,
 });
 
 // Controls how many times a request is retried

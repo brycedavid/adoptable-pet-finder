@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 import classes from "./SearchForm.module.css";
 
-import Button from "../UI/Button";
+import Button from "../common/Button";
 
 const SearchForm = (props) => {
   const [searchFor, setSearchFor] = useState("");

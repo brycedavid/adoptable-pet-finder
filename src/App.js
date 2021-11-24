@@ -15,7 +15,7 @@ import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import AuthContext from "./store/auth-context";
 import Layout from "./components/Layout/Layout";
-import ModalOverlay from "./components/UI/ModalOverlay";
+import ModalOverlay from "./components/common/ModalOverlay";
 
 const App = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);

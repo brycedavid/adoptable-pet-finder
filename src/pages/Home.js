@@ -5,8 +5,8 @@
 
 import mainImage from "../shared/images/Puppy-and-Kitten.jpeg";
 
-import Card from "../components/UI/Card";
-import Image from "../components/UI/Image";
+import Card from "../components/common/Card";
+import Image from "../components/common/Image";
 import SearchForm from "../components/Search/SearchForm";
 import PetDisplay from "../components/InfoDisplay/PetDisplay";
 

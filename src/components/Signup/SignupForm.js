@@ -12,8 +12,8 @@ import ReactDOM from "react-dom";
 import classes from "./SignupForm.module.css";
 
 import AuthContext from "../../store/auth-context";
-import LoadingIndicator from "../UI/LoadingIndicator";
-import Backdrop from "../UI/Backdrop";
+import LoadingIndicator from "../common/LoadingIndicator";
+import Backdrop from "../common/Backdrop";
 
 const SignupForm = (props) => {
   const [isLoading, setIsLoading] = useState(false);

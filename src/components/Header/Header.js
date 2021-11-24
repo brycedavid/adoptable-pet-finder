@@ -6,7 +6,7 @@ import classes from "./Header.module.css";
 
 import ProfilePicture from "./ProfilePicture";
 import Title from "./Title";
-import Button from "../UI/Button";
+import Button from "../common/Button";
 
 const Header = (props) => {
   const loginHandler = () => {

@@ -1,0 +1,13 @@
+.footer-container {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #902923;
+}
+
+.footer-container > p,
+.footer-container > a {
+  color: white;
+}

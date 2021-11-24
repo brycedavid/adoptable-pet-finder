@@ -9,7 +9,7 @@ import classes from "./AdoptionCenterDisplay.module.css";
 
 import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
 import useApi from "../../hooks/use-api";
-import LoadingIndicator from "../UI/LoadingIndicator";
+import LoadingIndicator from "../common/LoadingIndicator";
 
 const AdoptionCenterDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);

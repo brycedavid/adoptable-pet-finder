@@ -1,0 +1,12 @@
+.form-input {
+  border: 1px solid black;
+  border-radius: 3px;
+  height: 30px;
+  width: 320px;
+  margin-bottom: 30px;
+}
+
+.invalid {
+  border: 1px red solid;
+  background-color: rgb(255, 144, 144);
+}
