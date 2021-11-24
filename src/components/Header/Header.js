@@ -32,7 +32,7 @@ const Header = (props) => {
           </div>
         )}
         {props.isAuthenticated && (
-          <div className={classes["login-container"]}>
+          <div className={classes["button-container"]}>
             <Button text="Logout" class="button-alt" onClick={logoutHandler} />
           </div>
         )}

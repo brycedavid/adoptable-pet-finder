@@ -12,7 +12,6 @@ const petFinderClient = new Client({
 
 const ResultsFilter = (props) => {
   const [locationValid, setLocationValid] = useState(true);
-  const [showFilter, setShowFilter] = useState(false);
   const [breeds, setBreeds] = useState([]);
   const [lastFilter, setLastFilter] = useState(null);
   const [filter, setFilter] = useState({
@@ -24,10 +23,6 @@ const ResultsFilter = (props) => {
   });
 
   let formIsValid = locationValid;
-
-  const showFilterHandler = () => {
-    setShowFilter(true);
-  };
 
   const changeFilterHandler = (event) => {
     if (event.target.id === "breed-select") {
@@ -85,77 +80,58 @@ const ResultsFilter = (props) => {
 
   let { type, breed, gender, age, zip } = filter;
 
-  console.log(filter);
-  console.log(lastFilter);
-
   // If our filter equals the last filter used, disable submit button
   if (isEqual(filter, lastFilter) || isEqual(filter, props.homeFilter)) {
     formIsValid = false;
   }
 
-  if (showFilter) {
-    return (
-      <form onSubmit={formSubmitHandler} className={classes["filter-form"]}>
-        <label>Pet type</label>
-        <select id="type-select" value={type} onChange={changeFilterHandler}>
-          <option value="any">All</option>
-          <option value="cat">Cats</option>
-          <option value="dog">Dogs</option>
-        </select>
-        <label>Breed</label>
-        <select id="breed-select" value={breed} onChange={changeFilterHandler}>
-          <option value="any">All</option>
-          {breeds.map((breed) => (
-            <option value={breed.name} key={breed.name}>
-              {breed.name}
-            </option>
-          ))}
-        </select>
-        <label>Gender</label>
-        <select
-          id="gender-select"
-          value={gender}
-          onChange={changeFilterHandler}
-        >
-          <option value="any">All</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-        <label>Age</label>
-        <select id="age-select" value={age} onChange={changeFilterHandler}>
-          <option value="any">All</option>
-          <option value="baby">Baby</option>
-          <option value="young">Young</option>
-          <option vlue="adult">Adult</option>
-          <option value="senior">Senior</option>
-        </select>
-        <label>Location</label>
-        <input
-          id="zip-input"
-          placeholder="zip code"
-          onChange={changeFilterHandler}
-          value={zip}
-          maxLength="5"
-        />
-        <button
-          type="submit"
-          className={formIsValid ? "button-alt" : "button-alt disabled"}
-          disabled={!formIsValid}
-        >
-          Search
-        </button>
-      </form>
-    );
-  }
-
   return (
-    <div
-      className={classes["filter-container-closed"]}
-      onClick={showFilterHandler}
-    >
-      <span>Filter results</span>
-      <span> &#748;</span>
-    </div>
+    <form onSubmit={formSubmitHandler} className={classes["filter-form"]}>
+      <label>Pet type</label>
+      <select id="type-select" value={type} onChange={changeFilterHandler}>
+        <option value="any">All</option>
+        <option value="cat">Cats</option>
+        <option value="dog">Dogs</option>
+      </select>
+      <label>Breed</label>
+      <select id="breed-select" value={breed} onChange={changeFilterHandler}>
+        <option value="any">All</option>
+        {breeds.map((breed) => (
+          <option value={breed.name} key={breed.name}>
+            {breed.name}
+          </option>
+        ))}
+      </select>
+      <label>Gender</label>
+      <select id="gender-select" value={gender} onChange={changeFilterHandler}>
+        <option value="any">All</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      <label>Age</label>
+      <select id="age-select" value={age} onChange={changeFilterHandler}>
+        <option value="any">All</option>
+        <option value="baby">Baby</option>
+        <option value="young">Young</option>
+        <option vlue="adult">Adult</option>
+        <option value="senior">Senior</option>
+      </select>
+      <label>Location</label>
+      <input
+        id="zip-input"
+        placeholder="zip code"
+        onChange={changeFilterHandler}
+        value={zip}
+        maxLength="5"
+      />
+      <button
+        type="submit"
+        className={formIsValid ? "button-alt" : "button-alt disabled"}
+        disabled={!formIsValid}
+      >
+        Search
+      </button>
+    </form>
   );
 };
 

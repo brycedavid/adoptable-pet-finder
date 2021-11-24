@@ -155,24 +155,24 @@ const PetDisplay = (props) => {
               <div>No pets found.</div>
             )}
           </div>
-        </div>
-        <div className="footer-container">
-          {parsedData.showButton && (
-            <button
-              className="button-alt button-display-item"
-              onClick={showMoreHandler}
-            >
-              Show More Pets
-            </button>
-          )}
-          {history.location.pathname === "/adoptable-pets" && (
-            <button
-              className="button-main button-display-item"
-              onClick={browseOrganizationsHandler}
-            >
-              Browse Adoption Centers
-            </button>
-          )}
+          <div className="footer-container">
+            {parsedData.showButton && (
+              <button
+                className="button-alt button-display-item"
+                onClick={showMoreHandler}
+              >
+                Show More Pets
+              </button>
+            )}
+            {history.location.pathname === "/adoptable-pets" && (
+              <button
+                className="button-main button-display-item"
+                onClick={browseOrganizationsHandler}
+              >
+                Browse Adoption Centers
+              </button>
+            )}
+          </div>
         </div>
       </React.Fragment>
     );
@@ -192,16 +192,18 @@ const PetDisplay = (props) => {
   }
 
   return (
-    <Fragment>
-      {!props.featuredPets && (
-        <ResultsFilter
-          isLoading={isLoading}
-          setPageFilter={setFilterHandler}
-          homeFilter={homeFilter}
-        />
-      )}
-      {toRender}
-    </Fragment>
+    <React.Fragment>
+      <div className="display-page-container">
+        {!props.featuredPets && (
+          <ResultsFilter
+            isLoading={isLoading}
+            setPageFilter={setFilterHandler}
+            homeFilter={homeFilter}
+          />
+        )}
+        {toRender}
+      </div>
+    </React.Fragment>
   );
 };
 
