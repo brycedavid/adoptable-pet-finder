@@ -1,8 +1,6 @@
 import ReactDOM from "react-dom";
 import { Fragment } from "react";
 
-import classes from "./ModalOverlay.module.css";
-
 import Backdrop from "./Backdrop";
 import SignupForm from "../Signup/SignupForm";
 import LoginForm from "../Login/LoginForm";
@@ -27,15 +25,7 @@ const ModalOverlay = (props) => {
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-        <div
-          className={
-            props.modalType === "login"
-              ? classes["login-modal"]
-              : classes["signup-modal"]
-          }
-        >
-          {form}
-        </div>,
+        <div className={"modal"}>{form}</div>,
         document.getElementById("overlay-root")
       )}
     </Fragment>

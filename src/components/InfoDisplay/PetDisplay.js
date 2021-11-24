@@ -6,8 +6,6 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import isEqual from "react-fast-compare";
 
-import classes from "./PetDisplay.module.css";
-
 import PetDisplayItem from "./PetDisplayItem";
 import useApi from "../../hooks/use-api";
 import LoadingIndicator from "../common/LoadingIndicator";
@@ -132,8 +130,8 @@ const PetDisplay = (props) => {
   if (!isLoading && data !== null) {
     toRender = (
       <React.Fragment>
-        <div className="display-item-container">
-          <div className={classes["pet-display-container"]}>
+        <div className="display-container">
+          <div className="display-container-pet">
             {parsedData.data.length > 0 ? (
               parsedData.data
                 .slice(0, parsedData.itemsToShow)
@@ -155,7 +153,7 @@ const PetDisplay = (props) => {
               <div>No pets found.</div>
             )}
           </div>
-          <div className="footer-container">
+          <div className="button-container-bottom">
             {parsedData.showButton && (
               <button
                 className="button-alt button-display-item"
@@ -193,7 +191,7 @@ const PetDisplay = (props) => {
 
   return (
     <React.Fragment>
-      <div className="display-page-container">
+      <div className="display-container-page">
         {!props.featuredPets && (
           <ResultsFilter
             isLoading={isLoading}

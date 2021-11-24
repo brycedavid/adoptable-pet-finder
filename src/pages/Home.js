@@ -18,11 +18,7 @@ const Home = (props) => {
   return (
     <div className="main-content">
       <Card class="main-image-container">
-        <Image
-          class="main-image"
-          altText="cute kitty and puppy"
-          source={mainImage}
-        />
+        <Image altText="cute kitty and puppy" source={mainImage} />
       </Card>
       <h1>Featured Pets</h1>
       <PetDisplay limit={25} displayAmount={8} featuredPets={true} />

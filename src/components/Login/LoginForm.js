@@ -8,8 +8,6 @@ import { useHistory } from "react-router";
 
 import AuthContext from "../../store/auth-context";
 
-import classes from "./LoginForm.module.css";
-
 const LoginForm = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [enteredEmail, setEnteredEmail] = useState("");
@@ -140,7 +138,7 @@ const LoginForm = (props) => {
 
   return (
     <div className="form-container">
-      <form onSubmit={loginHandler} className={classes["login-form"]}>
+      <form onSubmit={loginHandler} className={"form-container"}>
         <h2>Login</h2>
         <input
           type="text"

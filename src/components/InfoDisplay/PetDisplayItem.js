@@ -2,7 +2,6 @@
 // This component is rendered as a child to PetDisplay.js. It represents a display item (one display item per pet) that renders information about a pet,
 // which was returned from the Petfinder API in PetDisplay.js.
 
-import classes from "./PetDisplayItem.module.css";
 import dogPlaceholderImg from "../../shared/images/dog-placeholder-tall.svg";
 import catPlaceholderImg from "../../shared/images/cat-placeholder-tall.svg";
 
@@ -44,7 +43,7 @@ const PetDisplayItem = (props) => {
 
   return (
     <div className="display-item" onClick={itemClickHandler}>
-      <div className={classes["image-container"]}>{photoElement}</div>
+      <div className="image-container-pet">{photoElement}</div>
       <h2 className="display-item-name">{props.name}</h2>
       <p>{props.gender}</p>
       <p>{props.breed}</p>

@@ -1,46 +1,64 @@
 @import "colors";
 
-button {
+.button-container {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  margin-right: 30px;
+
+  &-bottom {
+    @extend .button-container;
+    display: flex;
+    width: 60%;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 90px 0;
+  }
+}
+
+.button {
   border: 0.5px solid black;
   border-radius: 4px;
   color: white;
   height: 40px;
   margin: 5px;
   width: 90px;
-}
 
-.button-main {
-  background-color: $color-red;
-}
+  &-main {
+    @extend .button;
+    background-color: $color-red;
 
-.button-main:hover {
-  background-color: $color-light-red;
-  cursor: pointer;
-}
+    &:hover {
+      background-color: $color-light-red;
+      cursor: pointer;
+    }
+  }
 
-.button-alt {
-  background-color: $color-blue;
-}
+  &-alt {
+    @extend .button;
+    background-color: $color-blue;
 
-.button-alt:hover {
-  background-color: $color-light-blue;
-  cursor: pointer;
-}
+    &:hover {
+      background-color: $color-light-blue;
+      cursor: pointer;
+    }
+  }
 
-.button-display-item {
-  width: 250px;
-  height: 70px;
-  border-radius: 6px;
-  margin-bottom: 28px;
+  &-display-item {
+    width: 250px;
+    height: 70px;
+    border-radius: 6px;
+    margin-bottom: 28px;
+  }
 }
 
 .disabled {
   background-color: $color-light-grey;
   border: 0.5px solid $color-dark-grey;
-}
 
-.disabled:hover {
-  cursor: default;
-  background-color: $color-light-grey;
-  border: 0.5px solid $color-dark-grey;
+  &:hover {
+    cursor: default;
+    background-color: $color-light-grey;
+    border: 0.5px solid $color-dark-grey;
+  }
 }

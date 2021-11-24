@@ -5,11 +5,9 @@
 // to a firebase DB, which is used for login functionality.
 // If a user has signed up, the user can login. Otherwise, they can't.
 
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router";
 import ReactDOM from "react-dom";
-
-import classes from "./SignupForm.module.css";
 
 import AuthContext from "../../store/auth-context";
 import LoadingIndicator from "../common/LoadingIndicator";
@@ -77,7 +75,7 @@ const SignupForm = (props) => {
 
     // Call method to wrap up signup flow
     props.onSignup();
-    history.pushState("/home");
+    history.push("/home");
   };
 
   // If the email and password inputs have been changed and their values
@@ -153,8 +151,8 @@ const SignupForm = (props) => {
   }
 
   return (
-    <div className="form-container">
-      <form onSubmit={submitHandler} className={classes["signup-form"]}>
+    <React.Fragment>
+      <form onSubmit={submitHandler} className={"form-container"}>
         <h1>Sign Up</h1>
         <input
           type="text"
@@ -197,7 +195,7 @@ const SignupForm = (props) => {
         </button>
       </form>
       {requestError && <p className="error-message">{requestError}</p>}
-    </div>
+    </React.Fragment>
   );
 };
 

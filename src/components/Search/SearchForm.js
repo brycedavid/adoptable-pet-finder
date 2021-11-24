@@ -5,10 +5,6 @@
 import { Fragment, useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 
-import classes from "./SearchForm.module.css";
-
-import Button from "../common/Button";
-
 const SearchForm = (props) => {
   const [searchFor, setSearchFor] = useState("");
 
@@ -40,13 +36,10 @@ const SearchForm = (props) => {
 
   return (
     <Fragment>
-      <form
-        className={classes["main-search-form"]}
-        onSubmit={searchSubmitHandler}
-      >
+      <form className={"main-search-form"} onSubmit={searchSubmitHandler}>
         <select
           value={searchFor}
-          className={classes["search-form-select"]}
+          className={"search-form-select"}
           onChange={selectChangeHandler}
           ref={selectValue}
         >
@@ -54,7 +47,9 @@ const SearchForm = (props) => {
           <option value="dog">Dogs</option>
           <option value="centers">Adoption Centers</option>
         </select>
-        <Button class="button-main" text="Search" type="submit" />
+        <button class="button-main" type="submit">
+          Search
+        </button>
       </form>
     </Fragment>
   );

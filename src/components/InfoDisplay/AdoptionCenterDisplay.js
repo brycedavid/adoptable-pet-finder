@@ -5,8 +5,6 @@
 import { Fragment, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import classes from "./AdoptionCenterDisplay.module.css";
-
 import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
 import useApi from "../../hooks/use-api";
 import LoadingIndicator from "../common/LoadingIndicator";
@@ -62,8 +60,8 @@ const AdoptionCenterDisplay = (props) => {
   if (!isLoading && parsedData !== null) {
     return (
       <Fragment>
-        <div className="display-item-container">
-          <div className={classes["adoption-center-display-container"]}>
+        <div className="display-container">
+          <div className="display-container-organization">
             {parsedData.data
               .slice(0, parsedData.itemsToShow)
               .map((organization) => (
@@ -81,7 +79,7 @@ const AdoptionCenterDisplay = (props) => {
               ))}
           </div>
         </div>
-        <div className="footer-container">
+        <div className="button-container-bottom">
           {parsedData.showButton && (
             <button
               className="button-alt button-display-item"

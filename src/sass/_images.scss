@@ -1,0 +1,38 @@
+@import "./colors";
+
+.main-image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 70px;
+
+  img {
+    margin-top: 70px;
+    width: 1150px;
+    border-radius: 20px;
+    border: $color-blue solid 3px;
+  }
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 360px;
+  height: 360px;
+  overflow: hidden;
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: black;
+
+  &-pet {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 180px;
+    height: 180px;
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: black;
+  }
+}

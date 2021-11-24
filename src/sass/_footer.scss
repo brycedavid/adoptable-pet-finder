@@ -1,13 +1,15 @@
+@import "./colors";
+
 .footer-container {
   display: flex;
   width: 100%;
   height: 50px;
   align-items: center;
   justify-content: space-evenly;
-  background-color: #902923;
-}
+  background-color: $color-red;
 
-.footer-container > p,
-.footer-container > a {
-  color: white;
+  p,
+  a {
+    color: white;
+  }
 }

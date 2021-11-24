@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import isEqual from "react-fast-compare";
 
-import classes from "./ResultsFilter.module.css";
-
 import { Client } from "@petfinder/petfinder-js";
 
+import { apiKey, secret } from "../../shared/constants";
+
 const petFinderClient = new Client({
-  apiKey: "YeI5i5zLHnqvUoBxfJcjseCpBDQcZSS6ecZKJouXs07aejuKfK",
-  secret: "WhuKLwumWocRsjzuQYPVSC6ZybxuMdhVCRXYIIW6",
+  apiKey,
+  secret,
 });
 
 const ResultsFilter = (props) => {
@@ -86,15 +86,25 @@ const ResultsFilter = (props) => {
   }
 
   return (
-    <form onSubmit={formSubmitHandler} className={classes["filter-form"]}>
-      <label>Pet type</label>
-      <select id="type-select" value={type} onChange={changeFilterHandler}>
+    <form onSubmit={formSubmitHandler} className={"filter-form"}>
+      <label className="filter-form-label">Pet type</label>
+      <select
+        className={"filter-input"}
+        id="type-select"
+        value={type}
+        onChange={changeFilterHandler}
+      >
         <option value="any">All</option>
         <option value="cat">Cats</option>
         <option value="dog">Dogs</option>
       </select>
-      <label>Breed</label>
-      <select id="breed-select" value={breed} onChange={changeFilterHandler}>
+      <label className="filter-form-label">Breed</label>
+      <select
+        className={"filter-input"}
+        id="breed-select"
+        value={breed}
+        onChange={changeFilterHandler}
+      >
         <option value="any">All</option>
         {breeds.map((breed) => (
           <option value={breed.name} key={breed.name}>
@@ -102,22 +112,33 @@ const ResultsFilter = (props) => {
           </option>
         ))}
       </select>
-      <label>Gender</label>
-      <select id="gender-select" value={gender} onChange={changeFilterHandler}>
+      <label className="filter-form-label">Gender</label>
+      <select
+        className={"filter-input"}
+        id="gender-select"
+        value={gender}
+        onChange={changeFilterHandler}
+      >
         <option value="any">All</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
       </select>
-      <label>Age</label>
-      <select id="age-select" value={age} onChange={changeFilterHandler}>
+      <label className="filter-form-label">Age</label>
+      <select
+        className={"filter-input"}
+        id="age-select"
+        value={age}
+        onChange={changeFilterHandler}
+      >
         <option value="any">All</option>
         <option value="baby">Baby</option>
         <option value="young">Young</option>
         <option vlue="adult">Adult</option>
         <option value="senior">Senior</option>
       </select>
-      <label>Location</label>
+      <label className="filter-form-label">Location</label>
       <input
+        className={"filter-input"}
         id="zip-input"
         placeholder="zip code"
         onChange={changeFilterHandler}

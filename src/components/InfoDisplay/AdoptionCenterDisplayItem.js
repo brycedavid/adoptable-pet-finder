@@ -2,8 +2,6 @@
 // This component is rendered as a child to AdoptionCenterDisplay.js. It represents a display item (one display item per organization) that renders information about an organization,
 // which was returned from the Petfinder API in AdoptionCenterDisplay.js.
 
-import classes from "./AdoptionCenterDisplayItem.module.css";
-
 import organizationPlaceholderImg from "../../shared/images/organization_placeholder.jpg";
 
 const AdoptionCenterDisplayItem = (props) => {
@@ -27,15 +25,12 @@ const AdoptionCenterDisplayItem = (props) => {
   };
 
   return (
-    <div
-      className="display-item organization-display-item"
-      onClick={itemClickHandler}
-    >
-      <h2 className="display-item-name organization-item-name">{props.name}</h2>
-      <section className={classes["display-content"]}>
-        <div className={classes["image-container"]}>{photoElement}</div>
-        <section className={classes["info-container"]}>
-          <section className={classes["address-container"]}>
+    <div className="display-item-organization" onClick={itemClickHandler}>
+      <h2 className="display-item-name-organization">{props.name}</h2>
+      <section className="display-item-organization-content">
+        <div className="image-container">{photoElement}</div>
+        <section className="info-container">
+          <section className="info-container-address">
             <p>{props.address.address1}</p>
             <p>{`${props.address.city}, ${props.address.state} ${props.address.postcode}`}</p>
           </section>
