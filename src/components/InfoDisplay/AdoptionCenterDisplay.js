@@ -2,16 +2,18 @@
 // This component acts as the AdoptionCenterDisplay container, which renders one AdoptionCenterDisplayItem.js per organization as child components. It also handles making the
 // request to Petfinder API for organization data using the custom useApi hook.
 
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
 import useApi from "../../hooks/use-api";
 import LoadingIndicator from "../common/LoadingIndicator";
+import ResultsFilter from "../ResultsFilter/ResultsFilter";
 
 const AdoptionCenterDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
+  const [requestError, setRequestError] = useState(null);
 
   const history = useHistory();
 
@@ -57,8 +59,10 @@ const AdoptionCenterDisplay = (props) => {
     history.push("/adoptable-pets");
   };
 
+  let toRender;
+
   if (!isLoading && parsedData !== null) {
-    return (
+    toRender = (
       <Fragment>
         <div className="display-container">
           <div className="display-container-organization">
@@ -78,30 +82,69 @@ const AdoptionCenterDisplay = (props) => {
                 />
               ))}
           </div>
-        </div>
-        <div className="button-container-bottom">
-          {parsedData.showButton && (
+          <div className="button-container-bottom">
+            {parsedData.showButton && (
+              <button
+                className="button-alt button-display-item"
+                onClick={showMoreHandler}
+              >
+                Show More
+              </button>
+            )}
             <button
-              className="button-alt button-display-item"
-              onClick={showMoreHandler}
+              className="button-main button-display-item"
+              onClick={browsePetsHandler}
             >
-              Show More
+              Browse Adoptable Pets
             </button>
-          )}
-          <button
-            className="button-main button-display-item"
-            onClick={browsePetsHandler}
-          >
-            Browse Adoptable Pets
-          </button>
+          </div>
         </div>
       </Fragment>
+    );
+  } else if (requestError) {
+    toRender = (
+      <h1>
+        Something went wrong with your request. Please check your search values
+        and try again.
+      </h1>
+    );
+  } else {
+    const skeletonArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    toRender = (
+      <React.Fragment>
+        <div className="display-container">
+          <div className="display-container-organization">
+            {skeletonArray.map(() => (
+              <AdoptionCenterDisplayItem
+                email="..."
+                key={Math.random() * 1000}
+                id="..."
+                address="..."
+                name="..."
+                phone="..."
+                pictures={[]}
+                url={"..."}
+                animalsLink={"..."}
+              />
+            ))}
+          </div>
+          <div className="button-container-bottom">
+            <button className="button-alt button-display-item disabled">
+              Show More
+            </button>
+            <button className="button-main button-display-item disabled">
+              Browse Adoptable Pets
+            </button>
+          </div>
+        </div>
+      </React.Fragment>
     );
   }
 
   return (
-    <div className="loading-indicator-container">
-      <LoadingIndicator />
+    <div className="display-container-organization-page">
+      <ResultsFilter isLoading={isLoading} for="organizationDisplay" />
+      {toRender}
     </div>
   );
 };

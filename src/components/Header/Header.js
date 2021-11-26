@@ -24,17 +24,17 @@ const Header = (props) => {
       <div className={"profile-container"}>
         {!props.isAuthenticated && (
           <div className={"button-container"}>
-            <button class="button-alt" onClick={loginHandler}>
+            <button className="button-alt" onClick={loginHandler}>
               Login
             </button>
-            <button class="button-alt" onClick={signupHandler}>
+            <button className="button-alt" onClick={signupHandler}>
               Sign up
             </button>
           </div>
         )}
         {props.isAuthenticated && (
           <div className={"button-container"}>
-            <button class="button-alt" onClick={logoutHandler}>
+            <button className="button-alt" onClick={logoutHandler}>
               Logout
             </button>
           </div>

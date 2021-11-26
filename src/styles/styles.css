@@ -85,9 +85,13 @@
 .display-container-organization {
   display: flex;
   flex-wrap: wrap;
-  width: 90%;
+  width: 1050px;
   justify-content: center;
   margin-top: 20px;
+}
+.display-container-organization-page {
+  display: flex;
+  justify-content: center;
 }
 .display-container-pet {
   display: flex;
@@ -96,7 +100,7 @@
   justify-content: center;
   margin-top: 20px;
 }
-.display-container-page {
+.display-container-pet-page {
   display: flex;
   justify-content: center;
 }
@@ -120,7 +124,7 @@
 .display-item-organization {
   display: flex;
   border: 3px solid #0f5797;
-  width: 970px;
+  width: 900px;
   height: 560px;
   margin-bottom: 36px;
   align-items: center;

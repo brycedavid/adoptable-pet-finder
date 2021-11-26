@@ -11,9 +11,14 @@
   &-organization {
     display: flex;
     flex-wrap: wrap;
-    width: 90%;
+    width: 1050px;
     justify-content: center;
     margin-top: 20px;
+
+    &-page {
+      display: flex;
+      justify-content: center;
+    }
   }
 
   &-pet {
@@ -22,11 +27,11 @@
     width: 1050px;
     justify-content: center;
     margin-top: 20px;
-  }
 
-  &-page {
-    display: flex;
-    justify-content: center;
+    &-page {
+      display: flex;
+      justify-content: center;
+    }
   }
 }
 
@@ -51,7 +56,7 @@
     @extend .display-item;
     display: flex;
     border: 3px solid #0f5797;
-    width: 970px;
+    width: 900px;
     height: 560px;
     margin-bottom: 36px;
     align-items: center;

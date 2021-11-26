@@ -47,7 +47,7 @@ const SearchForm = (props) => {
           <option value="dog">Dogs</option>
           <option value="centers">Adoption Centers</option>
         </select>
-        <button class="button-main" type="submit">
+        <button className="button-main" type="submit">
           Search
         </button>
       </form>

@@ -181,6 +181,55 @@ const PetDisplay = (props) => {
         and try again.
       </h1>
     );
+  } else if (resultsFilter === null) {
+    let skeletonArray = [];
+
+    if (history.location.pathname === "/adoptable-pets") {
+      skeletonArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    } else {
+      skeletonArray = [0, 0, 0, 0, 0, 0, 0, 0];
+    }
+
+    toRender = (
+      <React.Fragment>
+        <div className="display-container">
+          <div className="display-container-pet">
+            {skeletonArray.map(() => (
+              <PetDisplayItem
+                key={Math.random() * 1000}
+                name="..."
+                age="..."
+                fixed="..."
+                pictures={[]}
+                url="..."
+                type="..."
+                breed="..."
+                size="..."
+                gender="..."
+              />
+            ))}
+          </div>
+          <div className="button-container-bottom">
+            {history.location.pathname === "/adoptable-pets" && (
+              <button
+                className="button-alt button-display-item disabled"
+                onClick={showMoreHandler}
+              >
+                Show More Pets
+              </button>
+            )}
+            {history.location.pathname === "/adoptable-pets" && (
+              <button
+                className="button-main button-display-item disabled"
+                onClick={browseOrganizationsHandler}
+              >
+                Browse Adoption Centers
+              </button>
+            )}
+          </div>
+        </div>
+      </React.Fragment>
+    );
   } else {
     toRender = (
       <div className="loading-indicator-container">
@@ -190,18 +239,17 @@ const PetDisplay = (props) => {
   }
 
   return (
-    <React.Fragment>
-      <div className="display-container-page">
-        {!props.featuredPets && (
-          <ResultsFilter
-            isLoading={isLoading}
-            setPageFilter={setFilterHandler}
-            homeFilter={homeFilter}
-          />
-        )}
-        {toRender}
-      </div>
-    </React.Fragment>
+    <div className="display-container-pet-page">
+      {!props.featuredPets && (
+        <ResultsFilter
+          isLoading={isLoading}
+          setPageFilter={setFilterHandler}
+          homeFilter={homeFilter}
+          for="petDisplay"
+        />
+      )}
+      {toRender}
+    </div>
   );
 };
 
