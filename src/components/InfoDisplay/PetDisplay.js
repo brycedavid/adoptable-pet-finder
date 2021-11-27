@@ -8,7 +8,6 @@ import isEqual from "react-fast-compare";
 
 import PetDisplayItem from "./PetDisplayItem";
 import useApi from "../../hooks/use-api";
-import LoadingIndicator from "../common/LoadingIndicator";
 import ResultsFilter from "../ResultsFilter/ResultsFilter";
 
 const PetDisplay = (props) => {
@@ -20,7 +19,7 @@ const PetDisplay = (props) => {
   const [requestError, setRequestError] = useState(null);
   const [homeFilter, setHomeFilter] = useState(null);
 
-  // Determines whether or not we should send a request
+  const history = useHistory();
   let sendRequest = true;
   let data = null;
 
@@ -60,8 +59,6 @@ const PetDisplay = (props) => {
     setRequestError(null);
     setHomeFilter(null);
   }
-
-  const history = useHistory();
 
   const requestErrorHandler = (error) => {
     setRequestError(error);
@@ -115,6 +112,8 @@ const PetDisplay = (props) => {
   };
 
   const setFilterHandler = (filterValues) => {
+    console.log("Setting PetDisplay resultsFilter to: ");
+    console.log({ ...filterValues });
     setResultsFilter({ ...filterValues });
     props.setHomeSearchFor(null);
     props.setHomeData(null);

@@ -7,10 +7,12 @@ import { useState, useEffect } from "react";
 
 import { Client } from "@petfinder/petfinder-js";
 
+import isEqual from "react-fast-compare";
+
 import {
   parseOrganizationData,
   parsePetData,
-  prepFilter,
+  prepPetFilter,
 } from "../shared/utils/parseData";
 import { apiKey, secret } from "../shared/constants";
 
@@ -28,6 +30,7 @@ let numRequestRetries = 0;
 const useApi = (props) => {
   const [data, setData] = useState(null);
   const [requestError, setRequestError] = useState(null);
+  const [resultsFilter, setResultsFilter] = useState(null);
 
   // Destruct props to extract values
   let {
@@ -41,12 +44,19 @@ const useApi = (props) => {
 
   let parsedValues;
 
-  if (propFilter) {
-    parsedValues = prepFilter(propFilter);
-  }
-
   if (!searchType) {
     searchType = "pets";
+  }
+
+  if (propFilter && searchType === "pets") {
+    parsedValues = prepPetFilter(propFilter);
+    if (!isEqual(parsedValues, resultsFilter)) {
+      setResultsFilter(parsedValues);
+    }
+  } else if (propFilter && searchType === "organizations") {
+    if (!isEqual(propFilter, resultsFilter)) {
+      setResultsFilter(propFilter);
+    }
   }
 
   useEffect(() => {
@@ -69,7 +79,7 @@ const useApi = (props) => {
         case "pets":
           if (propFilter) {
             responseData = await petFinderClient.animal
-              .search({ limit, ...parsedValues })
+              .search({ limit, ...resultsFilter })
               .catch((error) => {
                 console.log(error);
                 setRequestError(error);
@@ -90,15 +100,27 @@ const useApi = (props) => {
           break;
 
         case "organizations":
-          // Request organization data
-          responseData = await petFinderClient.organization
-            .search({
-              limit,
-            })
-            .catch((error) => {
-              console.log(error);
-              setRequestError(error);
-            });
+          if (propFilter) {
+            responseData = await petFinderClient.organization
+              .search({
+                limit,
+                ...resultsFilter,
+              })
+              .catch((error) => {
+                console.log(error);
+                setRequestError(error);
+              });
+          } else {
+            // Request organization data
+            responseData = await petFinderClient.organization
+              .search({
+                limit,
+              })
+              .catch((error) => {
+                console.log(error);
+                setRequestError(error);
+              });
+          }
 
           // if data is returned from request, parse and store into parsedData
           if (responseData && !requestError) {

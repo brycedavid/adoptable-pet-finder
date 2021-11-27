@@ -132,9 +132,7 @@ const SignupForm = (props) => {
   // Upon submitting the form with valid data, store user info to firebase.
   const submitHandler = (event) => {
     event.preventDefault();
-
     setIsLoading(true);
-
     sendRequest();
   };
 

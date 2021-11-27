@@ -15,6 +15,8 @@ const capitalize = (string) => {
 const AdoptablePets = (props) => {
   const [homeSearchFor, setHomeSearchFor] = useState(null);
 
+  window.scrollTo({ top: 0, behavior: "instant" });
+
   if (props.searchData && homeSearchFor === null) {
     setHomeSearchFor(props.searchData);
   }

@@ -15,13 +15,14 @@ const ResultsFilter = (props) => {
   const [filterFor, setFilterFor] = useState(null);
   const [breeds, setBreeds] = useState([]);
   const [lastFilter, setLastFilter] = useState(null);
-  const [filter, setFilter] = useState({
+  const [petFilter, setPetFilter] = useState({
     type: "pets",
     breed: "any",
     gender: "any",
     age: "any",
     location: "any",
   });
+  const [organizationFilter, setOrganizationFilter] = useState({});
 
   if (props.for && props.for !== filterFor) {
     setFilterFor(props.for);
@@ -32,62 +33,100 @@ const ResultsFilter = (props) => {
 
   const changeFilterHandler = (event) => {
     if (filterFor === "petDisplay") {
+      let newFilter = { ...petFilter };
       switch (event.target.id) {
         case "breed-select":
-          setFilter({ ...filter, breed: event.target.value });
+          setPetFilter({ ...newFilter, breed: event.target.value });
           break;
         case "gender-select":
-          setFilter({ ...filter, gender: event.target.value });
+          setPetFilter({ ...newFilter, gender: event.target.value });
           break;
         case "age-select":
-          setFilter({ ...filter, age: event.target.value });
+          setPetFilter({ ...newFilter, age: event.target.value });
           break;
         case "type-select":
-          setFilter({ ...filter, breed: "any", type: event.target.value });
+          setPetFilter({
+            ...petFilter,
+            breed: "any",
+            type: event.target.value,
+          });
           break;
         case "zip-input":
           if (
             event.target.value.length < 5 &&
             event.target.value.length !== 0
           ) {
-            setLocationValid(false);
-            setFilter({ ...filter });
           } else if (isNaN(event.target.value)) {
-            let newFilter = { ...filter };
+            setLocationValid(false);
+            setPetFilter({ ...newFilter });
+          } else if (isNaN(event.target.value)) {
             delete newFilter.location;
             setLocationValid(false);
-            setFilter({ ...filter });
+            setPetFilter({ ...newFilter });
           } else if (event.target.value.length === 0) {
-            let newFilter = { ...filter };
             delete newFilter.location;
             setLocationValid(true);
-            setFilter({ ...newFilter });
+            setPetFilter({ ...newFilter });
           } else {
+            delete newFilter.location;
             setLocationValid(true);
-            setFilter({ ...filter, location: event.target.value });
+            setPetFilter({ ...newFilter, location: event.target.value });
           }
           break;
         default:
           break;
       }
     } else if (filterFor === "organizationDisplay") {
+      switch (event.target.id) {
+        case "zip-input":
+          if (
+            event.target.value.length < 5 &&
+            event.target.value.length !== 0
+          ) {
+            setLocationValid(false);
+            setOrganizationFilter({ ...organizationFilter });
+          } else if (isNaN(event.target.value)) {
+            let newFilter = { ...organizationFilter };
+            delete newFilter.location;
+            setLocationValid(false);
+            setOrganizationFilter({ ...organizationFilter });
+          } else if (event.target.value.length === 0) {
+            let newFilter = { ...organizationFilter };
+            delete newFilter.location;
+            setLocationValid(true);
+            setOrganizationFilter({ ...newFilter });
+          } else {
+            setLocationValid(true);
+            setOrganizationFilter({
+              ...organizationFilter,
+              location: event.target.value,
+            });
+          }
+          break;
+      }
     }
   };
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    setLastFilter(filter);
-    props.setPageFilter(filter);
+    window.scrollTo({ top: 147, behavior: "smooth" });
+    if (filterFor === "petDisplay") {
+      setLastFilter(petFilter);
+      props.setPageFilter(petFilter);
+    } else {
+      setLastFilter(organizationFilter);
+      props.setPageFilter(organizationFilter);
+    }
   };
 
   useEffect(() => {
     const makeRequest = async () => {
       let response = null;
 
-      if (filter.type === "dog") {
+      if (petFilter.type === "dog") {
         response = await petFinderClient.animalData.breeds("dog");
         setBreeds(response.data.breeds);
-      } else if (filter.type === "cat") {
+      } else if (petFilter.type === "cat") {
         response = await petFinderClient.animalData.breeds("cat");
         setBreeds(response.data.breeds);
       } else {
@@ -98,12 +137,27 @@ const ResultsFilter = (props) => {
     if (filterFor === "petDisplay") {
       makeRequest();
     }
-  }, [filter.type]);
+  }, [petFilter.type]);
 
-  let { type, breed, gender, age, zip } = filter;
+  let type, breed, gender, age, zip;
+
+  if (filterFor === "petDisplay") {
+    type = petFilter.type;
+    breed = petFilter.breed;
+    gender = petFilter.gender;
+    age = petFilter.age;
+    if (petFilter.location !== "any") {
+      zip = petFilter.location;
+    }
+  }
 
   // If our filter equals the last filter used, disable submit button
-  if (isEqual(filter, lastFilter) || isEqual(filter, props.homeFilter)) {
+  if (isEqual(petFilter, lastFilter) || isEqual(petFilter, props.homeFilter)) {
+    duplicateFilter = true;
+    formIsValid = false;
+  }
+
+  if (isEqual(organizationFilter, lastFilter)) {
     duplicateFilter = true;
     formIsValid = false;
   }
@@ -201,6 +255,11 @@ const ResultsFilter = (props) => {
           type="submit"
           className={formIsValid ? "button-alt" : "button-alt disabled"}
           disabled={!formIsValid}
+          title={
+            duplicateFilter
+              ? "Search filters are the same; try a different filter"
+              : ""
+          }
         >
           Search
         </button>

@@ -38,7 +38,7 @@ const AdoptionCenterDisplayItem = (props) => {
         <div className="image-container">{photoElement}</div>
         <section className="info-container">
           <section className="info-container-address">
-            <p>{props.address.address1}</p>
+            {<p>{props.address.address1}</p>}
             <p>{`${props.address.city}, ${props.address.state} ${props.address.postcode}`}</p>
           </section>
           <p>{props.phone}</p>

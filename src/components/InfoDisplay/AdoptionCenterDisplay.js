@@ -7,56 +7,103 @@ import { useHistory } from "react-router-dom";
 
 import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
 import useApi from "../../hooks/use-api";
-import LoadingIndicator from "../common/LoadingIndicator";
 import ResultsFilter from "../ResultsFilter/ResultsFilter";
+import isEqual from "react-fast-compare";
 
 const AdoptionCenterDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
+  const [filter, setFilter] = useState(null);
+  const [resultsFilter, setResultsFilter] = useState(null);
+  const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
 
   const history = useHistory();
 
   // Determines whether or not we should send a request
-  let sendRequest = false;
+  let sendRequest = true;
+  let data = null;
 
-  // If there is no data and isLoading is true (initial component render), send a request
-  if (parsedData === null && isLoading === true) {
-    sendRequest = true;
+  if (requestError) {
+    sendRequest = false;
   }
 
+  if (
+    resultsFilter &&
+    !isEqual(resultsFilter, filter) &&
+    parsedData.hasOwnProperty(data)
+  ) {
+    setPrevData(parsedData.data);
+    console.log(
+      "Filters in AdoptionDisplay are not equal. Setting filter to: "
+    );
+    console.log(resultsFilter);
+    setFilter(resultsFilter);
+    setIsLoading(true);
+    setParsedData(null);
+    setRequestError(null);
+  }
+
+  const requestErrorHandler = (error) => {
+    setRequestError(error);
+  };
+
+  console.log("About to make request with: ");
+  console.log(resultsFilter);
+
   // Request organization data
-  const data = useApi({
+  data = useApi({
     searchType: "organizations",
     limit: props.limit,
     type: null,
+    filter: resultsFilter,
     sendRequest,
     displayAmount: 180,
+    onRequestError: requestErrorHandler,
   });
 
   // If isLoading is true and some data was received, setParsedData and set isLoading to false.
-  if (data && isLoading === true) {
+  if (data !== null && data !== prevData) {
+    let showButton = true;
+
+    if (data.length <= 15) {
+      showButton = false;
+    }
+
+    console.log("Setting parsedData to: ");
+    console.log(data);
     setIsLoading(false);
-    setParsedData({ data, itemsToShow: 15, showButton: true });
+    setPrevData(data);
+    setParsedData({ data, itemsToShow: 15, showButton });
   }
 
   const showMoreHandler = () => {
     let { data: prevData, itemsToShow: prevItemsToShow } = parsedData;
-    let hideButton = false;
+    let showButton = true;
 
-    if (prevItemsToShow + 15 === 180) {
-      hideButton = true;
+    if (
+      prevItemsToShow + 15 === 180 ||
+      prevData.length <= prevItemsToShow + 15
+    ) {
+      showButton = false;
     }
 
     setParsedData({
       data: prevData,
       itemsToShow: prevItemsToShow + 15,
-      showButton: !hideButton,
+      showButton,
     });
   };
 
   const browsePetsHandler = () => {
     history.push("/adoptable-pets");
+  };
+
+  const setFilterHandler = (filterValues) => {
+    console.log("Setting AdoptDisplay resultsFilter to: ");
+    console.log({ ...filterValues });
+    setResultsFilter({ ...filterValues });
+    setIsLoading(true);
   };
 
   let toRender;
@@ -149,7 +196,11 @@ const AdoptionCenterDisplay = (props) => {
 
   return (
     <div className="display-container-organization-page">
-      <ResultsFilter isLoading={isLoading} for="organizationDisplay" />
+      <ResultsFilter
+        isLoading={isLoading}
+        setPageFilter={setFilterHandler}
+        for="organizationDisplay"
+      />
       {toRender}
     </div>
   );

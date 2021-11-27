@@ -1,4 +1,4 @@
-export const prepFilter = (filter) => {
+export const prepPetFilter = (filter) => {
   let parsedValues = {};
   let { type, breed, gender, age, location } = filter;
   let valueArray = [
