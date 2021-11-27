@@ -52,12 +52,12 @@
 }
 
 .disabled {
-  background-color: #a0a0a0;
+  background-color: darkgrey;
   border: 0.5px solid darkgrey;
 }
 .disabled:hover {
   cursor: default;
-  background-color: #a0a0a0;
+  background-color: darkgrey;
   border: 0.5px solid darkgrey;
 }
 
@@ -93,6 +93,12 @@
   display: flex;
   justify-content: center;
 }
+.display-container-organization-skeleton {
+  display: flex;
+  width: 1050px;
+  justify-content: center;
+  margin-top: 20px;
+}
 .display-container-pet {
   display: flex;
   flex-wrap: wrap;
@@ -103,6 +109,13 @@
 .display-container-pet-page {
   display: flex;
   justify-content: center;
+}
+.display-container-pet-skeleton {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1050px;
+  justify-content: center;
+  margin-top: -83px;
 }
 
 .display-item, .display-item-organization {
@@ -193,12 +206,18 @@
   height: 700px;
   padding: 12px;
   border: 2px solid #003d71;
-  border-radius: 3px;
-  margin-top: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: 4px 4px 6px darkgrey;
 }
 .filter-form-label {
   font-size: 20px;
   margin-top: 18px;
+}
+
+.sticky {
+  position: sticky;
+  top: 7vh;
 }
 
 body {
@@ -444,6 +463,60 @@ p {
   height: 30px;
   margin-bottom: 14px;
   box-shadow: 1px 1px 2px darkgrey;
+}
+
+@keyframes wave {
+  0%, 60%, 100% {
+    transform: initial;
+  }
+  30% {
+    transform: translateY(-15px);
+  }
+}
+@keyframes shine {
+  0%, 50%, 100% {
+    background-color: white;
+  }
+  25%, 75% {
+    background-color: #ece5e5;
+  }
+}
+.wave-loader-container {
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  margin-top: 50px;
+}
+.wave-loader-container .dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 3px;
+  background: #902923;
+  animation: wave 1.3s linear infinite;
+}
+.wave-loader-container .dot:nth-child(2) {
+  animation-delay: -1.1s;
+}
+.wave-loader-container .dot:nth-child(3) {
+  animation-delay: -0.9s;
+}
+
+.shine {
+  animation: shine 3s linear infinite;
+}
+.shine:nth-child(2) {
+  animation-delay: 0.6s;
+}
+.shine:nth-child(3) {
+  animation-delay: 1.2s;
+}
+
+.loading-bouncer-container {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: row;
 }
 
 .loading-indicator-container {

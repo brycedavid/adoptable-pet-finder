@@ -181,11 +181,11 @@ const PetDisplay = (props) => {
         and try again.
       </h1>
     );
-  } else if (resultsFilter === null) {
+  } else {
     let skeletonArray = [];
 
     if (history.location.pathname === "/adoptable-pets") {
-      skeletonArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      skeletonArray = [0, 0, 0];
     } else {
       skeletonArray = [0, 0, 0, 0, 0, 0, 0, 0];
     }
@@ -193,7 +193,13 @@ const PetDisplay = (props) => {
     toRender = (
       <React.Fragment>
         <div className="display-container">
-          <div className="display-container-pet">
+          <div
+            className={
+              props.featuredPets
+                ? "display-container-pet"
+                : "display-container-pet-skeleton"
+            }
+          >
             {skeletonArray.map(() => (
               <PetDisplayItem
                 key={Math.random() * 1000}
@@ -206,9 +212,17 @@ const PetDisplay = (props) => {
                 breed="..."
                 size="..."
                 gender="..."
+                skeleton={true}
               />
             ))}
           </div>
+          {!props.featuredPets && (
+            <div className="wave-loader-container">
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+            </div>
+          )}
           <div className="button-container-bottom">
             {history.location.pathname === "/adoptable-pets" && (
               <button
@@ -229,12 +243,6 @@ const PetDisplay = (props) => {
           </div>
         </div>
       </React.Fragment>
-    );
-  } else {
-    toRender = (
-      <div className="loading-indicator-container">
-        <LoadingIndicator />
-      </div>
     );
   }
 

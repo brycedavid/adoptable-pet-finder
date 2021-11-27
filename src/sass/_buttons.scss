@@ -53,12 +53,12 @@
 }
 
 .disabled {
-  background-color: $color-light-grey;
+  background-color: $color-dark-grey;
   border: 0.5px solid $color-dark-grey;
 
   &:hover {
     cursor: default;
-    background-color: $color-light-grey;
+    background-color: $color-dark-grey;
     border: 0.5px solid $color-dark-grey;
   }
 }

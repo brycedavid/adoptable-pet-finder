@@ -153,7 +153,7 @@ const SignupForm = (props) => {
   return (
     <React.Fragment>
       <form onSubmit={submitHandler} className={"form-container"}>
-        <h1>Sign Up</h1>
+        <h2>Sign Up</h2>
         <input
           type="text"
           placeholder="email"

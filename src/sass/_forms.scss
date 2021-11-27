@@ -19,11 +19,17 @@
   height: 700px;
   padding: 12px;
   border: 2px solid $color-blue;
-  border-radius: 3px;
-  margin-top: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: 4px 4px 6px darkgrey;
 
   &-label {
     font-size: 20px;
     margin-top: 18px;
   }
+}
+
+.sticky {
+  position: sticky;
+  top: 7vh;
 }

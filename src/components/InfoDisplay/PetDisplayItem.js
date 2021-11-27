@@ -42,7 +42,10 @@ const PetDisplayItem = (props) => {
   };
 
   return (
-    <div className="display-item" onClick={itemClickHandler}>
+    <div
+      className={props.skeleton ? "display-item shine" : "display-item"}
+      onClick={itemClickHandler}
+    >
       <div className="image-container-pet">{photoElement}</div>
       <h2 className="display-item-name">{props.name}</h2>
       <p>{props.gender}</p>

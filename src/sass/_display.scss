@@ -19,6 +19,13 @@
       display: flex;
       justify-content: center;
     }
+
+    &-skeleton {
+      display: flex;
+      width: 1050px;
+      justify-content: center;
+      margin-top: 20px;
+    }
   }
 
   &-pet {
@@ -31,6 +38,14 @@
     &-page {
       display: flex;
       justify-content: center;
+    }
+
+    &-skeleton {
+      display: flex;
+      flex-wrap: wrap;
+      width: 1050px;
+      justify-content: center;
+      margin-top: -83px;
     }
   }
 }

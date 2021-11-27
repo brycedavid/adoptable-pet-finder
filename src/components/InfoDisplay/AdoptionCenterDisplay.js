@@ -109,11 +109,11 @@ const AdoptionCenterDisplay = (props) => {
       </h1>
     );
   } else {
-    const skeletonArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const skeletonArray = [0];
     toRender = (
       <React.Fragment>
         <div className="display-container">
-          <div className="display-container-organization">
+          <div className="display-container-organization-skeleton">
             {skeletonArray.map(() => (
               <AdoptionCenterDisplayItem
                 email="..."
@@ -125,8 +125,14 @@ const AdoptionCenterDisplay = (props) => {
                 pictures={[]}
                 url={"..."}
                 animalsLink={"..."}
+                skeleton={true}
               />
             ))}
+          </div>
+          <div className="wave-loader-container">
+            <span className="dot"></span>
+            <span className="dot"></span>
+            <span className="dot"></span>
           </div>
           <div className="button-container-bottom">
             <button className="button-alt button-display-item disabled">

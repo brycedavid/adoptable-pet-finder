@@ -28,6 +28,7 @@ const ResultsFilter = (props) => {
   }
 
   let formIsValid = locationValid;
+  let duplicateFilter = false;
 
   const changeFilterHandler = (event) => {
     if (filterFor === "petDisplay") {
@@ -55,7 +56,6 @@ const ResultsFilter = (props) => {
             let newFilter = { ...filter };
             delete newFilter.location;
             setLocationValid(false);
-
             setFilter({ ...filter });
           } else if (event.target.value.length === 0) {
             let newFilter = { ...filter };
@@ -104,6 +104,7 @@ const ResultsFilter = (props) => {
 
   // If our filter equals the last filter used, disable submit button
   if (isEqual(filter, lastFilter) || isEqual(filter, props.homeFilter)) {
+    duplicateFilter = true;
     formIsValid = false;
   }
 
@@ -174,6 +175,11 @@ const ResultsFilter = (props) => {
           type="submit"
           className={formIsValid ? "button-alt" : "button-alt disabled"}
           disabled={!formIsValid}
+          title={
+            duplicateFilter
+              ? "Search filters are the same; try a different filter"
+              : ""
+          }
         >
           Search
         </button>
@@ -203,7 +209,7 @@ const ResultsFilter = (props) => {
   }
 
   return (
-    <form onSubmit={formSubmitHandler} className="filter-form">
+    <form onSubmit={formSubmitHandler} className="filter-form sticky">
       {toRender}
     </form>
   );

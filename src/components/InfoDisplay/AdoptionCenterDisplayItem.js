@@ -25,7 +25,14 @@ const AdoptionCenterDisplayItem = (props) => {
   };
 
   return (
-    <div className="display-item-organization" onClick={itemClickHandler}>
+    <div
+      className={
+        props.skeleton
+          ? "display-item-organization shine"
+          : "display-item-organization"
+      }
+      onClick={itemClickHandler}
+    >
       <h2 className="display-item-name-organization">{props.name}</h2>
       <section className="display-item-organization-content">
         <div className="image-container">{photoElement}</div>
