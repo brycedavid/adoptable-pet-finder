@@ -72,6 +72,13 @@
   margin: 30px 0 30px 0;
 }
 
+.not-found-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
 .display-container {
   display: flex;
   flex-direction: column;
@@ -183,10 +190,43 @@
   align-items: center;
   justify-content: space-evenly;
   background-color: #902923;
+  margin-top: 60px;
+}
+.footer-container .sponsor-info {
+  width: 500px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.footer-container .links-section {
+  width: 100px;
+  display: flex;
+  justify-content: space-evenly;
 }
 .footer-container p,
 .footer-container a {
+  font-size: 16px;
   color: white;
+}
+.footer-container a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.footer-container .footer-image-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: inherit;
+  width: 300px;
+}
+.footer-container img:nth-of-type(1) {
+  margin-right: 10px;
+  height: 16px;
+  width: 100px;
+}
+.footer-container img:nth-of-type(2) {
+  width: 90px;
 }
 
 .form-container {
@@ -320,21 +360,20 @@ p {
   width: fit-content;
   justify-content: center;
   align-content: center;
-  margin-left: 200px;
+  margin-left: 140px;
 }
 .title-container-header {
   font-size: 38px;
   font-weight: 300px;
-  margin-left: 120px;
+  margin-left: 100px;
 }
 .title-container-subtext {
   font-size: 14px;
-  margin-left: 120px;
+  margin-left: 100px;
 }
 .title-container-welcome {
   margin-top: 20px;
   margin-bottom: -8px;
-  margin-left: 10px;
   text-align: center;
   width: 200px;
   font-size: 20px;
@@ -346,7 +385,7 @@ p {
 
 .profile-container {
   display: flex;
-  margin-right: 200px;
+  margin-right: 140px;
 }
 
 .profile-picture-container {

@@ -2,7 +2,8 @@
 // This page displays pet information by rendering the PetDisplay component as a child.
 // Implemented for use with React router in App.js.
 
-import { useState } from "react";
+import React, { useState } from "react";
+import Footer from "../components/Footer/Footer";
 import PetDisplay from "../components/InfoDisplay/PetDisplay";
 
 // Helper method which coverts any string to capital case.
@@ -26,16 +27,19 @@ const AdoptablePets = (props) => {
   };
 
   return (
-    <div className="main-content">
-      <h1>{"Adoptable Pets"}</h1>
-      <PetDisplay
-        homeSearchFor={homeSearchFor}
-        limit={96}
-        displayAmount={96}
-        setHomeSearchFor={setHomeSearchForHandler}
-        setHomeData={props.setSearchData}
-      />
-    </div>
+    <React.Fragment>
+      <div className="main-content">
+        <h1>{"Adoptable Pets"}</h1>
+        <PetDisplay
+          homeSearchFor={homeSearchFor}
+          limit={96}
+          displayAmount={96}
+          setHomeSearchFor={setHomeSearchForHandler}
+          setHomeData={props.setSearchData}
+        />
+      </div>
+      <Footer />
+    </React.Fragment>
   );
 };
 

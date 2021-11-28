@@ -12,23 +12,22 @@
   width: fit-content;
   justify-content: center;
   align-content: center;
-  margin-left: 200px;
+  margin-left: 140px;
 
   &-header {
     font-size: 38px;
     font-weight: 300px;
-    margin-left: 120px;
+    margin-left: 100px;
   }
 
   &-subtext {
     font-size: 14px;
-    margin-left: 120px;
+    margin-left: 100px;
   }
 
   &-welcome {
     margin-top: 20px;
     margin-bottom: -8px;
-    margin-left: 10px;
     text-align: center;
     width: 200px;
     font-size: 20px;
@@ -41,7 +40,7 @@
 
 .profile-container {
   display: flex;
-  margin-right: 200px;
+  margin-right: 140px;
 }
 
 .profile-picture-container {

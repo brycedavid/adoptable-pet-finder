@@ -7,9 +7,48 @@
   align-items: center;
   justify-content: space-evenly;
   background-color: $color-red;
+  margin-top: 60px;
+
+  .sponsor-info {
+    width: 500px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .links-section {
+    width: 100px;
+    display: flex;
+    justify-content: space-evenly;
+  }
 
   p,
   a {
+    font-size: 16px;
     color: white;
+  }
+
+  a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .footer-image-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: inherit;
+    width: 300px;
+  }
+
+  img:nth-of-type(1) {
+    margin-right: 10px;
+    height: 16px;
+    width: 100px;
+  }
+
+  img:nth-of-type(2) {
+    width: 90px;
   }
 }
