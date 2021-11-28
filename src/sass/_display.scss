@@ -24,7 +24,7 @@
       display: flex;
       width: 1050px;
       justify-content: center;
-      margin-top: 20px;
+      margin-top: -65px;
     }
   }
 
@@ -71,15 +71,15 @@
     @extend .display-item;
     display: flex;
     border: 3px solid #0f5797;
-    width: 900px;
-    height: 560px;
+    width: 700px;
+    height: 390px;
     margin-bottom: 36px;
     align-items: center;
 
     &-content {
       display: flex;
       flex-wrap: wrap;
-      width: 800px;
+      width: 700px;
       justify-content: space-between;
       padding: 0 20px 0 20px;
     }
@@ -111,6 +111,7 @@
 
   &-organization {
     @extend .display-item-name;
-    font-size: 34px;
+    font-size: 32px;
+    margin-bottom: 50px;
   }
 }

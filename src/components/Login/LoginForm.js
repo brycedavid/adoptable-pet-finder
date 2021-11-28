@@ -52,7 +52,10 @@ const LoginForm = (props) => {
 
     // If the response isn't valid...
     if (!response.ok) {
-      if (responseData.error.message === "EMAIL_NOT_FOUND") {
+      if (
+        responseData.error.message === "INVALID_EMAIL" ||
+        responseData.error.message === "EMAIL_NOT_FOUND"
+      ) {
         setRequestError(
           "There is no account corresponding to the entered email; Try another email."
         );
@@ -140,38 +143,42 @@ const LoginForm = (props) => {
     <div className="form-container">
       <form onSubmit={loginHandler} className={"form-container"}>
         <h2>Login</h2>
-        <input
-          type="text"
-          placeholder="email"
-          name="email"
-          id="email"
-          onChange={emailChangeHandler}
-          onBlur={emailBlurHandler}
-          value={enteredEmail}
-          className={
-            emailTouched && !emailValid ? "form-input invalid " : "form-input"
-          }
-        />
-        {emailInputError && emailTouched && (
-          <p className="error-message">{emailInputError}</p>
-        )}
-        <input
-          type="password"
-          placeholder="password"
-          name="password"
-          id="password"
-          onChange={passwordChangeHandler}
-          onBlur={passwordBlurHandler}
-          value={enteredPassword}
-          className={
-            passwordTouched && !passwordValid
-              ? "form-input invalid"
-              : "form-input"
-          }
-        />
-        {passwordInputError && passwordTouched && (
-          <p className="error-message">{passwordInputError}</p>
-        )}
+        <section className="form-input-container">
+          <input
+            type="text"
+            placeholder="email"
+            name="email"
+            id="email"
+            onChange={emailChangeHandler}
+            onBlur={emailBlurHandler}
+            value={enteredEmail}
+            className={
+              emailTouched && !emailValid ? "form-input invalid " : "form-input"
+            }
+          />
+          {emailInputError && emailTouched && (
+            <p className="error-message">{emailInputError}</p>
+          )}
+        </section>
+        <section className="form-input-container">
+          <input
+            type="password"
+            placeholder="password"
+            name="password"
+            id="password"
+            onChange={passwordChangeHandler}
+            onBlur={passwordBlurHandler}
+            value={enteredPassword}
+            className={
+              passwordTouched && !passwordValid
+                ? "form-input invalid"
+                : "form-input"
+            }
+          />
+          {passwordInputError && passwordTouched && (
+            <p className="error-message">{passwordInputError}</p>
+          )}
+        </section>
         <button
           disabled={!formIsValid}
           className={formIsValid ? "button-main" : "button-main disabled"}

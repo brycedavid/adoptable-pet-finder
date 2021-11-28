@@ -152,38 +152,42 @@ const SignupForm = (props) => {
     <React.Fragment>
       <form onSubmit={submitHandler} className={"form-container"}>
         <h2>Sign Up</h2>
-        <input
-          type="text"
-          placeholder="email"
-          name="email"
-          id="email"
-          onChange={emailChangeHandler}
-          onBlur={emailBlurHandler}
-          value={enteredEmail}
-          className={
-            emailTouched && !emailValid ? "form-input invalid " : "form-input"
-          }
-        />
-        {emailInputError && emailTouched && (
-          <p className="error-message">{emailInputError}</p>
-        )}
-        <input
-          type="password"
-          placeholder="password"
-          name="password"
-          id="password"
-          onChange={passwordChangeHandler}
-          onBlur={passwordBlurHandler}
-          value={enteredPassword}
-          className={
-            passwordTouched && !passwordValid
-              ? "form-input invalid "
-              : "form-input"
-          }
-        />
-        {passwordInputError && passwordTouched && (
-          <p className="error-message">{passwordInputError}</p>
-        )}
+        <section className="form-input-container">
+          <input
+            type="text"
+            placeholder="email"
+            name="email"
+            id="email"
+            onChange={emailChangeHandler}
+            onBlur={emailBlurHandler}
+            value={enteredEmail}
+            className={
+              emailTouched && !emailValid ? "form-input invalid " : "form-input"
+            }
+          />
+          {emailInputError && emailTouched && (
+            <p className="error-message">{emailInputError}</p>
+          )}
+        </section>
+        <section className="form-input-container">
+          <input
+            type="password"
+            placeholder="password"
+            name="password"
+            id="password"
+            onChange={passwordChangeHandler}
+            onBlur={passwordBlurHandler}
+            value={enteredPassword}
+            className={
+              passwordTouched && !passwordValid
+                ? "form-input invalid "
+                : "form-input"
+            }
+          />
+          {passwordInputError && passwordTouched && (
+            <p className="error-message">{passwordInputError}</p>
+          )}
+        </section>
         <button
           type="submit"
           disabled={!formIsValid}

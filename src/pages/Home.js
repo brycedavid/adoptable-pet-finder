@@ -11,6 +11,8 @@ import SearchForm from "../components/Search/SearchForm";
 import PetDisplay from "../components/InfoDisplay/PetDisplay";
 
 const Home = (props) => {
+  window.scrollTo({ top: 0, behavior: "instant" });
+
   const searchFormSubmitHandler = (searchValue) => {
     props.forwardFormData(searchValue);
   };

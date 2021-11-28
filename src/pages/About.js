@@ -5,6 +5,8 @@ import React from "react";
 import Footer from "../components/Footer/Footer";
 
 const About = () => {
+  window.scrollTo({ top: 0, behavior: "instant" });
+
   return (
     <React.Fragment>
       <h1>About</h1>

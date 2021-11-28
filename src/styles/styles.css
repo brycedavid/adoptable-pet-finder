@@ -97,7 +97,7 @@
   display: flex;
   width: 1050px;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: -65px;
 }
 .display-container-pet {
   display: flex;
@@ -137,15 +137,15 @@
 .display-item-organization {
   display: flex;
   border: 3px solid #0f5797;
-  width: 900px;
-  height: 560px;
+  width: 700px;
+  height: 390px;
   margin-bottom: 36px;
   align-items: center;
 }
 .display-item-organization-content {
   display: flex;
   flex-wrap: wrap;
-  width: 800px;
+  width: 700px;
   justify-content: space-between;
   padding: 0 20px 0 20px;
 }
@@ -172,7 +172,8 @@
   margin-bottom: 60px;
 }
 .display-item-name-organization {
-  font-size: 34px;
+  font-size: 32px;
+  margin-bottom: 50px;
 }
 
 .footer-container {
@@ -191,33 +192,72 @@
 .form-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  height: 300px;
 }
 .form-container h2 {
   margin-bottom: 40px;
   margin-top: -14px;
 }
 
-.filter-form {
+.filter-form, .filter-form-organization {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   width: 300px;
-  height: 700px;
+  height: 600px;
   padding: 12px;
   border: 2px solid #003d71;
   border-radius: 10px;
   margin-top: 30px;
   box-shadow: 4px 4px 6px darkgrey;
 }
-.filter-form-label {
+.filter-form-organization {
+  height: 200px;
+}
+.filter-form label, .filter-form-organization label {
   font-size: 20px;
   margin-top: 18px;
+}
+.filter-form button, .filter-form-organization button {
+  align-self: center;
+}
+
+.form-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 70px;
+}
+
+.form-input {
+  border: 1px solid black;
+  border-radius: 3px;
+  height: 30px;
+  width: 320px;
+}
+
+.filter-input {
+  margin: 14px 0;
+  width: 280px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.invalid {
+  border: 1px #902923 solid;
+  background-color: #ff9090;
+}
+
+.error-message {
+  color: #902923;
 }
 
 .sticky {
   position: sticky;
-  top: 7vh;
+  top: 2vh;
 }
 
 body {
@@ -259,6 +299,7 @@ p {
 .text-container {
   display: flex;
   flex-direction: column;
+  width: 1200px;
   justify-self: center;
   align-self: center;
   margin-top: 40px;
@@ -331,6 +372,7 @@ p {
 .main-image-container img {
   margin-top: 70px;
   width: 1150px;
+  height: 821px;
   border-radius: 20px;
   border: #003d71 solid 3px;
 }
@@ -339,12 +381,13 @@ p {
   display: flex;
   justify-content: center;
   align-content: center;
-  width: 360px;
-  height: 360px;
+  width: 260px;
+  height: 260px;
   overflow: hidden;
   border: 1px solid black;
   border-radius: 20px;
   background-color: black;
+  margin-left: 14px;
 }
 .image-container-pet {
   display: flex;
@@ -356,27 +399,7 @@ p {
   border: 1px solid black;
   border-radius: 20px;
   background-color: black;
-}
-
-.form-input {
-  border: 1px solid black;
-  border-radius: 3px;
-  height: 30px;
-  width: 320px;
-  margin-bottom: 30px;
-}
-
-.filter-input {
-  margin: 14px 0;
-  width: 280px;
-  height: 40px;
-  border: 1px solid black;
-  border-radius: 3px;
-}
-
-.invalid {
-  border: 1px #902923 solid;
-  background-color: #ff9090;
+  margin-left: 0;
 }
 
 .modal {
@@ -546,7 +569,6 @@ p {
   justify-content: center;
   align-content: center;
   align-items: center;
-  width: 1050px;
   min-height: 600px;
 }
 

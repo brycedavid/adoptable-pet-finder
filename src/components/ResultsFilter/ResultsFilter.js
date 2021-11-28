@@ -109,7 +109,7 @@ const ResultsFilter = (props) => {
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    window.scrollTo({ top: 147, behavior: "smooth" });
+    window.scrollTo({ top: 200, behavior: "smooth" });
     if (filterFor === "petDisplay") {
       setLastFilter(petFilter);
       props.setPageFilter(petFilter);
@@ -167,7 +167,7 @@ const ResultsFilter = (props) => {
   if (filterFor === "petDisplay") {
     toRender = (
       <React.Fragment>
-        <label className="filter-form-label">Pet type</label>
+        <label>Pet type</label>
         <select
           className={"filter-input"}
           id="type-select"
@@ -178,7 +178,7 @@ const ResultsFilter = (props) => {
           <option value="cat">Cats</option>
           <option value="dog">Dogs</option>
         </select>
-        <label className="filter-form-label">Breed</label>
+        <label>Breed</label>
         <select
           className={"filter-input"}
           id="breed-select"
@@ -192,7 +192,7 @@ const ResultsFilter = (props) => {
             </option>
           ))}
         </select>
-        <label className="filter-form-label">Gender</label>
+        <label>Gender</label>
         <select
           className={"filter-input"}
           id="gender-select"
@@ -203,7 +203,7 @@ const ResultsFilter = (props) => {
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
-        <label className="filter-form-label">Age</label>
+        <label>Age</label>
         <select
           className={"filter-input"}
           id="age-select"
@@ -216,7 +216,7 @@ const ResultsFilter = (props) => {
           <option vlue="adult">Adult</option>
           <option value="senior">Senior</option>
         </select>
-        <label className="filter-form-label">Location</label>
+        <label>Location</label>
         <input
           className={"filter-input"}
           id="zip-input"
@@ -242,7 +242,7 @@ const ResultsFilter = (props) => {
   } else {
     toRender = (
       <React.Fragment>
-        <label className="filter-form-label">Location</label>
+        <label>Location</label>
         <input
           className={"filter-input"}
           id="zip-input"
@@ -268,7 +268,14 @@ const ResultsFilter = (props) => {
   }
 
   return (
-    <form onSubmit={formSubmitHandler} className="filter-form sticky">
+    <form
+      onSubmit={formSubmitHandler}
+      className={
+        filterFor === "petDisplay"
+          ? "filter-form sticky"
+          : "filter-form-organization sticky"
+      }
+    >
       {toRender}
     </form>
   );
