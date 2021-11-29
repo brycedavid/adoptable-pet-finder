@@ -163,6 +163,8 @@ const useApi = (props) => {
     propFilter,
     requestError,
     props.filter,
+    onRequestError,
+    resultsFilter,
   ]);
 
   return data;

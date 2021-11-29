@@ -103,6 +103,8 @@ const ResultsFilter = (props) => {
             });
           }
           break;
+        default:
+          break;
       }
     }
   };
@@ -137,7 +139,7 @@ const ResultsFilter = (props) => {
     if (filterFor === "petDisplay") {
       makeRequest();
     }
-  }, [petFilter.type]);
+  }, [petFilter.type, filterFor]);
 
   let type, breed, gender, age, zip;
 

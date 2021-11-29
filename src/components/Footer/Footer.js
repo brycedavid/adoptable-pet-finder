@@ -23,16 +23,16 @@ const Footer = () => {
     <div className="footer-container">
       <section className="sponsor-info">
         <p>Made possible by: </p>
-        <a
+        <button
           className="footer-image-container"
           onClick={petfinderNavigationHandler}
         >
-          <img src={purinaLogo} />
-          <img src={petfinderLogo} />
-        </a>
+          <img src={purinaLogo} alt="Purina logo" />
+          <img src={petfinderLogo} alt="Petfinder logo" />
+        </button>
       </section>
       <section className="links-section">
-        <a onClick={scrollToTopHandler}>Top of page</a>
+        <button onClick={scrollToTopHandler}>Top of page</button>
       </section>
     </div>
   );

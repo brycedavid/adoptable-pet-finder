@@ -8,10 +8,10 @@ import PetDisplay from "../components/InfoDisplay/PetDisplay";
 
 // Helper method which coverts any string to capital case.
 // Used for page header, which is dynamic based on what's searched for.
-const capitalize = (string) => {
-  const lower = string.toLowerCase();
-  return string.charAt(0).toUpperCase() + lower.slice(1);
-};
+// const capitalize = (string) => {
+//   const lower = string.toLowerCase();
+//   return string.charAt(0).toUpperCase() + lower.slice(1);
+// };
 
 const AdoptablePets = (props) => {
   const [homeSearchFor, setHomeSearchFor] = useState(null);

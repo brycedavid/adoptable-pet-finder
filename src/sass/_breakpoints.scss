@@ -1,0 +1,86 @@
+@import "./colors";
+
+$breakpoint-min-mobile: 320px;
+$breakpoint-max-mobile: 480px;
+$breakpoint-min-tablet: 481px;
+$breakpoint-max-tablet: 768px;
+$breakpoint-min-desktop: 1024px;
+$breakpoint-max-desktop: 1400px;
+
+@media (max-width: $breakpoint-min-desktop) {
+  .subnav {
+    width: 260px;
+  }
+
+  .text-container {
+    width: 960px;
+  }
+
+  .display-container {
+    width: 600px;
+
+    &-organization {
+      width: 610px;
+
+      &-page {
+      }
+    }
+  }
+
+  .title-container {
+    margin-left: -10px;
+  }
+
+  .profile-container {
+    margin-right: 20px;
+  }
+
+  .display-item {
+    &-organization {
+      width: 600px;
+      margin-left: 0;
+
+      &-content {
+        display: flex;
+        flex-wrap: wrap;
+        width: 700px;
+        justify-content: space-between;
+        padding: 0 20px 0 20px;
+
+        p {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+
+  .image-container {
+    width: 220px;
+    height: 220px;
+    margin-left: 70px;
+  }
+
+  .filter-form-organization {
+    width: 270px;
+    margin-left: 40px;
+
+    .filter-input {
+      width: 230px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-max-desktop) {
+  .display-container {
+    width: 1000px;
+
+    &-pet {
+      width: 700px;
+      &-skeleton {
+        width: 700px;
+        height: 450px;
+        overflow: hidden;
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@
 // This component acts as the AdoptionCenterDisplay container, which renders one AdoptionCenterDisplayItem.js per organization as child components. It also handles making the
 // request to Petfinder API for organization data using the custom useApi hook.
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
@@ -44,9 +44,9 @@ const AdoptionCenterDisplay = (props) => {
     setRequestError(null);
   }
 
-  const requestErrorHandler = (error) => {
+  const requestErrorHandler = useCallback((error) => {
     setRequestError(error);
-  };
+  }, []);
 
   console.log("About to make request with: ");
   console.log(resultsFilter);

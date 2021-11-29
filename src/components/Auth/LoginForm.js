@@ -3,8 +3,11 @@
 // It handles all user login logic, including making API requests for logging in
 // and validating user input.
 
-import { useContext, useState } from "react";
+import { useContext, useState, ReactDOM } from "react";
 import { useHistory } from "react-router";
+
+import LoadingIndicator from "../common/LoadingIndicator";
+import Backdrop from "../common/Backdrop";
 
 import AuthContext from "../../store/auth-context";
 
@@ -138,6 +141,18 @@ const LoginForm = (props) => {
 
     sendRequest();
   };
+
+  if (isLoading) {
+    return (
+      <div className="loading-indicator-container">
+        <LoadingIndicator />
+        {ReactDOM.createPortal(
+          <Backdrop />,
+          document.getElementById("backdrop-root")
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="form-container">

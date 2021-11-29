@@ -2,8 +2,8 @@ import ReactDOM from "react-dom";
 import { Fragment } from "react";
 
 import Backdrop from "./Backdrop";
-import SignupForm from "../Signup/SignupForm";
-import LoginForm from "../Login/LoginForm";
+import SignupForm from "../Auth/SignupForm";
+import LoginForm from "../Auth/LoginForm";
 
 const ModalOverlay = (props) => {
   let form = null;

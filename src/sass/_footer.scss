@@ -17,15 +17,26 @@
   }
 
   .links-section {
-    width: 100px;
+    width: 200px;
     display: flex;
     justify-content: space-evenly;
   }
 
-  p,
-  a {
+  p {
     font-size: 16px;
     color: white;
+  }
+
+  button {
+    font-size: 16px;
+    color: white;
+    background-color: $color-red;
+    border: none;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
   }
 
   a:hover {
@@ -39,7 +50,13 @@
     align-items: center;
     justify-content: flex-start;
     height: inherit;
-    width: 300px;
+    width: auto;
+    background-color: $color-red;
+    border: none;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   img:nth-of-type(1) {
