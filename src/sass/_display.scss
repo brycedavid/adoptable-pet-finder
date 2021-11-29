@@ -1,3 +1,5 @@
+@import "./colors";
+
 .display-container {
   display: flex;
   flex-direction: column;
@@ -113,5 +115,16 @@
     @extend .display-item-name;
     font-size: 32px;
     margin-bottom: 50px;
+  }
+}
+
+.no-data-message-container {
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+
+  p {
+    color: $color-red;
   }
 }

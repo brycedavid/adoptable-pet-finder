@@ -1,0 +1,313 @@
+@import "./breakpoints";
+
+@media (max-width: $breakpoint-max-tablet) {
+  h1 {
+    font-size: 28px;
+  }
+
+  .navbar {
+    height: 38px;
+    ul {
+      display: flex;
+      justify-content: space-evenly;
+    }
+    .subnav {
+      width: 100px;
+      font-size: 10px;
+    }
+  }
+
+  .title-container {
+    margin-left: -20px;
+    margin-top: 30px;
+
+    &-welcome {
+      font-size: 12px;
+    }
+
+    &-header {
+      font-size: 18px;
+    }
+
+    &-subtext {
+      font-size: 8px;
+    }
+  }
+
+  .profile-container {
+    margin-right: 20px;
+
+    .button-container {
+      margin-right: 4px;
+      button {
+        width: 50px;
+        height: 30px;
+        font-size: 10px;
+      }
+    }
+  }
+
+  .main-image-container {
+    width: 460px;
+    height: auto;
+    margin-bottom: 14px;
+  }
+
+  .text-container {
+    width: 460px;
+  }
+
+  .display-container-pet-page {
+    .display-container {
+      min-height: 700px;
+    }
+
+    .filter-form {
+      width: 150px;
+      height: 500px;
+      margin-left: 40px;
+
+      input,
+      select {
+        width: 140px;
+      }
+
+      label {
+        font-size: 14px;
+      }
+
+      button {
+        width: 60px;
+        height: 40px;
+        font-size: 10px;
+      }
+    }
+
+    .display-container-pet {
+      width: 270px;
+
+      .display-item {
+        width: 170px;
+        height: 260px;
+        box-shadow: 3px 3px 4px darkgrey;
+
+        h2 {
+          font-size: 18px;
+          margin-top: 5px;
+          margin-bottom: 30px;
+        }
+
+        p {
+          font-size: 12px;
+        }
+
+        .image-container-pet {
+          width: 120px;
+          height: 120px;
+        }
+      }
+    }
+
+    .display-container-pet-skeleton {
+      height: 298px;
+      width: 212px;
+      margin-top: 10px;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      overflow-y: hidden;
+
+      .display-item {
+        width: 170px;
+        min-height: 260px;
+        box-shadow: 3px 3px 4px darkgrey;
+
+        h2 {
+          font-size: 18px;
+          margin-top: 5px;
+          margin-bottom: 30px;
+        }
+
+        p {
+          font-size: 12px;
+        }
+
+        .image-container-pet {
+          width: 120px;
+          height: 120px;
+        }
+      }
+    }
+
+    .button-container-bottom {
+      height: fit-content;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      flex-direction: column;
+
+      button {
+        width: 100px;
+        height: 60px;
+        font-size: 10px;
+      }
+    }
+  }
+
+  .display-container-organization-page {
+    justify-content: space-around;
+
+    .display-container {
+      &-organization {
+        width: 300px;
+        margin-left: 10px;
+
+        &-skeleton {
+          width: 300px;
+          margin-left: 10px;
+          margin-top: -342px;
+
+          .display-item-organization {
+            width: 230px;
+            height: 180px;
+            margin-left: 0;
+
+            .display-item-name-organization {
+              font-size: 14px;
+            }
+
+            &-content {
+              display: flex;
+              flex-wrap: wrap;
+              width: 210px;
+              height: fit-content;
+              justify-content: space-between;
+              align-items: center;
+              padding: 0;
+
+              .info-container {
+                width: 120px;
+                height: 120px;
+
+                &-address {
+                  margin-bottom: 8px;
+                }
+              }
+
+              p {
+                font-size: 8px;
+              }
+
+              .image-container {
+                width: 85px;
+                height: 85px;
+                margin-left: -10px;
+              }
+            }
+
+            h2 {
+              font-size: 20px;
+              margin-bottom: 10px;
+            }
+          }
+        }
+
+        .display-item-organization {
+          width: 230px;
+          height: 180px;
+          margin-left: 0;
+
+          .display-item-name-organization {
+            font-size: 14px;
+          }
+
+          &-content {
+            display: flex;
+            flex-wrap: wrap;
+            width: 210px;
+            height: fit-content;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+
+            .info-container {
+              width: 120px;
+              height: 120px;
+
+              &-address {
+                margin-bottom: 8px;
+              }
+            }
+
+            p {
+              font-size: 8px;
+            }
+
+            .image-container {
+              width: 85px;
+              height: 85px;
+              margin-left: -10px;
+            }
+          }
+
+          h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+
+    .filter-form-organization {
+      width: 150px;
+      height: 150px;
+      margin-left: 40px;
+
+      input,
+      select {
+        width: 140px;
+      }
+
+      label {
+        font-size: 14px;
+      }
+
+      button {
+        width: 60px;
+        height: 40px;
+        font-size: 10px;
+      }
+    }
+
+    .button-container-bottom {
+      height: fit-content;
+      margin-right: 14px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      flex-direction: column;
+
+      button {
+        width: 100px;
+        height: 60px;
+        font-size: 10px;
+      }
+    }
+  }
+
+  .footer-container {
+    p,
+    button {
+      font-size: 10px;
+    }
+
+    .sponsor-info {
+      justify-content: center;
+      .footer-image-container {
+        width: auto;
+
+        img {
+          width: 60px;
+          height: auto;
+        }
+      }
+    }
+  }
+}

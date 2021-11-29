@@ -1,13 +1,6 @@
-@import "./colors";
+@import "./breakpoints";
 
-$breakpoint-min-mobile: 320px;
-$breakpoint-max-mobile: 480px;
-$breakpoint-min-tablet: 481px;
-$breakpoint-max-tablet: 768px;
-$breakpoint-min-desktop: 1024px;
-$breakpoint-max-desktop: 1400px;
-
-@media (max-width: $breakpoint-min-desktop) {
+@media (max-width: $breakpoint-medium-desktop) {
   .subnav {
     width: 260px;
   }
@@ -17,12 +10,20 @@ $breakpoint-max-desktop: 1400px;
   }
 
   .display-container {
-    width: 600px;
+    width: fit-content;
 
     &-organization {
       width: 610px;
+      margin-right: 20px;
+
+      &-skeleton {
+        width: 610px;
+        margin-left: 100px;
+        margin-right: 20px;
+      }
 
       &-page {
+        justify-content: space-between;
       }
     }
   }
@@ -54,33 +55,35 @@ $breakpoint-max-desktop: 1400px;
     }
   }
 
+  .main-image-container {
+    justify-self: center;
+    align-self: center;
+    width: 800px;
+    height: auto;
+
+    img {
+      width: auto;
+      height: auto;
+    }
+  }
+
   .image-container {
     width: 220px;
     height: 220px;
     margin-left: 70px;
   }
 
+  .filter-form,
   .filter-form-organization {
     width: 270px;
-    margin-left: 40px;
+    margin-left: 20px;
 
     .filter-input {
-      width: 230px;
+      width: 260px;
     }
   }
-}
 
-@media (max-width: $breakpoint-max-desktop) {
-  .display-container {
-    width: 1000px;
-
-    &-pet {
-      width: 700px;
-      &-skeleton {
-        width: 700px;
-        height: 450px;
-        overflow: hidden;
-      }
-    }
+  .footer-container {
+    justify-content: space-between;
   }
 }

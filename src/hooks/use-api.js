@@ -31,7 +31,8 @@ const useApi = (props) => {
   const [data, setData] = useState(null);
   const [requestError, setRequestError] = useState(null);
   const [resultsFilter, setResultsFilter] = useState(null);
-  const componentMounted = useRef(true);
+  let componentMounted = true;
+  // const componentMounted = useRef(true);
 
   // Destruct props to extract values
   let {
@@ -83,7 +84,7 @@ const useApi = (props) => {
               .search({ limit, ...resultsFilter })
               .catch((error) => {
                 console.log(error);
-                if (componentMounted.current) {
+                if (componentMounted) {
                   setRequestError(error);
                 }
               });
@@ -92,7 +93,7 @@ const useApi = (props) => {
               .search({ limit })
               .catch((error) => {
                 console.log(error);
-                if (componentMounted.current) {
+                if (componentMounted) {
                   setRequestError(error);
                 }
               });
@@ -113,7 +114,7 @@ const useApi = (props) => {
               })
               .catch((error) => {
                 console.log(error);
-                if (componentMounted.current) {
+                if (componentMounted) {
                   setRequestError(error);
                 }
               });
@@ -125,7 +126,7 @@ const useApi = (props) => {
               })
               .catch((error) => {
                 console.log(error);
-                if (componentMounted.current) {
+                if (componentMounted) {
                   setRequestError(error);
                 }
               });
@@ -142,7 +143,7 @@ const useApi = (props) => {
           break;
       }
 
-      if (componentMounted.current) {
+      if (componentMounted) {
         // Log our data (for development purposes) and set our data state.
         console.log(responseData);
         setData(parsedData.slice(0, displayAmount));
@@ -165,7 +166,7 @@ const useApi = (props) => {
     return () => {
       setData(null);
       setRequestError(null);
-      componentMounted.current = false;
+      componentMounted = false;
     };
   }, [
     propSendRequest,

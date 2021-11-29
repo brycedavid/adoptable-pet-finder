@@ -113,21 +113,27 @@ const AdoptionCenterDisplay = (props) => {
       <Fragment>
         <div className="display-container">
           <div className="display-container-organization">
-            {parsedData.data
-              .slice(0, parsedData.itemsToShow)
-              .map((organization) => (
-                <AdoptionCenterDisplayItem
-                  email={organization.email}
-                  key={organization.key}
-                  id={organization.id}
-                  address={organization.address}
-                  name={organization.name}
-                  phone={organization.phone}
-                  pictures={organization.pictures}
-                  url={organization.url}
-                  animalsLink={organization.animalsLink}
-                />
-              ))}
+            {parsedData.data.length > 0 ? (
+              parsedData.data
+                .slice(0, parsedData.itemsToShow)
+                .map((organization) => (
+                  <AdoptionCenterDisplayItem
+                    email={organization.email}
+                    key={organization.key}
+                    id={organization.id}
+                    address={organization.address}
+                    name={organization.name}
+                    phone={organization.phone}
+                    pictures={organization.pictures}
+                    url={organization.url}
+                    animalsLink={organization.animalsLink}
+                  />
+                ))
+            ) : (
+              <div className="no-data-message-container">
+                <p>No adoption centers found.</p>
+              </div>
+            )}
           </div>
           <div className="button-container-bottom">
             {parsedData.showButton && (
@@ -150,10 +156,12 @@ const AdoptionCenterDisplay = (props) => {
     );
   } else if (requestError) {
     toRender = (
-      <h1>
-        Something went wrong with your request. Please check your search values
-        and try again.
-      </h1>
+      <div className="no-data-message-container">
+        <p>
+          Something went wrong with your request. Please check your search
+          values and try again.
+        </p>
+      </div>
     );
   } else {
     const skeletonArray = [0];

@@ -149,8 +149,13 @@ const PetDisplay = (props) => {
                   />
                 ))
             ) : (
-              <div>No pets found.</div>
+              <div className="no-data-message-container">
+                <p>No pets found.</p>
+              </div>
             )}
+            <div className="no-data-message-container">
+              <p>No pets found.</p>
+            </div>
           </div>
           <div className="button-container-bottom">
             {parsedData.showButton && (
@@ -175,10 +180,12 @@ const PetDisplay = (props) => {
     );
   } else if (requestError) {
     toRender = (
-      <h1>
-        Something went wrong with your request. Please check your search values
-        and try again.
-      </h1>
+      <div className="no-data-message-container">
+        <p>
+          Something went wrong with your request. Please check your search
+          values and try again.
+        </p>
+      </div>
     );
   } else {
     let skeletonArray = [];
