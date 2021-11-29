@@ -22,7 +22,7 @@ const Footer = () => {
   return (
     <div className="footer-container">
       <section className="sponsor-info">
-        <p>Made possible by: </p>
+        <p>Powered by: </p>
         <button
           className="footer-image-container"
           onClick={petfinderNavigationHandler}
