@@ -3,7 +3,7 @@
 // related to pet information from the Petfinder API. Configured to be re-usable for any search
 // using the props parameter.
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { Client } from "@petfinder/petfinder-js";
 
@@ -31,6 +31,7 @@ const useApi = (props) => {
   const [data, setData] = useState(null);
   const [requestError, setRequestError] = useState(null);
   const [resultsFilter, setResultsFilter] = useState(null);
+  const componentMounted = useRef(true);
 
   // Destruct props to extract values
   let {
@@ -82,14 +83,18 @@ const useApi = (props) => {
               .search({ limit, ...resultsFilter })
               .catch((error) => {
                 console.log(error);
-                setRequestError(error);
+                if (componentMounted.current) {
+                  setRequestError(error);
+                }
               });
           } else {
             responseData = await petFinderClient.animal
               .search({ limit })
               .catch((error) => {
                 console.log(error);
-                setRequestError(error);
+                if (componentMounted.current) {
+                  setRequestError(error);
+                }
               });
           }
 
@@ -108,7 +113,9 @@ const useApi = (props) => {
               })
               .catch((error) => {
                 console.log(error);
-                setRequestError(error);
+                if (componentMounted.current) {
+                  setRequestError(error);
+                }
               });
           } else {
             // Request organization data
@@ -118,7 +125,9 @@ const useApi = (props) => {
               })
               .catch((error) => {
                 console.log(error);
-                setRequestError(error);
+                if (componentMounted.current) {
+                  setRequestError(error);
+                }
               });
           }
 
@@ -133,9 +142,11 @@ const useApi = (props) => {
           break;
       }
 
-      // Log our data (for development purposes) and set our data state.
-      console.log(responseData);
-      setData(parsedData.slice(0, displayAmount));
+      if (componentMounted.current) {
+        // Log our data (for development purposes) and set our data state.
+        console.log(responseData);
+        setData(parsedData.slice(0, displayAmount));
+      }
 
       if (requestError && numRequestRetries > 0) {
         onRequestError(requestError);
@@ -154,6 +165,7 @@ const useApi = (props) => {
     return () => {
       setData(null);
       setRequestError(null);
+      componentMounted.current = false;
     };
   }, [
     propSendRequest,
