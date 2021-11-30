@@ -1,4 +1,5 @@
 @import "./colors";
+@import "./breakpoints";
 
 .main-image-container {
   display: flex;
@@ -37,5 +38,65 @@
     border-radius: 20px;
     background-color: black;
     margin-left: 0;
+  }
+}
+
+@media (max-width: $breakpoint-medium-desktop) {
+  .main-image-container {
+    justify-self: center;
+    align-self: center;
+    width: 800px;
+    height: auto;
+
+    img {
+      width: auto;
+      height: auto;
+    }
+  }
+
+  .image-container {
+    width: 220px;
+    height: 220px;
+    margin-left: 70px;
+  }
+}
+
+@media (max-width: $breakpoint-min-desktop) {
+  .image-container {
+    width: 160px;
+    height: 160px;
+    margin-left: 70px;
+  }
+}
+
+@media (max-width: $breakpoint-max-tablet) {
+  .main-image-container {
+    width: 460px;
+    height: auto;
+    margin-bottom: 14px;
+  }
+
+  .image-container-pet {
+    width: 120px;
+    height: 120px;
+  }
+
+  .image-container {
+    width: 85px;
+    height: 85px;
+    margin-left: -10px;
+  }
+}
+
+@media (max-width: $breakpoint-max-mobile) {
+  .main-image-container {
+    width: 300px;
+  }
+
+  .image-container {
+    margin-left: 0;
+    margin-bottom: -5px;
+    width: 70px;
+    height: 70px;
   }
 }

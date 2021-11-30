@@ -1,4 +1,5 @@
 @import "./colors";
+@import "./breakpoints";
 
 .form-container {
   display: flex;
@@ -74,4 +75,118 @@
 .sticky {
   position: sticky;
   top: 2vh;
+}
+
+@media (max-width: $breakpoint-medium-desktop) {
+  .filter-form,
+  .filter-form-organization {
+    width: 270px;
+    margin-left: 20px;
+
+    .filter-input {
+      width: 260px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-min-desktop) {
+  .filter-form {
+    width: 200px;
+
+    input,
+    select {
+      max-width: 193px;
+    }
+  }
+
+  .filter-form-organization {
+    width: 200px;
+
+    input,
+    select {
+      max-width: 193px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-max-tablet) {
+  .display-container-pet-page {
+    .filter-form {
+      width: 150px;
+      height: 500px;
+      margin-left: 40px;
+
+      input,
+      select {
+        max-width: 140px;
+        height: 30px;
+      }
+
+      label {
+        font-size: 14px;
+      }
+
+      button {
+        width: 60px;
+        height: 40px;
+        font-size: 10px;
+      }
+    }
+  }
+
+  .filter-form-organization {
+    width: 150px;
+    height: 150px;
+    margin-left: 40px;
+
+    input {
+      max-width: 140px;
+      height: 30px;
+    }
+
+    label {
+      font-size: 14px;
+    }
+
+    button {
+      width: 60px;
+      height: 40px;
+      font-size: 10px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-max-mobile) {
+  .display-container-pet-page {
+    .filter-form {
+      width: 60px;
+      height: 480px;
+
+      input,
+      select {
+        width: 57px;
+        height: 30px;
+      }
+
+      button {
+        width: 46px;
+        height: 30px;
+      }
+    }
+  }
+
+  .filter-form-organization {
+    width: 60px;
+    height: 130px;
+
+    input {
+      max-width: 57px;
+      height: 30px;
+    }
+
+    button {
+      width: 46px;
+      height: 30px;
+    }
+  }
 }

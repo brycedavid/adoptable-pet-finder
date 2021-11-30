@@ -1,3 +1,6 @@
+@import "./colors";
+@import "./breakpoints";
+
 html {
   font-size: 100%;
 }
@@ -55,4 +58,42 @@ img {
   margin-bottom: 40px;
   justify-content: center;
   align-content: center;
+}
+
+@media (max-width: $breakpoint-medium-desktop) {
+  .text-container {
+    width: 960px;
+  }
+}
+
+@media (max-width: $breakpoint-max-tablet) {
+  h1 {
+    font-size: 28px;
+  }
+
+  .text-container {
+    width: 460px;
+
+    h2 {
+      font-size: 20px;
+    }
+
+    h3 {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-max-mobile) {
+  .text-container {
+    width: 300px;
+
+    h2 {
+      font-size: 16px;
+    }
+
+    h3 {
+      font-size: 12px;
+    }
+  }
 }

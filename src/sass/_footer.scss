@@ -1,4 +1,5 @@
 @import "./colors";
+@import "./breakpoints";
 
 .footer-container {
   display: flex;
@@ -67,5 +68,46 @@
 
   img:nth-of-type(2) {
     width: 90px;
+  }
+}
+
+@media (max-width: $breakpoint-medium-desktop) {
+  .footer-container {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: $breakpoint-max-tablet) {
+  .footer-container {
+    p,
+    button {
+      font-size: 10px;
+    }
+
+    .sponsor-info {
+      justify-content: center;
+      .footer-image-container {
+        width: auto;
+
+        img {
+          width: 60px;
+          height: auto;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-max-mobile) {
+  .footer-container {
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
+    height: 80px;
+
+    .sponsor-info {
+      .footer-image-container img {
+        width: 50px;
+      }
+    }
   }
 }

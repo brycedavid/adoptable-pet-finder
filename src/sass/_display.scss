@@ -1,4 +1,5 @@
 @import "./colors";
+@import "./breakpoints";
 
 .display-container {
   display: flex;
@@ -126,5 +127,423 @@
 
   p {
     color: $color-red;
+  }
+}
+
+@media (max-width: $breakpoint-max-desktop) {
+  .display-container {
+    display: flex;
+    width: 700px;
+
+    &-pet {
+      width: 700px;
+      &-skeleton {
+        width: 700px;
+        height: 450px;
+        overflow: hidden;
+      }
+    }
+
+    &-organization {
+      width: auto;
+      margin-left: 100px;
+      &-skeleton {
+        width: 700px;
+        margin-left: 100px;
+      }
+      &-page {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-medium-desktop) {
+  .display-container {
+    width: fit-content;
+
+    &-organization {
+      width: 610px;
+      margin-right: 20px;
+
+      &-skeleton {
+        width: 610px;
+        margin-left: 100px;
+        margin-right: 20px;
+      }
+
+      &-page {
+        justify-content: space-between;
+      }
+    }
+  }
+
+  .display-item {
+    &-organization {
+      width: 600px;
+      margin-left: 0;
+
+      &-content {
+        display: flex;
+        flex-wrap: wrap;
+        width: 700px;
+        justify-content: space-between;
+        padding: 0 20px 0 20px;
+
+        p {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-min-desktop) {
+  .display-container-pet-skeleton {
+    margin-top: -120px;
+    width: 500px;
+  }
+
+  .display-container-pet-page {
+    justify-content: space-around;
+
+    .display-container {
+      width: 500px;
+
+      &-pet {
+        width: 500px;
+      }
+    }
+
+    .button-container-bottom {
+      width: fit-content;
+      height: 60px;
+
+      button {
+        width: 130px;
+        height: 60px;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .display-container-organization-page {
+    justify-content: space-around;
+
+    .display-container {
+      &-organization {
+        margin-left: 10px;
+
+        &-skeleton {
+          margin-left: 10px;
+          margin-top: -198px;
+
+          .display-item-organization {
+            width: 500px;
+            height: 300px;
+            margin-left: 0;
+
+            &-content {
+              display: flex;
+              flex-wrap: wrap;
+              width: 400px;
+              height: 200px;
+              justify-content: space-between;
+              align-items: center;
+              padding: 0 20px 0 20px;
+
+              .info-container {
+                width: 200px;
+              }
+
+              p {
+                font-size: 12px;
+              }
+            }
+
+            h2 {
+              font-size: 20px;
+              margin-bottom: 10px;
+            }
+          }
+        }
+
+        .display-item-organization {
+          width: 500px;
+          height: 300px;
+          margin-left: 0;
+
+          &-content {
+            display: flex;
+            flex-wrap: wrap;
+            width: 400px;
+            height: 200px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px 0 20px;
+
+            .info-container {
+              width: 200px;
+            }
+
+            p {
+              font-size: 12px;
+            }
+          }
+
+          h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+
+    .button-container-bottom {
+      width: fit-content;
+      height: 60px;
+
+      button {
+        width: 130px;
+        height: 60px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-max-tablet) {
+  .display-container-pet-page {
+    .display-container {
+      min-height: 700px;
+    }
+
+    .display-container-pet {
+      width: 270px;
+
+      .display-item {
+        width: 170px;
+        height: 260px;
+        box-shadow: 3px 3px 4px darkgrey;
+
+        h2 {
+          font-size: 18px;
+          margin-top: 5px;
+          margin-bottom: 30px;
+        }
+
+        p {
+          font-size: 12px;
+        }
+
+        .image-container-pet {
+          width: 120px;
+          height: 120px;
+        }
+      }
+    }
+
+    .display-container-pet-skeleton {
+      height: 298px;
+      width: 212px;
+      margin-top: 10px;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      overflow-y: hidden;
+
+      .display-item {
+        width: 170px;
+        min-height: 260px;
+        box-shadow: 3px 3px 4px darkgrey;
+
+        h2 {
+          font-size: 18px;
+          margin-top: 5px;
+          margin-bottom: 30px;
+        }
+
+        p {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .button-container-bottom {
+      height: fit-content;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      flex-direction: column;
+
+      button {
+        width: 100px;
+        height: 60px;
+        font-size: 10px;
+      }
+    }
+  }
+
+  .display-container-organization-page {
+    justify-content: space-around;
+
+    .display-container {
+      &-organization {
+        width: 300px;
+        margin-left: 10px;
+
+        &-skeleton {
+          width: 300px;
+          margin-left: 10px;
+          margin-top: -342px;
+
+          .display-item-organization {
+            width: 230px;
+            height: 180px;
+            margin-left: 0;
+
+            .display-item-name-organization {
+              font-size: 14px;
+            }
+
+            &-content {
+              display: flex;
+              flex-wrap: wrap;
+              width: 210px;
+              height: fit-content;
+              justify-content: space-between;
+              align-items: center;
+              padding: 0;
+
+              .info-container {
+                width: 120px;
+                height: 120px;
+
+                &-address {
+                  margin-bottom: 8px;
+                }
+              }
+
+              p {
+                font-size: 8px;
+              }
+            }
+
+            h2 {
+              font-size: 20px;
+              margin-bottom: 10px;
+            }
+          }
+        }
+
+        .display-item-organization {
+          width: 230px;
+          height: 180px;
+          margin-left: 0;
+
+          .display-item-name-organization {
+            font-size: 14px;
+          }
+
+          &-content {
+            display: flex;
+            flex-wrap: wrap;
+            width: 210px;
+            height: fit-content;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+
+            .info-container {
+              width: 120px;
+              height: 120px;
+
+              &-address {
+                margin-bottom: 8px;
+              }
+            }
+
+            p {
+              font-size: 8px;
+            }
+          }
+
+          h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+
+    .button-container-bottom {
+      height: fit-content;
+      margin-right: 14px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      flex-direction: column;
+
+      button {
+        width: 100px;
+        height: 60px;
+        font-size: 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-max-mobile) {
+  .display-container-pet-skeleton {
+    margin-right: 2px;
+  }
+
+  .display-container-organization-page {
+    .display-container {
+      width: 250px;
+      min-height: 700px;
+
+      &-organization {
+        width: 250px;
+
+        .display-item-organization {
+          width: 170px;
+          height: 210px;
+          margin-bottom: 10px;
+
+          &-content {
+            width: 170px;
+            flex-direction: column;
+            align-items: center;
+
+            .info-container {
+              width: 100px;
+            }
+          }
+        }
+
+        &-skeleton {
+          width: 250px;
+          margin-left: 10px;
+          margin-top: -12px;
+
+          .display-item-organization {
+            max-width: 170px;
+            min-height: 210px;
+
+            .display-item-name-organization {
+              font-size: 14px;
+            }
+
+            &-content {
+              width: 170px;
+              flex-direction: column;
+              align-items: center;
+
+              .info-container {
+                width: 100px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

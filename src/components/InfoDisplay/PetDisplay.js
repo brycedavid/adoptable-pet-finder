@@ -153,9 +153,6 @@ const PetDisplay = (props) => {
                 <p>No pets found.</p>
               </div>
             )}
-            <div className="no-data-message-container">
-              <p>No pets found.</p>
-            </div>
           </div>
           <div className="button-container-bottom">
             {parsedData.showButton && (

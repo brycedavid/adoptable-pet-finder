@@ -1,4 +1,5 @@
 @import "./colors";
+@import "./breakpoints";
 
 .header-container {
   display: flex;
@@ -56,5 +57,129 @@
     width: inherit;
     height: inherit;
     border-radius: inherit;
+  }
+}
+
+@media (max-width: $breakpoint-max-desktop) {
+  .title-container {
+    margin-left: 20px;
+
+    &-welcome {
+      margin-left: -24px;
+    }
+
+    &-header {
+      margin-left: 76px;
+    }
+
+    &-subtext {
+      margin-left: 76px;
+    }
+  }
+
+  .profile-container {
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: $breakpoint-medium-desktop) {
+  .title-container {
+    margin-left: -10px;
+  }
+
+  .profile-container {
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: $breakpoint-min-desktop) {
+  .title-container {
+    margin-left: 20px;
+
+    &-welcome {
+      font-size: 16px;
+    }
+
+    &-header {
+      font-size: 28px;
+    }
+
+    &-subtext {
+      font-size: 12px;
+    }
+  }
+
+  .profile-picture-container {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: $breakpoint-max-tablet) {
+  .title-container {
+    margin-left: -20px;
+    margin-top: 30px;
+
+    &-welcome {
+      font-size: 12px;
+    }
+
+    &-header {
+      font-size: 18px;
+    }
+
+    &-subtext {
+      font-size: 8px;
+    }
+  }
+
+  .profile-container {
+    margin-right: 20px;
+
+    .button-container {
+      margin-right: 4px;
+      button {
+        width: 50px;
+        height: 30px;
+        font-size: 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-max-mobile) {
+  .header-container {
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+
+    .title-container {
+      margin-left: -70px;
+      margin-bottom: 10px;
+      margin-top: 0;
+
+      &-welcome {
+        width: 80px;
+        margin-left: 38px;
+        margin-bottom: 0;
+      }
+    }
+
+    .profile-container {
+      margin-right: 0;
+      margin-bottom: 16px;
+      flex-direction: column-reverse;
+
+      .button-container {
+        margin-top: 8px;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+
+        button {
+          font-size: 8px;
+        }
+      }
+    }
   }
 }
