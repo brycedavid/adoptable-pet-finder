@@ -2,27 +2,21 @@ import React, { useState } from "react";
 import AuthContext from "./auth-context";
 
 const FilterContext = React.createContext({
-  petFilter: {
-    type: "",
-    breed: "",
-    gender: "",
-    age: "",
-    location: "",
-  },
-  organizationFilter: null,
-  updatePetFilter: (filter) => {},
+  petFilter: {},
+  organizationFilter: {},
+  petData: null,
+  organizationData: null,
+  setPetFilterHandler: (filter) => {},
   updateOrganizationFilter: (filter) => {},
+  updatePetData: (data) => {},
+  updateOrganizationData: (data) => {},
 });
 
 export const FilterContextProvider = (props) => {
-  const [petFilter, setPetFilter] = useState({
-    type: "any",
-    breed: "any",
-    gender: "any",
-    age: "any",
-    location: "any",
-  });
-  const [organizationFilter, setOrganizationFilter] = useState(null);
+  const [petFilter, setPetFilter] = useState({});
+  const [organizationFilter, setOrganizationFilter] = useState({});
+  const [petData, setPetData] = useState(null);
+  const [organizationData, setOrganizationData] = useState(null);
 
   const setPetFilterHandler = (filter) => {
     console.log("Set pet filter called in context");
@@ -33,15 +27,38 @@ export const FilterContextProvider = (props) => {
     setOrganizationFilter(filter);
   };
 
-  const contextValue = {
-    petFilter,
-    organizationFilter,
-    updatePetFilter: setPetFilterHandler,
-    updateOrganizationFilter: setOrganizationFilter,
+  const setPetDataHandler = (data) => {
+    setPetData(data);
   };
 
+  const setOrganizationDataHandler = (data) => {
+    setOrganizationData(data);
+  };
+
+  // const contextValue = {
+  //   petFilter,
+  //   organizationFilter,
+  //   petData,
+  //   organizationData,
+  //   setPetFilterHandler,
+  //   updateOrganizationFilter: setOrganizationFilter,
+  //   updatePetData: setPetDataHandler,
+  //   updateOrganizationData: setOrganizationDataHandler,
+  // };
+
   return (
-    <AuthContext.Provider value={contextValue}>
+    <AuthContext.Provider
+      value={{
+        petFilter,
+        organizationFilter,
+        petData,
+        organizationData,
+        setPetFilterHandler,
+        setOrganizationFilterHandler,
+        setPetDataHandler,
+        setOrganizationDataHandler,
+      }}
+    >
       {props.children}
     </AuthContext.Provider>
   );

@@ -3,6 +3,7 @@
 // request to Petfinder API for pet data using the custom useApi hook.
 
 import React, { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import isEqual from "react-fast-compare";
 
@@ -14,12 +15,22 @@ const PetDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
   const [filter, setFilter] = useState(null);
-  const [resultsFilter, setResultsFilter] = useState(null);
+  const [resultsFilter, setResultsFilter] = useState({
+    type: "any",
+    breed: "any",
+    gender: "any",
+    age: "any",
+    location: "any",
+  });
   const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
   const [homeFilter, setHomeFilter] = useState(null);
 
   const history = useHistory();
+  const dispatch = useDispatch();
+  const petRequestSent = useSelector((state) => state.petRequestSent);
+  const petData = useSelector((state) => state.petData);
+
   let sendRequest = true;
   let data = null;
 
@@ -44,25 +55,38 @@ const PetDisplay = (props) => {
     setHomeFilter(null);
   }
 
-  if (
-    resultsFilter &&
-    !isEqual(resultsFilter, filter) &&
-    resultsFilter === null &&
-    parsedData.hasOwnProperty(data)
-  ) {
-    setPrevData(parsedData.data);
-    console.log("Filters in PetDisplay not equal. Setting filter to: ");
-    console.log(resultsFilter);
-    setFilter(resultsFilter);
-    setIsLoading(true);
-    setParsedData(null);
-    setRequestError(null);
-    setHomeFilter(null);
-  }
+  // if (
+  //   resultsFilter &&
+  //   !isEqual(resultsFilter, filter) &&
+  //   resultsFilter === null &&
+  //   parsedData.hasOwnProperty(data)
+  // ) {
+  //   setPrevData(parsedData.data);
+  //   console.log("Filters in PetDisplay not equal. Setting filter to: ");
+  //   console.log(resultsFilter);
+  //   setFilter(resultsFilter);
+  //   setIsLoading(true);
+  //   setParsedData(null);
+  //   setRequestError(null);
+  //   setHomeFilter(null);
+  // }
 
   const requestErrorHandler = useCallback((error) => {
     setRequestError(error);
   }, []);
+
+  if (
+    isEqual(resultsFilter, {
+      type: "any",
+      breed: "any",
+      gender: "any",
+      age: "any",
+      location: "any",
+    }) &&
+    petRequestSent
+  ) {
+    sendRequest = false;
+  }
 
   // Request pet data
   data = useApi({
@@ -72,6 +96,19 @@ const PetDisplay = (props) => {
     filter: homeFilter ? homeFilter : resultsFilter,
     onRequestError: requestErrorHandler,
   });
+
+  if (
+    isEqual(resultsFilter, {
+      type: "any",
+      breed: "any",
+      gender: "any",
+      age: "any",
+      location: "any",
+    }) &&
+    petRequestSent
+  ) {
+    data = petData;
+  }
 
   if (data !== null && data !== prevData) {
     // If isLoading is true and some data was received, setParsedData and set isLoading to false.
@@ -91,6 +128,19 @@ const PetDisplay = (props) => {
       itemsToShow: 12,
       showButton,
     });
+
+    if (
+      isEqual(resultsFilter, {
+        type: "any",
+        breed: "any",
+        gender: "any",
+        age: "any",
+        location: "any",
+      })
+    ) {
+      dispatch({ type: "updatePetRequestSent", payload: true });
+      dispatch({ type: "updatePetData", payload: data });
+    }
   }
 
   const showMoreHandler = () => {
@@ -118,6 +168,7 @@ const PetDisplay = (props) => {
     props.setHomeSearchFor(null);
     props.setHomeData(null);
     setHomeFilter(null);
+    dispatch({ type: "updatePetRequestSent", payload: false });
   };
 
   const browseOrganizationsHandler = () => {

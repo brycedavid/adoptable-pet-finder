@@ -13,6 +13,7 @@ import {
   parseOrganizationData,
   parsePetData,
   prepPetFilter,
+  prepOrgFilter,
 } from "../shared/utils/parseData";
 import { apiKey, secret } from "../shared/constants";
 
@@ -32,7 +33,6 @@ const useApi = (props) => {
   const [requestError, setRequestError] = useState(null);
   const [resultsFilter, setResultsFilter] = useState(null);
   let componentMounted = true;
-  // const componentMounted = useRef(true);
 
   // Destruct props to extract values
   let {
@@ -56,8 +56,9 @@ const useApi = (props) => {
       setResultsFilter(parsedValues);
     }
   } else if (propFilter && searchType === "organizations") {
-    if (!isEqual(propFilter, resultsFilter)) {
-      setResultsFilter(propFilter);
+    parsedValues = prepOrgFilter(propFilter);
+    if (!isEqual(parsedValues, resultsFilter)) {
+      setResultsFilter(parsedValues);
     }
   }
 

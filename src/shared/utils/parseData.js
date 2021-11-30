@@ -27,6 +27,24 @@ export const prepPetFilter = (filter) => {
   return parsedValues;
 };
 
+export const prepOrgFilter = (filter) => {
+  let parsedValues = {};
+  let { location } = filter;
+  let valueArray = ["location", location];
+
+  for (let i = 1; i < valueArray.length; i += 2) {
+    if (valueArray[i] !== "any") {
+      parsedValues[valueArray[i - 1]] = valueArray[i];
+    }
+  }
+
+  if (!location) {
+    parsedValues = {};
+  }
+
+  return parsedValues;
+};
+
 export const parsePetData = (data) => {
   let dataArray = [];
 

@@ -7,7 +7,7 @@ const Title = () => {
       <h1 className={"title-container-welcome"}>Welcome to:</h1>
       <h1 className={"title-container-header"}>Adoptable Pet Finder</h1>
       <h2 className={"title-container-subtext"}>
-        Locate Pet Adoption Centers Near You!
+        Locate Pets & Adoption Centers Near You!
       </h2>
     </div>
   );

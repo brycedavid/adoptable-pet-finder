@@ -3,22 +3,27 @@
 // request to Petfinder API for organization data using the custom useApi hook.
 
 import React, { Fragment, useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import isEqual from "react-fast-compare";
 
 import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
 import useApi from "../../hooks/use-api";
 import ResultsFilter from "../ResultsFilter/ResultsFilter";
-import isEqual from "react-fast-compare";
 
 const AdoptionCenterDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
   const [filter, setFilter] = useState(null);
-  const [resultsFilter, setResultsFilter] = useState(null);
+  // const [resultsFilter, setResultsFilter] = useState(null);
+  const [resultsFilter, setResultsFilter] = useState({ location: "any" });
   const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
 
   const history = useHistory();
+  const dispatch = useDispatch();
+  const orgRequestSent = useSelector((state) => state.orgRequestSent);
+  const orgData = useSelector((state) => state.orgData);
 
   // Determines whether or not we should send a request
   let sendRequest = true;
@@ -28,28 +33,29 @@ const AdoptionCenterDisplay = (props) => {
     sendRequest = false;
   }
 
-  if (
-    resultsFilter &&
-    !isEqual(resultsFilter, filter) &&
-    parsedData.hasOwnProperty(data)
-  ) {
-    setPrevData(parsedData.data);
-    console.log(
-      "Filters in AdoptionDisplay are not equal. Setting filter to: "
-    );
-    console.log(resultsFilter);
-    setFilter(resultsFilter);
-    setIsLoading(true);
-    setParsedData(null);
-    setRequestError(null);
-  }
+  // if (
+  //   !isEqual(resultsFilter, { location: "any" }) &&
+  //   !isEqual(resultsFilter, filter) &&
+  //   parsedData.hasOwnProperty(data)
+  // ) {
+  //   setPrevData(parsedData.data);
+  //   console.log(
+  //     "Filters in AdoptionDisplay are not equal. Setting filter to: "
+  //   );
+  //   console.log(resultsFilter);
+  //   setFilter(resultsFilter);
+  //   setIsLoading(true);
+  //   setParsedData(null);
+  //   setRequestError(null);
+  // }
 
   const requestErrorHandler = useCallback((error) => {
     setRequestError(error);
   }, []);
 
-  console.log("About to make request with: ");
-  console.log(resultsFilter);
+  if (isEqual(resultsFilter, { location: "any" }) && orgRequestSent) {
+    sendRequest = false;
+  }
 
   // Request organization data
   data = useApi({
@@ -62,6 +68,10 @@ const AdoptionCenterDisplay = (props) => {
     onRequestError: requestErrorHandler,
   });
 
+  if (isEqual(resultsFilter, { location: "any" }) && orgRequestSent) {
+    data = orgData;
+  }
+
   // If isLoading is true and some data was received, setParsedData and set isLoading to false.
   if (data !== null && data !== prevData) {
     let showButton = true;
@@ -70,11 +80,14 @@ const AdoptionCenterDisplay = (props) => {
       showButton = false;
     }
 
-    console.log("Setting parsedData to: ");
-    console.log(data);
     setIsLoading(false);
     setPrevData(data);
     setParsedData({ data, itemsToShow: 15, showButton });
+
+    if (isEqual(resultsFilter, { location: "any" })) {
+      dispatch({ type: "updateOrgRequestSent", payload: true });
+      dispatch({ type: "updateOrgData", payload: data });
+    }
   }
 
   const showMoreHandler = () => {
