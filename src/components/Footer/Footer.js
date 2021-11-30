@@ -26,6 +26,7 @@ const Footer = () => {
         <button
           className="footer-image-container"
           onClick={petfinderNavigationHandler}
+          data-testid="petfinder-link"
         >
           <img src={purinaLogo} alt="Purina logo" />
           <img src={petfinderLogo} alt="Petfinder logo" />
