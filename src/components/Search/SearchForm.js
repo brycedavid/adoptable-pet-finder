@@ -17,7 +17,7 @@ const SearchForm = (props) => {
   };
 
   // Upon submission, navigate to page associated with search value.
-  const searchSubmitHandler = (event) => {
+  const searchSubmitHandler = () => {
     const value = selectValue.current.value;
     if (value === "centers") {
       history.push("/adoption-centers");

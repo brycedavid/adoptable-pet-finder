@@ -3,7 +3,7 @@
 // related to pet information from the Petfinder API. Configured to be re-usable for any search
 // using the props parameter.
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import { Client } from "@petfinder/petfinder-js";
 

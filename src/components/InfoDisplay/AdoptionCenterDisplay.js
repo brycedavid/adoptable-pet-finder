@@ -14,8 +14,6 @@ import ResultsFilter from "../ResultsFilter/ResultsFilter";
 const AdoptionCenterDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
-  const [filter, setFilter] = useState(null);
-  // const [resultsFilter, setResultsFilter] = useState(null);
   const [resultsFilter, setResultsFilter] = useState({ location: "any" });
   const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
@@ -32,22 +30,6 @@ const AdoptionCenterDisplay = (props) => {
   if (requestError) {
     sendRequest = false;
   }
-
-  // if (
-  //   !isEqual(resultsFilter, { location: "any" }) &&
-  //   !isEqual(resultsFilter, filter) &&
-  //   parsedData.hasOwnProperty(data)
-  // ) {
-  //   setPrevData(parsedData.data);
-  //   console.log(
-  //     "Filters in AdoptionDisplay are not equal. Setting filter to: "
-  //   );
-  //   console.log(resultsFilter);
-  //   setFilter(resultsFilter);
-  //   setIsLoading(true);
-  //   setParsedData(null);
-  //   setRequestError(null);
-  // }
 
   const requestErrorHandler = useCallback((error) => {
     setRequestError(error);

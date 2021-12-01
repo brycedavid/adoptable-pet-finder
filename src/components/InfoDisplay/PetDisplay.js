@@ -14,7 +14,6 @@ import ResultsFilter from "../ResultsFilter/ResultsFilter";
 const PetDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
-  const [filter, setFilter] = useState(null);
   const [resultsFilter, setResultsFilter] = useState({
     type: "any",
     breed: "any",
@@ -24,12 +23,13 @@ const PetDisplay = (props) => {
   });
   const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
-  const [homeFilter, setHomeFilter] = useState(null);
 
   const history = useHistory();
   const dispatch = useDispatch();
   const petRequestSent = useSelector((state) => state.petRequestSent);
+  const homeRequestSent = useSelector((state) => state.homeRequestSent);
   const petData = useSelector((state) => state.petData);
+  const homeData = useSelector((state) => state.homeData);
 
   let sendRequest = true;
   let data = null;
@@ -37,39 +37,6 @@ const PetDisplay = (props) => {
   if (requestError) {
     sendRequest = false;
   }
-
-  if (props.homeSearchFor !== null && homeFilter !== props.homeSearchFor) {
-    setHomeFilter(props.homeSearchFor);
-    console.log(props.homeSearchFor);
-    console.log(
-      "Received data from home search form; setting Home Filter to: "
-    );
-    console.log(resultsFilter);
-  }
-
-  if (resultsFilter && homeFilter && !isEqual(resultsFilter, homeFilter)) {
-    setFilter(resultsFilter);
-    setIsLoading(true);
-    setParsedData(null);
-    setRequestError(null);
-    setHomeFilter(null);
-  }
-
-  // if (
-  //   resultsFilter &&
-  //   !isEqual(resultsFilter, filter) &&
-  //   resultsFilter === null &&
-  //   parsedData.hasOwnProperty(data)
-  // ) {
-  //   setPrevData(parsedData.data);
-  //   console.log("Filters in PetDisplay not equal. Setting filter to: ");
-  //   console.log(resultsFilter);
-  //   setFilter(resultsFilter);
-  //   setIsLoading(true);
-  //   setParsedData(null);
-  //   setRequestError(null);
-  //   setHomeFilter(null);
-  // }
 
   const requestErrorHandler = useCallback((error) => {
     setRequestError(error);
@@ -83,8 +50,14 @@ const PetDisplay = (props) => {
       age: "any",
       location: "any",
     }) &&
-    petRequestSent
+    petRequestSent &&
+    !props.featuredPets
   ) {
+    console.log("Setting send request to false");
+    sendRequest = false;
+  }
+
+  if (props.featuredPets && homeRequestSent) {
     sendRequest = false;
   }
 
@@ -93,7 +66,7 @@ const PetDisplay = (props) => {
     limit: props.limit,
     displayAmount: props.displayAmount,
     sendRequest,
-    filter: homeFilter ? homeFilter : resultsFilter,
+    filter: resultsFilter,
     onRequestError: requestErrorHandler,
   });
 
@@ -105,13 +78,21 @@ const PetDisplay = (props) => {
       age: "any",
       location: "any",
     }) &&
-    petRequestSent
+    petRequestSent &&
+    !props.featuredPets
   ) {
+    console.log("Setting data to pet data: ");
+    console.log(data);
     data = petData;
   }
 
+  if (props.featuredPets && homeRequestSent) {
+    console.log("home data: ");
+    console.log(homeData);
+    data = homeData;
+  }
+
   if (data !== null && data !== prevData) {
-    // If isLoading is true and some data was received, setParsedData and set isLoading to false.
     let showButton = true;
 
     if (data.length <= 12) {
@@ -129,6 +110,8 @@ const PetDisplay = (props) => {
       showButton,
     });
 
+    console.log(data);
+
     if (
       isEqual(resultsFilter, {
         type: "any",
@@ -136,10 +119,16 @@ const PetDisplay = (props) => {
         gender: "any",
         age: "any",
         location: "any",
-      })
+      }) &&
+      !props.featuredPets
     ) {
       dispatch({ type: "updatePetRequestSent", payload: true });
       dispatch({ type: "updatePetData", payload: data });
+    }
+
+    if (props.featuredPets && !homeRequestSent) {
+      dispatch({ type: "UPDATE_HOME_DATA", payload: data });
+      dispatch({ type: "updateHomeRequestSent", payload: true });
     }
   }
 
@@ -165,9 +154,6 @@ const PetDisplay = (props) => {
     console.log("Setting PetDisplay resultsFilter to: ");
     console.log({ ...filterValues });
     setResultsFilter({ ...filterValues });
-    props.setHomeSearchFor(null);
-    props.setHomeData(null);
-    setHomeFilter(null);
     dispatch({ type: "updatePetRequestSent", payload: false });
   };
 
@@ -306,7 +292,6 @@ const PetDisplay = (props) => {
         <ResultsFilter
           isLoading={isLoading}
           setPageFilter={setFilterHandler}
-          homeFilter={homeFilter}
           for="petDisplay"
         />
       )}
