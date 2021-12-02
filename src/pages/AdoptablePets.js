@@ -2,7 +2,7 @@
 // This page displays pet information by rendering the PetDisplay component as a child.
 // Implemented for use with React router in App.js.
 
-import React, { useState } from "react";
+import React from "react";
 import Footer from "../components/Footer/Footer";
 import PetDisplay from "../components/InfoDisplay/PetDisplay";
 

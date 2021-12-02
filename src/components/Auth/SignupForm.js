@@ -7,11 +7,9 @@
 
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router";
-import ReactDOM from "react-dom";
 
 import AuthContext from "../../store/auth-context";
 import LoadingIndicator from "../common/LoadingIndicator";
-import Backdrop from "../common/Backdrop";
 
 const SignupForm = (props) => {
   const [isLoading, setIsLoading] = useState(false);
