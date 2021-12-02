@@ -31,11 +31,11 @@
     display: flex;
     justify-content: center;
     align-content: center;
-    width: 180px;
-    height: 180px;
+    max-width: 164px;
+    max-height: 196px;
     overflow: hidden;
     border: 1px solid black;
-    border-radius: 20px;
+    border-radius: 4px;
     background-color: black;
     margin-left: 0;
   }

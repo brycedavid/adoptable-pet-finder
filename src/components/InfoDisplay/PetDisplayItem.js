@@ -48,9 +48,9 @@ const PetDisplayItem = (props) => {
     >
       <div className="image-container-pet">{photoElement}</div>
       <h2 className="display-item-name">{props.name}</h2>
-      <p>{props.gender}</p>
+      <p>{`${props.gender}, ${props.age}`}</p>
       <p>{props.breed}</p>
-      <p>{`Age: ${props.age}`}</p>
+      <p>{props.location}</p>
       <p>{`Size: ${props.size}`}</p>
       <p>{isFixed}</p>
     </div>

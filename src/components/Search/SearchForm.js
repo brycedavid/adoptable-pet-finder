@@ -22,16 +22,9 @@ const SearchForm = (props) => {
     if (value === "centers") {
       history.push("/adoption-centers");
       return;
+    } else if (value === "pets") {
+      history.push("/adoptable-pets");
     }
-
-    props.onSubmit({
-      type: selectValue.current.value,
-      breed: "any",
-      gender: "any",
-      age: "any",
-      location: "any",
-    });
-    history.push("/adoptable-pets");
   };
 
   return (
@@ -43,8 +36,7 @@ const SearchForm = (props) => {
           onChange={selectChangeHandler}
           ref={selectValue}
         >
-          <option value="cat">Cats</option>
-          <option value="dog">Dogs</option>
+          <option value="pets">Available Pets</option>
           <option value="centers">Adoption Centers</option>
         </select>
         <button className="button-main" type="submit">

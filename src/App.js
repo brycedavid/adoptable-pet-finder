@@ -20,7 +20,6 @@ import ModalOverlay from "./components/common/ModalOverlay";
 const App = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isSigningUp, setIsSigningUp] = useState(false);
-  const [searchData, setSearchData] = useState(null);
 
   const authCtx = useContext(AuthContext);
 
@@ -59,11 +58,6 @@ const App = () => {
     document.body.removeAttribute("style");
   };
 
-  // Forward the search data from the SearchForm (on Home page) to child components by setting searchData state
-  const setSearchDataHandler = (data) => {
-    setSearchData(data);
-  };
-
   return (
     <Layout>
       {isLoggingIn && (
@@ -84,16 +78,13 @@ const App = () => {
           <Redirect to="/home" />
         </Route>
         <Route path="/home">
-          <Home forwardFormData={setSearchDataHandler} />
+          <Home />
         </Route>
         <Route path="/adoption-centers">
-          <AdoptionCenters searchData={searchData} />
+          <AdoptionCenters />
         </Route>
         <Route path="/adoptable-pets">
-          <AdoptablePets
-            searchData={searchData}
-            setSearchData={setSearchDataHandler}
-          />
+          <AdoptablePets />
         </Route>
         <Route path="/about">
           <About />

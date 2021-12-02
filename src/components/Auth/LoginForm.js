@@ -7,10 +7,9 @@ import { useContext, useState } from "react";
 import ReactDOM from "react-dom";
 import { useHistory } from "react-router";
 
+import AuthContext from "../../store/auth-context";
 import LoadingIndicator from "../common/LoadingIndicator";
 import Backdrop from "../common/Backdrop";
-
-import AuthContext from "../../store/auth-context";
 
 const LoginForm = (props) => {
   const [isLoading, setIsLoading] = useState(false);

@@ -11,13 +11,12 @@ import SearchForm from "../components/Search/SearchForm";
 import PetDisplay from "../components/InfoDisplay/PetDisplay";
 import React from "react";
 import Footer from "../components/Footer/Footer";
+import { useHistory } from "react-router";
 
 const Home = (props) => {
-  window.scrollTo({ top: 0, behavior: "instant" });
+  const history = useHistory();
 
-  const searchFormSubmitHandler = (searchValue) => {
-    props.forwardFormData(searchValue);
-  };
+  window.scrollTo({ top: 0, behavior: "instant" });
 
   return (
     <React.Fragment>
@@ -26,6 +25,7 @@ const Home = (props) => {
           <Image altText="cute kitty and puppy" source={mainImage} />
         </Card>
         <h1>Featured Pets</h1>
+        <p className="subheader">Browse our furry friends!</p>
         <PetDisplay limit={25} displayAmount={8} featuredPets={true} />
         <div className="text-container">
           <h2>
@@ -38,7 +38,7 @@ const Home = (props) => {
           </h3>
         </div>
         <Card class="main-search-container">
-          <SearchForm onSubmit={searchFormSubmitHandler} />
+          <SearchForm />
         </Card>
       </div>
       <Footer />

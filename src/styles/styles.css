@@ -81,6 +81,11 @@
   margin: 30px 0 30px 0;
 }
 
+.subheader {
+  margin-top: -28px;
+  margin-bottom: 28px;
+}
+
 .about-page-content {
   display: flex;
   flex-direction: column;
@@ -150,7 +155,7 @@
   flex-direction: column;
   width: 280px;
   height: 400px;
-  border: 2px solid #0f5797;
+  border: 3px solid #0f5797;
   border-radius: 10px;
   margin: 10px;
   padding: 10px;
@@ -194,8 +199,9 @@
 
 .display-item-name, .display-item-name-organization {
   align-self: center;
-  font-size: 28px;
-  margin-bottom: 60px;
+  font-size: 26px;
+  margin-bottom: 26px;
+  margin-top: 10px;
 }
 .display-item-name-organization {
   font-size: 32px;
@@ -662,7 +668,7 @@
   width: 300px;
   height: 600px;
   padding: 12px;
-  border: 2px solid #003d71;
+  border: 3px solid #003d71;
   border-radius: 10px;
   margin-top: 30px;
   box-shadow: 4px 4px 6px darkgrey;
@@ -1087,11 +1093,11 @@ img {
   display: flex;
   justify-content: center;
   align-content: center;
-  width: 180px;
-  height: 180px;
+  max-width: 164px;
+  max-height: 196px;
   overflow: hidden;
   border: 1px solid black;
-  border-radius: 20px;
+  border-radius: 4px;
   background-color: black;
   margin-left: 0;
 }
