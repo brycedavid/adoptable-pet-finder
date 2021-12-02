@@ -1144,11 +1144,11 @@ img {
   display: flex;
   justify-content: center;
   align-content: center;
-  max-width: 164px;
-  max-height: 196px;
+  width: 200px;
+  height: 200px;
   overflow: hidden;
   border: 1px solid black;
-  border-radius: 4px;
+  border-radius: 20px;
   background-color: black;
   margin-left: 0;
 }
@@ -1317,15 +1317,19 @@ img {
 
 .main-search-form {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border: #003d71 3px solid;
   width: 300px;
   border-radius: 20px;
-  padding: 60px;
+  padding: 30px 50px;
   margin-bottom: 60px;
   margin-top: 60px;
   box-shadow: 2px 2px 2px darkgrey;
+}
+.main-search-form p {
+  margin-bottom: 20px;
 }
 
 .search-form-select {

@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import Footer from "../components/Footer/Footer";
 import PetDisplay from "../components/InfoDisplay/PetDisplay";
 
-const AdoptablePets = (props) => {
+const AdoptablePets = () => {
   window.scrollTo({ top: 0, behavior: "instant" });
 
   return (

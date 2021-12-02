@@ -71,8 +71,6 @@ const LoginForm = (props) => {
       } else {
         setRequestError("Something went wrong... failed to login.");
       }
-      // throw new Error("Something went wrong!");
-      return;
     }
 
     authCtx.login(responseData.idToken);
@@ -142,18 +140,6 @@ const LoginForm = (props) => {
     sendRequest();
   };
 
-  if (isLoading) {
-    return (
-      <div className="loading-indicator-container">
-        <LoadingIndicator />
-        {ReactDOM.createPortal(
-          <Backdrop />,
-          document.getElementById("backdrop-root")
-        )}
-      </div>
-    );
-  }
-
   return (
     <div className="form-container">
       <form onSubmit={loginHandler} className={"form-container"}>
@@ -194,12 +180,15 @@ const LoginForm = (props) => {
             <p className="error-message">{passwordInputError}</p>
           )}
         </section>
-        <button
-          disabled={!formIsValid}
-          className={formIsValid ? "button-main" : "button-main disabled"}
-        >
-          Login
-        </button>
+        {isLoading && <LoadingIndicator />}
+        {!isLoading && (
+          <button
+            disabled={!formIsValid}
+            className={formIsValid ? "button-main" : "button-main disabled"}
+          >
+            Login
+          </button>
+        )}
       </form>
       {requestError && <p className="error-message">{requestError}</p>}
     </div>

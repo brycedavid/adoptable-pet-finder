@@ -67,7 +67,6 @@ const SignupForm = (props) => {
       } else {
         setRequestError("Something went wrong...failed to signup.");
       }
-      return;
     }
 
     // Login the user automatically upon account creation
@@ -136,18 +135,6 @@ const SignupForm = (props) => {
     sendRequest();
   };
 
-  if (isLoading) {
-    return (
-      <div className="loading-indicator-container">
-        <LoadingIndicator />
-        {ReactDOM.createPortal(
-          <Backdrop />,
-          document.getElementById("backdrop-root")
-        )}
-      </div>
-    );
-  }
-
   return (
     <React.Fragment>
       <form onSubmit={submitHandler} className={"form-container"}>
@@ -188,13 +175,16 @@ const SignupForm = (props) => {
             <p className="error-message">{passwordInputError}</p>
           )}
         </section>
-        <button
-          type="submit"
-          disabled={!formIsValid}
-          className={formIsValid ? "button-main" : "button-main disabled"}
-        >
-          Submit
-        </button>
+        {isLoading && <LoadingIndicator />}
+        {!isLoading && (
+          <button
+            type="submit"
+            disabled={!formIsValid}
+            className={formIsValid ? "button-main" : "button-main disabled"}
+          >
+            Submit
+          </button>
+        )}
       </form>
       {requestError && <p className="error-message">{requestError}</p>}
     </React.Fragment>
