@@ -1,7 +1,7 @@
 .modal {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-content: center;
   position: fixed;
   top: 30vh;
@@ -9,9 +9,23 @@
   width: 40%;
   z-index: 100;
   overflow: hidden;
-  height: 400px;
+  height: 360px;
   background-color: white;
   border-radius: 20px;
   border: 1px solid black;
   padding: 30px;
+
+  .x-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    img {
+      width: 28px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
 }

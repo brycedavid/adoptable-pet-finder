@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import Backdrop from "./Backdrop";
 import SignupForm from "../Auth/SignupForm";
 import LoginForm from "../Auth/LoginForm";
+import xImg from "../../shared/images/x.png";
 
 const ModalOverlay = (props) => {
   let form = null;
@@ -25,7 +26,12 @@ const ModalOverlay = (props) => {
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-        <div className={"modal"}>{form}</div>,
+        <div className={"modal"}>
+          <div className="x-container">
+            <img src={xImg} alt="x" onClick={props.closeModal} />
+          </div>
+          {form}
+        </div>,
         document.getElementById("overlay-root")
       )}
     </Fragment>

@@ -1134,7 +1134,7 @@ img {
 .modal {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-content: center;
   position: fixed;
   top: 30vh;
@@ -1142,11 +1142,22 @@ img {
   width: 40%;
   z-index: 100;
   overflow: hidden;
-  height: 400px;
+  height: 360px;
   background-color: white;
   border-radius: 20px;
   border: 1px solid black;
   padding: 30px;
+}
+.modal .x-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.modal .x-container img {
+  width: 28px;
+}
+.modal .x-container img:hover {
+  cursor: pointer;
 }
 
 .navbar {
