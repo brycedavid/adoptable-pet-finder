@@ -1,6 +1,10 @@
 @import "./colors";
 @import "./breakpoints";
 
+/*
+  Classes associated with our pet and organization display items and containers
+*/
+
 .display-container {
   display: flex;
   flex-direction: column;
@@ -129,6 +133,10 @@
     color: $color-red;
   }
 }
+
+/*
+  Media queries
+*/
 
 @media (max-width: $breakpoint-max-desktop) {
   .display-container {

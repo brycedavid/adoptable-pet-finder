@@ -1,6 +1,10 @@
 @import "./colors";
 @import "./breakpoints";
 
+/*
+  Classes associated with the header 
+*/
+
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -59,6 +63,10 @@
     border-radius: inherit;
   }
 }
+
+/*
+  Media queries
+*/
 
 @media (max-width: $breakpoint-max-desktop) {
   .title-container {

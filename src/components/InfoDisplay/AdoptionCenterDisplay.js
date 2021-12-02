@@ -167,7 +167,12 @@ const AdoptionCenterDisplay = (props) => {
                 email="..."
                 key={Math.random() * 1000}
                 id="..."
-                address="..."
+                address={{
+                  address1: "...",
+                  city: "...",
+                  state: "...",
+                  postcode: "...",
+                }}
                 name="..."
                 phone="..."
                 pictures={[]}

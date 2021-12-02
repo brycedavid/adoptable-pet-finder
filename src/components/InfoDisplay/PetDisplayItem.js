@@ -63,7 +63,7 @@ const PetDisplayItem = (props) => {
   return (
     <div
       className={`${displayClass} ${activeState} ${shine} `}
-      onClick={itemClickHandler}
+      onClick={!props.skeleton ? itemClickHandler : null}
     >
       <div className="image-container-pet">{photoElement}</div>
       <h2 className="display-item-name">{props.name}</h2>

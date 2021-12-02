@@ -1,6 +1,10 @@
 @import "./colors";
 @import "./breakpoints";
 
+/*
+  Classes associated with our Navbar, including subnavs
+*/
+
 .navbar {
   width: 100%;
   height: 50px;
@@ -43,6 +47,10 @@
 .active {
   background-color: $color-light-red;
 }
+
+/*
+  Media queries
+*/
 
 @media (max-width: $breakpoint-medium-desktop) {
   .subnav {

@@ -1,6 +1,10 @@
 @import "./colors";
 @import "./breakpoints";
 
+/*
+  Classes associated with our homepage search form
+*/
+
 .main-search-container {
   display: flex;
   justify-content: center;
@@ -33,6 +37,10 @@
   margin-bottom: 14px;
   box-shadow: 1px 1px 2px $color-dark-grey;
 }
+
+/*
+  Media queries
+*/
 
 @media (max-width: $breakpoint-max-tablet) {
   .main-search-form {

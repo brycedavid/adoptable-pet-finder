@@ -31,7 +31,7 @@ const AdoptionCenterDisplayItem = (props) => {
           ? "display-item-organization shine"
           : "display-item-organization"
       }
-      onClick={itemClickHandler}
+      onClick={!props.skeleton ? itemClickHandler : null}
     >
       <h2 className="display-item-name-organization">{props.name}</h2>
       <section className="display-item-organization-content">

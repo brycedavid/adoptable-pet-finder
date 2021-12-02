@@ -1,6 +1,10 @@
 @import "./colors";
 @import "./breakpoints";
 
+/*
+  Styles that are applied globally to entire site
+*/
+
 html {
   font-size: 100%;
 }
@@ -60,6 +64,10 @@ img {
   align-content: center;
 }
 
+/*
+  Custom scrollbar styles
+*/
+
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -76,6 +84,10 @@ img {
     background-color: $color-light-blue;
   }
 }
+
+/*
+  Media queries
+*/
 
 @media (max-width: $breakpoint-medium-desktop) {
   .text-container {

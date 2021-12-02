@@ -1,5 +1,9 @@
 @import "./colors";
 
+/*
+  Loading wave animation
+*/
+
 @keyframes wave {
   0%,
   60%,
@@ -24,6 +28,10 @@
   }
 }
 
+/*
+  Loading shine animation for display skeletons
+*/
+
 @keyframes shine {
   0%,
   50%,
@@ -47,6 +55,10 @@
     background-color: $color-light-grey;
   }
 }
+
+/*
+  Classes associated with loading
+*/
 
 .wave-loader-container {
   text-align: center;
@@ -85,6 +97,11 @@
   &:nth-child(3) {
     -webkit-animation-delay: 1.2s;
     animation-delay: 1.2s;
+  }
+
+  &:hover {
+    cursor: default;
+    background-color: inherit;
   }
 }
 

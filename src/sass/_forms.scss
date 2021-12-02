@@ -1,6 +1,10 @@
 @import "./colors";
 @import "./breakpoints";
 
+/*
+  Classes associated with all forms
+*/
+
 .form-container {
   display: flex;
   flex-direction: column;
@@ -76,6 +80,10 @@
   position: sticky;
   top: 2vh;
 }
+
+/*
+  Media queries
+*/
 
 @media (max-width: $breakpoint-medium-desktop) {
   .filter-form,

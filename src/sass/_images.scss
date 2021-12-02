@@ -1,6 +1,10 @@
 @import "./colors";
 @import "./breakpoints";
 
+/*
+  Classes associated with all images and image containers
+*/
+
 .main-image-container {
   display: flex;
   justify-content: center;
@@ -40,6 +44,10 @@
     margin-left: 0;
   }
 }
+
+/*
+  Media queries
+*/
 
 @media (max-width: $breakpoint-medium-desktop) {
   .main-image-container {
