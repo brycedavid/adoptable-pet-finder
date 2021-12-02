@@ -50,6 +50,17 @@
     border-radius: 6px;
     margin-bottom: 28px;
   }
+
+  &-inline {
+    border: none;
+    background-color: white;
+    font-size: inherit;
+    text-decoration: underline;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 .disabled {
