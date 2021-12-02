@@ -11,7 +11,7 @@ const dataReducer = (
   },
   action
 ) => {
-  if (action.type === "updatePetData") {
+  if (action.type === "UPDATE_PET_DATA") {
     return {
       orgData: state.orgData,
       petData: action.payload,
@@ -23,7 +23,7 @@ const dataReducer = (
     };
   }
 
-  if (action.type === "updatePetRequestSent") {
+  if (action.type === "UPDATE_PET_REQUEST_SENT") {
     return {
       orgData: state.orgData,
       petData: state.petData,
@@ -35,7 +35,7 @@ const dataReducer = (
     };
   }
 
-  if (action.type === "updateOrgData") {
+  if (action.type === "UPDATE_ORG_DATA") {
     return {
       orgData: action.payload,
       petData: state.petData,
@@ -46,7 +46,7 @@ const dataReducer = (
     };
   }
 
-  if (action.type === "updateOrgRequestSent") {
+  if (action.type === "UPDATE_ORG_REQUEST_SENT") {
     return {
       orgData: state.orgData,
       petData: state.petData,
@@ -68,7 +68,7 @@ const dataReducer = (
     };
   }
 
-  if (action.type === "updateHomeRequestSent") {
+  if (action.type === "UPDATE_HOME_REQUEST_SENT") {
     return {
       orgData: state.orgData,
       petData: state.petData,

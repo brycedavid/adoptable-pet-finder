@@ -15,18 +15,12 @@ import {
   prepPetFilter,
   prepOrgFilter,
 } from "../shared/utils/parseData";
-import { apiKey, secret } from "../shared/constants";
-
-// Our client object, which is required to make API requests to the Petfinder API
-const petFinderClient = new Client({
-  apiKey: apiKey,
-  secret,
-});
 
 // Controls how many times a request is retried
 let numRequestRetries = 0;
 
-// Check current state if data has changed to prevent re-renders; Redux?
+// Our client object, which is required to make API requests to the Petfinder API
+let petFinderClient = null;
 
 const useApi = (props) => {
   const [data, setData] = useState(null);
@@ -67,8 +61,38 @@ const useApi = (props) => {
     // is returned to whatever uses this hook. If props.sendRequest is false, do not
     // make a request.
     const makeRequest = async () => {
+      let dbResponseData = null;
       let responseData = null;
       let parsedData;
+      let client;
+
+      if (petFinderClient === null) {
+        console.log("Requesting API info...");
+        dbResponseData = await fetch(
+          "https://stalwart-fx-307719-default-rtdb.firebaseio.com/JuDjkI.json",
+          { method: "GET" }
+        );
+
+        if (!dbResponseData.ok) {
+          throw new Error("Could not retrieve Client key/secret");
+        }
+
+        await dbResponseData.json().then((data) => {
+          let forbiddenChars = ["?", "&", "=", "."];
+          for (let char of forbiddenChars) {
+            data.sKdnH = data.sKdnH.split(char).join("");
+            data.julncD = data.julncD.split(char).join("");
+          }
+
+          client = new Client({
+            apiKey: data.sKdnH,
+            secret: data.julncD,
+          });
+
+          console.log("Petfinder client updated");
+          petFinderClient = client;
+        });
+      }
 
       console.log("Requesting data...");
 
@@ -146,7 +170,6 @@ const useApi = (props) => {
 
       if (componentMounted) {
         // Log our data (for development purposes) and set our data state.
-        console.log(responseData);
         setData(parsedData.slice(0, displayAmount));
       }
 
@@ -159,7 +182,6 @@ const useApi = (props) => {
     // If props.sendRequest is true, call makeRequest.
     // otherwise, do nothing.
     if (propSendRequest && numRequestRetries < 1) {
-      console.log("Calling makeRequest...");
       makeRequest();
     }
 

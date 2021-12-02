@@ -53,7 +53,6 @@ const PetDisplay = (props) => {
     petRequestSent &&
     !props.featuredPets
   ) {
-    console.log("Setting send request to false");
     sendRequest = false;
   }
 
@@ -81,14 +80,10 @@ const PetDisplay = (props) => {
     petRequestSent &&
     !props.featuredPets
   ) {
-    console.log("Setting data to pet data: ");
-    console.log(data);
     data = petData;
   }
 
   if (props.featuredPets && homeRequestSent) {
-    console.log("home data: ");
-    console.log(homeData);
     data = homeData;
   }
 
@@ -110,8 +105,6 @@ const PetDisplay = (props) => {
       showButton,
     });
 
-    console.log(data);
-
     if (
       isEqual(resultsFilter, {
         type: "any",
@@ -122,13 +115,13 @@ const PetDisplay = (props) => {
       }) &&
       !props.featuredPets
     ) {
-      dispatch({ type: "updatePetRequestSent", payload: true });
-      dispatch({ type: "updatePetData", payload: data });
+      dispatch({ type: "UPDATE_PET_REQUEST_SENT", payload: true });
+      dispatch({ type: "UPDATE_PET_DATA", payload: data });
     }
 
     if (props.featuredPets && !homeRequestSent) {
       dispatch({ type: "UPDATE_HOME_DATA", payload: data });
-      dispatch({ type: "updateHomeRequestSent", payload: true });
+      dispatch({ type: "UPDATE_HOME_REQUEST_SENT", payload: true });
     }
   }
 
@@ -151,8 +144,6 @@ const PetDisplay = (props) => {
   };
 
   const setFilterHandler = (filterValues) => {
-    console.log("Setting PetDisplay resultsFilter to: ");
-    console.log({ ...filterValues });
     setResultsFilter({ ...filterValues });
     dispatch({ type: "updatePetRequestSent", payload: false });
   };
