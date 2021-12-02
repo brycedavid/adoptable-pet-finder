@@ -8,14 +8,11 @@ import mainImage from "../shared/images/Puppy-and-Kitten.jpeg";
 import Card from "../components/common/Card";
 import Image from "../components/common/Image";
 import SearchForm from "../components/Search/SearchForm";
-import PetDisplay from "../components/InfoDisplay/PetDisplay";
 import React from "react";
 import Footer from "../components/Footer/Footer";
-import { useHistory } from "react-router";
+import PetDisplayGeneral from "../components/InfoDisplay/PetDisplay";
 
-const Home = (props) => {
-  const history = useHistory();
-
+const Home = () => {
   window.scrollTo({ top: 0, behavior: "instant" });
 
   return (
@@ -26,7 +23,8 @@ const Home = (props) => {
         </Card>
         <h1>Featured Pets</h1>
         <p className="subheader">Browse our furry friends!</p>
-        <PetDisplay limit={25} displayAmount={8} featuredPets={true} />
+        {/* <Carousel /> */}
+        <PetDisplayGeneral limit={25} displayAmount={8} featuredPets={true} />
         <div className="text-container">
           <h2>
             Looking to adopt a furry friend? You've come to the right place!

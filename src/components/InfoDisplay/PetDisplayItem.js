@@ -41,9 +41,28 @@ const PetDisplayItem = (props) => {
     }
   };
 
+  let activeState = "";
+  let displayClass = "display-item";
+  let shine = "";
+
+  // if (props.index < 0) {
+  //   displayClass = "display-item";
+  // } else {
+  //   displayClass = "display-item-carousel";
+  //   if (props.index === props.activeIndex) {
+  //     activeState = "carousel-active";
+  //   } else {
+  //     activeState = "carousel-inactive";
+  //   }
+  // }
+
+  if (props.skeleton) {
+    shine = "shine";
+  }
+
   return (
     <div
-      className={props.skeleton ? "display-item shine" : "display-item"}
+      className={`${displayClass} ${activeState} ${shine} `}
       onClick={itemClickHandler}
     >
       <div className="image-container-pet">{photoElement}</div>

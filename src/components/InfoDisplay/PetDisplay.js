@@ -11,7 +11,7 @@ import PetDisplayItem from "./PetDisplayItem";
 import useApi from "../../hooks/use-api";
 import ResultsFilter from "../ResultsFilter/ResultsFilter";
 
-const PetDisplay = (props) => {
+const PetDisplayGeneral = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
   const [resultsFilter, setResultsFilter] = useState({
@@ -174,6 +174,7 @@ const PetDisplay = (props) => {
                     breed={animal.breed}
                     size={animal.size}
                     gender={animal.gender}
+                    index={-2}
                   />
                 ))
             ) : (
@@ -244,6 +245,7 @@ const PetDisplay = (props) => {
                 size="..."
                 gender="..."
                 skeleton={true}
+                index={-2}
               />
             ))}
           </div>
@@ -291,4 +293,4 @@ const PetDisplay = (props) => {
   );
 };
 
-export default PetDisplay;
+export default PetDisplayGeneral;
