@@ -20,7 +20,6 @@ const ResultsFilter = (props) => {
     breed: "any",
     gender: "any",
     age: "any",
-    location: "any",
   });
   const [organizationFilter, setOrganizationFilter] = useState({});
 
@@ -31,81 +30,81 @@ const ResultsFilter = (props) => {
   let formIsValid = locationValid;
   let duplicateFilter = false;
 
-  const changeFilterHandler = (event) => {
-    if (filterFor === "petDisplay") {
+  const changePetBreedHandler = (event) => {
+    setPetFilter({ ...petFilter, breed: event.target.value });
+  };
+
+  const changePetGenderHandler = (event) => {
+    setPetFilter({ ...petFilter, gender: event.target.value });
+  };
+
+  const changePetAgeHandler = (event) => {
+    setPetFilter({ ...petFilter, age: event.target.value });
+  };
+
+  const changePetTypeHandler = (event) => {
+    setPetFilter({
+      ...petFilter,
+      breed: "any",
+      type: event.target.value,
+    });
+  };
+
+  const changePetZipHandler = (event) => {
+    if (event.target.value.length < 5 && event.target.value.length !== 0) {
+      setLocationValid(false);
+      setPetFilter({ ...petFilter, location: event.target.value });
+    } else if (isNaN(event.target.value)) {
+      setLocationValid(false);
+      setPetFilter({ ...petFilter, location: event.target.value });
+    } else if (isNaN(event.target.value)) {
+      setLocationValid(false);
+      setPetFilter({ ...petFilter, location: event.target.value });
+    } else if (event.target.value.length === 0) {
       let newFilter = { ...petFilter };
-      switch (event.target.id) {
-        case "breed-select":
-          setPetFilter({ ...newFilter, breed: event.target.value });
-          break;
-        case "gender-select":
-          setPetFilter({ ...newFilter, gender: event.target.value });
-          break;
-        case "age-select":
-          setPetFilter({ ...newFilter, age: event.target.value });
-          break;
-        case "type-select":
-          setPetFilter({
-            ...petFilter,
-            breed: "any",
-            type: event.target.value,
-          });
-          break;
-        case "zip-input":
-          if (
-            event.target.value.length < 5 &&
-            event.target.value.length !== 0
-          ) {
-          } else if (isNaN(event.target.value)) {
-            setLocationValid(false);
-            setPetFilter({ ...newFilter });
-          } else if (isNaN(event.target.value)) {
-            delete newFilter.location;
-            setLocationValid(false);
-            setPetFilter({ ...newFilter });
-          } else if (event.target.value.length === 0) {
-            delete newFilter.location;
-            setLocationValid(true);
-            setPetFilter({ ...newFilter });
-          } else {
-            delete newFilter.location;
-            setLocationValid(true);
-            setPetFilter({ ...newFilter, location: event.target.value });
-          }
-          break;
-        default:
-          break;
+      if (newFilter.location) {
+        delete newFilter.location;
       }
-    } else if (filterFor === "organizationDisplay") {
-      switch (event.target.id) {
-        case "zip-input":
-          if (
-            event.target.value.length < 5 &&
-            event.target.value.length !== 0
-          ) {
-            setLocationValid(false);
-            setOrganizationFilter({ ...organizationFilter });
-          } else if (isNaN(event.target.value)) {
-            let newFilter = { ...organizationFilter };
-            delete newFilter.location;
-            setLocationValid(false);
-            setOrganizationFilter({ ...organizationFilter });
-          } else if (event.target.value.length === 0) {
-            let newFilter = { ...organizationFilter };
-            delete newFilter.location;
-            setLocationValid(true);
-            setOrganizationFilter({ ...newFilter });
-          } else {
-            setLocationValid(true);
-            setOrganizationFilter({
-              ...organizationFilter,
-              location: event.target.value,
-            });
-          }
-          break;
-        default:
-          break;
+      setLocationValid(true);
+      setPetFilter({ ...newFilter });
+    } else {
+      setLocationValid(true);
+      setPetFilter({ ...petFilter, location: event.target.value });
+    }
+  };
+
+  const changeOrganizationZipHandler = (event) => {
+    if (event.target.value.length < 5 && event.target.value.length !== 0) {
+      setLocationValid(false);
+      setOrganizationFilter({
+        ...organizationFilter,
+        location: event.target.value,
+      });
+    } else if (isNaN(event.target.value)) {
+      setLocationValid(false);
+      setOrganizationFilter({
+        ...organizationFilter,
+        location: event.target.value,
+      });
+    } else if (isNaN(event.target.value)) {
+      setLocationValid(false);
+      setOrganizationFilter({
+        ...organizationFilter,
+        location: event.target.value,
+      });
+    } else if (event.target.value.length === 0) {
+      let newFilter = { ...organizationFilter };
+      if (newFilter.location) {
+        delete newFilter.location;
       }
+      setLocationValid(true);
+      setOrganizationFilter({ ...newFilter });
+    } else {
+      setLocationValid(true);
+      setOrganizationFilter({
+        ...organizationFilter,
+        location: event.target.value,
+      });
     }
   };
 
@@ -141,18 +140,6 @@ const ResultsFilter = (props) => {
     }
   }, [petFilter.type, filterFor]);
 
-  let type, breed, gender, age, zip;
-
-  if (filterFor === "petDisplay") {
-    type = petFilter.type;
-    breed = petFilter.breed;
-    gender = petFilter.gender;
-    age = petFilter.age;
-    if (petFilter.location !== "any") {
-      zip = petFilter.location;
-    }
-  }
-
   // If our filter equals the last filter used, disable submit button
   if (isEqual(petFilter, lastFilter) || isEqual(petFilter, props.homeFilter)) {
     duplicateFilter = true;
@@ -173,8 +160,8 @@ const ResultsFilter = (props) => {
         <select
           className={"filter-input"}
           id="type-select"
-          value={type}
-          onChange={changeFilterHandler}
+          value={petFilter.type}
+          onChange={changePetTypeHandler}
         >
           <option value="any">All</option>
           <option value="cat">Cats</option>
@@ -184,8 +171,8 @@ const ResultsFilter = (props) => {
         <select
           className={"filter-input"}
           id="breed-select"
-          value={breed}
-          onChange={changeFilterHandler}
+          value={petFilter.breed}
+          onChange={changePetBreedHandler}
         >
           <option value="any">All</option>
           {breeds.map((breed) => (
@@ -198,8 +185,8 @@ const ResultsFilter = (props) => {
         <select
           className={"filter-input"}
           id="gender-select"
-          value={gender}
-          onChange={changeFilterHandler}
+          value={petFilter.gender}
+          onChange={changePetGenderHandler}
         >
           <option value="any">All</option>
           <option value="male">Male</option>
@@ -209,8 +196,8 @@ const ResultsFilter = (props) => {
         <select
           className={"filter-input"}
           id="age-select"
-          value={age}
-          onChange={changeFilterHandler}
+          value={petFilter.age}
+          onChange={changePetAgeHandler}
         >
           <option value="any">All</option>
           <option value="baby">Baby</option>
@@ -223,8 +210,8 @@ const ResultsFilter = (props) => {
           className={"filter-input"}
           id="zip-input"
           placeholder="zip code"
-          onChange={changeFilterHandler}
-          value={zip}
+          onChange={changePetZipHandler}
+          value={petFilter.location ? petFilter.location : ""}
           maxLength="5"
         />
         <button
@@ -249,8 +236,8 @@ const ResultsFilter = (props) => {
           className={"filter-input"}
           id="zip-input"
           placeholder="zip code"
-          onChange={changeFilterHandler}
-          value={zip}
+          onChange={changeOrganizationZipHandler}
+          value={organizationFilter.location ? organizationFilter.location : ""}
           maxLength="5"
         />
         <button
