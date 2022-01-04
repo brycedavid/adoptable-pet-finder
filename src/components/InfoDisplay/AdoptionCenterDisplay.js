@@ -66,10 +66,8 @@ const AdoptionCenterDisplay = (props) => {
     setPrevData(data);
     setParsedData({ data, itemsToShow: 15, showButton });
 
-    if (isEqual(resultsFilter, { location: "any" })) {
-      dispatch({ type: "UPDATE_ORG_REQUEST_SENT", payload: true });
-      dispatch({ type: "UPDATE_ORG_DATA", payload: data });
-    }
+    dispatch({ type: "UPDATE_ORG_REQUEST_SENT", payload: true });
+    dispatch({ type: "UPDATE_ORG_DATA", payload: data });
   }
 
   const showMoreHandler = () => {
@@ -96,6 +94,7 @@ const AdoptionCenterDisplay = (props) => {
 
   const setFilterHandler = (filterValues) => {
     setResultsFilter({ ...filterValues });
+    dispatch({ type: "UPDATE_ORG_FILTER", payload: { ...filterValues } });
     setIsLoading(true);
   };
 

@@ -4,6 +4,7 @@ import isEqual from "react-fast-compare";
 import { Client } from "@petfinder/petfinder-js";
 
 import { apiKey, secret } from "../../shared/constants";
+import { useDispatch, useSelector } from "react-redux";
 
 const petFinderClient = new Client({
   apiKey,
@@ -11,24 +12,39 @@ const petFinderClient = new Client({
 });
 
 const ResultsFilter = (props) => {
+  const orgFilterRedux = useSelector((state) => state.orgFilter);
+  const lastOrgFilterRedux = useSelector((state) => state.lastOrgFilter);
+  const petFilterRedux = useSelector((state) => state.petFilter);
+  const duplicatePetFilter = useSelector((state) => state.duplicatePetFilter);
+
   const [locationValid, setLocationValid] = useState(true);
   const [filterFor, setFilterFor] = useState(null);
   const [breeds, setBreeds] = useState([]);
   const [lastFilter, setLastFilter] = useState(null);
+  const [lastOrgFilter, setLastOrgFilter] = useState(lastOrgFilterRedux);
   const [petFilter, setPetFilter] = useState({
     type: "pets",
     breed: "any",
     gender: "any",
     age: "any",
   });
-  const [organizationFilter, setOrganizationFilter] = useState({});
+  const [organizationFilter, setOrganizationFilter] = useState(orgFilterRedux);
+  const [duplicateOrgFilter, setDuplicateOrgFilter] = useState(false);
+
+  let dispatch = useDispatch();
 
   if (props.for && props.for !== filterFor) {
     setFilterFor(props.for);
   }
 
   let formIsValid = locationValid;
-  let duplicateFilter = false;
+  let duplicateFilter;
+
+  if (filterFor === "petDisplay") {
+    duplicateFilter = duplicatePetFilter;
+  } else {
+    duplicateFilter = duplicateOrgFilter;
+  }
 
   const changePetBreedHandler = (event) => {
     setPetFilter({ ...petFilter, breed: event.target.value });
@@ -106,6 +122,11 @@ const ResultsFilter = (props) => {
         location: event.target.value,
       });
     }
+    if (!isEqual(organizationFilter, lastOrgFilter)) {
+      setDuplicateOrgFilter(false);
+    } else {
+      setDuplicateOrgFilter(true);
+    }
   };
 
   const formSubmitHandler = (event) => {
@@ -115,8 +136,16 @@ const ResultsFilter = (props) => {
       setLastFilter(petFilter);
       props.setPageFilter(petFilter);
     } else {
-      setLastFilter(organizationFilter);
       props.setPageFilter(organizationFilter);
+      dispatch({
+        type: "UPDATE_LAST_ORG_FILTER",
+        payload: organizationFilter.location,
+      });
+      dispatch({
+        type: "UPDATE_ORG_FILTER",
+        payload: organizationFilter.location,
+      });
+      setDuplicateOrgFilter(true);
     }
   };
 
@@ -146,7 +175,15 @@ const ResultsFilter = (props) => {
     formIsValid = false;
   }
 
-  if (isEqual(organizationFilter, lastFilter)) {
+  if (
+    isEqual(organizationFilter, lastOrgFilter) &&
+    duplicateOrgFilter === false
+  ) {
+    setDuplicateOrgFilter(true);
+    duplicateFilter = true;
+    formIsValid = false;
+  }
+  if (duplicateOrgFilter) {
     duplicateFilter = true;
     formIsValid = false;
   }
