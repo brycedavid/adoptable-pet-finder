@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import isEqual from "react-fast-compare";
 
@@ -7,7 +7,7 @@ const OrganizationFilter = (props) => {
   const lastOrgFilterRedux = useSelector((state) => state.lastOrgFilter);
 
   const [locationValid, setLocationValid] = useState(true);
-  const [lastFilter, setlastFilter] = useState(lastOrgFilterRedux);
+  const [lastFilter] = useState(lastOrgFilterRedux);
   const [filter, setFilter] = useState(orgFilterRedux);
   const [duplicateFilter, setDuplicateFilter] = useState(false);
 

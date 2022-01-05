@@ -16,7 +16,6 @@ const PetFilter = (props) => {
   const duplicatePetFilter = useSelector((state) => state.duplicatePetFilter);
 
   const [locationValid, setLocationValid] = useState(true);
-  const [filterFor, setFilterFor] = useState(null);
   const [breeds, setBreeds] = useState([]);
   const [lastFilter, setLastFilter] = useState(null);
   const [petFilter, setPetFilter] = useState(petFilterRedux);
@@ -111,7 +110,7 @@ const PetFilter = (props) => {
     };
 
     makeRequest();
-  }, [petFilter.type, filterFor]);
+  }, [petFilter.type]);
 
   // If our filter equals the last filter used, disable submit button
   if (isEqual(petFilter, lastFilter) || isEqual(petFilter, props.homeFilter)) {
