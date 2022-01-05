@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <nav className={"navbar"}>
       <ul>
-        <Subnav page="Home" to="/home" />
+        <Subnav page="Home" to="/" />
         <Subnav page="Adoption Centers" to="/adoption-centers" />
         <Subnav page="Adoptable Pets" to="/adoptable-pets" />
         <Subnav page="About" to="/about" />
