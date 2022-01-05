@@ -9,7 +9,7 @@ import isEqual from "react-fast-compare";
 
 import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
 import useApi from "../../hooks/use-api";
-import ResultsFilter from "../ResultsFilter/ResultsFilter";
+import OrganizationFilter from "../ResultsFilter/OrganizationFilter";
 
 const AdoptionCenterDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -66,10 +66,8 @@ const AdoptionCenterDisplay = (props) => {
     setPrevData(data);
     setParsedData({ data, itemsToShow: 15, showButton });
 
-    if (isEqual(resultsFilter, { location: "any" })) {
-      dispatch({ type: "UPDATE_ORG_REQUEST_SENT", payload: true });
-      dispatch({ type: "UPDATE_ORG_DATA", payload: data });
-    }
+    dispatch({ type: "UPDATE_ORG_REQUEST_SENT", payload: true });
+    dispatch({ type: "UPDATE_ORG_DATA", payload: data });
   }
 
   const showMoreHandler = () => {
@@ -96,6 +94,7 @@ const AdoptionCenterDisplay = (props) => {
 
   const setFilterHandler = (filterValues) => {
     setResultsFilter({ ...filterValues });
+    dispatch({ type: "UPDATE_ORG_FILTER", payload: { ...filterValues } });
     setIsLoading(true);
   };
 
@@ -202,11 +201,7 @@ const AdoptionCenterDisplay = (props) => {
 
   return (
     <div className="display-container-organization-page">
-      <ResultsFilter
-        isLoading={isLoading}
-        setPageFilter={setFilterHandler}
-        for="organizationDisplay"
-      />
+      <OrganizationFilter setPageFilter={setFilterHandler} />
       {toRender}
     </div>
   );

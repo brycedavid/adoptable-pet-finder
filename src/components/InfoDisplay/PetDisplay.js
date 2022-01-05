@@ -9,7 +9,7 @@ import isEqual from "react-fast-compare";
 
 import PetDisplayItem from "./PetDisplayItem";
 import useApi from "../../hooks/use-api";
-import ResultsFilter from "../ResultsFilter/ResultsFilter";
+import PetFilter from "../ResultsFilter/PetFilter";
 
 const PetDisplayGeneral = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -105,16 +105,7 @@ const PetDisplayGeneral = (props) => {
       showButton,
     });
 
-    if (
-      isEqual(resultsFilter, {
-        type: "any",
-        breed: "any",
-        gender: "any",
-        age: "any",
-        location: "any",
-      }) &&
-      !props.featuredPets
-    ) {
+    if (!props.featuredPets) {
       dispatch({ type: "UPDATE_PET_REQUEST_SENT", payload: true });
       dispatch({ type: "UPDATE_PET_DATA", payload: data });
     }
@@ -145,7 +136,7 @@ const PetDisplayGeneral = (props) => {
 
   const setFilterHandler = (filterValues) => {
     setResultsFilter({ ...filterValues });
-    dispatch({ type: "updatePetRequestSent", payload: false });
+    dispatch({ type: "UPDATE_PET_FILTER", payload: { ...filterValues } });
   };
 
   const browseOrganizationsHandler = () => {
@@ -281,13 +272,7 @@ const PetDisplayGeneral = (props) => {
 
   return (
     <div className="display-container-pet-page">
-      {!props.featuredPets && (
-        <ResultsFilter
-          isLoading={isLoading}
-          setPageFilter={setFilterHandler}
-          for="petDisplay"
-        />
-      )}
+      {!props.featuredPets && <PetFilter setPageFilter={setFilterHandler} />}
       {toRender}
     </div>
   );
