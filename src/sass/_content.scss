@@ -35,7 +35,21 @@
 
 .not-found-content {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 70vh;
+
+  * {
+    margin-bottom: 20px;
+  }
+
+  a {
+    margin: 0 20px;
+  }
+
+  img {
+    width: 240px;
+    margin-bottom: 40px;
+  }
 }
