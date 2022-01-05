@@ -10,6 +10,7 @@ import isEqual from "react-fast-compare";
 import PetDisplayItem from "./PetDisplayItem";
 import useApi from "../../hooks/use-api";
 import PetFilter from "../ResultsFilter/PetFilter";
+import Backdrop from "../common/Backdrop";
 
 const PetDisplayGeneral = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -215,6 +216,7 @@ const PetDisplayGeneral = (props) => {
 
     toRender = (
       <React.Fragment>
+        <Backdrop class="backdrop-clear" />
         <div className="display-container">
           <div
             className={

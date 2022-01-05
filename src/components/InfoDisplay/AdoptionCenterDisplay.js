@@ -10,6 +10,7 @@ import isEqual from "react-fast-compare";
 import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
 import useApi from "../../hooks/use-api";
 import OrganizationFilter from "../ResultsFilter/OrganizationFilter";
+import Backdrop from "../common/Backdrop";
 
 const AdoptionCenterDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -159,6 +160,7 @@ const AdoptionCenterDisplay = (props) => {
     const skeletonArray = [0];
     toRender = (
       <React.Fragment>
+        <Backdrop class="backdrop-clear" />
         <div className="display-container">
           <div className="display-container-organization-skeleton">
             {skeletonArray.map(() => (
