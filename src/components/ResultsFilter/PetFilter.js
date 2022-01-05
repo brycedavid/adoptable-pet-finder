@@ -19,17 +19,13 @@ const PetFilter = (props) => {
   const [filterFor, setFilterFor] = useState(null);
   const [breeds, setBreeds] = useState([]);
   const [lastFilter, setLastFilter] = useState(null);
-  const [petFilter, setPetFilter] = useState({
-    type: "pets",
-    breed: "any",
-    gender: "any",
-    age: "any",
-  });
+  const [petFilter, setPetFilter] = useState(petFilterRedux);
+
+  console.log(petFilter);
 
   let dispatch = useDispatch();
 
   let formIsValid = locationValid;
-  let duplicateFilter = duplicatePetFilter;
 
   const changeBreedHandler = (event) => {
     setPetFilter({ ...petFilter, breed: event.target.value });
@@ -78,7 +74,25 @@ const PetFilter = (props) => {
     event.preventDefault();
     window.scrollTo({ top: 200, behavior: "smooth" });
     setLastFilter(petFilter);
-    props.setPageFilter(petFilter);
+    if (petFilter.location !== "") {
+      props.setPageFilter(petFilter);
+      dispatch({
+        type: "UPDATE_PET_FILTER",
+        payload: petFilter,
+      });
+    } else {
+      let newFilter = { ...petFilter };
+      delete newFilter.location;
+      props.setPageFilter(newFilter);
+      dispatch({
+        type: "UPDATE_PET_FILTER",
+        payload: newFilter,
+      });
+    }
+    dispatch({
+      type: "UPDATE_PET_FILTER",
+      payload: petFilter,
+    });
   };
 
   useEffect(() => {
@@ -101,7 +115,6 @@ const PetFilter = (props) => {
 
   // If our filter equals the last filter used, disable submit button
   if (isEqual(petFilter, lastFilter) || isEqual(petFilter, props.homeFilter)) {
-    duplicateFilter = true;
     formIsValid = false;
   }
 

@@ -105,16 +105,7 @@ const PetDisplayGeneral = (props) => {
       showButton,
     });
 
-    if (
-      isEqual(resultsFilter, {
-        type: "any",
-        breed: "any",
-        gender: "any",
-        age: "any",
-        location: "any",
-      }) &&
-      !props.featuredPets
-    ) {
+    if (!props.featuredPets) {
       dispatch({ type: "UPDATE_PET_REQUEST_SENT", payload: true });
       dispatch({ type: "UPDATE_PET_DATA", payload: data });
     }
@@ -145,7 +136,7 @@ const PetDisplayGeneral = (props) => {
 
   const setFilterHandler = (filterValues) => {
     setResultsFilter({ ...filterValues });
-    dispatch({ type: "updatePetRequestSent", payload: false });
+    dispatch({ type: "UPDATE_PET_FILTER", payload: { ...filterValues } });
   };
 
   const browseOrganizationsHandler = () => {
