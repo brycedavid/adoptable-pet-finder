@@ -9,7 +9,7 @@ import isEqual from "react-fast-compare";
 
 import PetDisplayItem from "./PetDisplayItem";
 import useApi from "../../hooks/use-api";
-import PetFilter from "../ResultsFilter/PetsFilter";
+import PetFilter from "../ResultsFilter/PetFilter";
 
 const PetDisplayGeneral = (props) => {
   const [isLoading, setIsLoading] = useState(true);
