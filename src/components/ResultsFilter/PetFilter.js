@@ -20,8 +20,6 @@ const PetFilter = (props) => {
   const [lastFilter, setLastFilter] = useState(null);
   const [petFilter, setPetFilter] = useState(petFilterRedux);
 
-  console.log(petFilter);
-
   let dispatch = useDispatch();
 
   let formIsValid = locationValid;
@@ -94,6 +92,7 @@ const PetFilter = (props) => {
     });
   };
 
+  // Retrieves the available Breeds for either cats or dogs
   useEffect(() => {
     const makeRequest = async () => {
       let response = null;

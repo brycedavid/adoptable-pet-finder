@@ -56,7 +56,7 @@ const dataReducer = (
       orgFilter: state.orgFilter,
       petFilter: action.payload,
       petRequestSent: state.petRequestSent,
-      orgRequestSent: action.payload,
+      orgRequestSent: state.orgRequestSent,
       homeRequestSent: state.homeRequestSent,
       lastOrgFilter: state.lastOrgFilter,
     };
@@ -98,7 +98,7 @@ const dataReducer = (
       orgFilter: { location: action.payload },
       petFilter: state.petFilter,
       petRequestSent: state.petRequestSent,
-      orgRequestSent: action.payload,
+      orgRequestSent: state.orgRequestSent,
       homeRequestSent: state.homeRequestSent,
       lastOrgFilter: state.lastOrgFilter,
     };
@@ -112,7 +112,7 @@ const dataReducer = (
       orgFilter: state.orgFilter,
       petFilter: state.petFilter,
       petRequestSent: state.petRequestSent,
-      orgRequestSent: action.payload,
+      orgRequestSent: state.orgRequestSent,
       homeRequestSent: state.homeRequestSent,
       lastOrgFilter: { location: action.payload },
     };
