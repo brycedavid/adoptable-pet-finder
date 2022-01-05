@@ -5,6 +5,7 @@
 import React, { Fragment, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import ReactDOM from "react-dom";
 import isEqual from "react-fast-compare";
 
 import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
@@ -160,7 +161,10 @@ const AdoptionCenterDisplay = (props) => {
     const skeletonArray = [0];
     toRender = (
       <React.Fragment>
-        <Backdrop class="backdrop-clear" />
+        {ReactDOM.createPortal(
+          <Backdrop class="backdrop-clear" />,
+          document.getElementById("backdrop-root")
+        )}
         <div className="display-container">
           <div className="display-container-organization-skeleton">
             {skeletonArray.map(() => (

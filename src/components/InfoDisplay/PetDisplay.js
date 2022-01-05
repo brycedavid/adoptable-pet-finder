@@ -5,6 +5,7 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import ReactDOM from "react-dom";
 import isEqual from "react-fast-compare";
 
 import PetDisplayItem from "./PetDisplayItem";
@@ -216,7 +217,10 @@ const PetDisplayGeneral = (props) => {
 
     toRender = (
       <React.Fragment>
-        <Backdrop class="backdrop-clear" />
+        {ReactDOM.createPortal(
+          <Backdrop class="backdrop-clear" />,
+          document.getElementById("backdrop-root")
+        )}
         <div className="display-container">
           <div
             className={
