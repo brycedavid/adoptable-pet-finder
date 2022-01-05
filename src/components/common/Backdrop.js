@@ -1,7 +1,7 @@
 const Backdrop = (props) => {
   return (
     <div
-      className="backdrop"
+      className={props.class}
       onClick={props.closeModal ? props.closeModal : null}
     />
   );

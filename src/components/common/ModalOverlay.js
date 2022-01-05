@@ -22,7 +22,7 @@ const ModalOverlay = (props) => {
   return (
     <Fragment>
       {ReactDOM.createPortal(
-        <Backdrop closeModal={props.closeModal} />,
+        <Backdrop class="backdrop" closeModal={props.closeModal} />,
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(

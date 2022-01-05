@@ -1,7 +1,7 @@
 /*
   Modal backdrop
 */
-.backdrop {
+.backdrop, .backdrop-clear {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,6 +9,10 @@
   height: 100vh;
   z-index: 10;
   background: rgba(0, 0, 0, 0.75);
+}
+.backdrop-clear {
+  background: rgba(0, 0, 0, 0);
+  cursor: wait;
 }
 
 /*

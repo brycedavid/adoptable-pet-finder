@@ -5,11 +5,13 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import ReactDOM from "react-dom";
 import isEqual from "react-fast-compare";
 
 import PetDisplayItem from "./PetDisplayItem";
 import useApi from "../../hooks/use-api";
 import PetFilter from "../ResultsFilter/PetFilter";
+import Backdrop from "../common/Backdrop";
 
 const PetDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -215,6 +217,10 @@ const PetDisplay = (props) => {
 
     toRender = (
       <React.Fragment>
+        {ReactDOM.createPortal(
+          <Backdrop class="backdrop-clear" />,
+          document.getElementById("backdrop-root")
+        )}
         <div className="display-container">
           <div
             className={
