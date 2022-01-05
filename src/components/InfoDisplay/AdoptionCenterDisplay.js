@@ -9,7 +9,7 @@ import isEqual from "react-fast-compare";
 
 import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
 import useApi from "../../hooks/use-api";
-import ResultsFilter from "../ResultsFilter/ResultsFilter";
+import OrganizationFilter from "../ResultsFilter/OrganizationFilter";
 
 const AdoptionCenterDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -201,11 +201,7 @@ const AdoptionCenterDisplay = (props) => {
 
   return (
     <div className="display-container-organization-page">
-      <ResultsFilter
-        isLoading={isLoading}
-        setPageFilter={setFilterHandler}
-        for="organizationDisplay"
-      />
+      <OrganizationFilter setPageFilter={setFilterHandler} />
       {toRender}
     </div>
   );

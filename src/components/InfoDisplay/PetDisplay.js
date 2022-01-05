@@ -9,7 +9,7 @@ import isEqual from "react-fast-compare";
 
 import PetDisplayItem from "./PetDisplayItem";
 import useApi from "../../hooks/use-api";
-import ResultsFilter from "../ResultsFilter/ResultsFilter";
+import PetFilter from "../ResultsFilter/PetsFilter";
 
 const PetDisplayGeneral = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -281,13 +281,7 @@ const PetDisplayGeneral = (props) => {
 
   return (
     <div className="display-container-pet-page">
-      {!props.featuredPets && (
-        <ResultsFilter
-          isLoading={isLoading}
-          setPageFilter={setFilterHandler}
-          for="petDisplay"
-        />
-      )}
+      {!props.featuredPets && <PetFilter setPageFilter={setFilterHandler} />}
       {toRender}
     </div>
   );
