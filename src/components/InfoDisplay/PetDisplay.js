@@ -13,7 +13,7 @@ import useApi from "../../hooks/use-api";
 import PetFilter from "../ResultsFilter/PetFilter";
 import Backdrop from "../common/Backdrop";
 
-const PetDisplayGeneral = (props) => {
+const PetDisplay = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
   const [resultsFilter, setResultsFilter] = useState({
@@ -284,4 +284,4 @@ const PetDisplayGeneral = (props) => {
   );
 };
 
-export default PetDisplayGeneral;
+export default PetDisplay;

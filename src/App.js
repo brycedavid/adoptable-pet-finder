@@ -75,9 +75,6 @@ const App = () => {
       <Navbar />
       <Switch>
         <Route path="/" exact>
-          <Redirect to="/home" />
-        </Route>
-        <Route path="/home">
           <Home />
         </Route>
         <Route path="/adoption-centers">

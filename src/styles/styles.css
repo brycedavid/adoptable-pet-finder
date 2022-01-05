@@ -166,9 +166,20 @@
 
 .not-found-content {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 70vh;
+}
+.not-found-content * {
+  margin-bottom: 20px;
+}
+.not-found-content a {
+  margin: 0 20px;
+}
+.not-found-content img {
+  width: 240px;
+  margin-bottom: 40px;
 }
 
 /*

@@ -10,7 +10,7 @@ import Image from "../components/common/Image";
 import SearchForm from "../components/Search/SearchForm";
 import React from "react";
 import Footer from "../components/Footer/Footer";
-import PetDisplayGeneral from "../components/InfoDisplay/PetDisplay";
+import PetDisplay from "../components/InfoDisplay/PetDisplay";
 
 const Home = () => {
   window.scrollTo({ top: 0, behavior: "instant" });
@@ -24,7 +24,7 @@ const Home = () => {
         <h1>Featured Pets</h1>
         <p className="subheader">Browse our furry friends!</p>
         {/* <Carousel /> */}
-        <PetDisplayGeneral limit={25} displayAmount={8} featuredPets={true} />
+        <PetDisplay limit={25} displayAmount={8} featuredPets={true} />
         <div className="text-container">
           <h2>
             Looking to adopt a furry friend? You've come to the right place!
