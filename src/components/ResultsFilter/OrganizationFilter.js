@@ -72,6 +72,7 @@ const OrganizationFilter = (props) => {
     setDuplicateFilter(true);
     formIsValid = false;
   }
+
   if (duplicateFilter) {
     formIsValid = false;
   }

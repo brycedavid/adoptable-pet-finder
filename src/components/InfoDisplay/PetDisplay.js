@@ -14,6 +14,11 @@ import PetFilter from "../ResultsFilter/PetFilter";
 import Backdrop from "../common/Backdrop";
 
 const PetDisplay = (props) => {
+  const petRequestSent = useSelector((state) => state.petRequestSent);
+  const homeRequestSent = useSelector((state) => state.homeRequestSent);
+  const petData = useSelector((state) => state.petData);
+  const homeData = useSelector((state) => state.homeData);
+
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
   const [resultsFilter, setResultsFilter] = useState({
@@ -28,10 +33,6 @@ const PetDisplay = (props) => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const petRequestSent = useSelector((state) => state.petRequestSent);
-  const homeRequestSent = useSelector((state) => state.homeRequestSent);
-  const petData = useSelector((state) => state.petData);
-  const homeData = useSelector((state) => state.homeData);
 
   let sendRequest = true;
   let data = null;
