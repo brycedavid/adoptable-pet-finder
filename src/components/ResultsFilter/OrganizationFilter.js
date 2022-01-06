@@ -6,8 +6,8 @@ const OrganizationFilter = (props) => {
   const orgFilterRedux = useSelector((state) => state.orgFilter);
   const lastOrgFilterRedux = useSelector((state) => state.lastOrgFilter);
 
-  const [locationValid, setLocationValid] = useState(true);
-  const [lastFilter] = useState(lastOrgFilterRedux);
+  const [locationValid, setLocationValid] = useState(false);
+  const [lastFilter, setLastFilter] = useState(lastOrgFilterRedux);
   const [filter, setFilter] = useState(orgFilterRedux);
   const [duplicateFilter, setDuplicateFilter] = useState(false);
 
@@ -39,7 +39,11 @@ const OrganizationFilter = (props) => {
       if (newFilter.location) {
         delete newFilter.location;
       }
-      setLocationValid(true);
+      if (lastFilter.location !== "") {
+        setLocationValid(true);
+      } else {
+        setLocationValid(false);
+      }
       setFilter({ ...newFilter });
     } else {
       setLocationValid(true);
@@ -67,6 +71,8 @@ const OrganizationFilter = (props) => {
       type: "UPDATE_ORG_FILTER",
       payload: filter.location,
     });
+    setLastFilter({ location: filter.location });
+    setFilter({ location: filter.location });
     setDuplicateFilter(true);
   };
 

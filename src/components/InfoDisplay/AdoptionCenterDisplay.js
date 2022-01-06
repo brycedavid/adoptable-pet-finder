@@ -96,7 +96,6 @@ const AdoptionCenterDisplay = (props) => {
 
   const setFilterHandler = (filterValues) => {
     setResultsFilter({ ...filterValues });
-    dispatch({ type: "UPDATE_ORG_FILTER", payload: { ...filterValues } });
     setIsLoading(true);
   };
 
