@@ -1455,6 +1455,16 @@ img {
   display: flex;
   justify-content: center;
   align-content: center;
+  align-self: center;
+  align-items: center;
+  border: #003d71 3px solid;
+  width: 300px;
+  height: 160px;
+  border-radius: 20px;
+  padding: 30px 50px;
+  margin-bottom: 60px;
+  margin-top: 60px;
+  box-shadow: 2px 2px 2px darkgrey;
 }
 
 .main-search-form {
@@ -1462,13 +1472,6 @@ img {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: #003d71 3px solid;
-  width: 300px;
-  border-radius: 20px;
-  padding: 30px 50px;
-  margin-bottom: 60px;
-  margin-top: 60px;
-  box-shadow: 2px 2px 2px darkgrey;
 }
 .main-search-form p {
   margin-bottom: 20px;
