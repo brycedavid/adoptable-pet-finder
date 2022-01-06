@@ -133,8 +133,6 @@ const PetFilter = (props) => {
     setDuplicateFilter(true);
   }
 
-  console.log(formIsValid);
-
   return (
     <form onSubmit={formSubmitHandler} className="filter-form sticky">
       <label>Pet type</label>
