@@ -91,8 +91,6 @@ const dataReducer = (
   }
 
   if (action.type === "UPDATE_ORG_FILTER") {
-    console.log("Update org filter:");
-    console.log(action.payload);
     return {
       orgData: state.orgData,
       petData: state.petData,
@@ -107,8 +105,6 @@ const dataReducer = (
   }
 
   if (action.type === "UPDATE_LAST_ORG_FILTER") {
-    console.log("Update last org filter:");
-    console.log(action.payload);
     return {
       orgData: state.orgData,
       petData: state.petData,
