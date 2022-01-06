@@ -5,14 +5,14 @@ import isEqual from "react-fast-compare";
 const OrganizationFilter = (props) => {
   const orgFilterRedux = useSelector((state) => state.orgFilter);
 
-  const [locationValid, setLocationValid] = useState(false);
+  const [locationValid, setLocationValid] = useState(true);
   const [lastFilter, setLastFilter] = useState(orgFilterRedux);
   const [filter, setFilter] = useState(orgFilterRedux);
-  const [duplicateFilter, setDuplicateFilter] = useState(false);
+  const [duplicateFilter, setDuplicateFilter] = useState(true);
 
   let dispatch = useDispatch();
 
-  let formIsValid = locationValid;
+  let formIsValid = locationValid && !duplicateFilter;
 
   const changeZipHandler = (event) => {
     if (event.target.value.length < 5 && event.target.value.length !== 0) {
@@ -67,14 +67,9 @@ const OrganizationFilter = (props) => {
     setDuplicateFilter(true);
   };
 
-  // If our filter equals the last filter used, disable submit button
+  // If our filter equals the last filter used, disable submit button by setting duplicateFilter to true
   if (isEqual(filter, lastFilter) && duplicateFilter === false) {
     setDuplicateFilter(true);
-    formIsValid = false;
-  }
-
-  if (duplicateFilter) {
-    formIsValid = false;
   }
 
   return (
