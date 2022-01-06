@@ -16,7 +16,6 @@ const dataReducer = (
     petRequestSent: false,
     orgRequestSent: false,
     homeRequestSent: false,
-    lastOrgFilter: null,
   },
   action
 ) => {
@@ -30,7 +29,6 @@ const dataReducer = (
       petRequestSent: state.petRequestSent,
       orgRequestSent: state.orgRequestSent,
       homeRequestSent: state.homeRequestSent,
-      lastOrgFilter: state.lastOrgFilter,
     };
   }
 
@@ -44,7 +42,6 @@ const dataReducer = (
       petRequestSent: action.payload,
       orgRequestSent: state.orgRequestSent,
       homeRequestSent: state.homeRequestSent,
-      lastOrgFilter: state.lastOrgFilter,
     };
   }
 
@@ -58,7 +55,6 @@ const dataReducer = (
       petRequestSent: state.petRequestSent,
       orgRequestSent: state.orgRequestSent,
       homeRequestSent: state.homeRequestSent,
-      lastOrgFilter: state.lastOrgFilter,
     };
   }
 
@@ -72,7 +68,6 @@ const dataReducer = (
       petRequestSent: state.petRequestSent,
       orgRequestSent: state.orgRequestSent,
       homeRequestSent: state.homeRequestSent,
-      lastOrgFilter: state.lastOrgFilter,
     };
   }
 
@@ -86,7 +81,6 @@ const dataReducer = (
       petRequestSent: state.petRequestSent,
       orgRequestSent: action.payload,
       homeRequestSent: state.homeRequestSent,
-      lastOrgFilter: state.lastOrgFilter,
     };
   }
 
@@ -100,21 +94,6 @@ const dataReducer = (
       petRequestSent: state.petRequestSent,
       orgRequestSent: state.orgRequestSent,
       homeRequestSent: state.homeRequestSent,
-      lastOrgFilter: state.lastOrgFilter,
-    };
-  }
-
-  if (action.type === "UPDATE_LAST_ORG_FILTER") {
-    return {
-      orgData: state.orgData,
-      petData: state.petData,
-      homeData: state.homeData,
-      orgFilter: state.orgFilter,
-      petFilter: state.petFilter,
-      petRequestSent: state.petRequestSent,
-      orgRequestSent: state.orgRequestSent,
-      homeRequestSent: state.homeRequestSent,
-      lastOrgFilter: { location: action.payload },
     };
   }
 
@@ -128,7 +107,6 @@ const dataReducer = (
       petRequestSent: state.petRequestSent,
       orgRequestSent: state.orgRequestSent,
       homeRequestSent: state.homeRequestSent,
-      lastOrgFilter: state.lastOrgFilter,
     };
   }
 
@@ -142,7 +120,6 @@ const dataReducer = (
       petRequestSent: state.petRequestSent,
       orgRequestSent: state.orgRequestSent,
       homeRequestSent: action.payload,
-      lastOrgFilter: state.lastOrgFilter,
     };
   }
 

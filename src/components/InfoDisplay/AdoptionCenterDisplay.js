@@ -14,6 +14,9 @@ import OrganizationFilter from "../ResultsFilter/OrganizationFilter";
 import Backdrop from "../common/Backdrop";
 
 const AdoptionCenterDisplay = (props) => {
+  const orgRequestSent = useSelector((state) => state.orgRequestSent);
+  const orgData = useSelector((state) => state.orgData);
+
   const [isLoading, setIsLoading] = useState(true);
   const [parsedData, setParsedData] = useState(null);
   const [resultsFilter, setResultsFilter] = useState({ location: "any" });
@@ -22,8 +25,6 @@ const AdoptionCenterDisplay = (props) => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const orgRequestSent = useSelector((state) => state.orgRequestSent);
-  const orgData = useSelector((state) => state.orgData);
 
   // Determines whether or not we should send a request
   let sendRequest = true;
@@ -96,7 +97,6 @@ const AdoptionCenterDisplay = (props) => {
 
   const setFilterHandler = (filterValues) => {
     setResultsFilter({ ...filterValues });
-    dispatch({ type: "UPDATE_ORG_FILTER", payload: { ...filterValues } });
     setIsLoading(true);
   };
 

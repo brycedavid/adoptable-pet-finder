@@ -4,10 +4,9 @@ import isEqual from "react-fast-compare";
 
 const OrganizationFilter = (props) => {
   const orgFilterRedux = useSelector((state) => state.orgFilter);
-  const lastOrgFilterRedux = useSelector((state) => state.lastOrgFilter);
 
-  const [locationValid, setLocationValid] = useState(true);
-  const [lastFilter] = useState(lastOrgFilterRedux);
+  const [locationValid, setLocationValid] = useState(false);
+  const [lastFilter, setLastFilter] = useState(orgFilterRedux);
   const [filter, setFilter] = useState(orgFilterRedux);
   const [duplicateFilter, setDuplicateFilter] = useState(false);
 
@@ -35,12 +34,12 @@ const OrganizationFilter = (props) => {
         location: event.target.value,
       });
     } else if (event.target.value.length === 0) {
-      let newFilter = { ...filter };
-      if (newFilter.location) {
-        delete newFilter.location;
+      if (lastFilter.location !== "") {
+        setLocationValid(true);
+      } else {
+        setLocationValid(false);
       }
-      setLocationValid(true);
-      setFilter({ ...newFilter });
+      setFilter({ location: "" });
     } else {
       setLocationValid(true);
       setFilter({
@@ -60,13 +59,11 @@ const OrganizationFilter = (props) => {
     window.scrollTo({ top: 200, behavior: "smooth" });
     props.setPageFilter(filter);
     dispatch({
-      type: "UPDATE_LAST_ORG_FILTER",
-      payload: filter.location,
-    });
-    dispatch({
       type: "UPDATE_ORG_FILTER",
       payload: filter.location,
     });
+    setLastFilter({ location: filter.location });
+    setFilter({ location: filter.location });
     setDuplicateFilter(true);
   };
 
@@ -75,6 +72,7 @@ const OrganizationFilter = (props) => {
     setDuplicateFilter(true);
     formIsValid = false;
   }
+
   if (duplicateFilter) {
     formIsValid = false;
   }
