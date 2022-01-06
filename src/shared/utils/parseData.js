@@ -20,6 +20,10 @@ export const prepPetFilter = (filter) => {
     }
   }
 
+  if (!location) {
+    delete parsedValues.location;
+  }
+
   if (parsedValues.type === "pets") {
     delete parsedValues.type;
   }

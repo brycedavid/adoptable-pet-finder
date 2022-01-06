@@ -13,35 +13,59 @@ const petFinderClient = new Client({
 
 const PetFilter = (props) => {
   const petFilterRedux = useSelector((state) => state.petFilter);
-  const duplicatePetFilter = useSelector((state) => state.duplicatePetFilter);
 
   const [locationValid, setLocationValid] = useState(true);
   const [breeds, setBreeds] = useState([]);
-  const [lastFilter, setLastFilter] = useState(null);
+  const [lastFilter, setLastFilter] = useState(petFilterRedux);
   const [petFilter, setPetFilter] = useState(petFilterRedux);
+  const [duplicateFilter, setDuplicateFilter] = useState(true);
 
   let dispatch = useDispatch();
 
-  let formIsValid = locationValid;
+  let formIsValid = locationValid && !duplicateFilter;
 
   const changeBreedHandler = (event) => {
-    setPetFilter({ ...petFilter, breed: event.target.value });
+    let newFilter = { ...petFilter, breed: event.target.value };
+    setPetFilter(newFilter);
+    if (!isEqual(newFilter, lastFilter)) {
+      setDuplicateFilter(false);
+    } else {
+      setDuplicateFilter(true);
+    }
   };
 
   const changeGenderHandler = (event) => {
+    let newFilter = { ...petFilter, gender: event.target.value };
     setPetFilter({ ...petFilter, gender: event.target.value });
+    if (!isEqual(newFilter, lastFilter)) {
+      setDuplicateFilter(false);
+    } else {
+      setDuplicateFilter(true);
+    }
   };
 
   const changeAgeHandler = (event) => {
-    setPetFilter({ ...petFilter, age: event.target.value });
+    let newFilter = { ...petFilter, age: event.target.value };
+    setPetFilter(newFilter);
+    if (!isEqual(newFilter, lastFilter)) {
+      setDuplicateFilter(false);
+    } else {
+      setDuplicateFilter(true);
+    }
   };
 
   const changeTypeHandler = (event) => {
-    setPetFilter({
+    let newFilter = {
       ...petFilter,
       breed: "any",
       type: event.target.value,
-    });
+    };
+    setPetFilter(newFilter);
+    if (!isEqual(newFilter, lastFilter)) {
+      setDuplicateFilter(false);
+    } else {
+      setDuplicateFilter(true);
+    }
   };
 
   const changeZipHandler = (event) => {
@@ -55,41 +79,34 @@ const PetFilter = (props) => {
       setLocationValid(false);
       setPetFilter({ ...petFilter, location: event.target.value });
     } else if (event.target.value.length === 0) {
-      let newFilter = { ...petFilter };
-      if (newFilter.location) {
-        delete newFilter.location;
+      if (lastFilter.location !== "" || !duplicateFilter) {
+        setLocationValid(true);
+      } else {
+        setLocationValid(false);
       }
-      setLocationValid(true);
-      setPetFilter({ ...newFilter });
+      setPetFilter({ ...petFilter, location: "" });
     } else {
       setLocationValid(true);
       setPetFilter({ ...petFilter, location: event.target.value });
+    }
+    if (!isEqual(petFilter, lastFilter)) {
+      setDuplicateFilter(false);
+    } else {
+      setDuplicateFilter(true);
     }
   };
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
     window.scrollTo({ top: 200, behavior: "smooth" });
-    setLastFilter(petFilter);
-    if (petFilter.location !== "") {
-      props.setPageFilter(petFilter);
-      dispatch({
-        type: "UPDATE_PET_FILTER",
-        payload: petFilter,
-      });
-    } else {
-      let newFilter = { ...petFilter };
-      delete newFilter.location;
-      props.setPageFilter(newFilter);
-      dispatch({
-        type: "UPDATE_PET_FILTER",
-        payload: newFilter,
-      });
-    }
+    props.setPageFilter(petFilter);
     dispatch({
       type: "UPDATE_PET_FILTER",
       payload: petFilter,
     });
+    setLastFilter(petFilter);
+    setPetFilter(petFilter);
+    setDuplicateFilter(true);
   };
 
   // Retrieves the available Breeds for either cats or dogs
@@ -112,9 +129,11 @@ const PetFilter = (props) => {
   }, [petFilter.type]);
 
   // If our filter equals the last filter used, disable submit button
-  if (isEqual(petFilter, lastFilter) || isEqual(petFilter, props.homeFilter)) {
-    formIsValid = false;
+  if (isEqual(petFilter, lastFilter) && duplicateFilter === false) {
+    setDuplicateFilter(true);
   }
+
+  console.log(formIsValid);
 
   return (
     <form onSubmit={formSubmitHandler} className="filter-form sticky">
