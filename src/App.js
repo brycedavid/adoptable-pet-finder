@@ -4,7 +4,7 @@
 // and search capabilities. It also manages routing for the entire application.
 
 import React, { useContext, useState } from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
@@ -16,6 +16,13 @@ import NotFound from "./pages/NotFound";
 import AuthContext from "./store/auth-context";
 import Layout from "./components/Layout/Layout";
 import ModalOverlay from "./components/common/ModalOverlay";
+
+import {
+  homeUrl,
+  adoptionCentersUrl,
+  adoptablePetsUrl,
+  aboutUrl,
+} from "./shared/constants";
 
 const App = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -74,16 +81,16 @@ const App = () => {
       />
       <Navbar />
       <Switch>
-        <Route path="/" exact>
+        <Route path={homeUrl} exact>
           <Home />
         </Route>
-        <Route path="/adoption-centers">
+        <Route path={adoptionCentersUrl}>
           <AdoptionCenters />
         </Route>
-        <Route path="/adoptable-pets">
+        <Route path={adoptablePetsUrl}>
           <AdoptablePets />
         </Route>
-        <Route path="/about">
+        <Route path={aboutUrl}>
           <About />
         </Route>
         <Route path="*">

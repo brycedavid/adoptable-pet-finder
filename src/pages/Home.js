@@ -3,14 +3,16 @@
 // a featured pets section and a search form.
 // Base URL (/) automatically routes here in App.js.
 
+import React, { lazy, Suspense } from "react";
+
 import mainImage from "../shared/images/Puppy-and-Kitten.jpeg";
 
 import Card from "../components/common/Card";
 import Image from "../components/common/Image";
-import SearchForm from "../components/Search/SearchForm";
-import React from "react";
 import Footer from "../components/Footer/Footer";
 import PetDisplay from "../components/InfoDisplay/PetDisplay";
+
+const SearchForm = lazy(() => import("../components/Search/SearchForm"));
 
 const Home = () => {
   window.scrollTo({ top: 0, behavior: "instant" });
@@ -36,7 +38,9 @@ const Home = () => {
           </h3>
         </div>
         <Card class="main-search-container">
-          <SearchForm />
+          <Suspense fallback={<p>Loading...</p>}>
+            <SearchForm />
+          </Suspense>
         </Card>
       </div>
       <Footer />
