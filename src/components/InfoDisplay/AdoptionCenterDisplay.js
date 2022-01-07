@@ -2,7 +2,7 @@
 // This component acts as the AdoptionCenterDisplay container, which renders one AdoptionCenterDisplayItem.js per organization as child components. It also handles making the
 // request to Petfinder API for organization data using the custom useApi hook.
 
-import React, { Fragment, useCallback, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ReactDOM from "react-dom";
@@ -12,6 +12,14 @@ import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
 import useApi from "../../hooks/use-api";
 import OrganizationFilter from "../ResultsFilter/OrganizationFilter";
 import Backdrop from "../common/Backdrop";
+import GoogleMap from "../common/GoogleMap";
+
+const apiKey = "AIzaSyA8dkZox5rDqof9KlHB-5nzahLvW9oSanQ";
+
+let lat = 0;
+let long = 0;
+// let lat = 30.1716722;
+// let long = -92.06161780000001;
 
 const AdoptionCenterDisplay = (props) => {
   const orgRequestSent = useSelector((state) => state.orgRequestSent);
@@ -100,9 +108,34 @@ const AdoptionCenterDisplay = (props) => {
     setIsLoading(true);
   };
 
+  useEffect(() => {
+    const geocode = async () => {
+      let address;
+      if (resultsFilter.location !== "any") {
+        address = resultsFilter.location;
+      } else {
+        address = "70503";
+      }
+
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?key=${apiKey}&components=postal_code:${address}`
+      );
+
+      const data = await response.json();
+
+      console.log(data);
+
+      lat = data.results[0].geometry.location.lat;
+      long = data.results[0].geometry.location.lng;
+    };
+    geocode();
+  }, [resultsFilter]);
+
   let toRender;
+  let renderedMap;
 
   if (!isLoading && parsedData !== null) {
+    renderedMap = <GoogleMap location={{ lat, long }} />;
     toRender = (
       <Fragment>
         <div className="display-container">
@@ -159,6 +192,7 @@ const AdoptionCenterDisplay = (props) => {
     );
   } else {
     const skeletonArray = [0];
+    renderedMap = <div>Loading...</div>;
     toRender = (
       <React.Fragment>
         {ReactDOM.createPortal(
@@ -206,10 +240,15 @@ const AdoptionCenterDisplay = (props) => {
   }
 
   return (
-    <div className="display-container-organization-page">
-      <OrganizationFilter setPageFilter={setFilterHandler} />
-      {toRender}
-    </div>
+    <React.Fragment>
+      <div className="display-container-organization-page">
+        <div className="left-display sticky">
+          <OrganizationFilter setPageFilter={setFilterHandler} />
+          <div className="map-display-container">{renderedMap}</div>
+        </div>
+        {toRender}
+      </div>
+    </React.Fragment>
   );
 };
 

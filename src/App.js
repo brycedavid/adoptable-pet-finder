@@ -3,7 +3,7 @@
 // This component handles the logging in and out states to render the login modal, as well as the signup page redirects
 // and search capabilities. It also manages routing for the entire application.
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 
 import Header from "./components/Header/Header";

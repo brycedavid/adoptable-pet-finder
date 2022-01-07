@@ -124,6 +124,8 @@ const useApi = (props) => {
               });
           }
 
+          console.log(responseData);
+
           // if data is returned from request, parse and store into parsedData
           if (responseData && !requestError) {
             parsedData = parsePetData(responseData);
@@ -156,6 +158,8 @@ const useApi = (props) => {
                 }
               });
           }
+
+          console.log(responseData);
 
           // if data is returned from request, parse and store into parsedData
           if (responseData && !requestError) {

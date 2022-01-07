@@ -305,6 +305,20 @@
   color: #902923;
 }
 
+.left-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 300px;
+  height: 600px;
+  padding: 12px;
+  border: 3px solid #003d71;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: 4px 4px 6px darkgrey;
+}
+
 /*
   Media queries
 */
@@ -774,15 +788,7 @@
 .filter-form, .filter-form-organization {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
-  width: 300px;
-  height: 600px;
-  padding: 12px;
-  border: 3px solid #003d71;
-  border-radius: 10px;
-  margin-top: 30px;
-  box-shadow: 4px 4px 6px darkgrey;
 }
 .filter-form-organization {
   height: 200px;
@@ -941,6 +947,7 @@
   Styles that are applied globally to entire site
 */
 html {
+  height: 100%;
   font-size: 100%;
 }
 
@@ -995,6 +1002,13 @@ img {
   margin-bottom: 40px;
   justify-content: center;
   align-content: center;
+}
+
+.map-display-container {
+  width: 270px;
+  height: 270px;
+  border: 1px #003d71 solid;
+  border-radius: 2px;
 }
 
 /*

@@ -20,15 +20,7 @@
 .filter-form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
-  width: 300px;
-  height: 600px;
-  padding: 12px;
-  border: 3px solid $color-blue;
-  border-radius: 10px;
-  margin-top: 30px;
-  box-shadow: 4px 4px 6px darkgrey;
 
   &-organization {
     @extend .filter-form;
