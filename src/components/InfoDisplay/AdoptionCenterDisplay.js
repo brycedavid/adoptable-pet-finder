@@ -15,11 +15,13 @@ import Backdrop from "../common/Backdrop";
 import GoogleMap from "../common/GoogleMap";
 
 const apiKey = "AIzaSyA8dkZox5rDqof9KlHB-5nzahLvW9oSanQ";
+const bingKey =
+  "Ap6PrGdAbmMIBP2Fj7uehpwOzeeKjI7IS1YIlisOXARAp7dX3xcskdsqEBsbKTjA";
 
-let lat = 0;
-let long = 0;
-// let lat = 30.1716722;
-// let long = -92.06161780000001;
+// let lat = 0;
+// let long = 0;
+let lat = 30.1716722;
+let long = -92.06161780000001;
 
 const AdoptionCenterDisplay = (props) => {
   const orgRequestSent = useSelector((state) => state.orgRequestSent);
@@ -30,6 +32,7 @@ const AdoptionCenterDisplay = (props) => {
   const [resultsFilter, setResultsFilter] = useState({ location: "any" });
   const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
+  const [zipCodes, setZipCodes] = useState([]);
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -73,9 +76,19 @@ const AdoptionCenterDisplay = (props) => {
       showButton = false;
     }
 
+    // console.log(data);
+    // let addressArray = [];
+
+    // for (let i = 0; i < data.length; i++) {
+    //   zipArray.push(data[i].address.postcode);
+    // }
+
+    // console.log(zipArray);
+
     setIsLoading(false);
     setPrevData(data);
     setParsedData({ data, itemsToShow: 15, showButton });
+    // setZipCodes(zipArray);
 
     dispatch({ type: "UPDATE_ORG_REQUEST_SENT", payload: true });
     dispatch({ type: "UPDATE_ORG_DATA", payload: data });
@@ -118,15 +131,15 @@ const AdoptionCenterDisplay = (props) => {
       }
 
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?key=${apiKey}&components=postal_code:${address}`
+        `http://dev.virtualearth.net/REST/v1/Locations/US/-/${address}/-/-?key=${bingKey}`
       );
 
       const data = await response.json();
 
       console.log(data);
 
-      lat = data.results[0].geometry.location.lat;
-      long = data.results[0].geometry.location.lng;
+      lat = data.resourceSets[0].resources[0].geocodePoints[0].coordinates[0];
+      long = data.resourceSets[0].resources[0].geocodePoints[0].coordinates[1];
     };
     geocode();
   }, [resultsFilter]);
