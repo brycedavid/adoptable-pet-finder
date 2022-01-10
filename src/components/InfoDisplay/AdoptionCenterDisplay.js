@@ -32,7 +32,7 @@ const AdoptionCenterDisplay = (props) => {
   const [resultsFilter, setResultsFilter] = useState({ location: "any" });
   const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
-  const [zipCodes, setZipCodes] = useState([]);
+  const [markerCoordinates, setMarkerCoordinates] = useState([]);
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -76,19 +76,9 @@ const AdoptionCenterDisplay = (props) => {
       showButton = false;
     }
 
-    // console.log(data);
-    // let addressArray = [];
-
-    // for (let i = 0; i < data.length; i++) {
-    //   zipArray.push(data[i].address.postcode);
-    // }
-
-    // console.log(zipArray);
-
     setIsLoading(false);
     setPrevData(data);
     setParsedData({ data, itemsToShow: 15, showButton });
-    // setZipCodes(zipArray);
 
     dispatch({ type: "UPDATE_ORG_REQUEST_SENT", payload: true });
     dispatch({ type: "UPDATE_ORG_DATA", payload: data });
@@ -136,19 +126,75 @@ const AdoptionCenterDisplay = (props) => {
 
       const data = await response.json();
 
-      console.log(data);
-
       lat = data.resourceSets[0].resources[0].geocodePoints[0].coordinates[0];
       long = data.resourceSets[0].resources[0].geocodePoints[0].coordinates[1];
     };
     geocode();
   }, [resultsFilter]);
 
+  const markOnMap = (orgInfo) => {
+    const geocode = async () => {
+      let coordinates = markerCoordinates;
+
+      const response = await fetch(
+        `http://dev.virtualearth.net/REST/v1/Locations/US/-/${orgInfo.postcode}/${orgInfo.city}/${orgInfo.streetAddress}?key=${bingKey}`
+      );
+
+      const data = await response.json();
+
+      let latStr =
+        data.resourceSets[0].resources[0].geocodePoints[0].coordinates[0].toString();
+      let latitude = Number(latStr.slice(0, 6));
+
+      let lonStr =
+        data.resourceSets[0].resources[0].geocodePoints[0].coordinates[1].toString();
+      let longitude = Number(lonStr.slice(0, 6));
+
+      coordinates.push({
+        lat: latitude,
+        lng: longitude,
+      });
+
+      console.log(markerCoordinates);
+
+      setMarkerCoordinates([...coordinates]);
+    };
+
+    geocode();
+  };
+
+  // useEffect(() => {
+  //   const geocode = async () => {
+  //     let coordinates = [];
+
+  //     for (let i = 0; i < addresses.length; i++) {
+  //       const response = await fetch(
+  //         `http://dev.virtualearth.net/REST/v1/Locations/US/-/${addresses[i].postcode}/${addresses[i].city}/${addresses[i].address1}?key=${bingKey}`
+  //       );
+
+  //       const data = await response.json();
+
+  //       coordinates.push({
+  //         lat: data.resourceSets[0].resources[0].geocodePoints[0]
+  //           .coordinates[0],
+  //         lng: data.resourceSets[0].resources[0].geocodePoints[0]
+  //           .coordinates[1],
+  //       });
+  //     }
+
+  //     console.log(coordinates);
+  //   };
+
+  //   geocode();
+  // }, [addresses]);
+
   let toRender;
   let renderedMap;
 
   if (!isLoading && parsedData !== null) {
-    renderedMap = <GoogleMap location={{ lat, long }} />;
+    renderedMap = (
+      <GoogleMap location={{ lat, long }} markers={markerCoordinates} />
+    );
     toRender = (
       <Fragment>
         <div className="display-container">
@@ -167,6 +213,7 @@ const AdoptionCenterDisplay = (props) => {
                     pictures={organization.pictures}
                     url={organization.url}
                     animalsLink={organization.animalsLink}
+                    markOnMap={markOnMap}
                   />
                 ))
             ) : (
@@ -257,7 +304,7 @@ const AdoptionCenterDisplay = (props) => {
       <div className="display-container-organization-page">
         <div className="left-display sticky">
           <OrganizationFilter setPageFilter={setFilterHandler} />
-          <div className="map-display-container">{renderedMap}</div>
+          {/* <div className="map-display-container">{renderedMap}</div> */}
         </div>
         {toRender}
       </div>
