@@ -90,7 +90,8 @@ const AdoptablePetInfo = (props) => {
   if (isLoading) {
     toRender = <LoadingIndicator />;
   } else {
-    toRender = <GoogleMap location={{ ...coordinates }} />;
+    // toRender = <GoogleMap location={{ ...coordinates }} />;
+    toRender = <p>Google Map placeholder</p>;
   }
 
   return (
