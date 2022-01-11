@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router";
-import GoogleMap from "../components/common/GoogleMap";
+import { useLocation } from "react-router";
 import LoadingIndicator from "../components/common/LoadingIndicator";
 import Footer from "../components/Footer/Footer";
+
+import GoogleMap from "../components/common/GoogleMap";
 
 import dogPlaceholderImg from "../shared/images/dog-placeholder-tall.svg";
 import catPlaceholderImg from "../shared/images/cat-placeholder-tall.svg";
 
-const apiKey = "AIzaSyA8dkZox5rDqof9KlHB-5nzahLvW9oSanQ";
-const bingKey =
-  "Ap6PrGdAbmMIBP2Fj7uehpwOzeeKjI7IS1YIlisOXARAp7dX3xcskdsqEBsbKTjA";
+let bingKey = null;
+let mapKey = null;
 
 const AdoptablePetInfo = (props) => {
   const [coordinates, setCoordinates] = useState();
@@ -47,6 +47,24 @@ const AdoptablePetInfo = (props) => {
   useEffect(() => {
     const geocode = async () => {
       let url;
+      let dbResponseData = null;
+
+      dbResponseData = await fetch(
+        "https://stalwart-fx-307719-default-rtdb.firebaseio.com/SuIdkU.json",
+        { method: "GET" }
+      );
+
+      if (!dbResponseData.ok) {
+        throw new Error("Could not retrieve Client key/secret");
+      }
+
+      await dbResponseData.json().then((data) => {
+        let forbiddenChars = ["?", "&", "=", "."];
+        for (let char of forbiddenChars) {
+          data.aIendD = data.aIendD.split(char).join("");
+        }
+        bingKey = data.aIendD;
+      });
 
       if (address.address1) {
         url = `http://dev.virtualearth.net/REST/v1/Locations/US/-/${address.postcode}/${address.city}/${address.address1}?key=${bingKey}`;
@@ -90,8 +108,8 @@ const AdoptablePetInfo = (props) => {
   if (isLoading) {
     toRender = <LoadingIndicator />;
   } else {
-    // toRender = <GoogleMap location={{ ...coordinates }} />;
-    toRender = <p>Google Map placeholder</p>;
+    toRender = <GoogleMap location={{ ...coordinates }} mapKey={mapKey} />;
+    // toRender = <p>Google Map placeholder</p>;
   }
 
   return (
