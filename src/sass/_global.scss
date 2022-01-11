@@ -66,10 +66,9 @@ img {
 }
 
 .map-display-container {
-  width: 270px;
+  width: 100%;
   height: 270px;
-  border: 1px $color-blue solid;
-  border-radius: 2px;
+  border-bottom: 1px solid black;
 }
 
 /*

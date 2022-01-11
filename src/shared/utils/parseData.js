@@ -65,6 +65,7 @@ export const parsePetData = (data) => {
       breed: animal.breeds.primary,
       size: animal.size,
       gender: animal.gender,
+      address: animal.contact.address,
     });
   }
 

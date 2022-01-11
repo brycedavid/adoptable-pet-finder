@@ -23,6 +23,7 @@ import {
   adoptablePetsUrl,
   aboutUrl,
 } from "./shared/constants";
+import AdoptablePetInfo from "./pages/AdoptablePetInfo";
 
 const App = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -92,6 +93,9 @@ const App = () => {
         </Route>
         <Route path={aboutUrl}>
           <About />
+        </Route>
+        <Route path="/pets/:petId">
+          <AdoptablePetInfo />
         </Route>
         <Route path="*">
           <NotFound />

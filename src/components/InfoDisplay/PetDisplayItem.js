@@ -4,8 +4,11 @@
 
 import dogPlaceholderImg from "../../shared/images/dog-placeholder-tall.svg";
 import catPlaceholderImg from "../../shared/images/cat-placeholder-tall.svg";
+import { useHistory } from "react-router";
 
 const PetDisplayItem = (props) => {
+  const history = useHistory();
+
   let photoElement = null;
   let isFixed = null;
 
@@ -35,26 +38,16 @@ const PetDisplayItem = (props) => {
   // Upon clicking a PetDisplayItem, open the URL associated with the pet in a new window
   const itemClickHandler = () => {
     // Opens the URL to the pet information in a new window
-    const newWindow = window.open(props.url, "_blank", "noopener,noreferrer");
-    if (newWindow) {
-      newWindow.opener = null;
-    }
+    // const newWindow = window.open(props.url, "_blank", "noopener,noreferrer");
+    // if (newWindow) {
+    //   newWindow.opener = null;
+    // }
+    history.push({ pathname: `/pets/${props.id}`, state: props });
   };
 
   let activeState = "";
   let displayClass = "display-item";
   let shine = "";
-
-  // if (props.index < 0) {
-  //   displayClass = "display-item";
-  // } else {
-  //   displayClass = "display-item-carousel";
-  //   if (props.index === props.activeIndex) {
-  //     activeState = "carousel-active";
-  //   } else {
-  //     activeState = "carousel-inactive";
-  //   }
-  // }
 
   if (props.skeleton) {
     shine = "shine";
@@ -69,7 +62,6 @@ const PetDisplayItem = (props) => {
       <h2 className="display-item-name">{props.name}</h2>
       <p>{`${props.gender}, ${props.age}`}</p>
       <p>{props.breed}</p>
-      <p>{props.location}</p>
       <p>{`Size: ${props.size}`}</p>
       <p>{isFixed}</p>
     </div>
