@@ -7,17 +7,18 @@ import GoogleMap from "../components/common/GoogleMap";
 
 import dogPlaceholderImg from "../shared/images/dog-placeholder-tall.svg";
 import catPlaceholderImg from "../shared/images/cat-placeholder-tall.svg";
+import orgPlaceholderImg from "../shared/images/organization_placeholder.jpg";
 
 let bingKey = null;
 let mapKey = null;
 
-const AdoptablePetInfo = (props) => {
+const DetailedInfo = (props) => {
   const [coordinates, setCoordinates] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   const location = useLocation();
-  const {
-    id,
+
+  let id,
     type,
     address,
     name,
@@ -28,20 +29,48 @@ const AdoptablePetInfo = (props) => {
     gender,
     pictures,
     url,
-  } = location.state;
+    phone,
+    email;
+
+  if (props.for === "pets") {
+    ({
+      id,
+      type,
+      address,
+      name,
+      size,
+      fixed,
+      age,
+      breed,
+      gender,
+      pictures,
+      url,
+    } = location.state);
+  } else {
+    ({ name, address, phone, email, url, pictures } = location.state);
+  }
+
   let lat, long;
 
   console.log(address);
 
   let photoElement = null;
 
-  // Check for a picture associated with the pet. If no picture, insert placeholder image based on pet type.
-  if (pictures.length !== 0) {
-    photoElement = <img src={pictures[0].full} alt={`${name}`} />;
-  } else if (pictures.length === 0 && type === "Dog") {
-    photoElement = <img src={dogPlaceholderImg} alt={`${name}`} />;
+  if (props.for === "pets") {
+    // Check for a picture associated with the pet. If no picture, insert placeholder image based on pet type.
+    if (pictures.length !== 0) {
+      photoElement = <img src={pictures[0].full} alt={`${name}`} />;
+    } else if (pictures.length === 0 && type === "Dog") {
+      photoElement = <img src={dogPlaceholderImg} alt={`${name}`} />;
+    } else {
+      photoElement = <img src={catPlaceholderImg} alt={`${name}`} />;
+    }
   } else {
-    photoElement = <img src={catPlaceholderImg} alt={`${name}`} />;
+    if (pictures.length !== 0) {
+      photoElement = <img src={pictures[0].full} alt={`${name}`} />;
+    } else {
+      photoElement = <img src={orgPlaceholderImg} alt={`${name}`} />;
+    }
   }
 
   useEffect(() => {
@@ -95,7 +124,7 @@ const AdoptablePetInfo = (props) => {
     geocode();
   }, [location]);
 
-  const showPetInfoHandler = () => {
+  const showMoreInfoHandler = () => {
     // Opens the URL to the pet information in a new window
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) {
@@ -115,16 +144,31 @@ const AdoptablePetInfo = (props) => {
   return (
     <React.Fragment>
       <div className="map-display-container">{toRender}</div>
-      <div className="content-container-pets">
+      <div
+        className={
+          props.for === "pets"
+            ? "content-container-pets"
+            : "content-container-organizations"
+        }
+      >
         <div className="image-container-large">{photoElement}</div>
-        <div className="info-container-pets">
+        <div
+          className={
+            props.for === "pets"
+              ? "info-container-pets"
+              : "info-container-organizations"
+          }
+        >
           <h1>{name}</h1>
-          <p>{`Gender: ${gender}`}</p>
-          <p>{`Age: ${age}`}</p>
-          <p>{`Breed: ${breed}`}</p>
-          <p>{`Size: ${size}`}</p>
-          <p>{`Spayed/neutered: ${fixed}`}</p>
-          <button className="button-alt" onClick={showPetInfoHandler}>
+          {props.for === "pets" && <p>{`Gender: ${gender}`}</p>}
+          {props.for === "pets" && <p>{`Age: ${age}`}</p>}
+          {props.for === "pets" && <p>{`Breed: ${breed}`}</p>}
+          {props.for === "pets" && <p>{`Size: ${size}`}</p>}
+          {props.for === "pets" && <p>{`Spayed/neutered: ${fixed}`}</p>}
+          {props.for === "orgs" && <p>{address.address1}</p>}
+          {props.for === "orgs" && <p>{phone}</p>}
+          {props.for === "orgs" && <p>{email}</p>}
+          <button className="button-alt" onClick={showMoreInfoHandler}>
             More info
           </button>
         </div>
@@ -134,4 +178,4 @@ const AdoptablePetInfo = (props) => {
   );
 };
 
-export default AdoptablePetInfo;
+export default DetailedInfo;

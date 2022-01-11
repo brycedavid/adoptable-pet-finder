@@ -12,7 +12,6 @@ import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
 import useApi from "../../hooks/use-api";
 import OrganizationFilter from "../ResultsFilter/OrganizationFilter";
 import Backdrop from "../common/Backdrop";
-import GoogleMap from "../common/GoogleMap";
 
 const AdoptionCenterDisplay = (props) => {
   const orgRequestSent = useSelector((state) => state.orgRequestSent);
@@ -101,64 +100,7 @@ const AdoptionCenterDisplay = (props) => {
     setIsLoading(true);
   };
 
-  // const markOnMap = (orgInfo) => {
-  //   const geocode = async () => {
-  //     let coordinates = markerCoordinates;
-
-  //     const response = await fetch(
-  //       `http://dev.virtualearth.net/REST/v1/Locations/US/-/${orgInfo.postcode}/${orgInfo.city}/${orgInfo.streetAddress}?key=${bingKey}`
-  //     );
-
-  //     const data = await response.json();
-
-  //     let latStr =
-  //       data.resourceSets[0].resources[0].geocodePoints[0].coordinates[0].toString();
-  //     let latitude = Number(latStr.slice(0, 6));
-
-  //     let lonStr =
-  //       data.resourceSets[0].resources[0].geocodePoints[0].coordinates[1].toString();
-  //     let longitude = Number(lonStr.slice(0, 6));
-
-  //     coordinates.push({
-  //       lat: latitude,
-  //       lng: longitude,
-  //     });
-
-  //     console.log(markerCoordinates);
-
-  //     setMarkerCoordinates([...coordinates]);
-  //   };
-
-  //   geocode();
-  // };
-
-  // useEffect(() => {
-  //   const geocode = async () => {
-  //     let coordinates = [];
-
-  //     for (let i = 0; i < addresses.length; i++) {
-  //       const response = await fetch(
-  //         `http://dev.virtualearth.net/REST/v1/Locations/US/-/${addresses[i].postcode}/${addresses[i].city}/${addresses[i].address1}?key=${bingKey}`
-  //       );
-
-  //       const data = await response.json();
-
-  //       coordinates.push({
-  //         lat: data.resourceSets[0].resources[0].geocodePoints[0]
-  //           .coordinates[0],
-  //         lng: data.resourceSets[0].resources[0].geocodePoints[0]
-  //           .coordinates[1],
-  //       });
-  //     }
-
-  //     console.log(coordinates);
-  //   };
-
-  //   geocode();
-  // }, [addresses]);
-
   let toRender;
-  let renderedMap;
 
   if (!isLoading && parsedData !== null) {
     toRender = (
@@ -216,7 +158,6 @@ const AdoptionCenterDisplay = (props) => {
     );
   } else {
     const skeletonArray = [0];
-    renderedMap = <div>Loading...</div>;
     toRender = (
       <React.Fragment>
         {ReactDOM.createPortal(

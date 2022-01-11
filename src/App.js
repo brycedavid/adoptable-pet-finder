@@ -16,14 +16,16 @@ import NotFound from "./pages/NotFound";
 import AuthContext from "./store/auth-context";
 import Layout from "./components/Layout/Layout";
 import ModalOverlay from "./components/common/ModalOverlay";
+import DetailedInfo from "./pages/DetailedInfo";
 
 import {
   homeUrl,
   adoptionCentersUrl,
   adoptablePetsUrl,
   aboutUrl,
+  petInfoUrl,
+  orgInfoUrl,
 } from "./shared/constants";
-import AdoptablePetInfo from "./pages/AdoptablePetInfo";
 
 const App = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -94,8 +96,11 @@ const App = () => {
         <Route path={aboutUrl}>
           <About />
         </Route>
-        <Route path="/pets/:petId">
-          <AdoptablePetInfo />
+        <Route path={petInfoUrl}>
+          <DetailedInfo for={"pets"} />
+        </Route>
+        <Route path={orgInfoUrl}>
+          <DetailedInfo for={"orgs"} />
         </Route>
         <Route path="*">
           <NotFound />

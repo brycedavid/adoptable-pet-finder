@@ -37,11 +37,6 @@ const PetDisplayItem = (props) => {
 
   // Upon clicking a PetDisplayItem, open the URL associated with the pet in a new window
   const itemClickHandler = () => {
-    // Opens the URL to the pet information in a new window
-    // const newWindow = window.open(props.url, "_blank", "noopener,noreferrer");
-    // if (newWindow) {
-    //   newWindow.opener = null;
-    // }
     history.push({ pathname: `/pets/${props.id}`, state: props });
   };
 
