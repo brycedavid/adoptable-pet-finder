@@ -1,9 +1,4 @@
-@import "./colors";
-@import "./breakpoints";
-
-/*
-  Classes associated with all images and image containers
-*/
+@import "../base/base";
 
 .main-image-container {
   display: flex;
@@ -62,9 +57,7 @@
   }
 }
 
-/*
-  Media queries
-*/
+/* Media queries */
 
 @media (max-width: $breakpoint-medium-desktop) {
   .main-image-container {

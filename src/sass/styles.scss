@@ -1,18 +1,29 @@
-/*
-  This file uses all partials and is pre-compiled into our styles.css file for use
-*/
+/* Refactor & remove these */
+@import "./content";
+@import "./display";
+@import "./global";
 
-@use "./backdrop";
-@use "./buttons";
-@use "./carousel";
-@use "./content";
-@use "./display";
-@use "./footer";
-@use "./forms";
-@use "./global";
-@use "./header";
-@use "./images";
-@use "./modal";
-@use "./navbar";
-@use "./search";
-@use "./loader";
+/* abstracts */
+@import "./abstracts/variables";
+
+/* base */
+@import "./base/animations";
+@import "./base/base";
+@import "./base/typography";
+
+/* components */
+@import "./components/buttons";
+@import "./components/carousel";
+@import "./components/forms";
+@import "./components/images";
+@import "./components/loader";
+@import "./components/search";
+
+/* layout */
+@import "./layout/backdrop";
+@import "./layout/footer";
+@import "./layout/header";
+@import "./layout/modal";
+@import "./layout/navbar";
+
+/* pages */

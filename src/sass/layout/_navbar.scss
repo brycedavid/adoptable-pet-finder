@@ -1,9 +1,6 @@
-@import "./colors";
-@import "./breakpoints";
+@import "../base/base";
 
-/*
-  Classes associated with our Navbar, including subnavs
-*/
+/* Classes associated with our Navbar, including subnavs */
 
 .navbar {
   width: 100%;
@@ -48,9 +45,7 @@
   background-color: $color-light-red;
 }
 
-/*
-  Media queries
-*/
+/* Media queries */
 
 @media (max-width: $breakpoint-medium-desktop) {
   .subnav {

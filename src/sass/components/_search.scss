@@ -1,9 +1,4 @@
-@import "./colors";
-@import "./breakpoints";
-
-/*
-  Classes associated with our homepage search form
-*/
+@import "../base/base";
 
 .main-search-container {
   display: flex;
@@ -41,9 +36,7 @@
   box-shadow: 1px 1px 2px $color-dark-grey;
 }
 
-/*
-  Media queries
-*/
+/* Media queries */
 
 @media (max-width: $breakpoint-max-tablet) {
   .main-search-form {
