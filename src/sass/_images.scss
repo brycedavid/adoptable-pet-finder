@@ -45,6 +45,23 @@
   }
 }
 
+.image-container-large {
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  max-height: 600px;
+  width: auto;
+  margin: 40px 70px 40px 0;
+
+  img {
+    height: fit-content;
+    max-height: 600px;
+    width: auto;
+    border: 3px solid $color-red;
+    border-radius: 5px;
+  }
+}
+
 /*
   Media queries
 */

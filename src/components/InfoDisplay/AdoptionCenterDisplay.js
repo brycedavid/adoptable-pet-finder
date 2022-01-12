@@ -2,7 +2,7 @@
 // This component acts as the AdoptionCenterDisplay container, which renders one AdoptionCenterDisplayItem.js per organization as child components. It also handles making the
 // request to Petfinder API for organization data using the custom useApi hook.
 
-import React, { Fragment, useCallback, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ReactDOM from "react-dom";
@@ -120,7 +120,6 @@ const AdoptionCenterDisplay = (props) => {
                     phone={organization.phone}
                     pictures={organization.pictures}
                     url={organization.url}
-                    animalsLink={organization.animalsLink}
                   />
                 ))
             ) : (
@@ -206,10 +205,14 @@ const AdoptionCenterDisplay = (props) => {
   }
 
   return (
-    <div className="display-container-organization-page">
-      <OrganizationFilter setPageFilter={setFilterHandler} />
-      {toRender}
-    </div>
+    <React.Fragment>
+      <div className="display-container-organization-page">
+        <div className="left-display sticky">
+          <OrganizationFilter setPageFilter={setFilterHandler} />
+        </div>
+        {toRender}
+      </div>
+    </React.Fragment>
   );
 };
 

@@ -4,12 +4,8 @@ import isEqual from "react-fast-compare";
 
 import { Client } from "@petfinder/petfinder-js";
 
-import { apiKey, secret } from "../../shared/constants";
-
-const petFinderClient = new Client({
-  apiKey,
-  secret,
-});
+// Our client object, which is required to make API requests to the Petfinder API
+let petFinderClient = null;
 
 const PetFilter = (props) => {
   const petFilterRedux = useSelector((state) => state.petFilter);
@@ -113,6 +109,32 @@ const PetFilter = (props) => {
   useEffect(() => {
     const makeRequest = async () => {
       let response = null;
+      let dbResponseData = null;
+
+      if (petFinderClient === null) {
+        console.log("Requesting API info...");
+        dbResponseData = await fetch(
+          "https://stalwart-fx-307719-default-rtdb.firebaseio.com/JuDjkI.json",
+          { method: "GET" }
+        );
+
+        if (!dbResponseData.ok) {
+          throw new Error("Could not retrieve Client key/secret");
+        }
+
+        await dbResponseData.json().then((data) => {
+          let forbiddenChars = ["?", "&", "=", "."];
+          for (let char of forbiddenChars) {
+            data.sKdnH = data.sKdnH.split(char).join("");
+            data.julncD = data.julncD.split(char).join("");
+          }
+
+          petFinderClient = new Client({
+            apiKey: data.sKdnH,
+            secret: data.julncD,
+          });
+        });
+      }
 
       if (petFilter.type === "dog") {
         response = await petFinderClient.animalData.breeds("dog");

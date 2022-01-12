@@ -72,6 +72,8 @@ const PetDisplay = (props) => {
     onRequestError: requestErrorHandler,
   });
 
+  console.log(data);
+
   if (
     isEqual(resultsFilter, {
       type: "any",
@@ -160,6 +162,7 @@ const PetDisplay = (props) => {
                 .map((animal) => (
                   <PetDisplayItem
                     key={animal.key}
+                    id={animal.id}
                     name={animal.name}
                     age={animal.age}
                     fixed={animal.fixed}
@@ -169,6 +172,7 @@ const PetDisplay = (props) => {
                     breed={animal.breed}
                     size={animal.size}
                     gender={animal.gender}
+                    address={animal.address}
                     index={-2}
                   />
                 ))

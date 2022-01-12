@@ -53,3 +53,60 @@
     margin-bottom: 40px;
   }
 }
+
+.content-container-pets {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  min-height: 580px;
+  margin-top: 28px;
+  z-index: 100;
+}
+
+.info-container-pets {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  button {
+    align-self: center;
+  }
+}
+
+.content-container-organizations {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  min-height: 580px;
+  margin-top: 28px;
+  z-index: 100;
+
+  .image-container-large {
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    max-height: 600px;
+    width: auto;
+    margin: 38px 0;
+  }
+}
+
+.info-container-organizations {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    align-self: center;
+  }
+}

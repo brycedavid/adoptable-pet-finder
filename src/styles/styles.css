@@ -182,6 +182,60 @@
   margin-bottom: 40px;
 }
 
+.content-container-pets {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  min-height: 580px;
+  margin-top: 28px;
+  z-index: 100;
+}
+
+.info-container-pets {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.info-container-pets button {
+  align-self: center;
+}
+
+.content-container-organizations {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  min-height: 580px;
+  margin-top: 28px;
+  z-index: 100;
+}
+.content-container-organizations .image-container-large {
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  max-height: 600px;
+  width: auto;
+  margin: 38px 0;
+}
+
+.info-container-organizations {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.info-container-organizations button {
+  align-self: center;
+}
+
 /*
   All colors used throughout the site
 */
@@ -774,10 +828,10 @@
 .filter-form, .filter-form-organization {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
+  align-items: center;
   width: 300px;
-  height: 600px;
+  height: 630px;
   padding: 12px;
   border: 3px solid #003d71;
   border-radius: 10px;
@@ -941,6 +995,7 @@
   Styles that are applied globally to entire site
 */
 html {
+  height: 100%;
   font-size: 100%;
 }
 
@@ -995,6 +1050,12 @@ img {
   margin-bottom: 40px;
   justify-content: center;
   align-content: center;
+}
+
+.map-display-container {
+  width: 100%;
+  height: 270px;
+  border-bottom: 1px solid black;
 }
 
 /*
@@ -1266,6 +1327,22 @@ img {
   border-radius: 20px;
   background-color: black;
   margin-left: 0;
+}
+
+.image-container-large {
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  max-height: 600px;
+  width: auto;
+  margin: 40px 70px 40px 0;
+}
+.image-container-large img {
+  height: fit-content;
+  max-height: 600px;
+  width: auto;
+  border: 3px solid #902923;
+  border-radius: 5px;
 }
 
 /*
