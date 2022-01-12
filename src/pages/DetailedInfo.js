@@ -15,6 +15,8 @@ let mapKey = null;
 const DetailedInfo = (props) => {
   const [coordinates, setCoordinates] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [requestError, setRequestError] = useState(false);
+  const [requestMade, setRequestMade] = useState(false);
 
   const location = useLocation();
 
@@ -74,6 +76,16 @@ const DetailedInfo = (props) => {
   }
 
   useEffect(() => {
+    const handleResponse = (response) => {
+      if (!response.ok) {
+        console.log("HERE");
+        setRequestError(true);
+        setIsLoading(false);
+        throw Error("Could not fetch geocode data");
+      }
+      return response;
+    };
+
     const geocode = async () => {
       let url;
       let dbResponseData = null;
@@ -101,31 +113,37 @@ const DetailedInfo = (props) => {
         url = `http://dev.virtualearth.net/REST/v1/Locations/US/-/${address.postcode}/${address.city}/-?key=${bingKey}`;
       }
 
-      const response = await fetch(url);
+      await fetch(url)
+        .then(handleResponse)
+        .then(async (response) => {
+          console.log(response);
 
-      console.log(response);
+          const data = await response.json();
 
-      const data = await response.json();
+          let latStr =
+            data.resourceSets[0].resources[0].geocodePoints[0].coordinates[0].toString();
+          let latitude = Number(latStr.slice(0, 6));
 
-      let latStr =
-        data.resourceSets[0].resources[0].geocodePoints[0].coordinates[0].toString();
-      let latitude = Number(latStr.slice(0, 6));
+          let lonStr =
+            data.resourceSets[0].resources[0].geocodePoints[0].coordinates[1].toString();
+          let longitude = Number(lonStr.slice(0, 6));
 
-      let lonStr =
-        data.resourceSets[0].resources[0].geocodePoints[0].coordinates[1].toString();
-      let longitude = Number(lonStr.slice(0, 6));
+          lat = latitude;
+          long = longitude;
 
-      lat = latitude;
-      long = longitude;
-
-      setCoordinates({ lat, long });
-      setIsLoading(false);
+          setCoordinates({ lat, long });
+          setIsLoading(false);
+          setRequestMade(true);
+        })
+        .catch((error) => {
+          setRequestError(error);
+        });
     };
     geocode();
   }, [location]);
 
   const showMoreInfoHandler = () => {
-    // Opens the URL to the pet information in a new window
+    // Opens the URL to the pet/org information in a new window
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) {
       newWindow.opener = null;
@@ -134,16 +152,26 @@ const DetailedInfo = (props) => {
 
   let toRender;
 
-  if (isLoading) {
-    toRender = <LoadingIndicator />;
-  } else {
-    toRender = <GoogleMap location={{ ...coordinates }} mapKey={mapKey} />;
+  if (requestError || !requestMade) {
+    toRender = null;
+  } else if (isLoading && !requestError) {
+    toRender = (
+      <div className="map-display-container">
+        <LoadingIndicator />
+      </div>
+    );
+  } else if (!isLoading && !requestError) {
+    toRender = (
+      <div className="map-display-container">
+        <GoogleMap location={{ ...coordinates }} mapKey={mapKey} />
+      </div>
+    );
     // toRender = <p>Google Map placeholder</p>;
   }
 
   return (
     <React.Fragment>
-      <div className="map-display-container">{toRender}</div>
+      {toRender !== null && toRender}
       <div
         className={
           props.for === "pets"
