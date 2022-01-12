@@ -193,7 +193,10 @@ const DetailedInfo = (props) => {
           {props.for === "pets" && <p>{`Breed: ${breed}`}</p>}
           {props.for === "pets" && <p>{`Size: ${size}`}</p>}
           {props.for === "pets" && <p>{`Spayed/neutered: ${fixed}`}</p>}
-          {props.for === "orgs" && <p>{address.address1}</p>}
+          <br />
+          <p>{address.address1}</p>
+          <p>{`${address.city}, ${address.state} ${address.postcode}`}</p>
+          <br />
           {props.for === "orgs" && <p>{phone}</p>}
           {props.for === "orgs" && <p>{email}</p>}
           <button className="button-alt" onClick={showMoreInfoHandler}>

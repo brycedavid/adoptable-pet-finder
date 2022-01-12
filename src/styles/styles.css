@@ -205,6 +205,37 @@
   align-self: center;
 }
 
+.content-container-organizations {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  min-height: 580px;
+  margin-top: 28px;
+  z-index: 100;
+}
+.content-container-organizations .image-container-large {
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  max-height: 600px;
+  width: auto;
+  margin: 38px 0;
+}
+
+.info-container-organizations {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.info-container-organizations button {
+  align-self: center;
+}
+
 /*
   All colors used throughout the site
 */
