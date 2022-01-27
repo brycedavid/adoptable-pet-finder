@@ -71,9 +71,6 @@ const PetFilter = (props) => {
     } else if (isNaN(event.target.value)) {
       setLocationValid(false);
       setPetFilter({ ...petFilter, location: event.target.value });
-    } else if (isNaN(event.target.value)) {
-      setLocationValid(false);
-      setPetFilter({ ...petFilter, location: event.target.value });
     } else if (event.target.value.length === 0) {
       if (lastFilter.location !== "" || !duplicateFilter) {
         setLocationValid(true);
@@ -212,6 +209,7 @@ const PetFilter = (props) => {
         id="zip-input"
         placeholder="zip code"
         onChange={changeZipHandler}
+        onKeyUp={changeZipHandler}
         value={petFilter.location ? petFilter.location : ""}
         maxLength="5"
       />

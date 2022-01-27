@@ -27,12 +27,6 @@ const OrganizationFilter = (props) => {
         ...filter,
         location: event.target.value,
       });
-    } else if (isNaN(event.target.value)) {
-      setLocationValid(false);
-      setFilter({
-        ...filter,
-        location: event.target.value,
-      });
     } else if (event.target.value.length === 0) {
       if (lastFilter.location !== "") {
         setLocationValid(true);
@@ -83,6 +77,7 @@ const OrganizationFilter = (props) => {
         id="zip-input"
         placeholder="zip code"
         onChange={changeZipHandler}
+        onKeyUp={changeZipHandler}
         value={filter.location ? filter.location : ""}
         maxLength="5"
       />
