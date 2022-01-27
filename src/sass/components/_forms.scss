@@ -1,9 +1,4 @@
-@import "./colors";
-@import "./breakpoints";
-
-/*
-  Classes associated with all forms
-*/
+@import "../base/base";
 
 .form-container {
   display: flex;
@@ -81,9 +76,7 @@
   top: 2vh;
 }
 
-/*
-  Media queries
-*/
+/* Media queries */
 
 @media (max-width: $breakpoint-medium-desktop) {
   .filter-form,

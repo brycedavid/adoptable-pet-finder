@@ -1,0 +1,49 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+p {
+  text-align: center;
+  justify-self: center;
+  justify-content: center;
+  align-content: center;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Custom scrollbar styles */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px $color-dark-grey;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $color-blue;
+  border-radius: 3px;
+
+  &:hover {
+    background-color: $color-light-blue;
+  }
+}
