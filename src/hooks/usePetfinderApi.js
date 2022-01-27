@@ -22,7 +22,7 @@ let numRequestRetries = 0;
 // Our client object, which is required to make API requests to the Petfinder API
 let petFinderClient = null;
 
-const useApi = (props) => {
+const usePetfinderApi = (props) => {
   const [data, setData] = useState(null);
   const [requestError, setRequestError] = useState(null);
   const [resultsFilter, setResultsFilter] = useState(null);
@@ -209,4 +209,4 @@ const useApi = (props) => {
 
   return data;
 };
-export default useApi;
+export default usePetfinderApi;

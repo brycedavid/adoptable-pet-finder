@@ -9,7 +9,7 @@ import ReactDOM from "react-dom";
 import isEqual from "react-fast-compare";
 
 import PetDisplayItem from "./PetDisplayItem";
-import useApi from "../../hooks/use-api";
+import usePetfinderApi from "../../hooks/usePetfinderApi";
 import PetFilter from "../ResultsFilter/PetFilter";
 import Backdrop from "../common/Backdrop";
 
@@ -64,7 +64,7 @@ const PetDisplay = (props) => {
   }
 
   // Request pet data
-  data = useApi({
+  data = usePetfinderApi({
     limit: props.limit,
     displayAmount: props.displayAmount,
     sendRequest,

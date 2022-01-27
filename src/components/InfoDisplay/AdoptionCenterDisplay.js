@@ -9,7 +9,7 @@ import ReactDOM from "react-dom";
 import isEqual from "react-fast-compare";
 
 import AdoptionCenterDisplayItem from "./AdoptionCenterDisplayItem";
-import useApi from "../../hooks/use-api";
+import usePetfinderApi from "../../hooks/usePetfinderApi";
 import OrganizationFilter from "../ResultsFilter/OrganizationFilter";
 import Backdrop from "../common/Backdrop";
 
@@ -43,7 +43,7 @@ const AdoptionCenterDisplay = (props) => {
   }
 
   // Request organization data
-  data = useApi({
+  data = usePetfinderApi({
     searchType: "organizations",
     limit: props.limit,
     type: null,

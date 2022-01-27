@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import isEqual from "react-fast-compare";
 
 import PetDisplayItem from "../InfoDisplay/PetDisplayItem";
-import useApi from "../../hooks/use-api";
+import usePetfinderApi from "../../hooks/usePetfinderApi";
 import ResultsFilter from "../ResultsFilter/ResultsFilter";
 
 const CarouselPetDisplay = (props) => {
@@ -38,7 +38,7 @@ const CarouselPetDisplay = (props) => {
   }
 
   // Request pet data
-  data = useApi({
+  data = usePetfinderApi({
     limit: props.limit,
     displayAmount: props.displayAmount,
     sendRequest,
