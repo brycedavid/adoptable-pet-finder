@@ -141,7 +141,6 @@ const PetDisplay = (props) => {
 
   const setFilterHandler = (filterValues) => {
     setResultsFilter({ ...filterValues });
-    // dispatch({ type: "UPDATE_PET_FILTER", payload: { ...filterValues } });
     setIsLoading(true);
   };
 

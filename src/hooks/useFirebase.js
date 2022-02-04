@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { Client } from "@petfinder/petfinder-js";
 
 let petFinderClient = null;
 let bingKey = null;
+
+let forbiddenChars = ["?", "&", "=", "."];
 
 const useFirebase = (requestFor) => {
   useEffect(() => {
@@ -21,7 +23,6 @@ const useFirebase = (requestFor) => {
       }
 
       await dbResponseData.json().then((data) => {
-        let forbiddenChars = ["?", "&", "=", "."];
         for (let char of forbiddenChars) {
           data.aIendD = data.aIendD.split(char).join("");
         }
@@ -41,7 +42,6 @@ const useFirebase = (requestFor) => {
       }
 
       await response.json().then((data) => {
-        let forbiddenChars = ["?", "&", "=", "."];
         for (let char of forbiddenChars) {
           data.sKdnH = data.sKdnH.split(char).join("");
           data.julncD = data.julncD.split(char).join("");
