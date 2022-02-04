@@ -81,31 +81,25 @@ const DetailedInfo = (props) => {
   }
 
   useEffect(() => {
-    const handleResponse = (response) => {
-      if (!response.ok) {
-        console.log("HERE");
-        setRequestError(true);
-        setIsLoading(false);
-        throw Error("Could not fetch geocode data");
-      }
-      return response;
-    };
-
     const geocode = async () => {
       let url;
 
       if (address.address1) {
-        url = `http://dev.virtualearth.net/REST/v1/Locations/US/-/${address.postcode}/${address.city}/${address.address1}?key=${bingKey}`;
+        //url = `http://dev.virtualearth.net/REST/v1/Locations/US/-/${address.postcode}/${address.city}/${address.address1}?key=${bingKey}`;
+        url = `http://dev.virtualearth.net/REST/v1/Locations/US/-/${address.postcode}/${address.city}/${address.address1}?key=asdf`;
       } else {
         url = `http://dev.virtualearth.net/REST/v1/Locations/US/-/${address.postcode}/${address.city}/-?key=${bingKey}`;
       }
 
       await fetch(url)
-        .then(handleResponse)
-        .then(async (response) => {
-          console.log(response);
+        .then(async (geocodeResponse) => {
+          if (!geocodeResponse.ok) {
+            setRequestError(true);
+            setIsLoading(false);
+            throw new Error("Could not fetch geocode data");
+          }
 
-          const data = await response.json();
+          const data = await geocodeResponse.json();
 
           let latStr =
             data.resourceSets[0].resources[0].geocodePoints[0].coordinates[0].toString();
@@ -123,7 +117,8 @@ const DetailedInfo = (props) => {
           setRequestMade(true);
         })
         .catch((error) => {
-          setRequestError(error);
+          console.log(error.message);
+          setIsLoading(false);
         });
     };
     if (bingKey !== null) {
