@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import LoadingIndicator from "../components/common/LoadingIndicator";
 import Footer from "../components/Footer/Footer";
+import useFirebase from "../hooks/useFirebase";
 
 import GoogleMap from "../components/common/GoogleMap";
 
@@ -9,8 +10,8 @@ import dogPlaceholderImg from "../shared/images/dog-placeholder-tall.svg";
 import catPlaceholderImg from "../shared/images/cat-placeholder-tall.svg";
 import orgPlaceholderImg from "../shared/images/organization_placeholder.jpg";
 
-let bingKey = null;
 let mapKey = null;
+let bingKey = null;
 
 const DetailedInfo = (props) => {
   const [coordinates, setCoordinates] = useState();
@@ -54,8 +55,6 @@ const DetailedInfo = (props) => {
 
   let lat, long;
 
-  console.log(address);
-
   let photoElement = null;
 
   if (props.for === "pets") {
@@ -75,6 +74,12 @@ const DetailedInfo = (props) => {
     }
   }
 
+  let key = useFirebase("bing");
+
+  if (bingKey === null) {
+    bingKey = key;
+  }
+
   useEffect(() => {
     const handleResponse = (response) => {
       if (!response.ok) {
@@ -88,24 +93,6 @@ const DetailedInfo = (props) => {
 
     const geocode = async () => {
       let url;
-      let dbResponseData = null;
-
-      dbResponseData = await fetch(
-        "https://stalwart-fx-307719-default-rtdb.firebaseio.com/SuIdkU.json",
-        { method: "GET" }
-      );
-
-      if (!dbResponseData.ok) {
-        throw new Error("Could not retrieve Client key/secret");
-      }
-
-      await dbResponseData.json().then((data) => {
-        let forbiddenChars = ["?", "&", "=", "."];
-        for (let char of forbiddenChars) {
-          data.aIendD = data.aIendD.split(char).join("");
-        }
-        bingKey = data.aIendD;
-      });
 
       if (address.address1) {
         url = `http://dev.virtualearth.net/REST/v1/Locations/US/-/${address.postcode}/${address.city}/${address.address1}?key=${bingKey}`;
@@ -139,8 +126,10 @@ const DetailedInfo = (props) => {
           setRequestError(error);
         });
     };
-    geocode();
-  }, [location]);
+    if (bingKey !== null) {
+      geocode();
+    }
+  }, [location, bingKey]);
 
   const showMoreInfoHandler = () => {
     // Opens the URL to the pet/org information in a new window
@@ -166,7 +155,6 @@ const DetailedInfo = (props) => {
         <GoogleMap location={{ ...coordinates }} mapKey={mapKey} />
       </div>
     );
-    // toRender = <p>Google Map placeholder</p>;
   }
 
   return (

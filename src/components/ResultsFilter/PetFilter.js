@@ -102,7 +102,7 @@ const PetFilter = (props) => {
     setDuplicateFilter(true);
   };
 
-  petFinderClient = useFirebase();
+  petFinderClient = useFirebase("petfinder");
 
   // Retrieves the available Breeds for either cats or dogs
   useEffect(() => {
