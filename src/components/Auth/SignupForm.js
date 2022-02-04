@@ -35,7 +35,7 @@ const SignupForm = (props) => {
   // authentication information.
   const sendRequest = async () => {
     setIsLoading(true);
-    const response = await fetch(
+    await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCT7FuvqHq8fPhrdZHpdqEUL87GJ7TpC_Q",
       {
         method: "POST",
@@ -48,31 +48,40 @@ const SignupForm = (props) => {
           "content-type": "application/json",
         },
       }
-    );
-    // Convert to json object
-    const responseData = await response.json();
+    )
+      .then(async (response) => {
+        // Convert to json object
+        const responseData = await response.json();
 
-    setIsLoading(false);
+        // If the response is invalid...
+        if (!response.ok) {
+          if (responseData.error.message === "EMAIL_EXISTS") {
+            throw new Error(
+              "The email you are attempting to use is already in use by another account."
+            );
+          } else if (
+            responseData.error.message === "TOO_MANY_ATTEMPTS_TRY_LATER"
+          ) {
+            throw new Error("Too many signup attempts... try again later");
+          } else {
+            throw new Error("Something went wrong...failed to signup.");
+          }
+        }
 
-    // If the response is invalid...
-    if (!response.ok) {
-      if (responseData.error.message === "EMAIL_EXISTS") {
-        setRequestError(
-          "The email you are attempting to use is already in use by another account."
-        );
-      } else if (responseData.error.message === "TOO_MANY_ATTEMPTS_TRY_LATER") {
-        setRequestError("Too many signup attempts... try again later");
-      } else {
-        setRequestError("Something went wrong...failed to signup.");
-      }
-    }
+        setIsLoading(false);
 
-    // Login the user automatically upon account creation
-    authCtx.login(responseData.idToken);
+        // Login the user automatically upon account creation
+        authCtx.login(responseData.idToken);
 
-    // Call method to wrap up signup flow
-    props.onSignup();
-    history.push("/home");
+        // Call method to wrap up signup flow
+        props.onSignup();
+        history.push("/");
+      })
+      .catch((error) => {
+        setRequestError(error.message);
+        console.log(error);
+        setIsLoading(false);
+      });
   };
 
   // If the email and password inputs have been changed and their values

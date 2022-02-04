@@ -31,7 +31,7 @@ const LoginForm = (props) => {
 
   // Sends API request for login
   const sendRequest = async () => {
-    const response = await fetch(
+    await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCT7FuvqHq8fPhrdZHpdqEUL87GJ7TpC_Q",
       {
         method: "POST",
@@ -44,38 +44,44 @@ const LoginForm = (props) => {
           "content-type": "application/json",
         },
       }
-    );
+    )
+      .then(async (response) => {
+        // Convert response to json
+        const responseData = await response.json();
 
-    // Convert response to json
-    const responseData = await response.json();
+        // If the response isn't valid...
+        if (!response.ok) {
+          if (
+            responseData.error.message === "INVALID_EMAIL" ||
+            responseData.error.message === "EMAIL_NOT_FOUND"
+          ) {
+            throw new Error(
+              "There is no account corresponding to the entered email; Try another email."
+            );
+          } else if (responseData.error.message === "INVALID_PASSWORD") {
+            throw new Error("The entered password is invalid.");
+          } else if (responseData.error.message === "USER_DISABLED") {
+            throw new Error(
+              "This user account has been disabled by an administrator"
+            );
+          } else {
+            throw new Error("Something went wrong... failed to login.");
+          }
+        }
 
-    setIsLoading(false);
+        setIsLoading(false);
 
-    // If the response isn't valid...
-    if (!response.ok) {
-      if (
-        responseData.error.message === "INVALID_EMAIL" ||
-        responseData.error.message === "EMAIL_NOT_FOUND"
-      ) {
-        setRequestError(
-          "There is no account corresponding to the entered email; Try another email."
-        );
-      } else if (responseData.error.message === "INVALID_PASSWORD") {
-        setRequestError("The entered password is invalid.");
-      } else if (responseData.error.message === "USER_DISABLED") {
-        setRequestError(
-          "This user account has been disabled by an administrator"
-        );
-      } else {
-        setRequestError("Something went wrong... failed to login.");
-      }
-    }
+        authCtx.login(responseData.idToken);
 
-    authCtx.login(responseData.idToken);
-
-    // Execute onLogin
-    props.onLogin();
-    history.push("/home");
+        // Execute onLogin
+        props.onLogin();
+        history.push("/");
+      })
+      .catch((error) => {
+        setRequestError(error.message);
+        console.log(error);
+        setIsLoading(false);
+      });
   };
 
   // If the email and password inputs have been changed and their values
