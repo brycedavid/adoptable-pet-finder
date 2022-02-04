@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import isEqual from "react-fast-compare";
 
-import { Client } from "@petfinder/petfinder-js";
+import useFirebase from "../../hooks/useFirebase";
 
 // Our client object, which is required to make API requests to the Petfinder API
 let petFinderClient = null;
@@ -102,36 +102,12 @@ const PetFilter = (props) => {
     setDuplicateFilter(true);
   };
 
+  petFinderClient = useFirebase("petfinder");
+
   // Retrieves the available Breeds for either cats or dogs
   useEffect(() => {
     const makeRequest = async () => {
       let response = null;
-      let dbResponseData = null;
-
-      if (petFinderClient === null) {
-        console.log("Requesting API info...");
-        dbResponseData = await fetch(
-          "https://stalwart-fx-307719-default-rtdb.firebaseio.com/JuDjkI.json",
-          { method: "GET" }
-        );
-
-        if (!dbResponseData.ok) {
-          throw new Error("Could not retrieve Client key/secret");
-        }
-
-        await dbResponseData.json().then((data) => {
-          let forbiddenChars = ["?", "&", "=", "."];
-          for (let char of forbiddenChars) {
-            data.sKdnH = data.sKdnH.split(char).join("");
-            data.julncD = data.julncD.split(char).join("");
-          }
-
-          petFinderClient = new Client({
-            apiKey: data.sKdnH,
-            secret: data.julncD,
-          });
-        });
-      }
 
       if (petFilter.type === "dog") {
         response = await petFinderClient.animalData.breeds("dog");
