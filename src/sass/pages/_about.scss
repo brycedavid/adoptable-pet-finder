@@ -1,0 +1,13 @@
+.about-page {
+  &-content {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+  }
+
+  &-text {
+    width: 70%;
+    margin-bottom: 18px;
+  }
+}

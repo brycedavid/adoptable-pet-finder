@@ -1,8 +1,3 @@
-/* Refactor & remove these */
-@import "./content";
-@import "./display";
-@import "./global";
-
 /* abstracts */
 @import "./abstracts/variables";
 
@@ -14,6 +9,7 @@
 /* components */
 @import "./components/buttons";
 @import "./components/carousel";
+@import "./components/displayItems";
 @import "./components/forms";
 @import "./components/images";
 @import "./components/loader";
@@ -27,3 +23,5 @@
 @import "./layout/navbar";
 
 /* pages */
+@import "./pages/about";
+@import "./pages/notFound";
