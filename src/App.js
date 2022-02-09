@@ -19,6 +19,7 @@ import Layout from "./components/Layout/Layout";
 import ModalOverlay from "./components/common/ModalOverlay";
 import DetailedInfo from "./pages/DetailedInfo";
 import FavoritePets from "./pages/FavoritePets";
+import useFirebase from "./hooks/useFirebase";
 
 import {
   homeUrl,
@@ -39,6 +40,14 @@ const App = () => {
 
   // Check if the user has an authentication token stored in the context
   const isAuthenticated = !!authCtx.token;
+
+  let requestType = "";
+
+  if (!isAuthenticated) {
+    requestType = "clearFavorites";
+  }
+
+  useFirebase(requestType);
 
   // Start the login flow
   const startLoginHandler = () => {

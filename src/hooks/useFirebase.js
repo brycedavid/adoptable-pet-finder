@@ -11,6 +11,11 @@ let forbiddenChars = ["?", "&", "=", "."];
 const useFirebase = (requestFor, favoriteData = null) => {
   useEffect(() => {
     console.log("In useFirebase");
+
+    const clearFavoritePets = () => {
+      favoritePets = [];
+    };
+
     const requestBingCreds = async () => {
       console.log("Requesting bing creds...");
       let dbResponseData = null;
@@ -60,6 +65,7 @@ const useFirebase = (requestFor, favoriteData = null) => {
       // Make request for favorite pets for user using token from context
       const token = localStorage.getItem("token");
       const slicedToken = token.slice(0, 64);
+      favoritePets = [];
 
       let data;
       fetch(
@@ -76,8 +82,10 @@ const useFirebase = (requestFor, favoriteData = null) => {
             throw new Error(response.error.message);
           }
 
-          data = [...responseData.data];
-          favoritePets = data;
+          if (responseData.data) {
+            data = [...responseData.data];
+            favoritePets = data;
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -272,8 +280,11 @@ const useFirebase = (requestFor, favoriteData = null) => {
     }
 
     if (requestFor === "removeFavorite") {
-      console.log("HERE HERE HERE");
       removeFavoritePet();
+    }
+
+    if (requestFor === "clearFavorites") {
+      clearFavoritePets();
     }
   }, [requestFor]);
 
@@ -286,7 +297,11 @@ const useFirebase = (requestFor, favoriteData = null) => {
   }
 
   if (requestFor === "getFavorites" || requestFor === "updateFavorites") {
-    return favoritePets;
+    console.log("Favorite data being returned:");
+    let returnPets = favoritePets;
+    // favoritePets = [];
+    console.log(returnPets);
+    return returnPets;
   }
 };
 

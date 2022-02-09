@@ -24,8 +24,10 @@ const PetDisplayItem = (props) => {
     requestType = "getFavorites";
   } else if (removeFavorite && !favorite) {
     requestType = "removeFavorite";
-  } else {
+  } else if (favorite) {
     requestType = "updateFavorites";
+  } else {
+    requestType = "";
   }
 
   if (localStorage.getItem("token") === null) {

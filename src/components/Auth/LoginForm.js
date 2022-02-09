@@ -71,7 +71,9 @@ const LoginForm = (props) => {
 
         setIsLoading(false);
 
-        authCtx.login(responseData.idToken);
+        console.log(responseData);
+
+        authCtx.login(responseData.localId);
 
         // Execute onLogin
         props.onLogin();

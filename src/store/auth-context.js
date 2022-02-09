@@ -3,6 +3,7 @@
 // Did not use redux in order to practice using context.
 
 import React, { useState } from "react";
+import useFirebase from "../hooks/useFirebase";
 
 // Initial context state
 const AuthContext = React.createContext({
