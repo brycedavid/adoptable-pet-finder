@@ -149,6 +149,7 @@ const PetDisplayItem = (props) => {
         <button
           onClick={setFavoriteHandler}
           className={`favorites-icon ${favoriteClass}`}
+          title={favorite ? "Unfavorite" : "Add to favorites"}
         >
           &#9733;
         </button>
