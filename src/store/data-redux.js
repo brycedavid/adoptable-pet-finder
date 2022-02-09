@@ -5,6 +5,7 @@ const dataReducer = (
     petData: [{}],
     orgData: [{}],
     homeData: [{}],
+    favoritePets: [],
     orgFilter: { location: "" },
     petFilter: {
       type: "any",
@@ -24,6 +25,7 @@ const dataReducer = (
       orgData: state.orgData,
       petData: action.payload,
       homeData: state.homeData,
+      favoritePets: state.favoritePets,
       orgFilter: state.orgFilter,
       petFilter: state.petFilter,
       petRequestSent: state.petRequestSent,
@@ -37,6 +39,7 @@ const dataReducer = (
       orgData: state.orgData,
       petData: state.petData,
       homeData: state.homeData,
+      favoritePets: state.favoritePets,
       orgFilter: state.orgFilter,
       petFilter: state.petFilter,
       petRequestSent: action.payload,
@@ -50,6 +53,7 @@ const dataReducer = (
       orgData: state.orgData,
       petData: state.petData,
       homeData: state.homeData,
+      favoritePets: state.favoritePets,
       orgFilter: state.orgFilter,
       petFilter: action.payload,
       petRequestSent: state.petRequestSent,
@@ -63,6 +67,7 @@ const dataReducer = (
       orgData: action.payload,
       petData: state.petData,
       homeData: state.homeData,
+      favoritePets: state.favoritePets,
       orgFilter: state.orgFilter,
       petFilter: state.petFilter,
       petRequestSent: state.petRequestSent,
@@ -76,6 +81,7 @@ const dataReducer = (
       orgData: state.orgData,
       petData: state.petData,
       homeData: state.homeData,
+      favoritePets: state.favoritePets,
       orgFilter: state.orgFilter,
       petFilter: state.petFilter,
       petRequestSent: state.petRequestSent,
@@ -89,6 +95,7 @@ const dataReducer = (
       orgData: state.orgData,
       petData: state.petData,
       homeData: state.homeData,
+      favoritePets: state.favoritePets,
       orgFilter: { location: action.payload },
       petFilter: state.petFilter,
       petRequestSent: state.petRequestSent,
@@ -102,6 +109,7 @@ const dataReducer = (
       orgData: state.orgData,
       petData: state.petData,
       homeData: action.payload,
+      favoritePets: state.favoritePets,
       orgFilter: state.orgFilter,
       petFilter: state.petFilter,
       petRequestSent: state.petRequestSent,
@@ -115,11 +123,26 @@ const dataReducer = (
       orgData: state.orgData,
       petData: state.petData,
       homeData: state.homeData,
+      favoritePets: state.favoritePets,
       orgFilter: state.orgFilter,
       petFilter: state.petFilter,
       petRequestSent: state.petRequestSent,
       orgRequestSent: state.orgRequestSent,
       homeRequestSent: action.payload,
+    };
+  }
+
+  if (action.type === "UPDATE_FAVORITE_PETS") {
+    return {
+      orgData: state.orgData,
+      petData: state.petData,
+      homeData: state.homeData,
+      favoritePets: action.payload,
+      orgFilter: state.orgFilter,
+      petFilter: state.petFilter,
+      petRequestSent: state.petRequestSent,
+      orgRequestSent: state.orgRequestSent,
+      homeRequestSent: state.homeRequestSent,
     };
   }
 

@@ -70,7 +70,7 @@
 
   &:hover {
     cursor: pointer;
-    background-color: rgba(235, 233, 233, 0.527);
+    background-color: $color-lighter-grey;
   }
 
   &-organization {
@@ -89,6 +89,33 @@
       padding: 0 20px 0 20px;
     }
   }
+}
+
+.favorites-icon {
+  position: relative;
+  right: 120px;
+  bottom: 8px;
+  width: 24px;
+  height: 24px;
+  z-index: 80;
+  font-size: 24px;
+  content: "\2605";
+  background-color: inherit;
+  border: none;
+  color: $color-light-grey;
+
+  &:hover {
+    color: $color-yellow;
+    cursor: pointer;
+    text-shadow: black 0px 0px 1px;
+  }
+}
+
+.favorite {
+  @extend .favorites-icon;
+  cursor: pointer;
+  text-shadow: black 0px 0px 1px;
+  color: $color-yellow;
 }
 
 .info-container {

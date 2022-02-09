@@ -3,7 +3,7 @@
 // This component handles the logging in and out states to render the login modal, as well as the signup page redirects
 // and search capabilities. It also manages routing for the entire application.
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 
 import Header from "./components/Header/Header";
@@ -17,6 +17,7 @@ import AuthContext from "./store/auth-context";
 import Layout from "./components/Layout/Layout";
 import ModalOverlay from "./components/common/ModalOverlay";
 import DetailedInfo from "./pages/DetailedInfo";
+import FavoritePets from "./pages/FavoritePets";
 
 import {
   homeUrl,
@@ -25,6 +26,7 @@ import {
   aboutUrl,
   petInfoUrl,
   orgInfoUrl,
+  favoritePetsUrl,
 } from "./shared/constants";
 
 const App = () => {
@@ -101,6 +103,9 @@ const App = () => {
         </Route>
         <Route path={orgInfoUrl}>
           <DetailedInfo for={"orgs"} />
+        </Route>
+        <Route path={favoritePetsUrl}>
+          <FavoritePets />
         </Route>
         <Route path="*">
           <NotFound />
