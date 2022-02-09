@@ -153,6 +153,13 @@
   margin-top: -83px;
 }
 
+.display-container-favorites {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 550px;
+}
+
 .display-item, .display-item-organization {
   display: flex;
   flex-direction: column;

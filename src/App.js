@@ -43,6 +43,7 @@ const App = () => {
 
   let requestType = "";
 
+  // If a user is not logged in (or they have logged out), clear the favoritePets array in useFirebase
   if (!isAuthenticated) {
     requestType = "clearFavorites";
   }

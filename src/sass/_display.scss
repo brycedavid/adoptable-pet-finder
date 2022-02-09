@@ -56,6 +56,13 @@
   }
 }
 
+.display-container-favorites {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 550px;
+}
+
 .display-item {
   display: flex;
   flex-direction: column;
