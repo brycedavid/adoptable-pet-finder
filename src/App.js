@@ -3,7 +3,8 @@
 // This component handles the logging in and out states to render the login modal, as well as the signup page redirects
 // and search capabilities. It also manages routing for the entire application.
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router";
 import { Route, Switch } from "react-router-dom";
 
 import Header from "./components/Header/Header";
@@ -17,6 +18,8 @@ import AuthContext from "./store/auth-context";
 import Layout from "./components/Layout/Layout";
 import ModalOverlay from "./components/common/ModalOverlay";
 import DetailedInfo from "./pages/DetailedInfo";
+import FavoritePets from "./pages/FavoritePets";
+import useFirebase from "./hooks/useFirebase";
 
 import {
   homeUrl,
@@ -25,6 +28,7 @@ import {
   aboutUrl,
   petInfoUrl,
   orgInfoUrl,
+  favoritePetsUrl,
 } from "./shared/constants";
 
 const App = () => {
@@ -32,9 +36,19 @@ const App = () => {
   const [isSigningUp, setIsSigningUp] = useState(false);
 
   const authCtx = useContext(AuthContext);
+  const history = useHistory();
 
   // Check if the user has an authentication token stored in the context
   const isAuthenticated = !!authCtx.token;
+
+  let requestType = "";
+
+  // If a user is not logged in (or they have logged out), clear the favoritePets array in useFirebase
+  if (!isAuthenticated) {
+    requestType = "clearFavorites";
+  }
+
+  useFirebase(requestType);
 
   // Start the login flow
   const startLoginHandler = () => {
@@ -45,6 +59,7 @@ const App = () => {
   // Log user out by calling context
   const logoutHandler = () => {
     authCtx.logout();
+    history.push("/");
   };
 
   // Redirect to the signup page
@@ -101,6 +116,9 @@ const App = () => {
         </Route>
         <Route path={orgInfoUrl}>
           <DetailedInfo for={"orgs"} />
+        </Route>
+        <Route path={favoritePetsUrl}>
+          <FavoritePets />
         </Route>
         <Route path="*">
           <NotFound />

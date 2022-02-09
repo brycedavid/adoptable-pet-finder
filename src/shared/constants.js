@@ -6,3 +6,4 @@ export const adoptablePetsUrl = "/adoptable-pets";
 export const aboutUrl = "/about";
 export const petInfoUrl = "/pets/:petId";
 export const orgInfoUrl = "/organizations/:orgId";
+export const favoritePetsUrl = "/favorite-pets";

@@ -59,12 +59,20 @@ const DetailedInfo = (props) => {
 
   if (props.for === "pets") {
     // Check for a picture associated with the pet. If no picture, insert placeholder image based on pet type.
-    if (pictures.length !== 0) {
-      photoElement = <img src={pictures[0].full} alt={`${name}`} />;
-    } else if (pictures.length === 0 && type === "Dog") {
-      photoElement = <img src={dogPlaceholderImg} alt={`${name}`} />;
+    if (props.pictures) {
+      if (pictures.length !== 0) {
+        photoElement = <img src={pictures[0].full} alt={`${name}`} />;
+      } else if (pictures.length === 0 && type === "Dog") {
+        photoElement = <img src={dogPlaceholderImg} alt={`${name}`} />;
+      } else {
+        photoElement = <img src={catPlaceholderImg} alt={`${name}`} />;
+      }
     } else {
-      photoElement = <img src={catPlaceholderImg} alt={`${name}`} />;
+      if (props.type === "Dog") {
+        photoElement = <img src={dogPlaceholderImg} alt={`${props.name}`} />;
+      } else {
+        photoElement = <img src={catPlaceholderImg} alt={`${props.name}`} />;
+      }
     }
   } else {
     if (pictures.length !== 0) {

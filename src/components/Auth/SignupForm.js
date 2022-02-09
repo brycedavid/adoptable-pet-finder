@@ -71,7 +71,7 @@ const SignupForm = (props) => {
         setIsLoading(false);
 
         // Login the user automatically upon account creation
-        authCtx.login(responseData.idToken);
+        authCtx.login(responseData.localId);
 
         // Call method to wrap up signup flow
         props.onSignup();
