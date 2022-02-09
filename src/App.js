@@ -4,6 +4,7 @@
 // and search capabilities. It also manages routing for the entire application.
 
 import React, { useContext, useState } from "react";
+import { useHistory } from "react-router";
 import { Route, Switch } from "react-router-dom";
 
 import Header from "./components/Header/Header";
@@ -34,6 +35,7 @@ const App = () => {
   const [isSigningUp, setIsSigningUp] = useState(false);
 
   const authCtx = useContext(AuthContext);
+  const history = useHistory();
 
   // Check if the user has an authentication token stored in the context
   const isAuthenticated = !!authCtx.token;
@@ -47,6 +49,7 @@ const App = () => {
   // Log user out by calling context
   const logoutHandler = () => {
     authCtx.logout();
+    history.push("/");
   };
 
   // Redirect to the signup page
