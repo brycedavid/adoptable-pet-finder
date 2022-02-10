@@ -21,6 +21,8 @@ const DetailedInfo = (props) => {
 
   const location = useLocation();
 
+  console.log(location.state);
+
   let id,
     type,
     address,
@@ -59,7 +61,7 @@ const DetailedInfo = (props) => {
 
   if (props.for === "pets") {
     // Check for a picture associated with the pet. If no picture, insert placeholder image based on pet type.
-    if (props.pictures) {
+    if (pictures) {
       if (pictures.length !== 0) {
         photoElement = <img src={pictures[0].full} alt={`${name}`} />;
       } else if (pictures.length === 0 && type === "Dog") {
@@ -68,10 +70,10 @@ const DetailedInfo = (props) => {
         photoElement = <img src={catPlaceholderImg} alt={`${name}`} />;
       }
     } else {
-      if (props.type === "Dog") {
-        photoElement = <img src={dogPlaceholderImg} alt={`${props.name}`} />;
+      if (type === "Dog") {
+        photoElement = <img src={dogPlaceholderImg} alt={`${name}`} />;
       } else {
-        photoElement = <img src={catPlaceholderImg} alt={`${props.name}`} />;
+        photoElement = <img src={catPlaceholderImg} alt={`${name}`} />;
       }
     }
   } else {
@@ -93,21 +95,19 @@ const DetailedInfo = (props) => {
       let url;
 
       if (address.address1) {
-        //url = `http://dev.virtualearth.net/REST/v1/Locations/US/-/${address.postcode}/${address.city}/${address.address1}?key=${bingKey}`;
-        url = `http://dev.virtualearth.net/REST/v1/Locations/US/-/${address.postcode}/${address.city}/${address.address1}?key=asdf`;
+        url = `http://dev.virtualearth.net/REST/v1/Locations/US/-/${address.postcode}/${address.city}/${address.address1}?key=${bingKey}`;
+        // url = `http://dev.virtualearth.net/REST/v1/Locations/US/-/${address.postcode}/${address.city}/${address.address1}?key=asdf`;
       } else {
         url = `http://dev.virtualearth.net/REST/v1/Locations/US/-/${address.postcode}/${address.city}/-?key=${bingKey}`;
       }
 
       await fetch(url)
         .then(async (geocodeResponse) => {
+          const data = await geocodeResponse.json();
+
           if (!geocodeResponse.ok) {
-            setRequestError(true);
-            setIsLoading(false);
             throw new Error("Could not fetch geocode data");
           }
-
-          const data = await geocodeResponse.json();
 
           let latStr =
             data.resourceSets[0].resources[0].geocodePoints[0].coordinates[0].toString();
@@ -126,6 +126,7 @@ const DetailedInfo = (props) => {
         })
         .catch((error) => {
           console.log(error.message);
+          setRequestError(true);
           setIsLoading(false);
         });
     };

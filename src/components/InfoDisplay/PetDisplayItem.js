@@ -18,6 +18,8 @@ const PetDisplayItem = (props) => {
 
   const history = useHistory();
 
+  console.log(props);
+
   let requestType;
 
   if (!favorite && !removeFavorite) {
