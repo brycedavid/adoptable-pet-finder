@@ -291,6 +291,8 @@ body p {
   cursor: default;
   background-color: darkgrey;
   border: 0.5px solid darkgrey;
+  box-shadow: none;
+  transform: none;
 }
 
 .btn-container-bottom {
