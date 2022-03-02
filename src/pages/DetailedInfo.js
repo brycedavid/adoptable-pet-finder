@@ -167,18 +167,20 @@ const DetailedInfo = (props) => {
       <div
         className={
           props.for === "pets"
-            ? "content-container-pets"
-            : "content-container-organizations"
+            ? "content-container--pets"
+            : "content-container--organizations"
         }
       >
-        <div className="image-container-large">{photoElement}</div>
         <div
           className={
             props.for === "pets"
-              ? "info-container-pets"
-              : "info-container-organizations"
+              ? "image-container--large"
+              : "image-container--large-org"
           }
         >
+          {photoElement}
+        </div>
+        <div className="detailed-info-container">
           <h1>{name}</h1>
           {props.for === "pets" && <p>{`Gender: ${gender}`}</p>}
           {props.for === "pets" && <p>{`Age: ${age}`}</p>}
@@ -191,7 +193,7 @@ const DetailedInfo = (props) => {
           <br />
           {props.for === "orgs" && <p>{phone}</p>}
           {props.for === "orgs" && <p>{email}</p>}
-          <button className="button-alt" onClick={showMoreInfoHandler}>
+          <button className="btn--alt" onClick={showMoreInfoHandler}>
             More info
           </button>
         </div>

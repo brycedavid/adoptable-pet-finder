@@ -1,5 +1,6 @@
 /* abstracts */
 @import "./abstracts/variables";
+@import "abstracts/mixins";
 
 /* base */
 @import "./base/animations";
@@ -18,10 +19,12 @@
 /* layout */
 @import "./layout/backdrop";
 @import "./layout/footer";
+@import "./layout/grid";
 @import "./layout/header";
 @import "./layout/modal";
 @import "./layout/navbar";
 
 /* pages */
 @import "./pages/about";
-@import "./pages/notFound";
+@import "./pages/adoptionCenters";
+@import "./pages/detailedInfo";

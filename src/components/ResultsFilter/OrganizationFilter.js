@@ -67,13 +67,10 @@ const OrganizationFilter = (props) => {
   }
 
   return (
-    <form
-      onSubmit={formSubmitHandler}
-      className="filter-form-organization sticky"
-    >
+    <form onSubmit={formSubmitHandler} className="filter-form--org sticky">
       <label>Location</label>
       <input
-        className={"filter-input"}
+        className="filter-form__input"
         id="zip-input"
         placeholder="zip code"
         onChange={changeZipHandler}
@@ -83,7 +80,7 @@ const OrganizationFilter = (props) => {
       />
       <button
         type="submit"
-        className={formIsValid ? "button-alt" : "button-alt disabled"}
+        className={formIsValid ? "btn--alt" : "btn--alt disabled"}
         disabled={!formIsValid}
       >
         Search

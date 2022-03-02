@@ -10,6 +10,11 @@ $color-light-grey: rgb(209, 209, 209);
 $color-dark-grey: darkgrey;
 $color-yellow: rgb(252, 252, 80);
 
+/* Grid */
+$grid-width: 65%;
+$gutter-vertical: 8rem;
+$gutter-horizontal: 2rem;
+
 /* Breakpoints for media queries */
 
 $breakpoint-min-mobile: 365px;

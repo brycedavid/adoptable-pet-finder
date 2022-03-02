@@ -53,9 +53,9 @@ const FavoritePets = () => {
   return (
     <React.Fragment>
       <div className="main-content">
-        <h1>Favorite Pets</h1>
-        <div className="display-container-favorites">
-          <div className="display-container-pet">
+        <h1 className="heading--large">Favorite Pets</h1>
+        <div className="display-container--favorites">
+          <div className="display-container--pet">
             {!isLoading && favoritePets
               ? favoritePets.map((animal) => (
                   <PetDisplayItem

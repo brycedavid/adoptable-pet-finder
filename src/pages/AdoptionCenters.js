@@ -12,8 +12,10 @@ const AdoptionCenters = () => {
   return (
     <React.Fragment>
       <div className="main-content">
-        <h1>Adoption Centers</h1>
-        <p className="subheader">Search for an adoption center near you!</p>
+        <h1 className="heading--large">Adoption Centers</h1>
+        <h2 className="heading--medium">
+          Search for an adoption center near you!
+        </h2>
         <AdoptionCenterDisplay limit={100} />
       </div>
       <Footer />

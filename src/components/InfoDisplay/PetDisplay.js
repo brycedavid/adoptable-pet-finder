@@ -153,52 +153,56 @@ const PetDisplay = (props) => {
   if (!isLoading && data !== null) {
     toRender = (
       <React.Fragment>
-        <div className="display-container">
-          <div className="display-container-pet">
-            {parsedData.data.length > 0 ? (
-              parsedData.data
-                .slice(0, parsedData.itemsToShow)
-                .map((animal) => (
-                  <PetDisplayItem
-                    key={animal.key}
-                    id={animal.id}
-                    name={animal.name}
-                    age={animal.age}
-                    fixed={animal.fixed}
-                    pictures={animal.pictures}
-                    url={animal.url}
-                    type={animal.type}
-                    breed={animal.breed}
-                    size={animal.size}
-                    gender={animal.gender}
-                    address={animal.address}
-                    index={-2}
-                  />
-                ))
-            ) : (
-              <div className="no-data-message-container">
-                <p>No pets found.</p>
-              </div>
-            )}
-          </div>
-          <div className="button-container-bottom">
-            {parsedData.showButton && (
-              <button
-                className="button-alt button-display-item"
-                onClick={showMoreHandler}
-              >
-                Show More Pets
-              </button>
-            )}
-            {history.location.pathname === "/adoptable-pets" && (
-              <button
-                className="button-main button-display-item"
-                onClick={browseOrganizationsHandler}
-              >
-                Browse Adoption Centers
-              </button>
-            )}
-          </div>
+        <div
+          className={
+            !props.featuredPets
+              ? "pet-display-container__content"
+              : "pet-display-container--featured__content"
+          }
+        >
+          {parsedData.data.length > 0 ? (
+            parsedData.data
+              .slice(0, parsedData.itemsToShow)
+              .map((animal) => (
+                <PetDisplayItem
+                  key={animal.key}
+                  id={animal.id}
+                  name={animal.name}
+                  age={animal.age}
+                  fixed={animal.fixed}
+                  pictures={animal.pictures}
+                  url={animal.url}
+                  type={animal.type}
+                  breed={animal.breed}
+                  size={animal.size}
+                  gender={animal.gender}
+                  address={animal.address}
+                  index={-2}
+                />
+              ))
+          ) : (
+            <div className="no-data-message-container">
+              <p>No pets found.</p>
+            </div>
+          )}
+        </div>
+        <div className="btn-container-bottom">
+          {parsedData.showButton && (
+            <button
+              className="btn--alt btn--display-item"
+              onClick={showMoreHandler}
+            >
+              Show More Pets
+            </button>
+          )}
+          {history.location.pathname === "/adoptable-pets" && (
+            <button
+              className="btn--main btn--display-item"
+              onClick={browseOrganizationsHandler}
+            >
+              Browse Adoption Centers
+            </button>
+          )}
         </div>
       </React.Fragment>
     );
@@ -226,65 +230,73 @@ const PetDisplay = (props) => {
           <Backdrop class="backdrop-clear" />,
           document.getElementById("backdrop-root")
         )}
-        <div className="display-container">
-          <div
-            className={
-              props.featuredPets
-                ? "display-container-pet"
-                : "display-container-pet-skeleton"
-            }
-          >
-            {skeletonArray.map(() => (
-              <PetDisplayItem
-                key={Math.random() * 1000}
-                name="..."
-                age="..."
-                fixed="..."
-                pictures={[]}
-                url="..."
-                type="..."
-                breed="..."
-                size="..."
-                gender="..."
-                skeleton={true}
-                index={-2}
-              />
-            ))}
+        <div
+          className={
+            !props.featuredPets
+              ? "pet-display-container__content"
+              : "pet-display-container--featured__content"
+          }
+        >
+          {skeletonArray.map(() => (
+            <PetDisplayItem
+              key={Math.random() * 1000}
+              name="..."
+              age="..."
+              fixed="..."
+              pictures={[]}
+              url="..."
+              type="..."
+              breed="..."
+              size="..."
+              gender="..."
+              skeleton={true}
+              index={-2}
+            />
+          ))}
+        </div>
+        {!props.featuredPets && (
+          <div className="wave-loader-container">
+            <span className="dot"></span>
+            <span className="dot"></span>
+            <span className="dot"></span>
           </div>
-          {!props.featuredPets && (
-            <div className="wave-loader-container">
-              <span className="dot"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
-            </div>
+        )}
+        <div className="btn-container-bottom">
+          {history.location.pathname === "/adoptable-pets" && (
+            <button
+              className="btn--alt btn--display-item disabled"
+              onClick={showMoreHandler}
+            >
+              Show More Pets
+            </button>
           )}
-          <div className="button-container-bottom">
-            {history.location.pathname === "/adoptable-pets" && (
-              <button
-                className="button-alt button-display-item disabled"
-                onClick={showMoreHandler}
-              >
-                Show More Pets
-              </button>
-            )}
-            {history.location.pathname === "/adoptable-pets" && (
-              <button
-                className="button-main button-display-item disabled"
-                onClick={browseOrganizationsHandler}
-              >
-                Browse Adoption Centers
-              </button>
-            )}
-          </div>
+          {history.location.pathname === "/adoptable-pets" && (
+            <button
+              className="btn--main btn--display-item disabled"
+              onClick={browseOrganizationsHandler}
+            >
+              Browse Adoption Centers
+            </button>
+          )}
         </div>
       </React.Fragment>
     );
   }
 
   return (
-    <div className="display-container-pet-page">
-      {!props.featuredPets && <PetFilter setPageFilter={setFilterHandler} />}
-      {toRender}
+    <div
+      className={
+        !props.featuredPets
+          ? "pet-display-container"
+          : "pet-display-container--featured"
+      }
+    >
+      {!props.featuredPets && (
+        <div className="filter-container sticky">
+          <PetFilter setPageFilter={setFilterHandler} />
+        </div>
+      )}
+      <div>{toRender}</div>
     </div>
   );
 };

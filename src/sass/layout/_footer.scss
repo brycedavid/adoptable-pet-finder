@@ -3,32 +3,32 @@
 .footer-container {
   display: flex;
   width: 100%;
-  height: 50px;
+  height: 3.125rem;
   align-items: center;
   justify-content: space-evenly;
   background-color: $color-red;
-  margin-top: 60px;
+  margin-top: 3.75rem;
 
-  .sponsor-info {
-    width: 500px;
+  &__sponsor-info {
+    width: 31.25rem;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
   }
 
-  .links-section {
-    width: 200px;
+  &__links-section {
+    width: 12.5rem;
     display: flex;
     justify-content: space-evenly;
   }
 
   p {
-    font-size: 16px;
+    font-size: 1rem;
     color: white;
   }
 
   button {
-    font-size: 16px;
+    font-size: 1rem;
     color: white;
     background-color: $color-red;
     border: none;
@@ -60,57 +60,12 @@
   }
 
   img:nth-of-type(1) {
-    margin-right: 10px;
-    height: 16px;
-    width: 100px;
+    margin-right: 0.625rem;
+    height: 1rem;
+    width: 6.25rem;
   }
 
   img:nth-of-type(2) {
-    width: 90px;
-  }
-}
-
-/*
-  Media queries
-*/
-
-@media (max-width: $breakpoint-medium-desktop) {
-  .footer-container {
-    justify-content: space-between;
-  }
-}
-
-@media (max-width: $breakpoint-max-tablet) {
-  .footer-container {
-    p,
-    button {
-      font-size: 10px;
-    }
-
-    .sponsor-info {
-      justify-content: center;
-      .footer-image-container {
-        width: auto;
-
-        img {
-          width: 60px;
-          height: auto;
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: $breakpoint-max-mobile) {
-  .footer-container {
-    flex-direction: column-reverse;
-    justify-content: space-evenly;
-    height: 80px;
-
-    .sponsor-info {
-      .footer-image-container img {
-        width: 50px;
-      }
-    }
+    width: 5.625rem;
   }
 }

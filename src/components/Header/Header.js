@@ -4,7 +4,6 @@
 
 import { useHistory } from "react-router";
 import ProfilePicture from "./ProfilePicture";
-import Title from "./Title";
 
 const Header = (props) => {
   const history = useHistory();
@@ -26,25 +25,33 @@ const Header = (props) => {
   };
 
   return (
-    <header className={"header-container"}>
-      <Title />
-      <div className={"profile-container"}>
+    <header className="header">
+      <div className="header__title-container">
+        <h2 className="welcome-text">Welcome to:</h2>
+        <h1 className="heading--medium">
+          <b>Adoptable Pet Finder</b>
+        </h1>
+        <h2 className="heading--small">
+          Locate Pets & Adoption Centers Near You!
+        </h2>
+      </div>
+      <div className="header__profile-container">
         {!props.isAuthenticated && (
-          <div className={"button-container"}>
-            <button className="button-alt" onClick={loginHandler}>
+          <div className="header__btn-container">
+            <button className="btn--alt" onClick={loginHandler}>
               Login
             </button>
-            <button className="button-alt" onClick={signupHandler}>
+            <button className="btn--alt" onClick={signupHandler}>
               Sign up
             </button>
           </div>
         )}
         {props.isAuthenticated && (
-          <div className={"button-container"}>
-            <button className="button-alt" onClick={logoutHandler}>
+          <div className="header__btn-container">
+            <button className="btn--alt" onClick={logoutHandler}>
               Logout
             </button>
-            <button className="button-alt" onClick={goToFavoritesHandler}>
+            <button className="btn--alt" onClick={goToFavoritesHandler}>
               Favorites
             </button>
           </div>

@@ -3,7 +3,7 @@
 
 const ProfilePicture = () => {
   return (
-    <div className={"profile-picture-container"}>
+    <div className={"header__profile-picture-container"}>
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
         alt="Profile"

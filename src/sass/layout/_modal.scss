@@ -13,19 +13,19 @@
   width: 40%;
   z-index: 200;
   overflow: hidden;
-  height: 360px;
+  height: 26rem;
   background-color: white;
   border-radius: 20px;
   border: 1px solid black;
-  padding: 30px;
+  padding: 1.875rem;
 
-  .x-container {
+  &__x-container {
     width: 100%;
     display: flex;
     justify-content: flex-end;
 
     img {
-      width: 28px;
+      width: 1.75rem;
 
       &:hover {
         cursor: pointer;

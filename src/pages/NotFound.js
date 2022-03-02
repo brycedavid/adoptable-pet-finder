@@ -9,10 +9,12 @@ import pawprintImg from "../shared/images/pawprint.png";
 const NotFound = () => {
   return (
     <React.Fragment>
-      <div className="not-found-content">
-        <img className="pawprint" src={pawprintImg} />
-        <h1>Oops, it seems the page you are looking for does not exist!</h1>
-        <h2>
+      <div className="main-content">
+        <img className="main-content__pawprint-img" src={pawprintImg} />
+        <h1 className="heading--large">
+          Oops, it seems the page you are looking for does not exist!
+        </h1>
+        <h2 className="heading--medium">
           Use the navbar or the links below to navigate to an existing page
         </h2>
         <br />

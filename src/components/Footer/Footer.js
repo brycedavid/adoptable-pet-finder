@@ -21,7 +21,7 @@ const Footer = () => {
 
   return (
     <div className="footer-container">
-      <section className="sponsor-info">
+      <section className="footer-container__sponsor-info">
         <p>Powered by: </p>
         <button
           className="footer-image-container"
@@ -32,7 +32,7 @@ const Footer = () => {
           <img src={petfinderLogo} alt="Petfinder logo" />
         </button>
       </section>
-      <section className="links-section">
+      <section className="footer-container__links-section">
         <button onClick={scrollToTopHandler}>Top of page</button>
       </section>
     </div>

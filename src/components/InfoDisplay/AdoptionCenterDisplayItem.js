@@ -18,30 +18,22 @@ const AdoptionCenterDisplayItem = (props) => {
     );
   }
 
-  // Upon clicking a AdoptionCenterDisplayItem, open the URL associated with the organization in a new window
   const itemClickHandler = () => {
-    // Opens the URL to the organization information in a new window
-    // const newWindow = window.open(props.url, "_blank", "noopener,noreferrer");
-    // if (newWindow) {
-    //   newWindow.opener = null;
-    // }
     history.push({ pathname: `/organizations/${props.id}`, state: props });
   };
 
   return (
     <div
       className={
-        props.skeleton
-          ? "display-item-organization shine"
-          : "display-item-organization"
+        props.skeleton ? "display-item--org shine" : "display-item--org"
       }
       onClick={!props.skeleton ? itemClickHandler : null}
     >
-      <h2 className="display-item-name-organization">{props.name}</h2>
-      <section className="display-item-organization-content">
-        <div className="image-container">{photoElement}</div>
+      <h2 className="display-item__name">{props.name}</h2>
+      <section className="display-item--org__content">
+        <div className="image-container--org">{photoElement}</div>
         <section className="info-container">
-          <section className="info-container-address">
+          <section className="info-container__address">
             {<p>{props.address.address1}</p>}
             <p>{`${props.address.city}, ${props.address.state} ${props.address.postcode}`}</p>
           </section>
