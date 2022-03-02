@@ -257,18 +257,18 @@ body p {
   transform: translateY(-0.1rem);
   box-shadow: 0 1.5px 10px 2px darkgrey;
 }
-.btn--display-item {
+.btn--large {
   width: 15.625rem;
   height: 4.375rem;
   border-radius: 6px;
   margin-bottom: 1.75rem;
 }
-.btn--display-item:hover {
+.btn--large:hover {
   cursor: pointer;
   transform: translateY(-0.25rem);
   box-shadow: 0 6px 16px 3px darkgrey;
 }
-.btn--display-item:active {
+.btn--large:active {
   transform: translateY(-0.1rem);
   box-shadow: 0 4px 12px 3px darkgrey;
 }

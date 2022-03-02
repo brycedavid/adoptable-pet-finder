@@ -129,17 +129,11 @@ const AdoptionCenterDisplay = (props) => {
         </div>
         <div className="btn-container-bottom">
           {parsedData.showButton && (
-            <button
-              className="btn--alt btn--display-item"
-              onClick={showMoreHandler}
-            >
+            <button className="btn--alt btn--large" onClick={showMoreHandler}>
               Show More
             </button>
           )}
-          <button
-            className="btn--main btn--display-item"
-            onClick={browsePetsHandler}
-          >
+          <button className="btn--main btn--large" onClick={browsePetsHandler}>
             Browse Adoptable Pets
           </button>
         </div>
@@ -189,10 +183,8 @@ const AdoptionCenterDisplay = (props) => {
           <span className="dot"></span>
         </div>
         <div className="btn-container-bottom">
-          <button className="btn--alt btn--display-item disabled">
-            Show More
-          </button>
-          <button className="btn--main btn--display-item disabled">
+          <button className="btn--alt btn--large disabled">Show More</button>
+          <button className="btn--main btn--large disabled">
             Browse Adoptable Pets
           </button>
         </div>

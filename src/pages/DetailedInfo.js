@@ -193,10 +193,7 @@ const DetailedInfo = (props) => {
           <br />
           {props.for === "orgs" && <p>{phone}</p>}
           {props.for === "orgs" && <p>{email}</p>}
-          <button
-            className="btn--alt btn--display-item"
-            onClick={showMoreInfoHandler}
-          >
+          <button className="btn--alt btn--large" onClick={showMoreInfoHandler}>
             More information
           </button>
         </div>

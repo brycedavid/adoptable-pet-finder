@@ -188,16 +188,13 @@ const PetDisplay = (props) => {
         </div>
         <div className="btn-container-bottom">
           {parsedData.showButton && (
-            <button
-              className="btn--alt btn--display-item"
-              onClick={showMoreHandler}
-            >
+            <button className="btn--alt btn--large" onClick={showMoreHandler}>
               Show More Pets
             </button>
           )}
           {history.location.pathname === "/adoptable-pets" && (
             <button
-              className="btn--main btn--display-item"
+              className="btn--main btn--large"
               onClick={browseOrganizationsHandler}
             >
               Browse Adoption Centers
@@ -264,7 +261,7 @@ const PetDisplay = (props) => {
         <div className="btn-container-bottom">
           {history.location.pathname === "/adoptable-pets" && (
             <button
-              className="btn--alt btn--display-item disabled"
+              className="btn--alt btn--large disabled"
               onClick={showMoreHandler}
             >
               Show More Pets
@@ -272,7 +269,7 @@ const PetDisplay = (props) => {
           )}
           {history.location.pathname === "/adoptable-pets" && (
             <button
-              className="btn--main btn--display-item disabled"
+              className="btn--main btn--large disabled"
               onClick={browseOrganizationsHandler}
             >
               Browse Adoption Centers
