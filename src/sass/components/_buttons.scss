@@ -5,6 +5,8 @@
   height: 2.5rem;
   margin: 0.3125rem;
   width: 5.625rem;
+  box-shadow: 0 1px 6px 0.1px lightgrey;
+  transition: all 0.2s;
 
   &--main {
     @extend .btn;
@@ -13,6 +15,13 @@
     &:hover {
       background-color: $color-light-red;
       cursor: pointer;
+      transform: translateY(-0.25rem);
+      box-shadow: 0 5px 13px 3px darkgrey;
+    }
+
+    &:active {
+      transform: translateY(-0.1rem);
+      box-shadow: 0 1.5px 10px 2px darkgrey;
     }
   }
 
@@ -23,6 +32,13 @@
     &:hover {
       background-color: $color-light-blue;
       cursor: pointer;
+      transform: translateY(-0.2rem);
+      box-shadow: 0 5px 13px 3px darkgrey;
+    }
+
+    &:active {
+      transform: translateY(-0.1rem);
+      box-shadow: 0 1.5px 10px 2px darkgrey;
     }
   }
 
@@ -31,6 +47,17 @@
     height: 4.375rem;
     border-radius: 6px;
     margin-bottom: 1.75rem;
+
+    &:hover {
+      cursor: pointer;
+      transform: translateY(-0.25rem);
+      box-shadow: 0 6px 16px 3px darkgrey;
+    }
+
+    &:active {
+      transform: translateY(-0.1rem);
+      box-shadow: 0 4px 12px 3px darkgrey;
+    }
   }
 
   &--inline {
@@ -48,6 +75,7 @@
 .disabled {
   background-color: $color-dark-grey;
   border: 0.5px solid $color-dark-grey;
+  box-shadow: none;
 
   &:hover {
     cursor: default;
