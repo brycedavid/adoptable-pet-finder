@@ -105,45 +105,43 @@ const AdoptionCenterDisplay = (props) => {
   if (!isLoading && parsedData !== null) {
     toRender = (
       <Fragment>
-        <div className="display-container">
-          <div className="display-container-organization">
-            {parsedData.data.length > 0 ? (
-              parsedData.data
-                .slice(0, parsedData.itemsToShow)
-                .map((organization) => (
-                  <AdoptionCenterDisplayItem
-                    email={organization.email}
-                    key={organization.key}
-                    id={organization.id}
-                    address={organization.address}
-                    name={organization.name}
-                    phone={organization.phone}
-                    pictures={organization.pictures}
-                    url={organization.url}
-                  />
-                ))
-            ) : (
-              <div className="no-data-message-container">
-                <p>No adoption centers found.</p>
-              </div>
-            )}
-          </div>
-          <div className="button-container-bottom">
-            {parsedData.showButton && (
-              <button
-                className="button-alt button-display-item"
-                onClick={showMoreHandler}
-              >
-                Show More
-              </button>
-            )}
+        <div className="org-display-container__content">
+          {parsedData.data.length > 0 ? (
+            parsedData.data
+              .slice(0, parsedData.itemsToShow)
+              .map((organization) => (
+                <AdoptionCenterDisplayItem
+                  email={organization.email}
+                  key={organization.key}
+                  id={organization.id}
+                  address={organization.address}
+                  name={organization.name}
+                  phone={organization.phone}
+                  pictures={organization.pictures}
+                  url={organization.url}
+                />
+              ))
+          ) : (
+            <div className="no-data-message-container">
+              <p>No adoption centers found.</p>
+            </div>
+          )}
+        </div>
+        <div className="btn-container-bottom">
+          {parsedData.showButton && (
             <button
-              className="button-main button-display-item"
-              onClick={browsePetsHandler}
+              className="btn--alt btn--display-item"
+              onClick={showMoreHandler}
             >
-              Browse Adoptable Pets
+              Show More
             </button>
-          </div>
+          )}
+          <button
+            className="btn--main btn--display-item"
+            onClick={browsePetsHandler}
+          >
+            Browse Adoptable Pets
+          </button>
         </div>
       </Fragment>
     );
@@ -164,41 +162,39 @@ const AdoptionCenterDisplay = (props) => {
           <Backdrop class="backdrop-clear" />,
           document.getElementById("backdrop-root")
         )}
-        <div className="display-container">
-          <div className="display-container-organization-skeleton">
-            {skeletonArray.map(() => (
-              <AdoptionCenterDisplayItem
-                email="..."
-                key={Math.random() * 1000}
-                id="..."
-                address={{
-                  address1: "...",
-                  city: "...",
-                  state: "...",
-                  postcode: "...",
-                }}
-                name="..."
-                phone="..."
-                pictures={[]}
-                url={"..."}
-                animalsLink={"..."}
-                skeleton={true}
-              />
-            ))}
-          </div>
-          <div className="wave-loader-container">
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-          </div>
-          <div className="button-container-bottom">
-            <button className="button-alt button-display-item disabled">
-              Show More
-            </button>
-            <button className="button-main button-display-item disabled">
-              Browse Adoptable Pets
-            </button>
-          </div>
+        <div className="org-display-container__content">
+          {skeletonArray.map(() => (
+            <AdoptionCenterDisplayItem
+              email="..."
+              key={Math.random() * 1000}
+              id="..."
+              address={{
+                address1: "...",
+                city: "...",
+                state: "...",
+                postcode: "...",
+              }}
+              name="..."
+              phone="..."
+              pictures={[]}
+              url={"..."}
+              animalsLink={"..."}
+              skeleton={true}
+            />
+          ))}
+        </div>
+        <div className="wave-loader-container">
+          <span className="dot"></span>
+          <span className="dot"></span>
+          <span className="dot"></span>
+        </div>
+        <div className="btn-container-bottom">
+          <button className="btn--alt btn--display-item disabled">
+            Show More
+          </button>
+          <button className="btn--main btn--display-item disabled">
+            Browse Adoptable Pets
+          </button>
         </div>
       </React.Fragment>
     );
@@ -206,11 +202,11 @@ const AdoptionCenterDisplay = (props) => {
 
   return (
     <React.Fragment>
-      <div className="display-container-organization-page">
-        <div className="left-display sticky">
+      <div className="org-display-container">
+        <div className="filter-container sticky">
           <OrganizationFilter setPageFilter={setFilterHandler} />
         </div>
-        {toRender}
+        <div>{toRender}</div>
       </div>
     </React.Fragment>
   );

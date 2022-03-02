@@ -5,13 +5,8 @@ import { NavLink } from "react-router-dom";
 
 const Subnav = (props) => {
   return (
-    <li className={"subnav"}>
-      <NavLink
-        exact
-        activeClassName={"active"}
-        className={"subnav"}
-        to={props.to}
-      >
+    <li className="subnav">
+      <NavLink exact activeClassName="active" className="subnav" to={props.to}>
         {props.page}
       </NavLink>
     </li>

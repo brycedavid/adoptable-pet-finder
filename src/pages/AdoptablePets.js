@@ -12,8 +12,8 @@ const AdoptablePets = () => {
   return (
     <React.Fragment>
       <div className="main-content">
-        <h1>{"Adoptable Pets"}</h1>
-        <p className="subheader">Search for an adoptable pet!</p>
+        <h1 className="heading--large">Adoptable Pets</h1>
+        <h2 className="heading--medium">Search for an adoptable pet!</h2>
         <PetDisplay limit={96} displayAmount={96} />
       </div>
       <Footer />

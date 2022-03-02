@@ -6,7 +6,7 @@ import Subnav from "./Subnav";
 
 const Navbar = () => {
   return (
-    <nav className={"navbar"}>
+    <nav className="navbar">
       <ul>
         <Subnav page="Home" to="/" />
         <Subnav page="Adoption Centers" to="/adoption-centers" />

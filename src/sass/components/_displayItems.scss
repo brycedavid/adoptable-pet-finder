@@ -1,0 +1,172 @@
+/*
+  Classes associated with our pet and organization display items and containers
+*/
+
+.org-display-container {
+  margin-top: 2rem;
+  width: 84.25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  &__content {
+    width: 100%;
+    margin-right: auto;
+    margin-left: 1.5rem;
+  }
+}
+
+.pet-display-container {
+  margin-top: 2rem;
+  width: 84.25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  &--featured {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+
+    &__content {
+      width: 80rem;
+      display: flex;
+      flex-wrap: wrap;
+      margin-right: -1.2rem;
+      justify-content: center;
+    }
+  }
+
+  &__content {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: auto;
+    margin-left: 1.5rem;
+  }
+}
+
+.display-item {
+  margin: 0 auto;
+  margin-bottom: 1.2rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $color-lighter-grey;
+  }
+
+  &__name {
+    font-size: 1.7rem;
+    margin: 0.6rem;
+  }
+
+  &--pet {
+    @extend .display-item;
+    height: 30rem;
+    width: 20rem;
+    border: 3px solid #0f5797;
+    border-radius: 10px;
+    margin-right: 1.2rem;
+    margin-left: 0;
+
+    &__content {
+      display: flex;
+      align-items: center;
+      margin: 0 auto;
+      height: 80%;
+      width: 90%;
+    }
+  }
+
+  &--org {
+    @extend .display-item;
+    height: 28rem;
+    width: 44rem;
+    border: 3px solid #0f5797;
+    border-radius: 10px;
+    margin-left: 0;
+
+    &__content {
+      display: flex;
+      align-items: center;
+      margin: 0 auto;
+      height: 80%;
+      width: 90%;
+
+      .info-container {
+        height: 16rem;
+        width: 20rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+
+        &__address {
+          margin-bottom: 1rem;
+        }
+
+        p {
+          font-size: 1.4rem;
+          overflow-wrap: break-word;
+        }
+      }
+    }
+  }
+}
+
+.display-container-favorites {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 34.375rem;
+}
+
+.favorites-icon {
+  position: relative;
+  left: 0.25rem;
+  top: 0.0625rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  z-index: 80;
+  font-size: 1.5rem;
+  content: "\2605";
+  background-color: inherit;
+  border: none;
+  color: $color-light-grey;
+
+  &:hover {
+    color: $color-yellow;
+    cursor: pointer;
+    text-shadow: black 0px 0px 1px;
+  }
+}
+
+.favorite {
+  @extend .favorites-icon;
+  cursor: pointer;
+  text-shadow: black 0px 0px 1px;
+  color: $color-yellow;
+}
+
+.no-data-message-container {
+  height: 25rem;
+  display: flex;
+  justify-content: center;
+  padding: 1.875rem;
+
+  p {
+    color: $color-red;
+  }
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  width: 75rem;
+  justify-self: center;
+  align-self: center;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  justify-content: center;
+  align-content: center;
+}

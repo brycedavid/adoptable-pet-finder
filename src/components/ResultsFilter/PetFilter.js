@@ -132,7 +132,7 @@ const PetFilter = (props) => {
     <form onSubmit={formSubmitHandler} className="filter-form sticky">
       <label>Pet type</label>
       <select
-        className={"filter-input"}
+        className="filter-form__input"
         id="type-select"
         value={petFilter.type}
         onChange={changeTypeHandler}
@@ -143,7 +143,7 @@ const PetFilter = (props) => {
       </select>
       <label>Breed</label>
       <select
-        className={"filter-input"}
+        className="filter-form__input"
         id="breed-select"
         value={petFilter.breed}
         onChange={changeBreedHandler}
@@ -157,7 +157,7 @@ const PetFilter = (props) => {
       </select>
       <label>Gender</label>
       <select
-        className={"filter-input"}
+        className="filter-form__input"
         id="gender-select"
         value={petFilter.gender}
         onChange={changeGenderHandler}
@@ -168,7 +168,7 @@ const PetFilter = (props) => {
       </select>
       <label>Age</label>
       <select
-        className={"filter-input"}
+        className="filter-form__input"
         id="age-select"
         value={petFilter.age}
         onChange={changeAgeHandler}
@@ -181,7 +181,7 @@ const PetFilter = (props) => {
       </select>
       <label>Location</label>
       <input
-        className={"filter-input"}
+        className="filter-form__input"
         id="zip-input"
         placeholder="zip code"
         onChange={changeZipHandler}
@@ -191,7 +191,7 @@ const PetFilter = (props) => {
       />
       <button
         type="submit"
-        className={formIsValid ? "button-alt" : "button-alt disabled"}
+        className={formIsValid ? "btn--alt" : "btn--alt disabled"}
         disabled={!formIsValid}
       >
         Search

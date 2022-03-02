@@ -1,10 +1,6 @@
-/* Refactor & remove these */
-@import "./content";
-@import "./display";
-@import "./global";
-
 /* abstracts */
 @import "./abstracts/variables";
+@import "abstracts/mixins";
 
 /* base */
 @import "./base/animations";
@@ -14,6 +10,7 @@
 /* components */
 @import "./components/buttons";
 @import "./components/carousel";
+@import "./components/displayItems";
 @import "./components/forms";
 @import "./components/images";
 @import "./components/loader";
@@ -22,8 +19,12 @@
 /* layout */
 @import "./layout/backdrop";
 @import "./layout/footer";
+@import "./layout/grid";
 @import "./layout/header";
 @import "./layout/modal";
 @import "./layout/navbar";
 
 /* pages */
+@import "./pages/about";
+@import "./pages/adoptionCenters";
+@import "./pages/detailedInfo";

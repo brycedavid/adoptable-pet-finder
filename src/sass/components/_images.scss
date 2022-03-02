@@ -1,14 +1,12 @@
-@import "../base/base";
+.main-image {
+  display: inline-block;
+  align-self: center;
+  margin: 6rem 0;
+  width: 60%;
 
-.main-image-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 70px;
-
-  img {
-    margin-top: 70px;
-    width: 1150px;
-    height: 821px;
+  &__img {
+    max-width: 100%;
+    height: auto;
     border-radius: 20px;
     border: $color-blue solid 3px;
   }
@@ -18,103 +16,57 @@
   display: flex;
   justify-content: center;
   align-content: center;
-  width: 260px;
-  height: 260px;
+  width: 16.25rem;
+  height: 16.25rem;
   overflow: hidden;
   border: 1px solid black;
   border-radius: 20px;
   background-color: black;
-  margin-left: 14px;
+  margin-left: 0.875rem;
 
-  &-pet {
+  &--org {
+    @extend .image-container;
+    width: 16rem;
+    height: 16rem;
+
+    img {
+      width: 16rem;
+      object-fit: contain;
+    }
+  }
+
+  &--pet {
     display: flex;
     justify-content: center;
     align-content: center;
-    width: 200px;
-    height: 200px;
+    width: 15rem;
+    height: 15rem;
     overflow: hidden;
     border: 1px solid black;
     border-radius: 20px;
     background-color: black;
-    margin-left: 0;
+    margin: 0 auto;
   }
-}
 
-.image-container-large {
-  display: flex;
-  justify-content: center;
-  height: fit-content;
-  max-height: 600px;
-  width: auto;
-  margin: 40px 70px 40px 0;
-
-  img {
+  &--large {
+    display: flex;
+    justify-content: center;
     height: fit-content;
-    max-height: 600px;
+    max-height: 37.5rem;
     width: auto;
-    border: 3px solid $color-red;
-    border-radius: 5px;
-  }
-}
+    margin: 2.5rem 4.375rem 2.5rem 0;
 
-/* Media queries */
-
-@media (max-width: $breakpoint-medium-desktop) {
-  .main-image-container {
-    justify-self: center;
-    align-self: center;
-    width: 800px;
-    height: auto;
+    &-org {
+      @extend .image-container--large;
+      margin-right: 0;
+    }
 
     img {
+      height: fit-content;
+      max-height: 37.5rem;
       width: auto;
-      height: auto;
+      border: 3px solid $color-red;
+      border-radius: 5px;
     }
-  }
-
-  .image-container {
-    width: 220px;
-    height: 220px;
-    margin-left: 70px;
-  }
-}
-
-@media (max-width: $breakpoint-min-desktop) {
-  .image-container {
-    width: 160px;
-    height: 160px;
-    margin-left: 70px;
-  }
-}
-
-@media (max-width: $breakpoint-max-tablet) {
-  .main-image-container {
-    width: 460px;
-    height: auto;
-    margin-bottom: 14px;
-  }
-
-  .image-container-pet {
-    width: 120px;
-    height: 120px;
-  }
-
-  .image-container {
-    width: 85px;
-    height: 85px;
-    margin-left: -10px;
-  }
-}
-
-@media (max-width: $breakpoint-max-mobile) {
-  .main-image-container {
-    width: 300px;
-  }
-
-  .image-container {
-    margin-left: 0;
-    margin-bottom: -5px;
-    width: 70px;
-    height: 70px;
   }
 }

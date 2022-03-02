@@ -29,20 +29,20 @@ const SearchForm = (props) => {
 
   return (
     <Fragment>
-      <form className="main-search-form" onSubmit={searchSubmitHandler}>
+      <form className="search-form" onSubmit={searchSubmitHandler}>
         <p>
           <b>Search Pets or Adoption Centers</b>
         </p>
         <select
           value={searchFor}
-          className="search-form-select"
+          className="search-form__select"
           onChange={selectChangeHandler}
           ref={selectValue}
         >
           <option value="pets">Available Pets</option>
           <option value="centers">Adoption Centers</option>
         </select>
-        <button className="button-main" type="submit">
+        <button className="btn--main" type="submit">
           Submit
         </button>
       </form>

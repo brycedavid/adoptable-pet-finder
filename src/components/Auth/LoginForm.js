@@ -147,10 +147,12 @@ const LoginForm = (props) => {
   };
 
   return (
-    <div className="form-container">
-      <form onSubmit={loginHandler} className={"form-container"}>
-        <h2>Login</h2>
-        <section className="form-input-container">
+    <div className="auth-form-container">
+      <form onSubmit={loginHandler} className="auth-form-container__form">
+        <h2 className="heading--medium">
+          <b>Login</b>
+        </h2>
+        <section className="auth-input-container">
           <input
             type="text"
             placeholder="email"
@@ -160,14 +162,14 @@ const LoginForm = (props) => {
             onBlur={emailBlurHandler}
             value={enteredEmail}
             className={
-              emailTouched && !emailValid ? "form-input invalid " : "form-input"
+              emailTouched && !emailValid
+                ? "auth-input-container__input invalid "
+                : "auth-input-container__input"
             }
           />
           {emailInputError && emailTouched && (
-            <p className="error-message">{emailInputError}</p>
+            <p className="error-message__email">{emailInputError}</p>
           )}
-        </section>
-        <section className="form-input-container">
           <input
             type="password"
             placeholder="password"
@@ -178,19 +180,19 @@ const LoginForm = (props) => {
             value={enteredPassword}
             className={
               passwordTouched && !passwordValid
-                ? "form-input invalid"
-                : "form-input"
+                ? "auth-input-container__input invalid"
+                : "auth-input-container__input"
             }
           />
           {passwordInputError && passwordTouched && (
-            <p className="error-message">{passwordInputError}</p>
+            <p className="error-message__password">{passwordInputError}</p>
           )}
         </section>
         {isLoading && <LoadingIndicator />}
         {!isLoading && (
           <button
             disabled={!formIsValid}
-            className={formIsValid ? "button-main" : "button-main disabled"}
+            className={formIsValid ? "btn--main" : "btn--main disabled"}
           >
             Login
           </button>
