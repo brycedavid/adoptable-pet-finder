@@ -373,10 +373,13 @@ body p {
 .display-item, .display-item--org, .display-item--pet {
   margin: 0 auto;
   margin-bottom: 1.2rem;
+  transition: all 0.2s;
+  box-shadow: 0 4px 8px 1px darkgrey;
 }
 .display-item:hover, .display-item--org:hover, .display-item--pet:hover {
   cursor: pointer;
-  background-color: #f1f1f1;
+  transform: translateY(-0.5rem);
+  box-shadow: 0 8px 18px 3px darkgrey;
 }
 .display-item__name {
   font-size: 1.7rem;

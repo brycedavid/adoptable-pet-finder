@@ -49,10 +49,13 @@
 .display-item {
   margin: 0 auto;
   margin-bottom: 1.2rem;
+  transition: all 0.2s;
+  box-shadow: 0 4px 8px 1px darkgrey;
 
   &:hover {
     cursor: pointer;
-    background-color: $color-lighter-grey;
+    transform: translateY(-0.5rem);
+    box-shadow: 0 8px 18px 3px darkgrey;
   }
 
   &__name {
