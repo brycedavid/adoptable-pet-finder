@@ -228,6 +228,8 @@ body p {
   height: 2.5rem;
   margin: 0.3125rem;
   width: 5.625rem;
+  box-shadow: 0 1px 6px 0.1px lightgrey;
+  transition: all 0.2s;
 }
 .btn--main {
   background-color: #902923;
@@ -235,6 +237,12 @@ body p {
 .btn--main:hover {
   background-color: #b94341;
   cursor: pointer;
+  transform: translateY(-0.25rem);
+  box-shadow: 0 5px 13px 3px darkgrey;
+}
+.btn--main:active {
+  transform: translateY(-0.1rem);
+  box-shadow: 0 1.5px 10px 2px darkgrey;
 }
 .btn--alt {
   background-color: #003d71;
@@ -242,12 +250,27 @@ body p {
 .btn--alt:hover {
   background-color: #326b9e;
   cursor: pointer;
+  transform: translateY(-0.2rem);
+  box-shadow: 0 5px 13px 3px darkgrey;
+}
+.btn--alt:active {
+  transform: translateY(-0.1rem);
+  box-shadow: 0 1.5px 10px 2px darkgrey;
 }
 .btn--display-item {
   width: 15.625rem;
   height: 4.375rem;
   border-radius: 6px;
   margin-bottom: 1.75rem;
+}
+.btn--display-item:hover {
+  cursor: pointer;
+  transform: translateY(-0.25rem);
+  box-shadow: 0 6px 16px 3px darkgrey;
+}
+.btn--display-item:active {
+  transform: translateY(-0.1rem);
+  box-shadow: 0 4px 12px 3px darkgrey;
 }
 .btn--inline {
   border: none;
@@ -262,6 +285,7 @@ body p {
 .disabled {
   background-color: darkgrey;
   border: 0.5px solid darkgrey;
+  box-shadow: none;
 }
 .disabled:hover {
   cursor: default;
