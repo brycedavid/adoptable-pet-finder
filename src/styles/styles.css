@@ -1379,12 +1379,12 @@ a {
   color: white;
   text-decoration: none;
   align-items: center;
+  transition: 0.2s ease-in-out;
 }
 .subnav a:hover {
   height: 100%;
   background-color: #b94341;
   cursor: pointer;
-  transition: 0.3s ease-in-out;
 }
 
 .active {

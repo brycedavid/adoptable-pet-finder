@@ -31,13 +31,13 @@
     color: white;
     text-decoration: none;
     align-items: center;
+    transition: 0.2s ease-in-out;
   }
 
   a:hover {
     height: 100%;
     background-color: $color-light-red;
     cursor: pointer;
-    transition: 0.3s ease-in-out;
   }
 }
 
