@@ -150,26 +150,3 @@
   text-shadow: black 0px 0px 1px;
   color: $color-yellow;
 }
-
-.no-data-message-container {
-  height: 25rem;
-  display: flex;
-  justify-content: center;
-  padding: 1.875rem;
-
-  p {
-    color: $color-red;
-  }
-}
-
-.text-container {
-  display: flex;
-  flex-direction: column;
-  width: 75rem;
-  justify-self: center;
-  align-self: center;
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
-  justify-content: center;
-  align-content: center;
-}

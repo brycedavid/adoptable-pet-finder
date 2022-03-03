@@ -104,8 +104,20 @@ const AdoptionCenterDisplay = (props) => {
 
   if (!isLoading && parsedData !== null) {
     toRender = (
-      <Fragment>
-        <div className="org-display-container__content">
+      <div
+        className={
+          parsedData.data.length > 0
+            ? "content-container"
+            : "no-data-message-container--org"
+        }
+      >
+        <div
+          className={
+            parsedData.data.length > 0
+              ? "org-display-container__content"
+              : "no-data-message-container--org__message"
+          }
+        >
           {parsedData.data.length > 0 ? (
             parsedData.data
               .slice(0, parsedData.itemsToShow)
@@ -122,9 +134,7 @@ const AdoptionCenterDisplay = (props) => {
                 />
               ))
           ) : (
-            <div className="no-data-message-container">
-              <p>No adoption centers found.</p>
-            </div>
+            <p>No adoption centers found.</p>
           )}
         </div>
         <div className="btn-container-bottom">
@@ -137,7 +147,7 @@ const AdoptionCenterDisplay = (props) => {
             Browse Adoptable Pets
           </button>
         </div>
-      </Fragment>
+      </div>
     );
   } else if (requestError) {
     toRender = (
@@ -151,7 +161,7 @@ const AdoptionCenterDisplay = (props) => {
   } else {
     const skeletonArray = [0];
     toRender = (
-      <React.Fragment>
+      <div className="content-container">
         {ReactDOM.createPortal(
           <Backdrop class="backdrop-clear" />,
           document.getElementById("backdrop-root")
@@ -188,19 +198,17 @@ const AdoptionCenterDisplay = (props) => {
             Browse Adoptable Pets
           </button>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 
   return (
-    <React.Fragment>
-      <div className="org-display-container">
-        <div className="filter-container sticky">
-          <OrganizationFilter setPageFilter={setFilterHandler} />
-        </div>
-        <div>{toRender}</div>
+    <div className="org-display-container">
+      <div className="filter-container sticky">
+        <OrganizationFilter setPageFilter={setFilterHandler} />
       </div>
-    </React.Fragment>
+      {toRender}
+    </div>
   );
 };
 

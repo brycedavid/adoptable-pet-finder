@@ -152,12 +152,18 @@ const PetDisplay = (props) => {
 
   if (!isLoading && data !== null) {
     toRender = (
-      <React.Fragment>
+      <div
+        className={
+          parsedData.data.length > 0 ? "" : "no-data-message-container"
+        }
+      >
         <div
           className={
-            !props.featuredPets
-              ? "pet-display-container__content"
-              : "pet-display-container--featured__content"
+            parsedData.data.length > 0
+              ? !props.featuredPets
+                ? "pet-display-container__content"
+                : "pet-display-container--featured__content"
+              : "no-data-message-container__message"
           }
         >
           {parsedData.data.length > 0 ? (
@@ -181,9 +187,7 @@ const PetDisplay = (props) => {
                 />
               ))
           ) : (
-            <div className="no-data-message-container">
-              <p>No pets found.</p>
-            </div>
+            <p>No pets found.</p>
           )}
         </div>
         <div className="btn-container-bottom">
@@ -201,7 +205,7 @@ const PetDisplay = (props) => {
             </button>
           )}
         </div>
-      </React.Fragment>
+      </div>
     );
   } else if (requestError) {
     toRender = (
@@ -222,7 +226,7 @@ const PetDisplay = (props) => {
     }
 
     toRender = (
-      <React.Fragment>
+      <div className="content-container">
         {ReactDOM.createPortal(
           <Backdrop class="backdrop-clear" />,
           document.getElementById("backdrop-root")
@@ -276,7 +280,7 @@ const PetDisplay = (props) => {
             </button>
           )}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 
@@ -293,7 +297,7 @@ const PetDisplay = (props) => {
           <PetFilter setPageFilter={setFilterHandler} />
         </div>
       )}
-      <div>{toRender}</div>
+      {toRender}
     </div>
   );
 };

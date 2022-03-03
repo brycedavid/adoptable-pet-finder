@@ -57,6 +57,45 @@ a {
   }
 }
 
+.no-data-message-container {
+  display: flex;
+  flex-direction: column;
+  height: 40rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1.875rem;
+
+  &--org {
+    width: 45.5rem;
+    height: 100%;
+
+    &__message {
+      display: flex;
+      align-items: center;
+      height: 26.0625rem;
+
+      p {
+        width: 100%;
+        text-align: center;
+        color: $color-red;
+      }
+    }
+  }
+
+  &__message {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    p {
+      width: 100%;
+      text-align: center;
+      color: $color-red;
+    }
+  }
+}
+
 /* Custom scrollbar styles */
 
 ::-webkit-scrollbar {
