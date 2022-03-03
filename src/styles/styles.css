@@ -755,6 +755,8 @@ a {
   width: 60%;
 }
 .main-image__img {
+  min-width: 71.699375rem;
+  min-height: 51.663rem;
   max-width: 100%;
   height: auto;
   border-radius: 20px;
