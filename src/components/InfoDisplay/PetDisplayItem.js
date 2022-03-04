@@ -107,6 +107,14 @@ const PetDisplayItem = (props) => {
     }
   }
 
+  // If name is too long, slice to prevent content overflow
+  let petName = props.name;
+
+  if (petName.length > 40) {
+    petName = petName.slice(0, 40);
+    petName = petName.concat("...");
+  }
+
   // Upon clicking a PetDisplayItem, open the URL associated with the pet in a new window
   const itemClickHandler = () => {
     history.push({ pathname: `/pets/${props.id}`, state: props });
@@ -157,7 +165,7 @@ const PetDisplayItem = (props) => {
         </button>
 
         <div className="image-container--pet">{photoElement}</div>
-        <h2 className="display-item__name">{props.name}</h2>
+        <h2 className="display-item__name">{petName}</h2>
         <p>{`${props.gender}, ${props.age}`}</p>
         <p>{props.breed}</p>
         <p>{`Size: ${props.size}`}</p>
