@@ -813,6 +813,14 @@ a {
   border: 3px solid #902923;
   border-radius: 5px;
 }
+.image-container--about {
+  min-width: 20rem;
+  min-height: 20rem;
+}
+.image-container--about img {
+  min-width: 18rem;
+  min-height: 18rem;
+}
 
 *,
 *::after,

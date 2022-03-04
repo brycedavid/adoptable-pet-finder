@@ -61,7 +61,9 @@ const About = () => {
           course, helping more pets!
         </p>
       </div>
-      <img className="main-content__pawprint-img" src={pawprintImg} />
+      <div className="image-container--about">
+        <img className="main-content__pawprint-img" src={pawprintImg} />
+      </div>
       <Footer />
     </div>
   );

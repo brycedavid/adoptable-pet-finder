@@ -71,4 +71,14 @@
       border-radius: 5px;
     }
   }
+
+  &--about {
+    min-width: 20rem;
+    min-height: 20rem;
+
+    img {
+      min-width: 18rem;
+      min-height: 18rem;
+    }
+  }
 }
