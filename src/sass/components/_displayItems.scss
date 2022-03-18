@@ -150,3 +150,24 @@
   text-shadow: black 0px 0px 1px;
   color: $color-yellow;
 }
+
+@media screen and (max-width: 1050px) {
+  .pet-display-container {
+    width: 752px;
+  }
+
+  .display-item {
+    &__name {
+      font-size: 18px;
+      margin: 7.2px;
+    }
+
+    &--pet {
+      height: 360px;
+      width: 240px;
+    }
+
+    &--org {
+    }
+  }
+}

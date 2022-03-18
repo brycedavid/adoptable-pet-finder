@@ -92,3 +92,26 @@
   justify-content: center;
   margin-top: 3.75rem;
 }
+
+@media screen and (max-width: 1280px) {
+  .btn {
+    height: 33px;
+    width: 76.75px;
+
+    &--large {
+      width: 216.75px;
+      height: 59.25px;
+    }
+
+    &--inline {
+      border: none;
+      background-color: white;
+      font-size: inherit;
+      text-decoration: underline;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
