@@ -1703,6 +1703,15 @@ a {
   cursor: pointer;
 }
 
+.invisible {
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateX(120px);
+}
+
 *,
 *::after,
 *::before {
@@ -1853,11 +1862,15 @@ a {
   height: 100%;
   background-color: #902923;
 }
-.subnav a {
+.subnav__link {
+  display: flex;
   color: white;
   text-decoration: none;
-  align-items: center;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
   transition: 0.2s ease-in-out;
+  margin: 0 !important;
 }
 .subnav a:hover {
   height: 100%;

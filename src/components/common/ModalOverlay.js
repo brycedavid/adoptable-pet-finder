@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 import Backdrop from "./Backdrop";
 import SignupForm from "../Auth/SignupForm";
@@ -19,16 +19,20 @@ const ModalOverlay = (props) => {
     );
   }
 
+  const closeModalHandler = () => {
+    props.closeModal();
+  };
+
   return (
     <Fragment>
       {ReactDOM.createPortal(
-        <Backdrop class="backdrop" closeModal={props.closeModal} />,
+        <Backdrop class="backdrop" closeModal={closeModalHandler} />,
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
         <div className="modal">
           <div className="modal__x-container">
-            <img src={xImg} alt="x" onClick={props.closeModal} />
+            <img src={xImg} alt="x" onClick={closeModalHandler} />
           </div>
           {form}
         </div>,

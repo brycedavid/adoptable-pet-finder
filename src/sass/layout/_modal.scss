@@ -33,3 +33,12 @@
     }
   }
 }
+
+.invisible {
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateX(120px);
+}

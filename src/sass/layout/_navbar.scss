@@ -27,14 +27,18 @@
   height: 100%;
   background-color: $color-red;
 
-  a {
+  &__link {
+    display: flex;
     color: white;
     text-decoration: none;
+    width: 100%;
     align-items: center;
+    justify-content: center;
     transition: 0.2s ease-in-out;
+    margin: 0 !important;
   }
 
-  a:hover {
+  &__link:hover {
     height: 100%;
     background-color: $color-light-red;
     cursor: pointer;
