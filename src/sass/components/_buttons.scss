@@ -7,6 +7,13 @@
   width: 5.625rem;
   box-shadow: 0 1px 6px 0.1px lightgrey;
   transition: all 0.2s;
+  font-size: 1rem;
+
+  @include respond(med-desktop) {
+    height: 2.9166rem;
+    margin: 4.375px;
+    width: 6.5625rem;
+  }
 
   &--main {
     @extend .btn;
@@ -91,27 +98,4 @@
   display: flex;
   justify-content: center;
   margin-top: 3.75rem;
-}
-
-@media screen and (max-width: 1280px) {
-  .btn {
-    height: 33px;
-    width: 76.75px;
-
-    &--large {
-      width: 216.75px;
-      height: 59.25px;
-    }
-
-    &--inline {
-      border: none;
-      background-color: white;
-      font-size: inherit;
-      text-decoration: underline;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
 }

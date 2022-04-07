@@ -154,7 +154,9 @@ const PetDisplay = (props) => {
     toRender = (
       <div
         className={
-          parsedData.data.length > 0 ? "" : "no-data-message-container"
+          parsedData.data.length > 0
+            ? "pet-display-item-container"
+            : "no-data-message-container"
         }
       >
         <div

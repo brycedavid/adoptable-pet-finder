@@ -10,6 +10,22 @@
 
 html {
   font-size: 16px;
+
+  @include respond(big-desktop) {
+    font-size: 14px;
+  }
+
+  @include respond(med-desktop) {
+    font-size: 12px;
+  }
+
+  @include respond(med-tab) {
+    font-size: 10px;
+  }
+
+  @include respond(small-tab) {
+    font-size: 8px;
+  }
 }
 
 body {
@@ -112,29 +128,5 @@ a {
 
   &:hover {
     background-color: $color-light-blue;
-  }
-}
-
-@media screen and (max-width: 1460px) {
-  html {
-    font-size: 14px;
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  html {
-    font-size: 12px;
-  }
-}
-
-@media screen and (max-width: 950px) {
-  html {
-    font-size: 10px;
-  }
-}
-
-@media screen and (max-width: 720px) {
-  html {
-    font-size: 8px;
   }
 }

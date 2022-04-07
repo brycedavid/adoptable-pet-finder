@@ -35,6 +35,13 @@
 .filter-container {
   max-width: 20rem;
   min-width: 20rem;
+
+  @include respond(med-mobile) {
+    max-width: 393px;
+    width: 393px;
+    height: 300px;
+    margin-bottom: 50px;
+  }
 }
 
 .filter-form {
@@ -44,11 +51,35 @@
   align-items: center;
   height: 39.375rem;
   padding: 0.75rem;
-  border: 3px solid $color-blue;
+  border: 0.1875rem solid $color-blue;
   border-radius: 10px;
   box-shadow: 4px 4px 6px darkgrey;
   margin-left: auto;
   margin-right: 1.5rem;
+
+  @include respond(big-desktop) {
+    height: 43.43rem;
+  }
+
+  @include respond(med-desktop) {
+    height: 43.7rem;
+  }
+
+  @include respond(small-desktop) {
+    border: 2px solid $color-blue;
+  }
+
+  @include respond(med-tab) {
+    height: 46.7rem;
+  }
+
+  @include respond(med-mobile) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 300px;
+    width: 70vw;
+    justify-content: center;
+  }
 
   &--org {
     @extend .filter-form;
@@ -61,15 +92,35 @@
     height: 2.5rem;
     border: 1px solid black;
     border-radius: 3px;
+
+    @include respond(med-mobile) {
+      width: 65%;
+    }
   }
 
   label {
     font-size: 1.25rem;
     margin-top: 1.125rem;
+
+    @include respond(med-mobile) {
+      display: block;
+      margin-top: 0;
+      margin-right: 24px;
+      margin-left: 24px;
+      width: 120px;
+      text-align: center;
+    }
   }
 
   button {
     align-self: center;
+
+    @include respond(med-mobile) {
+      display: block;
+      width: 80%;
+      margin-right: 112.25px;
+      margin-left: 112.25px;
+    }
   }
 }
 
@@ -96,4 +147,8 @@
 .sticky {
   position: sticky;
   top: 2vh;
+
+  @include respond(med-mobile) {
+    position: static;
+  }
 }

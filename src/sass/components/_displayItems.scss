@@ -23,6 +23,25 @@
   flex-direction: row;
   justify-content: center;
 
+  @include respond(small-desktop) {
+    width: 62.75rem;
+  }
+
+  @include respond(med-tab) {
+    width: 63rem;
+  }
+
+  @include respond(med-mobile) {
+    flex-direction: column;
+    width: 393px;
+    justify-content: center;
+    align-items: center;
+
+    .pet-display-item-container {
+      width: 330px;
+    }
+  }
+
   &--featured {
     margin-top: 2rem;
     display: flex;
@@ -43,6 +62,16 @@
     flex-wrap: wrap;
     margin-right: auto;
     margin-left: 1.5rem;
+
+    @include respond(med-mobile) {
+      width: 340px;
+      margin-right: 0;
+      margin-left: 0;
+    }
+
+    @include respond(med-mobile) {
+      width: 330px;
+    }
   }
 }
 
@@ -67,10 +96,24 @@
     @extend .display-item;
     height: 30rem;
     width: 20rem;
-    border: 3px solid #0f5797;
+    border: 0.1875rem solid #0f5797;
     border-radius: 10px;
     margin-right: 1.2rem;
     margin-left: 0;
+
+    @include respond(med-tab) {
+      height: 29rem;
+    }
+
+    @include respond(small-desktop) {
+      border: 2px solid $color-blue;
+    }
+
+    @include respond(med-mobile) {
+      &:nth-child(even) {
+        margin-right: 0;
+      }
+    }
 
     &__content {
       display: flex;
@@ -85,9 +128,13 @@
     @extend .display-item;
     height: 28rem;
     width: 44rem;
-    border: 3px solid #0f5797;
+    border: 0.1875rem solid #0f5797;
     border-radius: 10px;
     margin-left: 0;
+
+    @include respond(small-desktop) {
+      border: 2px solid $color-blue;
+    }
 
     &__content {
       display: flex;
@@ -149,25 +196,4 @@
   cursor: pointer;
   text-shadow: black 0px 0px 1px;
   color: $color-yellow;
-}
-
-@media screen and (max-width: 1050px) {
-  .pet-display-container {
-    width: 752px;
-  }
-
-  .display-item {
-    &__name {
-      font-size: 18px;
-      margin: 7.2px;
-    }
-
-    &--pet {
-      height: 360px;
-      width: 240px;
-    }
-
-    &--org {
-    }
-  }
 }
