@@ -39,8 +39,8 @@
   @include respond(med-mobile) {
     max-width: 393px;
     width: 393px;
-    height: 300px;
-    margin-bottom: 50px;
+    height: fit-content;
+    margin-bottom: 20px;
   }
 }
 
@@ -74,10 +74,12 @@
   }
 
   @include respond(med-mobile) {
+    margin-left: auto;
+    margin-right: auto;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 300px;
-    width: 70vw;
+    height: 400px;
+    width: 85%;
     justify-content: center;
   }
 
@@ -122,6 +124,18 @@
       margin-left: 112.25px;
     }
   }
+
+  &--mobile-collapsed {
+    @extend .filter-form;
+    height: 40px;
+  }
+}
+
+.btn__mobile-form {
+  width: 100%;
+  margin: 0;
+  border: none;
+  background-color: transparent;
 }
 
 .invalid {

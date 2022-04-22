@@ -12,6 +12,7 @@ import PetDisplayItem from "./PetDisplayItem";
 import usePetfinderApi from "../../hooks/usePetfinderApi";
 import PetFilter from "../ResultsFilter/PetFilter";
 import Backdrop from "../common/Backdrop";
+import { useEffect } from "react";
 
 const PetDisplay = (props) => {
   const petRequestSent = useSelector((state) => state.petRequestSent);
@@ -30,6 +31,7 @@ const PetDisplay = (props) => {
   });
   const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -120,6 +122,27 @@ const PetDisplay = (props) => {
       dispatch({ type: "UPDATE_HOME_REQUEST_SENT", payload: true });
     }
   }
+
+  // Track whether or not the viewport width is <= 550. If so, set isMobileViewport to true. If not, set isMobileViewport
+  // to false.
+  useEffect(() => {
+    if (window.innerWidth <= 550) {
+      setIsMobileViewport(true);
+    } else {
+      setIsMobileViewport(false);
+    }
+
+    const updateMedia = () => {
+      if (window.innerWidth <= 550) {
+        setIsMobileViewport(true);
+      } else {
+        setIsMobileViewport(false);
+      }
+    };
+
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  }, []);
 
   const showMoreHandler = () => {
     let { data: prevData, itemsToShow: prevItemsToShow } = parsedData;
@@ -296,7 +319,11 @@ const PetDisplay = (props) => {
     >
       {!props.featuredPets && (
         <div className="filter-container sticky">
-          <PetFilter setPageFilter={setFilterHandler} />
+          {isMobileViewport ? (
+            <PetFilter setPageFilter={setFilterHandler} mobileVersion={true} />
+          ) : (
+            <PetFilter setPageFilter={setFilterHandler} mobileVersion={false} />
+          )}
         </div>
       )}
       {toRender}
