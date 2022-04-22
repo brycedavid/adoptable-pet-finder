@@ -9,6 +9,7 @@ const OrganizationFilter = (props) => {
   const [lastFilter, setLastFilter] = useState(orgFilterRedux);
   const [filter, setFilter] = useState(orgFilterRedux);
   const [duplicateFilter, setDuplicateFilter] = useState(true);
+  const [mobileFormExpanded, setMobileFormExpanded] = useState(false);
 
   let dispatch = useDispatch();
 
@@ -66,27 +67,53 @@ const OrganizationFilter = (props) => {
     setDuplicateFilter(true);
   }
 
-  return (
-    <form onSubmit={formSubmitHandler} className="filter-form--org sticky">
-      <label>Location</label>
-      <input
-        className="filter-form__input"
-        id="zip-input"
-        placeholder="zip code"
-        onChange={changeZipHandler}
-        onKeyUp={changeZipHandler}
-        value={filter.location ? filter.location : ""}
-        maxLength="5"
-      />
-      <button
-        type="submit"
-        className={formIsValid ? "btn--alt" : "btn--alt disabled"}
-        disabled={!formIsValid}
-      >
-        Search
-      </button>
-    </form>
-  );
+  const mobileFormExpandHandler = () => {
+    setMobileFormExpanded(true);
+  };
+
+  const mobileFormCollapseHandler = () => {
+    setMobileFormExpanded(false);
+  };
+
+  if (props.mobileVersion && !mobileFormExpanded) {
+    return (
+      <div className="filter-form--mobile-collapsed-org">
+        <button className="btn__mobile-form" onClick={mobileFormExpandHandler}>
+          Filter Results &#9660;
+        </button>
+      </div>
+    );
+  } else {
+    return (
+      <form onSubmit={formSubmitHandler} className="filter-form--org sticky">
+        <label>Location</label>
+        <input
+          className="filter-form__input"
+          id="zip-input"
+          placeholder="zip code"
+          onChange={changeZipHandler}
+          onKeyUp={changeZipHandler}
+          value={filter.location ? filter.location : ""}
+          maxLength="5"
+        />
+        <button
+          type="submit"
+          className={formIsValid ? "btn--alt" : "btn--alt disabled"}
+          disabled={!formIsValid}
+        >
+          Search
+        </button>
+        {props.mobileVersion && (
+          <button
+            className="btn__mobile-form"
+            onClick={mobileFormCollapseHandler}
+          >
+            Hide Filter &#9650;
+          </button>
+        )}
+      </form>
+    );
+  }
 };
 
 export default OrganizationFilter;

@@ -9,10 +9,21 @@
   flex-direction: row;
   justify-content: center;
 
+  @include respond(med-mobile) {
+    flex-direction: column;
+    width: 393px;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__content {
     width: 100%;
     margin-right: auto;
     margin-left: 1.5rem;
+
+    @include respond(med-mobile) {
+      margin-left: auto;
+    }
   }
 }
 

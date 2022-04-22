@@ -141,7 +141,7 @@ const PetFilter = (props) => {
     return (
       <div className="filter-form--mobile-collapsed">
         <button className="btn__mobile-form" onClick={mobileFormExpandHandler}>
-          Filter Pets &#9660;
+          Filter Results &#9660;
         </button>
       </div>
     );

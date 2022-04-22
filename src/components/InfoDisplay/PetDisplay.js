@@ -2,7 +2,7 @@
 // This component acts as the PetDisplay container, which renders one PetDisplayItem.js per pet as child components. It also handles making the
 // request to Petfinder API for pet data using the custom useApi hook.
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ReactDOM from "react-dom";
@@ -12,7 +12,6 @@ import PetDisplayItem from "./PetDisplayItem";
 import usePetfinderApi from "../../hooks/usePetfinderApi";
 import PetFilter from "../ResultsFilter/PetFilter";
 import Backdrop from "../common/Backdrop";
-import { useEffect } from "react";
 
 const PetDisplay = (props) => {
   const petRequestSent = useSelector((state) => state.petRequestSent);

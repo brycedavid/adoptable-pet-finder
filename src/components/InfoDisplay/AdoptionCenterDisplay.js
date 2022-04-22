@@ -2,7 +2,7 @@
 // This component acts as the AdoptionCenterDisplay container, which renders one AdoptionCenterDisplayItem.js per organization as child components. It also handles making the
 // request to Petfinder API for organization data using the custom useApi hook.
 
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ReactDOM from "react-dom";
@@ -22,6 +22,7 @@ const AdoptionCenterDisplay = (props) => {
   const [resultsFilter, setResultsFilter] = useState({ location: "any" });
   const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -72,6 +73,27 @@ const AdoptionCenterDisplay = (props) => {
     dispatch({ type: "UPDATE_ORG_REQUEST_SENT", payload: true });
     dispatch({ type: "UPDATE_ORG_DATA", payload: data });
   }
+
+  // Track whether or not the viewport width is <= 550. If so, set isMobileViewport to true. If not, set isMobileViewport
+  // to false.
+  useEffect(() => {
+    if (window.innerWidth <= 550) {
+      setIsMobileViewport(true);
+    } else {
+      setIsMobileViewport(false);
+    }
+
+    const updateMedia = () => {
+      if (window.innerWidth <= 550) {
+        setIsMobileViewport(true);
+      } else {
+        setIsMobileViewport(false);
+      }
+    };
+
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  }, []);
 
   const showMoreHandler = () => {
     let { data: prevData, itemsToShow: prevItemsToShow } = parsedData;
@@ -205,7 +227,17 @@ const AdoptionCenterDisplay = (props) => {
   return (
     <div className="org-display-container">
       <div className="filter-container sticky">
-        <OrganizationFilter setPageFilter={setFilterHandler} />
+        {isMobileViewport ? (
+          <OrganizationFilter
+            setPageFilter={setFilterHandler}
+            mobileVersion={true}
+          />
+        ) : (
+          <OrganizationFilter
+            setPageFilter={setFilterHandler}
+            mobileVersion={false}
+          />
+        )}
       </div>
       {toRender}
     </div>

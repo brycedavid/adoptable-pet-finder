@@ -81,11 +81,20 @@
     height: 400px;
     width: 85%;
     justify-content: center;
+    box-shadow: 0 4px 8px 1px darkgrey;
   }
 
   &--org {
     @extend .filter-form;
     height: 12.5rem;
+
+    @include respond(med-mobile) {
+      margin-left: auto;
+      margin-right: auto;
+      height: 18rem;
+      width: 44rem;
+      justify-content: center;
+    }
   }
 
   &__input {
@@ -122,17 +131,23 @@
       width: 80%;
       margin-right: 112.25px;
       margin-left: 112.25px;
+      margin-bottom: 12px;
     }
   }
 
   &--mobile-collapsed {
     @extend .filter-form;
     height: 40px;
+
+    &-org {
+      @extend .filter-form--mobile-collapsed;
+      width: 44rem;
+    }
   }
 }
 
 .btn__mobile-form {
-  width: 100%;
+  max-width: 80px;
   margin: 0;
   border: none;
   background-color: transparent;
