@@ -11,7 +11,7 @@
 
   @include respond(med-mobile) {
     flex-direction: column;
-    width: 393px;
+    width: 49.125rem;
     justify-content: center;
     align-items: center;
   }
@@ -44,12 +44,12 @@
 
   @include respond(med-mobile) {
     flex-direction: column;
-    width: 393px;
+    width: 49.125rem;
     justify-content: center;
     align-items: center;
 
     .pet-display-item-container {
-      width: 330px;
+      width: 41.25rem;
     }
   }
 
@@ -75,13 +75,13 @@
     margin-left: 1.5rem;
 
     @include respond(med-mobile) {
-      width: 340px;
+      width: 42.5rem;
       margin-right: 0;
       margin-left: 0;
     }
 
     @include respond(med-mobile) {
-      width: 330px;
+      width: 41.25rem;
     }
   }
 }

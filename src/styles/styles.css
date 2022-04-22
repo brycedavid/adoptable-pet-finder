@@ -343,7 +343,7 @@ body p {
 @media (max-width: 80em) {
   .btn, .btn--alt, .btn--main {
     height: 2.9166rem;
-    margin: 4.375px;
+    margin: 0.546875rem;
     width: 6.5625rem;
   }
 }
@@ -482,7 +482,7 @@ body p {
 @media (max-width: 34.375em) {
   .org-display-container {
     flex-direction: column;
-    width: 393px;
+    width: 49.125rem;
     justify-content: center;
     align-items: center;
   }
@@ -518,12 +518,12 @@ body p {
 @media (max-width: 34.375em) {
   .pet-display-container {
     flex-direction: column;
-    width: 393px;
+    width: 49.125rem;
     justify-content: center;
     align-items: center;
   }
   .pet-display-container .pet-display-item-container {
-    width: 330px;
+    width: 41.25rem;
   }
 }
 .pet-display-container--featured {
@@ -547,14 +547,14 @@ body p {
 }
 @media (max-width: 34.375em) {
   .pet-display-container__content {
-    width: 340px;
+    width: 42.5rem;
     margin-right: 0;
     margin-left: 0;
   }
 }
 @media (max-width: 34.375em) {
   .pet-display-container__content {
-    width: 330px;
+    width: 41.25rem;
   }
 }
 
@@ -831,10 +831,10 @@ a {
 }
 @media (max-width: 34.375em) {
   .filter-container {
-    max-width: 393px;
-    width: 393px;
+    max-width: 49.125rem;
+    width: 49.125rem;
     height: fit-content;
-    margin-bottom: 20px;
+    margin-bottom: 2.5rem;
   }
 }
 
@@ -877,7 +877,7 @@ a {
     margin-right: auto;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 400px;
+    height: 50rem;
     width: 85%;
     justify-content: center;
     box-shadow: 0 4px 8px 1px darkgrey;
@@ -896,7 +896,7 @@ a {
   }
 }
 .filter-form__input {
-  margin: 14px 0;
+  margin: 1.75rem 0;
   width: 85%;
   height: 2.5rem;
   border: 1px solid black;
@@ -915,9 +915,9 @@ a {
   .filter-form label, .filter-form--mobile-collapsed label, .filter-form--mobile-collapsed-org label, .filter-form--org label {
     display: block;
     margin-top: 0;
-    margin-right: 24px;
-    margin-left: 24px;
-    width: 120px;
+    margin-right: 3rem;
+    margin-left: 3rem;
+    width: 15rem;
     text-align: center;
   }
 }
@@ -928,20 +928,20 @@ a {
   .filter-form button, .filter-form--mobile-collapsed button, .filter-form--mobile-collapsed-org button, .filter-form--org button {
     display: block;
     width: 80%;
-    margin-right: 112.25px;
-    margin-left: 112.25px;
-    margin-bottom: 12px;
+    margin-right: 14.03125rem;
+    margin-left: 14.03125rem;
+    margin-bottom: 1.5rem;
   }
 }
 .filter-form--mobile-collapsed, .filter-form--mobile-collapsed-org {
-  height: 40px;
+  height: 5rem;
 }
 .filter-form--mobile-collapsed-org {
   width: 44rem;
 }
 
 .btn__mobile-form {
-  max-width: 80px;
+  max-width: 10rem;
   margin: 0;
   border: none;
   background-color: transparent;

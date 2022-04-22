@@ -37,10 +37,10 @@
   min-width: 20rem;
 
   @include respond(med-mobile) {
-    max-width: 393px;
-    width: 393px;
+    max-width: 49.125rem;
+    width: 49.125rem;
     height: fit-content;
-    margin-bottom: 20px;
+    margin-bottom: 2.5rem;
   }
 }
 
@@ -78,7 +78,7 @@
     margin-right: auto;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 400px;
+    height: 50rem;
     width: 85%;
     justify-content: center;
     box-shadow: 0 4px 8px 1px darkgrey;
@@ -98,7 +98,7 @@
   }
 
   &__input {
-    margin: 14px 0;
+    margin: 1.75rem 0;
     width: 85%;
     height: 2.5rem;
     border: 1px solid black;
@@ -116,9 +116,9 @@
     @include respond(med-mobile) {
       display: block;
       margin-top: 0;
-      margin-right: 24px;
-      margin-left: 24px;
-      width: 120px;
+      margin-right: 3rem;
+      margin-left: 3rem;
+      width: 15rem;
       text-align: center;
     }
   }
@@ -129,15 +129,15 @@
     @include respond(med-mobile) {
       display: block;
       width: 80%;
-      margin-right: 112.25px;
-      margin-left: 112.25px;
-      margin-bottom: 12px;
+      margin-right: 14.03125rem;
+      margin-left: 14.03125rem;
+      margin-bottom: 1.5rem;
     }
   }
 
   &--mobile-collapsed {
     @extend .filter-form;
-    height: 40px;
+    height: 5rem;
 
     &-org {
       @extend .filter-form--mobile-collapsed;
@@ -147,7 +147,7 @@
 }
 
 .btn__mobile-form {
-  max-width: 80px;
+  max-width: 10rem;
   margin: 0;
   border: none;
   background-color: transparent;
