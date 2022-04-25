@@ -544,7 +544,7 @@ body p {
     margin-top: 0;
   }
   .pet-display-container .pet-display-item-container {
-    width: 41.25rem;
+    width: 20rem;
   }
 }
 .pet-display-container--featured {
@@ -587,14 +587,9 @@ body p {
 }
 @media (max-width: 34.375em) {
   .pet-display-container__content {
-    width: 42.5rem;
+    width: 20rem;
     margin-right: 0;
     margin-left: 0;
-  }
-}
-@media (max-width: 34.375em) {
-  .pet-display-container__content {
-    width: 41.25rem;
   }
 }
 
@@ -632,7 +627,7 @@ body p {
   }
 }
 @media (max-width: 34.375em) {
-  .display-item--pet:nth-child(even) {
+  .display-item--pet {
     margin-right: 0;
   }
 }
