@@ -16,7 +16,7 @@ const Subnav = (props) => {
     >
       <NavLink
         exact
-        activeClassName=""
+        activeClassName="active"
         className={
           props.mobileVersion ? "subnav--mobile__link" : "subnav__link"
         }
