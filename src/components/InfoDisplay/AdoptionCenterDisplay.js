@@ -239,6 +239,14 @@ const AdoptionCenterDisplay = (props) => {
           />
         )}
       </div>
+      {!props.featuredPets && isMobileViewport && (
+        <React.Fragment>
+          <h1 className="heading--large">Adoption Centers</h1>
+          <h2 className="heading--medium">Search for an adoptable pet!</h2>
+          <br />
+          <br />
+        </React.Fragment>
+      )}
       {toRender}
     </div>
   );

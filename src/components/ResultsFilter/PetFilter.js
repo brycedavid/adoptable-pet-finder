@@ -15,7 +15,6 @@ const PetFilter = (props) => {
   const [lastFilter, setLastFilter] = useState(petFilterRedux);
   const [petFilter, setPetFilter] = useState(petFilterRedux);
   const [duplicateFilter, setDuplicateFilter] = useState(true);
-  const [mobileFormExpanded, setMobileFormExpanded] = useState(false);
 
   let dispatch = useDispatch();
 
@@ -129,20 +128,90 @@ const PetFilter = (props) => {
     setDuplicateFilter(true);
   }
 
-  const mobileFormExpandHandler = () => {
-    setMobileFormExpanded(true);
-  };
-
-  const mobileFormCollapseHandler = () => {
-    setMobileFormExpanded(false);
-  };
-
-  if (props.mobileVersion && !mobileFormExpanded) {
+  if (props.mobileVersion) {
     return (
-      <div className="filter-form--mobile-collapsed">
-        <button className="btn__mobile-form" onClick={mobileFormExpandHandler}>
-          Filter Results &#9660;
-        </button>
+      <div className="filter-form--mobile">
+        <input
+          type="checkbox"
+          className="filter-form--mobile__checkbox"
+          id="filter-toggle"
+        />
+        <label for="filter-toggle" className="filter-form--mobile__expand">
+          <span className="filter-form--mobile__icon">
+            Filter Results &#9660;
+          </span>
+        </label>
+        <form
+          onSubmit={formSubmitHandler}
+          className="filter-form--mobile__form"
+        >
+          <label>Pet type</label>
+          <select
+            className="filter-form__input"
+            id="type-select"
+            value={petFilter.type}
+            onChange={changeTypeHandler}
+          >
+            <option value="any">All</option>
+            <option value="cat">Cats</option>
+            <option value="dog">Dogs</option>
+          </select>
+          <label>Breed</label>
+          <select
+            className="filter-form__input"
+            id="breed-select"
+            value={petFilter.breed}
+            onChange={changeBreedHandler}
+          >
+            <option value="any">All</option>
+            {breeds.map((breed) => (
+              <option value={breed.name} key={breed.name}>
+                {breed.name}
+              </option>
+            ))}
+          </select>
+          <label>Gender</label>
+          <select
+            className="filter-form__input"
+            id="gender-select"
+            value={petFilter.gender}
+            onChange={changeGenderHandler}
+          >
+            <option value="any">All</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+          <label>Age</label>
+          <select
+            className="filter-form__input"
+            id="age-select"
+            value={petFilter.age}
+            onChange={changeAgeHandler}
+          >
+            <option value="any">All</option>
+            <option value="baby">Baby</option>
+            <option value="young">Young</option>
+            <option vlue="adult">Adult</option>
+            <option value="senior">Senior</option>
+          </select>
+          <label>Location</label>
+          <input
+            className="filter-form__input"
+            id="zip-input"
+            placeholder="zip code"
+            onChange={changeZipHandler}
+            onKeyUp={changeZipHandler}
+            value={petFilter.location ? petFilter.location : ""}
+            maxLength="5"
+          />
+          <button
+            type="submit"
+            className={formIsValid ? "btn--alt" : "btn--alt disabled"}
+            disabled={!formIsValid}
+          >
+            Search
+          </button>
+        </form>
       </div>
     );
   } else {
@@ -214,14 +283,6 @@ const PetFilter = (props) => {
         >
           Search
         </button>
-        {props.mobileVersion && (
-          <button
-            className="btn__mobile-form"
-            onClick={mobileFormCollapseHandler}
-          >
-            Hide Filter &#9650;
-          </button>
-        )}
       </form>
     );
   }

@@ -12,10 +12,9 @@
   @include respond(med-mobile) {
     flex-direction: column;
     height: 17rem;
-    border-bottom: 2px solid $color-red;
     border-top: none;
-    background-color: $color-lighter-grey;
-    margin-bottom: 12px;
+    margin-top: 10px;
+    margin-bottom: 15px;
   }
 
   &__profile-container {

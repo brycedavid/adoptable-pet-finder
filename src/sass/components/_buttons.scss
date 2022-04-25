@@ -102,4 +102,8 @@
   display: flex;
   justify-content: center;
   margin-top: 3.75rem;
+
+  @include respond(med-mobile) {
+    margin-left: 0;
+  }
 }
