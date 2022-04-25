@@ -119,8 +119,8 @@
 
     @include respond(med-mobile) {
       display: block;
-      width: 70.5px;
-      height: 30px;
+      width: 8.8125rem;
+      height: 3.75rem;
       margin-right: 14.03125rem;
       margin-left: 14.03125rem;
       margin-bottom: 1.5rem;
@@ -144,7 +144,7 @@
       box-shadow: none;
       border: none;
       border-radius: 0;
-      padding: 0 55px 0 55px;
+      padding: 0 6.875rem 0 6.875rem;
 
       & > *,
       & > label,
@@ -158,13 +158,13 @@
     }
 
     &__expand {
-      width: 85px;
-      height: 50px;
+      width: 10.625rem;
+      height: 6.25rem;
       font-size: small;
       position: absolute;
       margin-left: auto;
       margin-right: auto;
-      margin-top: 5px;
+      margin-top: 0.625rem;
       left: 0;
       right: 0;
       text-align: center;
@@ -182,7 +182,7 @@
     &__checkbox:checked ~ &__form {
       height: 52rem;
       color: white;
-      padding-top: 5px;
+      padding-top: 0.625rem;
 
       *,
       label,
@@ -198,7 +198,7 @@
     &__checkbox:checked ~ &__org-form {
       height: 18rem;
       color: white;
-      padding-top: 5px;
+      padding-top: 0.625rem;
 
       *,
       label,
@@ -218,10 +218,10 @@
     &__checkbox:checked ~ &__collapse {
       position: fixed;
       display: inline-block;
-      margin-top: 10px;
-      right: 14px;
-      width: 22px;
-      height: 22px;
+      margin-top: 1.25rem;
+      right: 1.75rem;
+      width: 2.75rem;
+      height: 2.75rem;
       font-size: medium;
       text-align: center;
       color: white;

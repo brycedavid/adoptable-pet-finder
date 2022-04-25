@@ -36,12 +36,12 @@
     }
 
     &__button {
-      width: 50px;
-      height: 50px;
+      width: 6.25rem;
+      height: 6.25rem;
       border-radius: 50%;
       position: fixed;
-      top: 30px;
-      right: 30px;
+      top: 3.75rem;
+      right: 3.75rem;
       background-color: white;
       box-shadow: 0 0 7px 2px $color-light-grey;
       z-index: 5000;
@@ -64,7 +64,7 @@
       border-radius: 50%;
       position: fixed;
       top: 3.9rem;
-      right: 32px;
+      right: 4rem;
       background-image: radial-gradient($color-red, $color-light-red);
       z-index: 1000;
       transition: transform 0.6s cubic-bezier(0.83, 0, 0.17, 1);
@@ -73,13 +73,13 @@
     &__icon {
       position: relative;
       margin-top: 3rem;
-      left: 14px;
+      left: 1.75rem;
 
       &,
       &::before,
       &::after {
         width: 2.7rem;
-        height: 2px;
+        height: 0.25rem;
         background-color: black;
         display: inline-block;
       }
@@ -88,7 +88,7 @@
       &::after {
         content: "";
         position: absolute;
-        left: 0px;
+        left: 0rem;
         transition: all 0.2s;
       }
 
@@ -136,11 +136,11 @@
   }
 
   &--mobile:before {
-    top: 5px;
+    top: 0.625rem;
   }
 
   &--mobile:after {
-    bottom: 5px;
+    bottom: 0.625rem;
   }
 }
 
@@ -152,19 +152,19 @@
   background-color: $color-red;
 
   &--mobile {
-    margin: 4px 0 4px 0;
+    margin: 0.5rem 0 0.5rem 0;
 
     &__link {
-      font-size: 16px;
+      font-size: 2rem;
       display: flex;
       color: white;
       text-decoration: none;
       width: 100%;
-      height: 60px;
+      height: 7.5rem;
       align-items: center;
       justify-content: center;
       transition: 0.2s ease-in-out;
-      margin: 12px 0 12px 0;
+      margin: 1.5rem 0 1.5rem 0;
     }
   }
 
