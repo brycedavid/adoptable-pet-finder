@@ -48,4 +48,11 @@
       @content;
     }
   }
+
+  // 460px
+  @if $breakpoint == small-mobile {
+    @media (max-width: 28.75em) {
+      @content;
+    }
+  }
 }

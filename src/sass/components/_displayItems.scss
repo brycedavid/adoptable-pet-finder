@@ -58,12 +58,30 @@
     display: flex;
     justify-content: center;
 
+    @include respond(med-mobile) {
+      flex-direction: column;
+      flex-wrap: wrap;
+      width: 49.125rem;
+      justify-content: center;
+      align-items: center;
+
+      .pet-display-item-container {
+        width: 41.25rem;
+      }
+    }
+
     &__content {
       width: 80rem;
       display: flex;
       flex-wrap: wrap;
       margin-right: -1.2rem;
       justify-content: center;
+
+      @include respond(med-mobile) {
+        margin-left: auto;
+        margin-right: auto;
+        width: auto;
+      }
     }
   }
 

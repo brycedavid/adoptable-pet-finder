@@ -36,6 +36,10 @@
     @extend .btn;
     background-color: $color-blue;
 
+    @include respond(med-mobile) {
+      box-shadow: none;
+    }
+
     &:hover {
       background-color: $color-light-blue;
       cursor: pointer;

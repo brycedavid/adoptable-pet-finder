@@ -1,7 +1,8 @@
 /* Colors */
 
-$color-red: #902923;
+$color-red: #952923;
 $color-light-red: #b94341;
+$color-lighter-red: #d5403d;
 $color-pink: rgb(255, 144, 144);
 $color-blue: #003d71;
 $color-light-blue: #20629c;
@@ -14,12 +15,3 @@ $color-yellow: rgb(252, 252, 80);
 $grid-width: 65%;
 $gutter-vertical: 8rem;
 $gutter-horizontal: 2rem;
-
-/* Breakpoints for media queries */
-
-$breakpoint-min-mobile: 365px;
-$breakpoint-max-mobile: 479px;
-$breakpoint-max-tablet: 872px;
-$breakpoint-min-desktop: 1048px;
-$breakpoint-medium-desktop: 1184px;
-$breakpoint-max-desktop: 1400px;
