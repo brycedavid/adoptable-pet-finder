@@ -17,6 +17,7 @@ const Home = () => {
 
   return (
     <React.Fragment>
+      <div className="home-header-divider" />
       <div className="main-content">
         <div className="main-image">
           <img

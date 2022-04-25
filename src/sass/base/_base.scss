@@ -46,6 +46,11 @@ a {
   margin: 0 0.5rem;
 }
 
+select,
+input {
+  font-size: 1rem;
+}
+
 .main-content {
   display: flex;
   flex-direction: column;

@@ -77,7 +77,7 @@
 
   &--org {
     @extend .filter-form;
-    height: 12.5rem;
+    height: 13.5rem;
 
     @include respond(med-mobile) {
       margin-left: auto;
@@ -89,7 +89,7 @@
   }
 
   &__input {
-    margin: 1.75rem 0;
+    margin: 1.25rem 0;
     width: 85%;
     height: 2.5rem;
     border: 1px solid black;
@@ -133,6 +133,7 @@
     &__form,
     &__org-form {
       @extend .filter-form;
+      transition: all 0.7s;
       margin-left: auto;
       margin-right: auto;
       flex-direction: row;
@@ -148,7 +149,11 @@
       & > *,
       & > label,
       & > button {
-        display: none;
+        transition: opacity 1s;
+        color: transparent;
+        // display: none;
+        visibility: hidden;
+        opacity: 0;
       }
     }
 
@@ -166,6 +171,10 @@
       color: white;
     }
 
+    &__collapse {
+      display: none;
+    }
+
     &__checkbox {
       display: none;
     }
@@ -178,7 +187,11 @@
       *,
       label,
       button {
+        transition: opacity 1s;
+        color: white;
         display: inline-block;
+        opacity: 100%;
+        visibility: visible;
       }
     }
 
@@ -190,12 +203,28 @@
       *,
       label,
       button {
+        transition: opacity 1s;
+        color: white;
         display: inline-block;
+        opacity: 100%;
+        visibility: visible;
       }
     }
 
     &__checkbox:checked ~ &__expand {
       display: none;
+    }
+
+    &__checkbox:checked ~ &__collapse {
+      position: fixed;
+      display: inline-block;
+      margin-top: 10px;
+      right: 14px;
+      width: 22px;
+      height: 22px;
+      font-size: medium;
+      text-align: center;
+      color: white;
     }
   }
 }

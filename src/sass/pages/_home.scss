@@ -1,0 +1,9 @@
+.home-header-divider {
+  display: none;
+
+  @include respond(med-mobile) {
+    width: 100%;
+    border-bottom: 2px solid $color-red;
+    display: block;
+  }
+}

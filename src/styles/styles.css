@@ -53,6 +53,11 @@ a {
   margin: 0 0.5rem;
 }
 
+select,
+input {
+  font-size: 1rem;
+}
+
 .main-content {
   display: flex;
   flex-direction: column;
@@ -210,6 +215,11 @@ p {
 
 a {
   margin: 0 0.5rem;
+}
+
+select,
+input {
+  font-size: 1rem;
 }
 
 .main-content {
@@ -494,6 +504,7 @@ body p {
     width: 49.125rem;
     justify-content: center;
     align-items: center;
+    margin-top: 0;
   }
 }
 .org-display-container__content {
@@ -749,6 +760,11 @@ a {
   margin: 0 0.5rem;
 }
 
+select,
+input {
+  font-size: 1rem;
+}
+
 .main-content {
   display: flex;
   flex-direction: column;
@@ -903,7 +919,7 @@ a {
   }
 }
 .filter-form--org {
-  height: 12.5rem;
+  height: 13.5rem;
 }
 @media (max-width: 34.375em) {
   .filter-form--org {
@@ -915,7 +931,7 @@ a {
   }
 }
 .filter-form__input {
-  margin: 1.75rem 0;
+  margin: 1.25rem 0;
   width: 85%;
   height: 2.5rem;
   border: 1px solid black;
@@ -957,6 +973,7 @@ a {
   background-color: #952923;
 }
 .filter-form--mobile__form, .filter-form--mobile__org-form {
+  transition: all 0.7s;
   margin-left: auto;
   margin-right: auto;
   flex-direction: row;
@@ -970,7 +987,10 @@ a {
   padding: 0 55px 0 55px;
 }
 .filter-form--mobile__form > *, .filter-form--mobile__form > label, .filter-form--mobile__form > button, .filter-form--mobile__org-form > *, .filter-form--mobile__org-form > label, .filter-form--mobile__org-form > button {
-  display: none;
+  transition: opacity 1s;
+  color: transparent;
+  visibility: hidden;
+  opacity: 0;
 }
 .filter-form--mobile__expand {
   width: 85px;
@@ -985,6 +1005,9 @@ a {
   text-align: center;
   color: white;
 }
+.filter-form--mobile__collapse {
+  display: none;
+}
 .filter-form--mobile__checkbox {
   display: none;
 }
@@ -996,7 +1019,11 @@ a {
 .filter-form--mobile__checkbox:checked ~ .filter-form--mobile__form *,
 .filter-form--mobile__checkbox:checked ~ .filter-form--mobile__form label,
 .filter-form--mobile__checkbox:checked ~ .filter-form--mobile__form button {
+  transition: opacity 1s;
+  color: white;
   display: inline-block;
+  opacity: 100%;
+  visibility: visible;
 }
 .filter-form--mobile__checkbox:checked ~ .filter-form--mobile__org-form {
   height: 18rem;
@@ -1006,10 +1033,25 @@ a {
 .filter-form--mobile__checkbox:checked ~ .filter-form--mobile__org-form *,
 .filter-form--mobile__checkbox:checked ~ .filter-form--mobile__org-form label,
 .filter-form--mobile__checkbox:checked ~ .filter-form--mobile__org-form button {
+  transition: opacity 1s;
+  color: white;
   display: inline-block;
+  opacity: 100%;
+  visibility: visible;
 }
 .filter-form--mobile__checkbox:checked ~ .filter-form--mobile__expand {
   display: none;
+}
+.filter-form--mobile__checkbox:checked ~ .filter-form--mobile__collapse {
+  position: fixed;
+  display: inline-block;
+  margin-top: 10px;
+  right: 14px;
+  width: 22px;
+  height: 22px;
+  font-size: medium;
+  text-align: center;
+  color: white;
 }
 
 .invalid {
@@ -1158,6 +1200,11 @@ p {
 
 a {
   margin: 0 0.5rem;
+}
+
+select,
+input {
+  font-size: 1rem;
 }
 
 .main-content {
@@ -1341,6 +1388,11 @@ a {
   margin: 0 0.5rem;
 }
 
+select,
+input {
+  font-size: 1rem;
+}
+
 .main-content {
   display: flex;
   flex-direction: column;
@@ -1513,6 +1565,11 @@ p {
 
 a {
   margin: 0 0.5rem;
+}
+
+select,
+input {
+  font-size: 1rem;
 }
 
 .main-content {
@@ -1747,6 +1804,11 @@ a {
   margin: 0 0.5rem;
 }
 
+select,
+input {
+  font-size: 1rem;
+}
+
 .main-content {
   display: flex;
   flex-direction: column;
@@ -1833,10 +1895,11 @@ a {
 @media (max-width: 34.375em) {
   .header {
     flex-direction: column;
-    height: 17rem;
+    height: 20rem;
     border-top: none;
-    margin-top: 10px;
-    margin-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    background-color: #f8f5f5;
   }
 }
 .header__profile-container {
@@ -2001,6 +2064,11 @@ p {
 
 a {
   margin: 0 0.5rem;
+}
+
+select,
+input {
+  font-size: 1rem;
 }
 
 .main-content {
@@ -2289,6 +2357,17 @@ a {
 }
 .detailed-info-container p:last-of-type {
   margin-bottom: 2rem;
+}
+
+.home-header-divider {
+  display: none;
+}
+@media (max-width: 34.375em) {
+  .home-header-divider {
+    width: 100%;
+    border-bottom: 2px solid #952923;
+    display: block;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

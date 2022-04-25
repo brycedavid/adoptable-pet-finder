@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import isEqual from "react-fast-compare";
 
 import useFirebase from "../../hooks/useFirebase";
+import xImg from "../../shared/images/x.png";
 
 // Our client object, which is required to make API requests to the Petfinder API
 let petFinderClient = null;
@@ -136,6 +137,9 @@ const PetFilter = (props) => {
           className="filter-form--mobile__checkbox"
           id="filter-toggle"
         />
+        <label for="filter-toggle" className="filter-form--mobile__collapse">
+          &#9587;
+        </label>
         <label for="filter-toggle" className="filter-form--mobile__expand">
           <span className="filter-form--mobile__icon">
             Filter Results &#9660;
