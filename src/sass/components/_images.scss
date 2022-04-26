@@ -29,6 +29,10 @@
     width: 16rem;
     height: 16rem;
 
+    @include respond(med-mobile) {
+      margin-left: 0;
+    }
+
     img {
       width: 16rem;
       object-fit: contain;
@@ -46,6 +50,16 @@
     border-radius: 20px;
     background-color: black;
     margin: 0 auto;
+
+    @include respond(med-tab) {
+      max-width: 14rem;
+      max-height: 14rem;
+
+      img {
+        max-width: 14rem;
+        max-height: 14rem;
+      }
+    }
   }
 
   &--large {
@@ -56,9 +70,30 @@
     width: auto;
     margin: 2.5rem 4.375rem 2.5rem 0;
 
+    @include respond(small-desktop) {
+      max-width: 600px;
+    }
+
+    @include respond(med-tab) {
+      max-width: 460px;
+    }
+
+    @include respond(small-tab) {
+      max-width: 340px;
+    }
+
+    @include respond(med-mobile) {
+      margin-right: 0;
+      max-width: 41.25rem;
+    }
+
     &-org {
       @extend .image-container--large;
       margin-right: 0;
+
+      @include respond(med-mobile) {
+        max-width: 41.25rem;
+      }
     }
 
     img {
@@ -67,6 +102,22 @@
       width: auto;
       border: 3px solid $color-red;
       border-radius: 5px;
+
+      @include respond(small-desktop) {
+        max-width: 600px;
+      }
+
+      @include respond(med-tab) {
+        max-width: 460px;
+      }
+
+      @include respond(small-tab) {
+        max-width: 340px;
+      }
+
+      @include respond(med-mobile) {
+        max-width: 41.25rem;
+      }
     }
   }
 

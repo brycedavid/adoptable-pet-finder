@@ -50,6 +50,11 @@
         right: 1.25rem;
         top: 1.875rem;
       }
+
+      @include respond(x-small-mobile) {
+        width: 5rem;
+        height: 5rem;
+      }
     }
 
     &__nav {
@@ -77,12 +82,23 @@
         right: 1.375rem;
         top: 1.875rem;
       }
+
+      @include respond(x-small-mobile) {
+        width: 5rem;
+        height: 5rem;
+        right: 1.2rem;
+      }
     }
 
     &__icon {
       position: relative;
       margin-top: 3rem;
       left: 1.75rem;
+
+      @include respond(x-small-mobile) {
+        left: 1.14rem;
+        margin-top: 2.5rem;
+      }
 
       &,
       &::before,
@@ -187,6 +203,10 @@
     justify-content: center;
     transition: 0.2s ease-in-out;
     margin: 0 !important;
+
+    @include respond(small-tab) {
+      font-size: 10px;
+    }
   }
 
   &__link:hover {

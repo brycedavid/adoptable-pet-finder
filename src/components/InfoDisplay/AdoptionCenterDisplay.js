@@ -129,7 +129,7 @@ const AdoptionCenterDisplay = (props) => {
       <div
         className={
           parsedData.data.length > 0
-            ? "content-container"
+            ? "org-display-item-container"
             : "no-data-message-container--org"
         }
       >
@@ -183,7 +183,7 @@ const AdoptionCenterDisplay = (props) => {
   } else {
     const skeletonArray = [0];
     toRender = (
-      <div className="content-container">
+      <div className="org-display-item-container">
         {ReactDOM.createPortal(
           <Backdrop class="backdrop-clear" />,
           document.getElementById("backdrop-root")

@@ -30,6 +30,7 @@ const PetDisplay = (props) => {
   });
   const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
+  const [isSmallDesktopViewport, setIsSmallDesktopViewport] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
 
   const history = useHistory();
@@ -131,11 +132,23 @@ const PetDisplay = (props) => {
       setIsMobileViewport(false);
     }
 
+    if (window.innerWidth <= 1060) {
+      setIsSmallDesktopViewport(true);
+    } else {
+      setIsSmallDesktopViewport(false);
+    }
+
     const updateMedia = () => {
       if (window.innerWidth <= 550) {
         setIsMobileViewport(true);
       } else {
         setIsMobileViewport(false);
+      }
+
+      if (window.innerWidth <= 1060) {
+        setIsSmallDesktopViewport(true);
+      } else {
+        setIsSmallDesktopViewport(false);
       }
     };
 
@@ -244,13 +257,19 @@ const PetDisplay = (props) => {
     let skeletonArray = [];
 
     if (history.location.pathname === "/adoptable-pets") {
-      skeletonArray = [0, 0, 0];
+      if (isSmallDesktopViewport && !isMobileViewport) {
+        skeletonArray = [0, 0, 0, 0];
+      } else if (isMobileViewport) {
+        skeletonArray = [0, 0];
+      } else {
+        skeletonArray = [0, 0, 0];
+      }
     } else {
       skeletonArray = [0, 0, 0, 0, 0, 0, 0, 0];
     }
 
     toRender = (
-      <div className="content-container">
+      <div className="pet-display-item-container--skeleton">
         {ReactDOM.createPortal(
           <Backdrop class="backdrop-clear" />,
           document.getElementById("backdrop-root")

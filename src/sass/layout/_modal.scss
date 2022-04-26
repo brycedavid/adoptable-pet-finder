@@ -11,7 +11,7 @@
   top: 30vh;
   left: 28.6%;
   width: 40%;
-  z-index: 200;
+  z-index: 6001;
   overflow: hidden;
   height: 26rem;
   background-color: white;
@@ -26,6 +26,16 @@
     left: 20%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  @include respond(med-mobile) {
+    width: 70%;
+    left: 15%;
+  }
+
+  @include respond(small-mobile) {
+    width: 80%;
+    left: 10%;
   }
 
   &__x-container {

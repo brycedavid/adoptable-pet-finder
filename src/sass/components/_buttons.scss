@@ -15,6 +15,12 @@
     width: 6.5625rem;
   }
 
+  @include respond(small-desktop) {
+    min-width: 76.75px;
+    min-height: 32.984px;
+    font-size: 10px;
+  }
+
   &--main {
     @extend .btn;
     background-color: $color-red;
@@ -58,6 +64,16 @@
     height: 4.375rem;
     border-radius: 6px;
     margin-bottom: 1.75rem;
+
+    @include respond(small-desktop) {
+      min-width: 134.25px;
+      min-height: 41.75px;
+    }
+
+    @include respond(x-small-mobile) {
+      min-width: 118px;
+      min-height: 34px;
+    }
 
     &:hover {
       cursor: pointer;
