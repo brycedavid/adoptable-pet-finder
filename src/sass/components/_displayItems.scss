@@ -5,14 +5,34 @@
 .org-display-container {
   margin-top: 2rem;
   width: 84.25rem;
+  max-width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
+
+  @include respond(med-mobile) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+
+    @include respond(med-mobile) {
+      .org-display-item-container {
+        width: 190px;
+      }
+    }
+  }
 
   &__content {
     width: 100%;
     margin-right: auto;
     margin-left: 1.5rem;
+
+    @include respond(med-mobile) {
+      width: 20rem;
+      margin-right: 0;
+      margin-left: 0;
+    }
   }
 }
 
@@ -23,10 +43,43 @@
   flex-direction: row;
   justify-content: center;
 
+  @include respond(small-desktop) {
+    width: 62.75rem;
+  }
+
+  @include respond(med-tab) {
+    width: 63rem;
+  }
+
+  @include respond(med-mobile) {
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+
+    .pet-display-item-container,
+    .pet-display-item-container--skeleton {
+      width: 20rem;
+    }
+  }
+
   &--featured {
     margin-top: 2rem;
     display: flex;
     justify-content: center;
+
+    @include respond(med-mobile) {
+      flex-direction: column;
+      flex-wrap: wrap;
+      width: 49.125rem;
+      justify-content: center;
+      align-items: center;
+
+      .pet-display-item-container {
+        width: 41.25rem;
+      }
+    }
 
     &__content {
       width: 80rem;
@@ -34,6 +87,12 @@
       flex-wrap: wrap;
       margin-right: -1.2rem;
       justify-content: center;
+
+      @include respond(med-mobile) {
+        margin-left: auto;
+        margin-right: auto;
+        width: 20rem;
+      }
     }
   }
 
@@ -43,31 +102,57 @@
     flex-wrap: wrap;
     margin-right: auto;
     margin-left: 1.5rem;
+
+    @include respond(med-mobile) {
+      width: 20rem;
+      margin-right: 0;
+      margin-left: 0;
+    }
   }
 }
 
 .display-item {
   margin: 0 auto;
   margin-bottom: 1.2rem;
+  transition: all 0.2s;
+  box-shadow: 0 4px 8px 1px darkgrey;
 
   &:hover {
     cursor: pointer;
-    background-color: $color-lighter-grey;
+    transform: translateY(-0.5rem);
+    box-shadow: 0 8px 18px 3px darkgrey;
   }
 
   &__name {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     margin: 0.6rem;
+
+    @include respond(med-tab) {
+      max-height: 184px;
+      overflow: hidden;
+    }
   }
 
   &--pet {
     @extend .display-item;
     height: 30rem;
     width: 20rem;
-    border: 3px solid #0f5797;
+    border: 0.1875rem solid #0f5797;
     border-radius: 10px;
     margin-right: 1.2rem;
     margin-left: 0;
+
+    @include respond(med-tab) {
+      height: 29rem;
+    }
+
+    @include respond(small-desktop) {
+      border: 2px solid $color-blue;
+    }
+
+    @include respond(med-mobile) {
+      margin-right: 0;
+    }
 
     &__content {
       display: flex;
@@ -82,9 +167,22 @@
     @extend .display-item;
     height: 28rem;
     width: 44rem;
-    border: 3px solid #0f5797;
+    border: 0.1875rem solid #0f5797;
     border-radius: 10px;
     margin-left: 0;
+
+    @include respond(small-desktop) {
+      border: 2px solid $color-blue;
+    }
+
+    @include respond(med-mobile) {
+      @extend .display-item;
+      height: 30rem;
+      width: 190px;
+      border-radius: 10px;
+      margin-right: 0;
+      margin-left: 0;
+    }
 
     &__content {
       display: flex;
@@ -92,6 +190,10 @@
       margin: 0 auto;
       height: 80%;
       width: 90%;
+
+      @include respond(med-mobile) {
+        flex-direction: column;
+      }
 
       .info-container {
         height: 16rem;
@@ -134,6 +236,12 @@
   border: none;
   color: $color-light-grey;
 
+  @include respond(med-tab) {
+    width: 16px;
+    height: 16px;
+    font-size: 18px;
+  }
+
   &:hover {
     color: $color-yellow;
     cursor: pointer;
@@ -146,27 +254,4 @@
   cursor: pointer;
   text-shadow: black 0px 0px 1px;
   color: $color-yellow;
-}
-
-.no-data-message-container {
-  height: 25rem;
-  display: flex;
-  justify-content: center;
-  padding: 1.875rem;
-
-  p {
-    color: $color-red;
-  }
-}
-
-.text-container {
-  display: flex;
-  flex-direction: column;
-  width: 75rem;
-  justify-self: center;
-  align-self: center;
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
-  justify-content: center;
-  align-content: center;
 }

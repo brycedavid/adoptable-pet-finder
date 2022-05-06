@@ -2,7 +2,7 @@
 // This component acts as the PetDisplay container, which renders one PetDisplayItem.js per pet as child components. It also handles making the
 // request to Petfinder API for pet data using the custom useApi hook.
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ReactDOM from "react-dom";
@@ -30,6 +30,8 @@ const PetDisplay = (props) => {
   });
   const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
+  const [isSmallDesktopViewport, setIsSmallDesktopViewport] = useState(false);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -121,6 +123,39 @@ const PetDisplay = (props) => {
     }
   }
 
+  // Track whether or not the viewport width is <= 550. If so, set isMobileViewport to true. If not, set isMobileViewport
+  // to false.
+  useEffect(() => {
+    if (window.innerWidth <= 550) {
+      setIsMobileViewport(true);
+    } else {
+      setIsMobileViewport(false);
+    }
+
+    if (window.innerWidth <= 1060) {
+      setIsSmallDesktopViewport(true);
+    } else {
+      setIsSmallDesktopViewport(false);
+    }
+
+    const updateMedia = () => {
+      if (window.innerWidth <= 550) {
+        setIsMobileViewport(true);
+      } else {
+        setIsMobileViewport(false);
+      }
+
+      if (window.innerWidth <= 1060) {
+        setIsSmallDesktopViewport(true);
+      } else {
+        setIsSmallDesktopViewport(false);
+      }
+    };
+
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  }, []);
+
   const showMoreHandler = () => {
     let { data: prevData, itemsToShow: prevItemsToShow } = parsedData;
     let showButton = true;
@@ -152,12 +187,20 @@ const PetDisplay = (props) => {
 
   if (!isLoading && data !== null) {
     toRender = (
-      <React.Fragment>
+      <div
+        className={
+          parsedData.data.length > 0
+            ? "pet-display-item-container"
+            : "no-data-message-container"
+        }
+      >
         <div
           className={
-            !props.featuredPets
-              ? "pet-display-container__content"
-              : "pet-display-container--featured__content"
+            parsedData.data.length > 0
+              ? !props.featuredPets
+                ? "pet-display-container__content"
+                : "pet-display-container--featured__content"
+              : "no-data-message-container__message"
           }
         >
           {parsedData.data.length > 0 ? (
@@ -181,30 +224,25 @@ const PetDisplay = (props) => {
                 />
               ))
           ) : (
-            <div className="no-data-message-container">
-              <p>No pets found.</p>
-            </div>
+            <p>No pets found.</p>
           )}
         </div>
         <div className="btn-container-bottom">
           {parsedData.showButton && (
-            <button
-              className="btn--alt btn--display-item"
-              onClick={showMoreHandler}
-            >
+            <button className="btn--alt btn--large" onClick={showMoreHandler}>
               Show More Pets
             </button>
           )}
           {history.location.pathname === "/adoptable-pets" && (
             <button
-              className="btn--main btn--display-item"
+              className="btn--main btn--large"
               onClick={browseOrganizationsHandler}
             >
               Browse Adoption Centers
             </button>
           )}
         </div>
-      </React.Fragment>
+      </div>
     );
   } else if (requestError) {
     toRender = (
@@ -219,13 +257,19 @@ const PetDisplay = (props) => {
     let skeletonArray = [];
 
     if (history.location.pathname === "/adoptable-pets") {
-      skeletonArray = [0, 0, 0];
+      if (isSmallDesktopViewport && !isMobileViewport) {
+        skeletonArray = [0, 0, 0, 0];
+      } else if (isMobileViewport) {
+        skeletonArray = [0, 0];
+      } else {
+        skeletonArray = [0, 0, 0];
+      }
     } else {
       skeletonArray = [0, 0, 0, 0, 0, 0, 0, 0];
     }
 
     toRender = (
-      <React.Fragment>
+      <div className="pet-display-item-container--skeleton">
         {ReactDOM.createPortal(
           <Backdrop class="backdrop-clear" />,
           document.getElementById("backdrop-root")
@@ -264,7 +308,7 @@ const PetDisplay = (props) => {
         <div className="btn-container-bottom">
           {history.location.pathname === "/adoptable-pets" && (
             <button
-              className="btn--alt btn--display-item disabled"
+              className="btn--alt btn--large disabled"
               onClick={showMoreHandler}
             >
               Show More Pets
@@ -272,14 +316,14 @@ const PetDisplay = (props) => {
           )}
           {history.location.pathname === "/adoptable-pets" && (
             <button
-              className="btn--main btn--display-item disabled"
+              className="btn--main btn--large disabled"
               onClick={browseOrganizationsHandler}
             >
               Browse Adoption Centers
             </button>
           )}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 
@@ -293,10 +337,22 @@ const PetDisplay = (props) => {
     >
       {!props.featuredPets && (
         <div className="filter-container sticky">
-          <PetFilter setPageFilter={setFilterHandler} />
+          {isMobileViewport ? (
+            <PetFilter setPageFilter={setFilterHandler} mobileVersion={true} />
+          ) : (
+            <PetFilter setPageFilter={setFilterHandler} mobileVersion={false} />
+          )}
         </div>
       )}
-      <div>{toRender}</div>
+      {!props.featuredPets && isMobileViewport && (
+        <React.Fragment>
+          <h1 className="heading--large">Adoptable Pets</h1>
+          <h2 className="heading--medium">Search for an adoptable pet!</h2>
+          <br />
+          <br />
+        </React.Fragment>
+      )}
+      {toRender}
     </div>
   );
 };

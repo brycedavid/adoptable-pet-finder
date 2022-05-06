@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import isEqual from "react-fast-compare";
 
 import useFirebase from "../../hooks/useFirebase";
+import xImg from "../../shared/images/x.png";
 
 // Our client object, which is required to make API requests to the Petfinder API
 let petFinderClient = null;
@@ -128,76 +129,167 @@ const PetFilter = (props) => {
     setDuplicateFilter(true);
   }
 
-  return (
-    <form onSubmit={formSubmitHandler} className="filter-form sticky">
-      <label>Pet type</label>
-      <select
-        className="filter-form__input"
-        id="type-select"
-        value={petFilter.type}
-        onChange={changeTypeHandler}
-      >
-        <option value="any">All</option>
-        <option value="cat">Cats</option>
-        <option value="dog">Dogs</option>
-      </select>
-      <label>Breed</label>
-      <select
-        className="filter-form__input"
-        id="breed-select"
-        value={petFilter.breed}
-        onChange={changeBreedHandler}
-      >
-        <option value="any">All</option>
-        {breeds.map((breed) => (
-          <option value={breed.name} key={breed.name}>
-            {breed.name}
-          </option>
-        ))}
-      </select>
-      <label>Gender</label>
-      <select
-        className="filter-form__input"
-        id="gender-select"
-        value={petFilter.gender}
-        onChange={changeGenderHandler}
-      >
-        <option value="any">All</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-      <label>Age</label>
-      <select
-        className="filter-form__input"
-        id="age-select"
-        value={petFilter.age}
-        onChange={changeAgeHandler}
-      >
-        <option value="any">All</option>
-        <option value="baby">Baby</option>
-        <option value="young">Young</option>
-        <option vlue="adult">Adult</option>
-        <option value="senior">Senior</option>
-      </select>
-      <label>Location</label>
-      <input
-        className="filter-form__input"
-        id="zip-input"
-        placeholder="zip code"
-        onChange={changeZipHandler}
-        onKeyUp={changeZipHandler}
-        value={petFilter.location ? petFilter.location : ""}
-        maxLength="5"
-      />
-      <button
-        type="submit"
-        className={formIsValid ? "btn--alt" : "btn--alt disabled"}
-        disabled={!formIsValid}
-      >
-        Search
-      </button>
-    </form>
-  );
+  if (props.mobileVersion) {
+    return (
+      <div className="filter-form--mobile">
+        <input
+          type="checkbox"
+          className="filter-form--mobile__checkbox"
+          id="filter-toggle"
+        />
+        <label for="filter-toggle" className="filter-form--mobile__collapse">
+          &#9587;
+        </label>
+        <label for="filter-toggle" className="filter-form--mobile__expand">
+          <span className="filter-form--mobile__icon">
+            Filter Results &#9660;
+          </span>
+        </label>
+        <form
+          onSubmit={formSubmitHandler}
+          className="filter-form--mobile__form"
+        >
+          <label>Pet type</label>
+          <select
+            className="filter-form__input"
+            id="type-select"
+            value={petFilter.type}
+            onChange={changeTypeHandler}
+          >
+            <option value="any">All</option>
+            <option value="cat">Cats</option>
+            <option value="dog">Dogs</option>
+          </select>
+          <label>Breed</label>
+          <select
+            className="filter-form__input"
+            id="breed-select"
+            value={petFilter.breed}
+            onChange={changeBreedHandler}
+          >
+            <option value="any">All</option>
+            {breeds.map((breed) => (
+              <option value={breed.name} key={breed.name}>
+                {breed.name}
+              </option>
+            ))}
+          </select>
+          <label>Gender</label>
+          <select
+            className="filter-form__input"
+            id="gender-select"
+            value={petFilter.gender}
+            onChange={changeGenderHandler}
+          >
+            <option value="any">All</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+          <label>Age</label>
+          <select
+            className="filter-form__input"
+            id="age-select"
+            value={petFilter.age}
+            onChange={changeAgeHandler}
+          >
+            <option value="any">All</option>
+            <option value="baby">Baby</option>
+            <option value="young">Young</option>
+            <option vlue="adult">Adult</option>
+            <option value="senior">Senior</option>
+          </select>
+          <label>Location</label>
+          <input
+            className="filter-form__input"
+            id="zip-input"
+            placeholder="zip code"
+            onChange={changeZipHandler}
+            onKeyUp={changeZipHandler}
+            value={petFilter.location ? petFilter.location : ""}
+            maxLength="5"
+          />
+          <button
+            type="submit"
+            className={formIsValid ? "btn--alt" : "btn--alt disabled"}
+            disabled={!formIsValid}
+          >
+            Search
+          </button>
+        </form>
+      </div>
+    );
+  } else {
+    return (
+      <form onSubmit={formSubmitHandler} className="filter-form sticky">
+        <label>Pet type</label>
+        <select
+          className="filter-form__input"
+          id="type-select"
+          value={petFilter.type}
+          onChange={changeTypeHandler}
+        >
+          <option value="any">All</option>
+          <option value="cat">Cats</option>
+          <option value="dog">Dogs</option>
+        </select>
+        <label>Breed</label>
+        <select
+          className="filter-form__input"
+          id="breed-select"
+          value={petFilter.breed}
+          onChange={changeBreedHandler}
+        >
+          <option value="any">All</option>
+          {breeds.map((breed) => (
+            <option value={breed.name} key={breed.name}>
+              {breed.name}
+            </option>
+          ))}
+        </select>
+        <label>Gender</label>
+        <select
+          className="filter-form__input"
+          id="gender-select"
+          value={petFilter.gender}
+          onChange={changeGenderHandler}
+        >
+          <option value="any">All</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+        <label>Age</label>
+        <select
+          className="filter-form__input"
+          id="age-select"
+          value={petFilter.age}
+          onChange={changeAgeHandler}
+        >
+          <option value="any">All</option>
+          <option value="baby">Baby</option>
+          <option value="young">Young</option>
+          <option vlue="adult">Adult</option>
+          <option value="senior">Senior</option>
+        </select>
+        <label>Location</label>
+        <input
+          className="filter-form__input"
+          id="zip-input"
+          placeholder="zip code"
+          onChange={changeZipHandler}
+          onKeyUp={changeZipHandler}
+          value={petFilter.location ? petFilter.location : ""}
+          maxLength="5"
+        />
+        <button
+          type="submit"
+          className={formIsValid ? "btn--alt" : "btn--alt disabled"}
+          disabled={!formIsValid}
+        >
+          Search
+        </button>
+      </form>
+    );
+  }
 };
 
 export default PetFilter;

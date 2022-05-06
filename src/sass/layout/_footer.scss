@@ -25,6 +25,10 @@
   p {
     font-size: 1rem;
     color: white;
+
+    @include respond(small-tab) {
+      font-size: 10px;
+    }
   }
 
   button {
@@ -32,6 +36,10 @@
     color: white;
     background-color: $color-red;
     border: none;
+
+    @include respond(small-tab) {
+      font-size: 10px;
+    }
 
     &:hover {
       cursor: pointer;

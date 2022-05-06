@@ -5,3 +5,61 @@
     clear: both;
   }
 }
+
+@mixin respond($breakpoint) {
+  // 1460px
+  @if $breakpoint == big-desktop {
+    @media (max-width: 91.25em) {
+      @content;
+    }
+  }
+
+  // 1280px
+  @if $breakpoint == med-desktop {
+    @media (max-width: 80em) {
+      @content;
+    }
+  }
+
+  // 1060px
+  @if $breakpoint == small-desktop {
+    @media (max-width: 66.25em) {
+      @content;
+    }
+  }
+
+  // 950px
+  @if $breakpoint == med-tab {
+    @media (max-width: 59.375em) {
+      @content;
+    }
+  }
+
+  // 720px
+  @if $breakpoint == small-tab {
+    @media (max-width: 45em) {
+      @content;
+    }
+  }
+
+  // 550px
+  @if $breakpoint == med-mobile {
+    @media (max-width: 34.375em) {
+      @content;
+    }
+  }
+
+  // 400px
+  @if $breakpoint == small-mobile {
+    @media (max-width: 25em) {
+      @content;
+    }
+  }
+
+  // 345px
+  @if $breakpoint == x-small-mobile {
+    @media (max-width: 21.5625em) {
+      @content;
+    }
+  }
+}

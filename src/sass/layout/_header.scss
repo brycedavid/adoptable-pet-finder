@@ -9,9 +9,32 @@
   height: 9.0625rem;
   border-top: 1px black solid;
 
+  @include respond(med-mobile) {
+    flex-direction: column;
+    height: 21rem;
+    border-top: none;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    background-color: $color-lightest-grey;
+  }
+
+  @include respond(x-small-mobile) {
+    height: 23rem;
+  }
+
   &__profile-container {
     display: flex;
     margin-right: 8.75rem;
+
+    @include respond(small-tab) {
+      margin-right: 16px;
+    }
+
+    @include respond(med-mobile) {
+      margin-left: auto;
+      margin-right: auto;
+      flex-direction: column-reverse;
+    }
   }
 
   &__title-container {
@@ -19,6 +42,25 @@
     justify-content: center;
     align-content: center;
     margin-left: 8.75rem;
+
+    @include respond(small-tab) {
+      margin-left: 16px;
+    }
+
+    @include respond(med-mobile) {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @include respond(x-small-mobile) {
+      .heading--small {
+        width: 160px;
+      }
+
+      .welcome-text {
+        margin-left: -30px;
+      }
+    }
   }
 
   &__btn-container {
@@ -26,6 +68,12 @@
     display: flex;
     flex-direction: row;
     margin-right: 1.875rem;
+
+    @include respond(med-mobile) {
+      margin-top: 0.8rem;
+      margin-bottom: 0.8rem;
+      margin-right: 0;
+    }
 
     &-bottom {
       display: flex;
@@ -44,6 +92,20 @@
     border-radius: 50%;
     justify-self: flex-end;
     align-self: center;
+
+    @include respond(small-tab) {
+      min-width: 34.5px;
+      min-height: 34.2px;
+
+      img {
+        min-width: 32.25px;
+        min-height: 32.25px;
+      }
+    }
+
+    @include respond(med-mobile) {
+      margin-top: 0.8rem;
+    }
 
     img {
       width: 3.625rem;

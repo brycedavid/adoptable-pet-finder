@@ -10,6 +10,22 @@
 
 html {
   font-size: 16px;
+
+  @include respond(big-desktop) {
+    font-size: 14px;
+  }
+
+  @include respond(med-desktop) {
+    font-size: 12px;
+  }
+
+  @include respond(med-tab) {
+    font-size: 10px;
+  }
+
+  @include respond(small-tab) {
+    font-size: 8px;
+  }
 }
 
 body {
@@ -30,30 +46,84 @@ a {
   margin: 0 0.5rem;
 }
 
+select,
+input {
+  font-size: 1rem;
+}
+
 .main-content {
   display: flex;
   flex-direction: column;
   align-content: center;
   justify-content: center;
   align-items: center;
-  min-height: 70vh;
 
   &__text-container {
     width: 80%;
   }
 
   &__search-container {
+    display: flex;
     width: 28rem;
     border: 3px solid $color-red;
     border-radius: 18px;
     padding: 0.75rem;
     margin-top: 2rem;
     box-shadow: 4px 4px 10px $color-dark-grey;
+    justify-content: center;
+
+    @include respond(small-desktop) {
+      border: 2px solid $color-red;
+    }
+
+    @include respond(med-tab) {
+      min-width: 261px;
+      min-height: 99.5px;
+    }
   }
 
   &__pawprint-img {
     width: 15rem;
     margin: 2.5rem;
+  }
+}
+
+.no-data-message-container {
+  display: flex;
+  flex-direction: column;
+  height: 40rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1.875rem;
+
+  &--org {
+    width: 45.5rem;
+    height: 100%;
+
+    &__message {
+      display: flex;
+      align-items: center;
+      height: 26.0625rem;
+
+      p {
+        width: 100%;
+        text-align: center;
+        color: $color-red;
+      }
+    }
+  }
+
+  &__message {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    p {
+      width: 100%;
+      text-align: center;
+      color: $color-red;
+    }
   }
 }
 

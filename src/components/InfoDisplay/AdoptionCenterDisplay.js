@@ -2,7 +2,7 @@
 // This component acts as the AdoptionCenterDisplay container, which renders one AdoptionCenterDisplayItem.js per organization as child components. It also handles making the
 // request to Petfinder API for organization data using the custom useApi hook.
 
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ReactDOM from "react-dom";
@@ -22,6 +22,7 @@ const AdoptionCenterDisplay = (props) => {
   const [resultsFilter, setResultsFilter] = useState({ location: "any" });
   const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -73,6 +74,27 @@ const AdoptionCenterDisplay = (props) => {
     dispatch({ type: "UPDATE_ORG_DATA", payload: data });
   }
 
+  // Track whether or not the viewport width is <= 550. If so, set isMobileViewport to true. If not, set isMobileViewport
+  // to false.
+  useEffect(() => {
+    if (window.innerWidth <= 550) {
+      setIsMobileViewport(true);
+    } else {
+      setIsMobileViewport(false);
+    }
+
+    const updateMedia = () => {
+      if (window.innerWidth <= 550) {
+        setIsMobileViewport(true);
+      } else {
+        setIsMobileViewport(false);
+      }
+    };
+
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  }, []);
+
   const showMoreHandler = () => {
     let { data: prevData, itemsToShow: prevItemsToShow } = parsedData;
     let showButton = true;
@@ -104,8 +126,20 @@ const AdoptionCenterDisplay = (props) => {
 
   if (!isLoading && parsedData !== null) {
     toRender = (
-      <Fragment>
-        <div className="org-display-container__content">
+      <div
+        className={
+          parsedData.data.length > 0
+            ? "org-display-item-container"
+            : "no-data-message-container--org"
+        }
+      >
+        <div
+          className={
+            parsedData.data.length > 0
+              ? "org-display-container__content"
+              : "no-data-message-container--org__message"
+          }
+        >
           {parsedData.data.length > 0 ? (
             parsedData.data
               .slice(0, parsedData.itemsToShow)
@@ -122,28 +156,20 @@ const AdoptionCenterDisplay = (props) => {
                 />
               ))
           ) : (
-            <div className="no-data-message-container">
-              <p>No adoption centers found.</p>
-            </div>
+            <p>No adoption centers found.</p>
           )}
         </div>
         <div className="btn-container-bottom">
           {parsedData.showButton && (
-            <button
-              className="btn--alt btn--display-item"
-              onClick={showMoreHandler}
-            >
+            <button className="btn--alt btn--large" onClick={showMoreHandler}>
               Show More
             </button>
           )}
-          <button
-            className="btn--main btn--display-item"
-            onClick={browsePetsHandler}
-          >
+          <button className="btn--main btn--large" onClick={browsePetsHandler}>
             Browse Adoptable Pets
           </button>
         </div>
-      </Fragment>
+      </div>
     );
   } else if (requestError) {
     toRender = (
@@ -157,7 +183,7 @@ const AdoptionCenterDisplay = (props) => {
   } else {
     const skeletonArray = [0];
     toRender = (
-      <React.Fragment>
+      <div className="org-display-item-container">
         {ReactDOM.createPortal(
           <Backdrop class="backdrop-clear" />,
           document.getElementById("backdrop-root")
@@ -189,26 +215,40 @@ const AdoptionCenterDisplay = (props) => {
           <span className="dot"></span>
         </div>
         <div className="btn-container-bottom">
-          <button className="btn--alt btn--display-item disabled">
-            Show More
-          </button>
-          <button className="btn--main btn--display-item disabled">
+          <button className="btn--alt btn--large disabled">Show More</button>
+          <button className="btn--main btn--large disabled">
             Browse Adoptable Pets
           </button>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 
   return (
-    <React.Fragment>
-      <div className="org-display-container">
-        <div className="filter-container sticky">
-          <OrganizationFilter setPageFilter={setFilterHandler} />
-        </div>
-        <div>{toRender}</div>
+    <div className="org-display-container">
+      <div className="filter-container sticky">
+        {isMobileViewport ? (
+          <OrganizationFilter
+            setPageFilter={setFilterHandler}
+            mobileVersion={true}
+          />
+        ) : (
+          <OrganizationFilter
+            setPageFilter={setFilterHandler}
+            mobileVersion={false}
+          />
+        )}
       </div>
-    </React.Fragment>
+      {!props.featuredPets && isMobileViewport && (
+        <React.Fragment>
+          <h1 className="heading--large">Adoption Centers</h1>
+          <h2 className="heading--medium">Search for an adoptable pet!</h2>
+          <br />
+          <br />
+        </React.Fragment>
+      )}
+      {toRender}
+    </div>
   );
 };
 
