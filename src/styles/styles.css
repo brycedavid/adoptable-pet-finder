@@ -64,6 +64,7 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
+  padding-bottom: 6.875rem;
 }
 .main-content__text-container {
   width: 80%;
@@ -240,6 +241,7 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
+  padding-bottom: 6.875rem;
 }
 .main-content__text-container {
   width: 80%;
@@ -844,6 +846,7 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
+  padding-bottom: 6.875rem;
 }
 .main-content__text-container {
   width: 80%;
@@ -1359,6 +1362,7 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
+  padding-bottom: 6.875rem;
 }
 .main-content__text-container {
   width: 80%;
@@ -1557,6 +1561,7 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
+  padding-bottom: 6.875rem;
 }
 .main-content__text-container {
   width: 80%;
@@ -1754,6 +1759,7 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
+  padding-bottom: 6.875rem;
 }
 .main-content__text-container {
   width: 80%;
@@ -1842,7 +1848,9 @@ input {
   align-items: center;
   justify-content: space-evenly;
   background-color: #952923;
-  margin-top: 3.75rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 .footer-container__sponsor-info {
   width: 31.25rem;
@@ -2013,6 +2021,7 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
+  padding-bottom: 6.875rem;
 }
 .main-content__text-container {
   width: 80%;
@@ -2332,6 +2341,7 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
+  padding-bottom: 6.875rem;
 }
 .main-content__text-container {
   width: 80%;

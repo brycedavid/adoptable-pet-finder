@@ -7,7 +7,9 @@
   align-items: center;
   justify-content: space-evenly;
   background-color: $color-red;
-  margin-top: 3.75rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 
   &__sponsor-info {
     width: 31.25rem;
