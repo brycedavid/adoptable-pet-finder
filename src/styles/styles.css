@@ -64,7 +64,6 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
-  min-height: 70vh;
 }
 .main-content__text-container {
   width: 80%;
@@ -241,7 +240,6 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
-  min-height: 70vh;
 }
 .main-content__text-container {
   width: 80%;
@@ -846,7 +844,6 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
-  min-height: 70vh;
 }
 .main-content__text-container {
   width: 80%;
@@ -1362,7 +1359,6 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
-  min-height: 70vh;
 }
 .main-content__text-container {
   width: 80%;
@@ -1561,7 +1557,6 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
-  min-height: 70vh;
 }
 .main-content__text-container {
   width: 80%;
@@ -1759,7 +1754,6 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
-  min-height: 70vh;
 }
 .main-content__text-container {
   width: 80%;
@@ -2019,7 +2013,6 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
-  min-height: 70vh;
 }
 .main-content__text-container {
   width: 80%;
@@ -2218,6 +2211,12 @@ input {
 /*
   Classes associated with our Modal
 */
+.modal-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .modal {
   display: flex;
   flex-direction: column;
@@ -2225,7 +2224,6 @@ input {
   align-content: center;
   position: fixed;
   top: 30vh;
-  left: 28.6%;
   width: 40%;
   z-index: 6001;
   overflow: hidden;
@@ -2234,13 +2232,10 @@ input {
   border-radius: 20px;
   border: 1px solid black;
   padding: 1.875rem;
-  margin-left: auto;
-  margin-right: auto;
 }
 @media (max-width: 66.25em) {
   .modal {
     width: 60%;
-    left: 20%;
     margin-left: auto;
     margin-right: auto;
   }
@@ -2248,13 +2243,11 @@ input {
 @media (max-width: 34.375em) {
   .modal {
     width: 70%;
-    left: 15%;
   }
 }
 @media (max-width: 25em) {
   .modal {
     width: 80%;
-    left: 10%;
   }
 }
 .modal__x-container {
@@ -2339,7 +2332,6 @@ input {
   align-content: center;
   justify-content: center;
   align-items: center;
-  min-height: 70vh;
 }
 .main-content__text-container {
   width: 80%;

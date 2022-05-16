@@ -30,11 +30,13 @@ const ModalOverlay = (props) => {
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-        <div className="modal">
-          <div className="modal__x-container">
-            <img src={xImg} alt="x" onClick={closeModalHandler} />
+        <div className="modal-container">
+          <div className="modal">
+            <div className="modal__x-container">
+              <img src={xImg} alt="x" onClick={closeModalHandler} />
+            </div>
+            {form}
           </div>
-          {form}
         </div>,
         document.getElementById("overlay-root")
       )}
