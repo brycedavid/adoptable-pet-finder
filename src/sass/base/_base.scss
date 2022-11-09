@@ -9,6 +9,7 @@
 }
 
 html {
+  min-height: 100%;
   font-size: 16px;
 
   @include respond(big-desktop) {
@@ -55,8 +56,9 @@ input {
   display: flex;
   flex-direction: column;
   align-content: center;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  min-height: calc(100vh - 9.0625rem - 3.125rem);
 
   &__text-container {
     width: 80%;
@@ -69,6 +71,7 @@ input {
     border-radius: 18px;
     padding: 0.75rem;
     margin-top: 2rem;
+    margin-bottom: 4rem;
     box-shadow: 4px 4px 10px $color-dark-grey;
     justify-content: center;
 

@@ -256,4 +256,8 @@
   @include respond(med-mobile) {
     position: static;
   }
+
+  // @media screen and (max-height: 400px) {
+  //   position: static;
+  // }
 }
