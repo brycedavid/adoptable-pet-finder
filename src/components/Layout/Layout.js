@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/styles.css";
+import "../../sass/styles.css";
 
 const Layout = (props) => {
   return <React.Fragment>{props.children}</React.Fragment>;

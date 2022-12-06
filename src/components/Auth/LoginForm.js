@@ -198,7 +198,7 @@ const LoginForm = (props) => {
           </button>
         )}
       </form>
-      {requestError && <p className="error-message">{requestError}</p>}
+      {requestError && <p className="error-message__top">{requestError}</p>}
     </div>
   );
 };
