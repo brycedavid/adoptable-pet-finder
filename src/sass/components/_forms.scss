@@ -29,6 +29,7 @@
     border: 1px solid black;
     border-radius: 4px;
     margin: 1.2rem;
+    padding: 0.5rem;
   }
 }
 
@@ -246,6 +247,13 @@
   &__password {
     @extend .error-message;
     top: 16.75rem;
+  }
+
+  &__general {
+    @extend .error-message;
+    position: relative;
+    font-size: 0.8rem;
+    margin: 0.6rem;
   }
 }
 

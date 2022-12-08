@@ -600,7 +600,7 @@ body p {
     margin-top: 0;
   }
   .pet-display-container .pet-display-item-container,
-.pet-display-container .pet-display-item-container--skeleton {
+  .pet-display-container .pet-display-item-container--skeleton {
     width: 20rem;
   }
 }
@@ -962,6 +962,7 @@ input {
   border: 1px solid black;
   border-radius: 4px;
   margin: 1.2rem;
+  padding: 0.5rem;
 }
 
 .filter-container {
@@ -971,8 +972,6 @@ input {
 @media (max-width: 34.375em) {
   .filter-container {
     min-width: 100vw;
-    height: -webkit-fit-content;
-    height: -moz-fit-content;
     height: fit-content;
     margin-bottom: 2.5rem;
     border-bottom: 1px solid black;
@@ -1155,12 +1154,9 @@ input {
   background-color: rgb(255, 144, 144);
 }
 
-.error-message, .error-message__password, .error-message__email, .error-message__top {
+.error-message, .error-message__general, .error-message__password, .error-message__email {
   color: #952923;
   position: absolute;
-}
-.error-message__top {
-  font-size: 0.8rem;
 }
 .error-message__email {
   top: 12.375rem;
@@ -1168,9 +1164,13 @@ input {
 .error-message__password {
   top: 16.75rem;
 }
+.error-message__general {
+  position: relative;
+  font-size: 0.8rem;
+  margin: 0.6rem;
+}
 
 .sticky {
-  position: -webkit-sticky;
   position: sticky;
   top: 2vh;
 }
@@ -1216,8 +1216,7 @@ input {
 }
 .image-container--org img {
   width: 16rem;
-  -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
 }
 .image-container--pet {
   display: flex;
@@ -1244,8 +1243,6 @@ input {
 .image-container--large, .image-container--large-org {
   display: flex;
   justify-content: center;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
   height: fit-content;
   max-height: 37.5rem;
   width: auto;
@@ -1281,8 +1278,6 @@ input {
   }
 }
 .image-container--large img, .image-container--large-org img {
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
   height: fit-content;
   max-height: 37.5rem;
   width: auto;
@@ -2166,8 +2161,6 @@ input {
   }
 }
 .header__title-container {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   justify-content: center;
   align-content: center;
@@ -2665,8 +2658,6 @@ input {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
   height: fit-content;
   min-height: 38.75rem;
   margin-top: 1.75rem;
@@ -2685,8 +2676,6 @@ input {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
   height: fit-content;
   min-height: 36.25rem;
   margin-top: 1.75rem;
@@ -2728,4 +2717,6 @@ input {
     border-bottom: 2px solid #952923;
     display: block;
   }
-}/*# sourceMappingURL=styles.css.map */
+}
+
+/*# sourceMappingURL=styles.css.map */

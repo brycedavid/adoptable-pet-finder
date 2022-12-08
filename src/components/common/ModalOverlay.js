@@ -2,22 +2,10 @@ import ReactDOM from "react-dom";
 import { Fragment, useState } from "react";
 
 import Backdrop from "./Backdrop";
-import SignupForm from "../Auth/SignupForm";
-import LoginForm from "../Auth/LoginForm";
+import AuthForm from "../Auth/AuthForm";
 import xImg from "../../shared/images/x.png";
 
 const ModalOverlay = (props) => {
-  let form = null;
-
-  if (props.modalType === "login") {
-    form = (
-      <LoginForm onLogin={props.closeModal} closeModal={props.closeModal} />
-    );
-  } else if (props.modalType === "signup") {
-    form = (
-      <SignupForm onSignup={props.closeModal} closeModal={props.closeModal} />
-    );
-  }
 
   const closeModalHandler = () => {
     props.closeModal();
@@ -35,7 +23,7 @@ const ModalOverlay = (props) => {
             <div className="modal__x-container">
               <img src={xImg} alt="x" onClick={closeModalHandler} />
             </div>
-            {form}
+            <AuthForm type={props.modalType} onSubmit={props.closeModal} closeModal={props.closeModal} />
           </div>
         </div>,
         document.getElementById("overlay-root")

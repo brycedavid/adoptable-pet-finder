@@ -12,7 +12,7 @@ import usePetfinderApi from "../../hooks/usePetfinderApi";
 import PetFilter from "../ResultsFilter/PetFilter";
 import PetDisplaySkeleton from "./PetDisplaySkeleton";
 import DisplayErrorMessage from "./DisplayErrorMessage";
-import { determineSendRequest, determineShowButton, dispatchData } from "../../shared/utils/displayHelpers";
+import { determineSendPetRequest, determineShowPetButton, dispatchData } from "../../shared/utils/displayHelpers";
 
 const PetDisplay = (props) => {
   const petRequestSent = useSelector((state) => state.petRequestSent);
@@ -37,7 +37,7 @@ const PetDisplay = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  let sendRequest = determineSendRequest(requestError, resultsFilter, petRequestSent, props.featuredPets, homeRequestSent);
+  let sendRequest = determineSendPetRequest(requestError, resultsFilter, petRequestSent, props.featuredPets, homeRequestSent);
 
   const requestErrorHandler = useCallback((error) => {
     setRequestError(error);
@@ -73,7 +73,7 @@ const PetDisplay = (props) => {
   }
 
   if (data !== null && data !== prevData) {
-    let showButton = determineShowButton(data, props.featuredPets);
+    let showButton = determineShowPetButton(data, props.featuredPets);
 
     setIsLoading(false);
     setPrevData(data);

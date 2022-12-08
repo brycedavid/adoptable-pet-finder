@@ -1,5 +1,6 @@
 import dogPlaceholderImg from "../images/dog-placeholder-tall.svg";
 import catPlaceholderImg from "../images/cat-placeholder-tall.svg";
+import organizationPlaceholderImg from "../../shared/images/organization_placeholder.jpg";
 
 import isEqual from "react-fast-compare";
 
@@ -76,6 +77,20 @@ export const determinePetImage = (pictures, name, type) => {
     } else {
       photoElement = <img src={catPlaceholderImg} alt={`${name}`} />;
     }
+  }
+
+  return photoElement;
+}
+
+export const determineOrgImage = (pictures, name) => {
+  let photoElement = null;
+
+  if (pictures.length !== 0) {
+    photoElement = <img src={pictures[0].full} alt={`${name}`} />;
+  } else {
+    photoElement = (
+      <img src={organizationPlaceholderImg} alt={`${name}`} />
+    );
   }
 
   return photoElement;

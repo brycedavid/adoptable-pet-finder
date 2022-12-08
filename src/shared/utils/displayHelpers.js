@@ -1,6 +1,6 @@
 import isEqual from "react-fast-compare";
 
-export const determineSendRequest = (requestError, resultsFilter, petRequestSent, featuredPets, homeRequestSent) => {
+export const determineSendPetRequest = (requestError, resultsFilter, petRequestSent, featuredPets, homeRequestSent) => {
   let sendRequest = true;  
   
   // If there was a problem with a previous data request, don't send another
@@ -31,13 +31,37 @@ export const determineSendRequest = (requestError, resultsFilter, petRequestSent
   return sendRequest;
 }
 
-export const determineShowButton = (data, featuredPets) => {
+export const determineShowPetButton = (data, featuredPets) => {
   let showButton = true;
 
   if (data.length <= 12) {
     showButton = false;
   }
   if (featuredPets) {
+    showButton = false;
+  }
+
+  return showButton;
+}
+
+export const determineSendOrgRequest = (requestError, resultsFilter, orgRequestSent) => {
+  let sendRequest = true;
+
+  if(requestError) {
+    sendRequest = false;
+  }
+
+  if (isEqual(resultsFilter, { location: "any" }) && orgRequestSent) {
+    sendRequest = false;
+  }
+
+  return sendRequest;
+}
+
+export const determineShowOrgButton = (data) => {
+  let showButton = true;
+
+  if (data.length <= 15) {
     showButton = false;
   }
 

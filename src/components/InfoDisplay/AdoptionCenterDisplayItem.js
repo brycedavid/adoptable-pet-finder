@@ -3,20 +3,12 @@
 // which was returned from the Petfinder API in AdoptionCenterDisplay.js.
 
 import { useHistory } from "react-router";
-import organizationPlaceholderImg from "../../shared/images/organization_placeholder.jpg";
+import { determineOrgImage } from "../../shared/utils/displayItemHelpers";
 
 const AdoptionCenterDisplayItem = (props) => {
   const history = useHistory();
 
-  let photoElement = null;
-
-  if (props.pictures.length !== 0) {
-    photoElement = <img src={props.pictures[0].full} alt={`${props.name}`} />;
-  } else {
-    photoElement = (
-      <img src={organizationPlaceholderImg} alt={`${props.name}`} />
-    );
-  }
+  let photoElement = determineOrgImage(props.pictures, props.name);
 
   const itemClickHandler = () => {
     history.push({ pathname: `/organizations/${props.id}`, state: props });
