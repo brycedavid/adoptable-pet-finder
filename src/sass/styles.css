@@ -1011,8 +1011,12 @@ input {
   height: 2rem;
   border: 1px solid black;
   border-radius: 4px;
-  margin: 1.2rem;
+  margin: 0.3rem;
   padding: 0.5rem;
+}
+
+.auth-button-container {
+  height: 3.125rem;
 }
 
 .filter-container {
@@ -1211,15 +1215,16 @@ input {
 
 .error-message, .error-message__general, .error-message__password, .error-message__email {
   color: #952923;
-  position: absolute;
+  position: relative;
 }
 .error-message__email {
-  top: 12.375rem;
+  height: 1.3rem;
 }
 .error-message__password {
-  top: 16.75rem;
+  height: 1.3rem;
 }
 .error-message__general {
+  height: 1.3rem;
   position: relative;
   font-size: 0.8rem;
   margin: 0.6rem;

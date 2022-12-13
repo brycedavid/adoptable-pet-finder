@@ -28,7 +28,7 @@ const AuthForm = (props) => {
     setIsLoading(true);
 
     await fetch(
-      props.type === "login" ? "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCT7FuvqHq8fPhrdZHpdqEUL87GJ7TpC_Q" : "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCT7FuvqHq8fPhrdZHpdqEUL87GJ7TpC_Q",
+      props.type == "login" ? "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCT7FuvqHq8fPhrdZHpdqEUL87GJ7TpC_Q" : "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCT7FuvqHq8fPhrdZHpdqEUL87GJ7TpC_Q",
       {
         method: "POST",
         body: JSON.stringify({
@@ -52,7 +52,7 @@ const AuthForm = (props) => {
             case "TOO_MANY_ATTEMPTS_TRY_LATER":
               throw new Error("Too many signup attempts... try again later");
             case "INVALID_EMAIL":
-              throw new Error("There is no account corresponding to the entered email; Try another email.");
+              throw new Error("The entered email is not valid; please use a valid email.");
             case "EMAIL_NOT_FOUND":
               throw new Error("There is no account corresponding to the entered email; Try another email.");
             case "INVALID_PASSWORD":
@@ -119,25 +119,27 @@ const AuthForm = (props) => {
 
   return (
     <div className="auth-form-container">
-      {requestError && <p className="error-message__general">{requestError}</p>}
       <form onSubmit={submitHandler} className="auth-form-container__form">
         <h2 className="heading--medium">
-          <b>Login</b>
+          <b>{props.type == "login" ? "Login" : "Signup"}</b>
         </h2>
         <section className="auth-input-container">
           <EmailInput setEmailValidity={setEmailValidity} setEmailHasChanged={setEmailHasChanged} setNewEmail={setNewEmail} />
           <PasswordInput setPasswordValidity={setPasswordValidity} setPasswordHasChanged={setPasswordHasChanged} setNewPassword={setNewPassword} />
         </section>
-        {isLoading && <LoadingIndicator />}
+        <section className="auth-button-container">
         {!isLoading && (
           <button
             disabled={!formIsValid}
-            className={formIsValid ? "btn--main" : "btn--main disabled"}
+            className={(formIsValid || isLoading) ? "btn--main btn--auth" : "btn--main disabled btn--auth"}
           >
-            Login
+            {props.type == "login" ? "Login" : "Signup"}
           </button>
         )}
+        {isLoading && <LoadingIndicator />}
+        </section>
       </form>
+      {<p className="error-message__general">{requestError ? requestError : ""}</p>}
     </div>
   );
 };

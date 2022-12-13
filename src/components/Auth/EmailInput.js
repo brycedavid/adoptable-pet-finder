@@ -51,9 +51,7 @@ const EmailInput = (props) => {
             : "auth-input-container__input"
         }
       />
-      {emailInputError && emailTouched && (
-        <p className="error-message__email">{emailInputError}</p>
-      )}
+      <p className="error-message__email">{(emailInputError && emailTouched) ? emailInputError : ""}</p>
     </Fragment>
   );
 };

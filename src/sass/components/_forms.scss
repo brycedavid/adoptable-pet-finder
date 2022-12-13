@@ -28,9 +28,13 @@
     height: 2rem;
     border: 1px solid black;
     border-radius: 4px;
-    margin: 1.2rem;
+    margin: .3rem;
     padding: 0.5rem;
   }
+}
+
+.auth-button-container {
+  height: 3.125rem;
 }
 
 .filter-container {
@@ -241,20 +245,21 @@
 
 .error-message {
   color: $color-red;
-  position: absolute;
+  position: relative;
 
   &__email {
     @extend .error-message;
-    top: 12.375rem;
+    height: 1.3rem;
   }
 
   &__password {
     @extend .error-message;
-    top: 16.75rem;
+    height: 1.3rem;
   }
 
   &__general {
     @extend .error-message;
+    height: 1.3rem;
     position: relative;
     font-size: 0.8rem;
     margin: 0.6rem;

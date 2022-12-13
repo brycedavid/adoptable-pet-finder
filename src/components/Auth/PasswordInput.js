@@ -47,9 +47,7 @@ const PasswordInput = (props) => {
                 : "auth-input-container__input"
             }
           />
-          {passwordInputError && passwordTouched && (
-            <p className="error-message__password">{passwordInputError}</p>
-          )}
+          <p className="error-message__password">{(passwordInputError && passwordTouched) ? passwordInputError : ""}</p>
       </Fragment>
     );
 }
