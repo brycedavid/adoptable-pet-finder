@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import isEqual from "react-fast-compare";
 
 import useFirebase from "../../hooks/useFirebase";
-import xImg from "../../shared/images/x.png";
 
 // Our client object, which is required to make API requests to the Petfinder API
 let petFinderClient = null;

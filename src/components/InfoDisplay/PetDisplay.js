@@ -31,7 +31,6 @@ const PetDisplay = (props) => {
   });
   const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
-  const [isSmallDesktopViewport, setIsSmallDesktopViewport] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
 
   const history = useHistory();
@@ -97,17 +96,17 @@ const PetDisplay = (props) => {
   // Track whether or not the viewport width is <= 550. If so, set isMobileViewport to true. If not, set isMobileViewport
   // to false.
   useEffect(() => {
+    if (window.innerWidth <= 550) {
+      setIsMobileViewport(true);
+    } else {
+      setIsMobileViewport(false);
+    }
+
     const updateMedia = () => {
       if (window.innerWidth <= 550) {
         setIsMobileViewport(true);
       } else {
         setIsMobileViewport(false);
-      }
-
-      if (window.innerWidth <= 1060) {
-        setIsSmallDesktopViewport(true);
-      } else {
-        setIsSmallDesktopViewport(false);
       }
     };
 
@@ -146,13 +145,13 @@ const PetDisplay = (props) => {
 
   let toRender;
 
-  if (!isLoading && data !== null) {
-    toRender = <PetDisplayItemContainer featuredPets={props.featuredPets} browseOrganizationsHandler={browseOrganizationsHandler} showMoreHandler={showMoreHandler} parsedData={parsedData} resultsFilter={resultsFilter} />;
-  } else if (requestError) {
-    toRender = <DisplayErrorMessage message={"Something went wrong with your request. Please check your search values and try again."} />;
-  } else {
-    toRender = <PetDisplaySkeleton isSmallDesktopViewport={isSmallDesktopViewport} isMobileViewport={isMobileViewport} showMoreHandler={showMoreHandler} browseOrganizationsHandler={browseOrganizationsHandler} featuredPets={props.featuredPets} />;
-  }
+  // if (!isLoading && data !== null) {
+  //   toRender = <PetDisplayItemContainer featuredPets={props.featuredPets} browseOrganizationsHandler={browseOrganizationsHandler} showMoreHandler={showMoreHandler} parsedData={parsedData} resultsFilter={resultsFilter} />;
+  // } else if (requestError) {
+  //   toRender = <DisplayErrorMessage message={"Something went wrong with your request. Please check your search values and try again."} />;
+  // } else {
+    toRender = <PetDisplaySkeleton showMoreHandler={showMoreHandler} browseOrganizationsHandler={browseOrganizationsHandler} featuredPets={props.featuredPets} />;
+  // }
 
   return (
     <div
