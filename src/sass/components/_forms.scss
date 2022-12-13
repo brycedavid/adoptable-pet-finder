@@ -103,6 +103,12 @@
     height: 2.5rem;
     border: 1px solid black;
     border-radius: 3px;
+    color: black !important;
+    padding-left: .3rem;
+
+    option {
+      color: black !important;
+    }
 
     @include respond(med-mobile) {
       width: 65%;

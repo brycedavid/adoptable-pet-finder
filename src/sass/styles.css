@@ -1090,6 +1090,11 @@ input {
   height: 2.5rem;
   border: 1px solid black;
   border-radius: 3px;
+  color: black !important;
+  padding-left: 0.3rem;
+}
+.filter-form__input option {
+  color: black !important;
 }
 @media (max-width: 34.375em) {
   .filter-form__input {
