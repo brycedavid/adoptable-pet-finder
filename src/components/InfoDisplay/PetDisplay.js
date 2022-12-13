@@ -145,13 +145,13 @@ const PetDisplay = (props) => {
 
   let toRender;
 
-  // if (!isLoading && data !== null) {
-  //   toRender = <PetDisplayItemContainer featuredPets={props.featuredPets} browseOrganizationsHandler={browseOrganizationsHandler} showMoreHandler={showMoreHandler} parsedData={parsedData} resultsFilter={resultsFilter} />;
-  // } else if (requestError) {
-  //   toRender = <DisplayErrorMessage message={"Something went wrong with your request. Please check your search values and try again."} />;
-  // } else {
+  if (!isLoading && data !== null) {
+    toRender = <PetDisplayItemContainer featuredPets={props.featuredPets} browseOrganizationsHandler={browseOrganizationsHandler} showMoreHandler={showMoreHandler} parsedData={parsedData} resultsFilter={resultsFilter} />;
+  } else if (requestError) {
+    toRender = <DisplayErrorMessage message={"Something went wrong with your request. Please check your search values and try again."} />;
+  } else {
     toRender = <PetDisplaySkeleton showMoreHandler={showMoreHandler} browseOrganizationsHandler={browseOrganizationsHandler} featuredPets={props.featuredPets} />;
-  // }
+  }
 
   return (
     <div
