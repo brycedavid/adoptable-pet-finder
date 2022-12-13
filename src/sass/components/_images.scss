@@ -26,8 +26,8 @@
 
   &--org {
     @extend .image-container;
-    width: 28rem;
-    height: 20rem;
+    width: 26rem;
+    height: 18rem;
     margin-left: 0;
 
     @include respond(med-mobile) {

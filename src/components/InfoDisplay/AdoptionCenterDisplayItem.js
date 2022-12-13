@@ -6,6 +6,8 @@ import React, {useState} from "react";
 import { useHistory } from "react-router";
 import { determineOrgImage } from "../../shared/utils/displayItemHelpers";
 
+import rotateImg from "../../shared/images/rotate-img.svg";
+
 const AdoptionCenterDisplayItem = (props) => {
   const [cardFlipped, setCardFlipped] = useState(false);
 
@@ -36,6 +38,7 @@ const AdoptionCenterDisplayItem = (props) => {
       <h2 className="display-item__name">{props.name}</h2>
       <section className="display-item--org__content">
         <div className="image-container--org">{photoElement}</div>
+        <img src={rotateImg} className="display-item-rotate-img" />
       </section>
       </div>
       <div className="display-item__face display-item__face--back">
