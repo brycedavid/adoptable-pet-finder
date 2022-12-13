@@ -78,7 +78,11 @@
 
   &--org {
     @extend .filter-form;
-    height: 13.5rem;
+    height: 14rem;
+
+    @include respond(small-desktop) {
+      height: 16rem;
+    }
 
     @include respond(med-mobile) {
       margin-left: auto;

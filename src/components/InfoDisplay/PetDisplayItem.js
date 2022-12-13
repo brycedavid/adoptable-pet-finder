@@ -3,15 +3,18 @@
 // which was returned from the Petfinder API in PetDisplay.js.
 
 import { useHistory } from "react-router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import useFirebase from "../../hooks/useFirebase";
 
 import AuthContext from "../../store/auth-context";
 import { setFixed, isMixedBreed, truncatePetName, determinePetImage, determineRequestType } from "../../shared/utils/displayItemHelpers";
 
+import rotateImg from "../../shared/images/rotate-img.svg";
+
 const PetDisplayItem = (props) => {
   const [favorite, setFavorite] = useState(false);
   const [removeFavorite, setRemoveFavorite] = useState(false);
+  const [cardFlipped, setCardFlipped] = useState(false);
 
   const authCtx = useContext(AuthContext);
   const history = useHistory();
@@ -63,10 +66,18 @@ const PetDisplayItem = (props) => {
 
   let petName = truncatePetName(props.name);
 
-  // Upon clicking a PetDisplayItem, open the URL associated with the pet in a new window
+  // Upon clicking a PetDisplayItem, flip the card
   const itemClickHandler = () => {
-    history.push({ pathname: `/pets/${props.id}`, state: props });
+    let flipped = cardFlipped;
+    setCardFlipped(!flipped);
   };
+
+  // Navigate to the details page for the selected pet
+  const viewDetailsHandler = (event) => {
+    event.stopPropagation();
+
+    history.push({ pathname: `/pets/${props.id}`, state: props });
+  }
 
   const setFavoriteHandler = (event) => {
     event.stopPropagation();
@@ -85,27 +96,29 @@ const PetDisplayItem = (props) => {
     }
   };
 
+  // Here, we need to refactor the card flip to be on hover instead of on click
+
   return (
     <React.Fragment>
-      <div
-        className={`display-item--pet ${!props.skeleton ? "" : "shine"}`}
-        onClick={!props.skeleton ? itemClickHandler : null}
-      >
-        <button
-          onClick={setFavoriteHandler}
-          className={`favorites-icon ${!favorite ? "" : "favorite"}`}
-          title={favorite ? "Unfavorite" : "Add to favorites"}
-        >
-          &#9733;
-        </button>
-
+    <div className={`display-item--pet ${!props.skeleton ? "" : "shine"} ${cardFlipped ? "display-item__flipped" : ""}`} onClick={!props.skeleton ? itemClickHandler : null}>
+      <div className="display-item__face">
         <div className="image-container--pet">{photoElement}</div>
         <h2 className="display-item__name">{petName}</h2>
-        <p>{`${props.gender}, ${props.age}`}</p>
-        <p>{breed}</p>
-        <p>{`Size: ${props.size}`}</p>
-        <p>{isFixed}</p>
+        <img src={rotateImg} className="display-item-rotate-img" />
       </div>
+      <div className="display-item__face display-item__face--back">
+        <section className="display-item__info-container">
+          <p className="item-info">{`${props.gender}, ${props.age}`}</p>
+          <p className="item-info">{breed}</p>
+          <p className="item-info">{props.size}</p>
+          <p className="item-info">{isFixed}</p>
+        </section>
+        <section className="display-item__btn-container">
+          <button className="btn--alt btn--display-item" onClick={viewDetailsHandler}>More Details</button>
+          <button className={`btn--main btn--display-item ${!authCtx.isLoggedIn && "disabled"}`} onClick={setFavoriteHandler} title={!authCtx.isLoggedIn && "Login to set favorites!"}>Set as favorite</button>
+        </section>
+      </div>
+    </div>
     </React.Fragment>
   );
 };

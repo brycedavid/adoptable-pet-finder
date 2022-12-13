@@ -97,6 +97,11 @@
       cursor: pointer;
     }
   }
+
+  &--display-item {
+    width: 10rem;
+    height: 3.4rem;
+  }
 }
 
 .disabled {
