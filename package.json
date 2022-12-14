@@ -27,7 +27,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sass": "sass --watch src/sass:src/sass"
+    "sass": "sass --watch src/sass:src/sass",
+    "prefix": "postcss src/sass/styles.css --use autoprefixer -d src/sass"
   },
   "eslintConfig": {
     "extends": [
@@ -35,17 +36,6 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": "last 4 versions",
   "devDependencies": {}
 }
