@@ -28,8 +28,6 @@
 
   &__content {
     width: fit-content;
-    // margin-right: auto;
-    margin-left: 1.5rem;
 
     @include respond(med-mobile) {
       margin-right: 0;

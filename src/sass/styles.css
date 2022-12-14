@@ -575,7 +575,6 @@ body p {
 }
 .org-display-container__content {
   width: fit-content;
-  margin-left: 1.5rem;
 }
 @media (max-width: 34.375em) {
   .org-display-container__content {
