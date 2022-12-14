@@ -36,7 +36,7 @@ const Navbar = () => {
       <div className="navbar--mobile">
         <input
           type="checkbox"
-          class="navbar--mobile__checkbox"
+          className="navbar--mobile__checkbox"
           id="navi-toggle"
           ref={ref}
         />

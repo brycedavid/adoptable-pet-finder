@@ -29,7 +29,7 @@ const Home = () => {
         <h1 className="heading--large">Featured Pets</h1>
         <h2 className="heading--medium">Browse our furry friends!</h2>
         {/* <Carousel /> */}
-        <PetDisplay limit={25} displayAmount={8} featuredPets={true} />
+        <PetDisplay limit={25} displayAmount={6} featuredPets={true} />
         <div className="main-content__text-container">
           <h3 className="heading--small">
             <b>

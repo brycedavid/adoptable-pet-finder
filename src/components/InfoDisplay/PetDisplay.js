@@ -5,13 +5,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import ReactDOM from "react-dom";
 import isEqual from "react-fast-compare";
 
-import PetDisplayItem from "./PetDisplayItem";
+import PetDisplayItemContainer from "./PetDisplayItemContainer";
 import usePetfinderApi from "../../hooks/usePetfinderApi";
 import PetFilter from "../ResultsFilter/PetFilter";
-import Backdrop from "../common/Backdrop";
+import PetDisplaySkeleton from "./PetDisplaySkeleton";
+import DisplayErrorMessage from "./DisplayErrorMessage";
+import { determineSendPetRequest, determineShowPetButton, dispatchData } from "../../shared/utils/displayHelpers";
 
 const PetDisplay = (props) => {
   const petRequestSent = useSelector((state) => state.petRequestSent);
@@ -30,43 +31,19 @@ const PetDisplay = (props) => {
   });
   const [prevData, setPrevData] = useState(null);
   const [requestError, setRequestError] = useState(null);
-  const [isSmallDesktopViewport, setIsSmallDesktopViewport] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
 
   const history = useHistory();
   const dispatch = useDispatch();
 
-  let sendRequest = true;
-  let data = null;
-
-  if (requestError) {
-    sendRequest = false;
-  }
+  let sendRequest = determineSendPetRequest(requestError, resultsFilter, petRequestSent, props.featuredPets, homeRequestSent);
 
   const requestErrorHandler = useCallback((error) => {
     setRequestError(error);
   }, []);
 
-  if (
-    isEqual(resultsFilter, {
-      type: "any",
-      breed: "any",
-      gender: "any",
-      age: "any",
-      location: "any",
-    }) &&
-    petRequestSent &&
-    !props.featuredPets
-  ) {
-    sendRequest = false;
-  }
-
-  if (props.featuredPets && homeRequestSent) {
-    sendRequest = false;
-  }
-
-  // Request pet data
-  data = usePetfinderApi({
+  // Request pet data if filter has changed
+  let data = usePetfinderApi({
     limit: props.limit,
     displayAmount: props.displayAmount,
     sendRequest,
@@ -95,14 +72,7 @@ const PetDisplay = (props) => {
   }
 
   if (data !== null && data !== prevData) {
-    let showButton = true;
-
-    if (data.length <= 12) {
-      showButton = false;
-    }
-    if (props.featuredPets) {
-      showButton = false;
-    }
+    let showButton = determineShowPetButton(data, props.featuredPets);
 
     setIsLoading(false);
     setPrevData(data);
@@ -132,23 +102,11 @@ const PetDisplay = (props) => {
       setIsMobileViewport(false);
     }
 
-    if (window.innerWidth <= 1060) {
-      setIsSmallDesktopViewport(true);
-    } else {
-      setIsSmallDesktopViewport(false);
-    }
-
     const updateMedia = () => {
       if (window.innerWidth <= 550) {
         setIsMobileViewport(true);
       } else {
         setIsMobileViewport(false);
-      }
-
-      if (window.innerWidth <= 1060) {
-        setIsSmallDesktopViewport(true);
-      } else {
-        setIsSmallDesktopViewport(false);
       }
     };
 
@@ -156,6 +114,7 @@ const PetDisplay = (props) => {
     return () => window.removeEventListener("resize", updateMedia);
   }, []);
 
+  // Method which allows us to display more pets on page
   const showMoreHandler = () => {
     let { data: prevData, itemsToShow: prevItemsToShow } = parsedData;
     let showButton = true;
@@ -179,6 +138,7 @@ const PetDisplay = (props) => {
     setIsLoading(true);
   };
 
+  // Navigate to adoption center page
   const browseOrganizationsHandler = () => {
     history.push("/adoption-centers");
   };
@@ -186,145 +146,11 @@ const PetDisplay = (props) => {
   let toRender;
 
   if (!isLoading && data !== null) {
-    toRender = (
-      <div
-        className={
-          parsedData.data.length > 0
-            ? "pet-display-item-container"
-            : "no-data-message-container"
-        }
-      >
-        <div
-          className={
-            parsedData.data.length > 0
-              ? !props.featuredPets
-                ? "pet-display-container__content"
-                : "pet-display-container--featured__content"
-              : "no-data-message-container__message"
-          }
-        >
-          {parsedData.data.length > 0 ? (
-            parsedData.data
-              .slice(0, parsedData.itemsToShow)
-              .map((animal) => (
-                <PetDisplayItem
-                  key={animal.key}
-                  id={animal.id}
-                  name={animal.name}
-                  age={animal.age}
-                  fixed={animal.fixed}
-                  pictures={animal.pictures}
-                  url={animal.url}
-                  type={animal.type}
-                  breed={animal.breed}
-                  size={animal.size}
-                  gender={animal.gender}
-                  address={animal.address}
-                  index={-2}
-                />
-              ))
-          ) : (
-            <p>No pets found.</p>
-          )}
-        </div>
-        <div className="btn-container-bottom">
-          {parsedData.showButton && (
-            <button className="btn--alt btn--large" onClick={showMoreHandler}>
-              Show More Pets
-            </button>
-          )}
-          {history.location.pathname === "/adoptable-pets" && (
-            <button
-              className="btn--main btn--large"
-              onClick={browseOrganizationsHandler}
-            >
-              Browse Adoption Centers
-            </button>
-          )}
-        </div>
-      </div>
-    );
+    toRender = <PetDisplayItemContainer featuredPets={props.featuredPets} browseOrganizationsHandler={browseOrganizationsHandler} showMoreHandler={showMoreHandler} parsedData={parsedData} resultsFilter={resultsFilter} />;
   } else if (requestError) {
-    toRender = (
-      <div className="no-data-message-container">
-        <p>
-          Something went wrong with your request. Please check your search
-          values and try again.
-        </p>
-      </div>
-    );
+    toRender = <DisplayErrorMessage message={"Something went wrong with your request. Please check your search values and try again."} />;
   } else {
-    let skeletonArray = [];
-
-    if (history.location.pathname === "/adoptable-pets") {
-      if (isSmallDesktopViewport && !isMobileViewport) {
-        skeletonArray = [0, 0, 0, 0];
-      } else if (isMobileViewport) {
-        skeletonArray = [0, 0];
-      } else {
-        skeletonArray = [0, 0, 0];
-      }
-    } else {
-      skeletonArray = [0, 0, 0, 0, 0, 0, 0, 0];
-    }
-
-    toRender = (
-      <div className="pet-display-item-container--skeleton">
-        {ReactDOM.createPortal(
-          <Backdrop class="backdrop-clear" />,
-          document.getElementById("backdrop-root")
-        )}
-        <div
-          className={
-            !props.featuredPets
-              ? "pet-display-container__content"
-              : "pet-display-container--featured__content"
-          }
-        >
-          {skeletonArray.map(() => (
-            <PetDisplayItem
-              key={Math.random() * 1000}
-              name="..."
-              age="..."
-              fixed="..."
-              pictures={[]}
-              url="..."
-              type="..."
-              breed="..."
-              size="..."
-              gender="..."
-              skeleton={true}
-              index={-2}
-            />
-          ))}
-        </div>
-        {!props.featuredPets && (
-          <div className="wave-loader-container">
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-          </div>
-        )}
-        <div className="btn-container-bottom">
-          {history.location.pathname === "/adoptable-pets" && (
-            <button
-              className="btn--alt btn--large disabled"
-              onClick={showMoreHandler}
-            >
-              Show More Pets
-            </button>
-          )}
-          {history.location.pathname === "/adoptable-pets" && (
-            <button
-              className="btn--main btn--large disabled"
-              onClick={browseOrganizationsHandler}
-            >
-              Browse Adoption Centers
-            </button>
-          )}
-        </div>
-      </div>
-    );
+    toRender = <PetDisplaySkeleton showMoreHandler={showMoreHandler} browseOrganizationsHandler={browseOrganizationsHandler} featuredPets={props.featuredPets} />;
   }
 
   return (

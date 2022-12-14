@@ -194,7 +194,7 @@ const DetailedInfo = (props) => {
           {props.for === "orgs" && <p>{phone}</p>}
           {props.for === "orgs" && <p>{email}</p>}
           <button className="btn--alt btn--large" onClick={showMoreInfoHandler}>
-            More information
+            Petfinder Adoption Page
           </button>
         </div>
       </div>

@@ -2,41 +2,28 @@
 // This component is rendered as a child to PetDisplay.js. It represents a display item (one display item per pet) that renders information about a pet,
 // which was returned from the Petfinder API in PetDisplay.js.
 
-import dogPlaceholderImg from "../../shared/images/dog-placeholder-tall.svg";
-import catPlaceholderImg from "../../shared/images/cat-placeholder-tall.svg";
 import { useHistory } from "react-router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import useFirebase from "../../hooks/useFirebase";
 
 import AuthContext from "../../store/auth-context";
+import { setFixed, isMixedBreed, truncatePetName, determinePetImage, determineRequestType } from "../../shared/utils/displayItemHelpers";
+
+import rotateImg from "../../shared/images/rotate-img.svg";
 
 const PetDisplayItem = (props) => {
   const [favorite, setFavorite] = useState(false);
   const [removeFavorite, setRemoveFavorite] = useState(false);
+  const [cardFlipped, setCardFlipped] = useState(false);
 
   const authCtx = useContext(AuthContext);
-
   const history = useHistory();
 
-  console.log(props);
-
-  let requestType;
-
-  if (!favorite && !removeFavorite) {
-    requestType = "getFavorites";
-  } else if (removeFavorite && !favorite) {
-    requestType = "removeFavorite";
-  } else if (favorite) {
-    requestType = "updateFavorites";
-  } else {
-    requestType = "";
-  }
+  let requestType = determineRequestType(favorite, removeFavorite);
 
   if (localStorage.getItem("token") === null) {
     requestType = "";
   }
-
-  console.log(requestType);
 
   let favoritePets = useFirebase(requestType, [
     {
@@ -55,12 +42,10 @@ const PetDisplayItem = (props) => {
     },
   ]);
 
-  if (!favorite && requestType !== "") {
-    if (favoritePets) {
-      for (let i = 0; i < favoritePets.length; i++) {
-        if (favoritePets[i].id === props.id) {
-          setFavorite(true);
-        }
+  if (!favorite && requestType !== "" && favoritePets) {
+    for (let i = 0; i < favoritePets.length; i++) {
+      if (favoritePets[i].id === props.id) {
+        setFavorite(true);
       }
     }
   }
@@ -69,56 +54,30 @@ const PetDisplayItem = (props) => {
     setRemoveFavorite(false);
   }
 
-  let photoElement = null;
-  let isFixed = null;
+  let photoElement = determinePetImage(props.pictures, props.name, props.type);
 
-  console.log(props.pictures);
-  console.log(favorite);
-  console.log(removeFavorite);
+  let isFixed = setFixed(props.fixed, props.gender);
 
-  // Check for a picture associated with the pet. If no picture, insert placeholder image based on pet type.
-  if (props.pictures) {
-    if (props.pictures.length !== 0) {
-      photoElement = <img src={props.pictures[0].full} alt={`${props.name}`} />;
-    } else if (props.pictures.length === 0 && props.type === "Dog") {
-      photoElement = <img src={dogPlaceholderImg} alt={`${props.name}`} />;
-    } else {
-      photoElement = <img src={catPlaceholderImg} alt={`${props.name}`} />;
-    }
-  } else {
-    if (props.type === "Dog") {
-      photoElement = <img src={dogPlaceholderImg} alt={`${props.name}`} />;
-    } else {
-      photoElement = <img src={catPlaceholderImg} alt={`${props.name}`} />;
-    }
+  let breed = props.breed;
+
+  if(props.filteredBreed !== "any"){
+    breed = isMixedBreed(props.breed, props.filteredBreed);
   }
 
-  if (props.fixed) {
-    if (props.gender === "Male") {
-      isFixed = "Neutered";
-    } else {
-      isFixed = "Spayed";
-    }
-  } else {
-    if (props.gender === "Male") {
-      isFixed = "Not Neutered";
-    } else {
-      isFixed = "Not Spayed";
-    }
-  }
+  let petName = truncatePetName(props.name);
 
-  // If name is too long, slice to prevent content overflow
-  let petName = props.name;
-
-  if (petName.length > 40) {
-    petName = petName.slice(0, 40);
-    petName = petName.concat("...");
-  }
-
-  // Upon clicking a PetDisplayItem, open the URL associated with the pet in a new window
+  // Upon clicking a PetDisplayItem, flip the card
   const itemClickHandler = () => {
-    history.push({ pathname: `/pets/${props.id}`, state: props });
+    let flipped = cardFlipped;
+    setCardFlipped(!flipped);
   };
+
+  // Navigate to the details page for the selected pet
+  const viewDetailsHandler = (event) => {
+    event.stopPropagation();
+
+    history.push({ pathname: `/pets/${props.id}`, state: props });
+  }
 
   const setFavoriteHandler = (event) => {
     event.stopPropagation();
@@ -137,40 +96,29 @@ const PetDisplayItem = (props) => {
     }
   };
 
-  let activeState = "";
-  let displayClass = "display-item--pet";
-  let shine = "";
-  let favoriteClass = "";
-
-  if (favorite) {
-    favoriteClass = "favorite";
-  }
-
-  if (props.skeleton) {
-    shine = "shine";
-  }
+  // Here, we need to refactor the card flip to be on hover instead of on click
 
   return (
     <React.Fragment>
-      <div
-        className={`${displayClass} ${activeState} ${shine} `}
-        onClick={!props.skeleton ? itemClickHandler : null}
-      >
-        <button
-          onClick={setFavoriteHandler}
-          className={`favorites-icon ${favoriteClass}`}
-          title={favorite ? "Unfavorite" : "Add to favorites"}
-        >
-          &#9733;
-        </button>
-
+    <div className={`display-item--pet ${!props.skeleton ? "" : "shine"} ${cardFlipped ? "display-item__flipped" : ""}`} onClick={!props.skeleton ? itemClickHandler : null}>
+      <div className="display-item__face">
         <div className="image-container--pet">{photoElement}</div>
         <h2 className="display-item__name">{petName}</h2>
-        <p>{`${props.gender}, ${props.age}`}</p>
-        <p>{props.breed}</p>
-        <p>{`Size: ${props.size}`}</p>
-        <p>{isFixed}</p>
+        <img src={rotateImg} className="display-item-rotate-img" />
       </div>
+      <div className="display-item__face display-item__face--back">
+        <section className="display-item__info-container">
+          <p className="item-info">{`${props.gender}, ${props.age}`}</p>
+          <p className="item-info">{breed}</p>
+          <p className="item-info">{props.size}</p>
+          <p className="item-info">{isFixed}</p>
+        </section>
+        <section className="display-item__btn-container">
+          <button className="btn--alt btn--display-item" onClick={viewDetailsHandler}>More Details</button>
+          <button className={`btn--main btn--display-item ${!authCtx.isLoggedIn && "disabled"}`} onClick={setFavoriteHandler} title={!authCtx.isLoggedIn && "Login to set favorites!"}>Set as favorite</button>
+        </section>
+      </div>
+    </div>
     </React.Fragment>
   );
 };

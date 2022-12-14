@@ -28,8 +28,13 @@
     height: 2rem;
     border: 1px solid black;
     border-radius: 4px;
-    margin: 1.2rem;
+    margin: .3rem;
+    padding: 0.5rem;
   }
+}
+
+.auth-button-container {
+  height: 3.125rem;
 }
 
 .filter-container {
@@ -77,7 +82,11 @@
 
   &--org {
     @extend .filter-form;
-    height: 13.5rem;
+    height: 14rem;
+
+    @include respond(small-desktop) {
+      height: 16rem;
+    }
 
     @include respond(med-mobile) {
       margin-left: auto;
@@ -94,6 +103,12 @@
     height: 2.5rem;
     border: 1px solid black;
     border-radius: 3px;
+    color: black !important;
+    padding-left: .3rem;
+
+    option {
+      color: black !important;
+    }
 
     @include respond(med-mobile) {
       width: 65%;
@@ -236,16 +251,24 @@
 
 .error-message {
   color: $color-red;
-  position: absolute;
+  position: relative;
 
   &__email {
     @extend .error-message;
-    top: 12.375rem;
+    height: 1.3rem;
   }
 
   &__password {
     @extend .error-message;
-    top: 16.75rem;
+    height: 1.3rem;
+  }
+
+  &__general {
+    @extend .error-message;
+    height: 1.3rem;
+    position: relative;
+    font-size: 0.8rem;
+    margin: 0.6rem;
   }
 }
 
@@ -256,4 +279,8 @@
   @include respond(med-mobile) {
     position: static;
   }
+
+  // @media screen and (max-height: 400px) {
+  //   position: static;
+  // }
 }

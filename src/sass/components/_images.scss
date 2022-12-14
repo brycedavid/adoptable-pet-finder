@@ -26,16 +26,19 @@
 
   &--org {
     @extend .image-container;
-    width: 16rem;
-    height: 16rem;
+    width: 26rem;
+    height: 18rem;
+    margin-left: 0;
 
     @include respond(med-mobile) {
       margin-left: 0;
+      width: 18rem;
+      height: 18rem;
     }
 
     img {
-      width: 16rem;
-      object-fit: contain;
+      width: 100%;
+      object-fit: fill;
     }
   }
 
@@ -43,13 +46,13 @@
     display: flex;
     justify-content: center;
     align-content: center;
-    width: 15rem;
-    height: 15rem;
+    width: 15.5rem;
+    height: 19rem;
     overflow: hidden;
     border: 1px solid black;
     border-radius: 20px;
     background-color: black;
-    margin: 0 auto;
+    margin: 1.4rem auto 0 auto;
 
     @include respond(med-tab) {
       max-width: 14rem;
@@ -130,4 +133,10 @@
       min-height: 18rem;
     }
   }
+}
+
+.display-item-rotate-img {
+  margin-top: 2rem;
+  width: 2rem;
+  height: 2rem;
 }
