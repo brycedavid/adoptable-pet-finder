@@ -136,10 +136,10 @@ const PetFilter = (props) => {
           className="filter-form--mobile__checkbox"
           id="filter-toggle"
         />
-        <label for="filter-toggle" className="filter-form--mobile__collapse">
+        <label htmlFor="filter-toggle" className="filter-form--mobile__collapse">
           &#9587;
         </label>
-        <label for="filter-toggle" className="filter-form--mobile__expand">
+        <label htmlFor="filter-toggle" className="filter-form--mobile__expand">
           <span className="filter-form--mobile__icon">
             Filter Results &#9660;
           </span>

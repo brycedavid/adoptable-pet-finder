@@ -112,10 +112,10 @@ const App = () => {
           <About />
         </Route>
         <Route path={petInfoUrl}>
-          <DetailedInfo for={"pets"} />
+          <DetailedInfo htmlFor={"pets"} />
         </Route>
         <Route path={orgInfoUrl}>
-          <DetailedInfo for={"orgs"} />
+          <DetailedInfo htmlFor={"orgs"} />
         </Route>
         <Route path={favoritePetsUrl}>
           <FavoritePets />

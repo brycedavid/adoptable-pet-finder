@@ -40,7 +40,7 @@ const Navbar = () => {
           id="navi-toggle"
           ref={ref}
         />
-        <label for="navi-toggle" class="navbar--mobile__button">
+        <label htmlFor="navi-toggle" className="navbar--mobile__button">
           <span className="navbar--mobile__icon">&nbsp;</span>
         </label>
         <div className="navbar--mobile__background">&nbsp;</div>

@@ -37,7 +37,7 @@ const PetDisplaySkeleton = (props) => {
   return (
     <div className="pet-display-item-container--skeleton">
       {ReactDOM.createPortal(
-        <Backdrop class="backdrop-clear" />,
+        <Backdrop className="backdrop-clear" />,
         document.getElementById("backdrop-root")
       )}
       <div

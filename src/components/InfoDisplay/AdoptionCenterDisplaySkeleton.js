@@ -10,7 +10,7 @@ const AdoptionCenterDisplaySkeleton = () => {
   return (
     <div className="org-display-item-container">
         {ReactDOM.createPortal(
-          <Backdrop class="backdrop-clear" />,
+          <Backdrop className="backdrop-clear" />,
           document.getElementById("backdrop-root")
         )}
         <div className="org-display-container__content">
